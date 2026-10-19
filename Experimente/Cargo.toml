@@ -1,0 +1,33 @@
+[package]
+name = "nerva-experiments"
+version = "0.1.0"
+edition = "2024"
+default-run = "nerva-experiments"
+description = "Controlled experiments and external evaluations of the NERVA model"
+
+[[bin]]
+name = "nerva-serial"
+path = "src/serial_main.rs"
+
+[[bin]]
+name = "nerva-sensorimotor"
+path = "src/sensorimotor_main.rs"
+
+[[bin]]
+name = "nerva-m3"
+path = "src/m3_main.rs"
+
+[[bin]]
+name = "nerva-m7"
+path = "src/m7_main.rs"
+
+[[bin]]
+name = "nerva-m8"
+path = "src/m8_main.rs"
+
+[dependencies]
+ctrlc = { version = "3", features = ["termination"] }
+nerva-vm = { path = "../Modell" }
+nerva = { path = "../../NERVA", features = ["development"] }
+nerva-qemu = { path = "../nerva-qemu" }
+serde_json = "1"

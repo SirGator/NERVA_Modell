@@ -1,0 +1,8 @@
+[package]
+name = "nerva-qemu"
+version = "0.1.0"
+edition = "2024"
+description = "Pixel-only QEMU perception and keyboard control for NERVA"
+
+[dependencies]
+serde_json = "1"

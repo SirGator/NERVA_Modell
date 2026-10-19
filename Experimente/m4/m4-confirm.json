@@ -1,0 +1,414 @@
+{
+  "arms": [
+    "before",
+    "aged_frozen",
+    "paired",
+    "scrambled"
+  ],
+  "cases": [
+    {
+      "config": {
+        "action_effect_delay_ms": 8,
+        "development": false,
+        "encoding": "deterministic",
+        "homeostasis": true,
+        "initial_drive": 0,
+        "motor_feedback": true,
+        "normalization": "equal_input_current",
+        "processing": 32,
+        "pruning_min_us": 5000000,
+        "resolution": 0,
+        "sensor": "effect_2ch",
+        "stdp": true
+      },
+      "family": "sensor",
+      "hypothesis": "Two explicit visible left/right channels",
+      "id": "a01_minimal_2ch"
+    },
+    {
+      "config": {
+        "action_effect_delay_ms": 8,
+        "development": false,
+        "encoding": "deterministic",
+        "homeostasis": true,
+        "initial_drive": 0,
+        "motor_feedback": true,
+        "normalization": "equal_input_current",
+        "processing": 32,
+        "pruning_min_us": 5000000,
+        "resolution": 0,
+        "sensor": "position_7ch",
+        "stdp": true
+      },
+      "family": "sensor",
+      "hypothesis": "Visible position code",
+      "id": "a02_position_7ch"
+    },
+    {
+      "config": {
+        "action_effect_delay_ms": 8,
+        "development": false,
+        "encoding": "deterministic",
+        "homeostasis": true,
+        "initial_drive": 0,
+        "motor_feedback": true,
+        "normalization": "equal_input_current",
+        "processing": 32,
+        "pruning_min_us": 5000000,
+        "resolution": 8,
+        "sensor": "pixels",
+        "stdp": true
+      },
+      "family": "sensor",
+      "hypothesis": "Raw 8x8 image",
+      "id": "a03_pixels_8"
+    },
+    {
+      "config": {
+        "action_effect_delay_ms": 8,
+        "development": false,
+        "encoding": "deterministic",
+        "homeostasis": true,
+        "initial_drive": 0,
+        "motor_feedback": true,
+        "normalization": "equal_input_current",
+        "processing": 32,
+        "pruning_min_us": 5000000,
+        "resolution": 16,
+        "sensor": "pixels",
+        "stdp": true
+      },
+      "family": "sensor",
+      "hypothesis": "Raw 16x16 image, small core",
+      "id": "a04_pixels_16"
+    },
+    {
+      "config": {
+        "action_effect_delay_ms": 8,
+        "development": false,
+        "encoding": "deterministic",
+        "homeostasis": true,
+        "initial_drive": 0,
+        "motor_feedback": true,
+        "normalization": "equal_input_current",
+        "processing": 32,
+        "pruning_min_us": 5000000,
+        "resolution": 64,
+        "sensor": "pixels",
+        "stdp": true
+      },
+      "family": "sensor",
+      "hypothesis": "Raw 64x64 image, small core",
+      "id": "a05_pixels_64"
+    },
+    {
+      "config": {
+        "action_effect_delay_ms": 8,
+        "development": false,
+        "encoding": "deterministic",
+        "homeostasis": true,
+        "initial_drive": 0,
+        "motor_feedback": true,
+        "normalization": "equal_input_current",
+        "processing": 128,
+        "pruning_min_us": 5000000,
+        "resolution": 16,
+        "sensor": "pixels",
+        "stdp": true
+      },
+      "family": "capacity",
+      "hypothesis": "Core 128 at 16x16",
+      "id": "b01_core_128"
+    },
+    {
+      "config": {
+        "action_effect_delay_ms": 8,
+        "development": false,
+        "encoding": "deterministic",
+        "homeostasis": true,
+        "initial_drive": 0,
+        "motor_feedback": true,
+        "normalization": "equal_input_current",
+        "processing": 256,
+        "pruning_min_us": 5000000,
+        "resolution": 16,
+        "sensor": "pixels",
+        "stdp": true
+      },
+      "family": "capacity",
+      "hypothesis": "Core 256 at 16x16",
+      "id": "b02_core_256"
+    },
+    {
+      "config": {
+        "action_effect_delay_ms": 8,
+        "development": false,
+        "encoding": "deterministic",
+        "homeostasis": true,
+        "initial_drive": 0,
+        "motor_feedback": true,
+        "normalization": "equal_input_current",
+        "processing": 256,
+        "pruning_min_us": 5000000,
+        "resolution": 64,
+        "sensor": "pixels",
+        "stdp": true
+      },
+      "family": "capacity",
+      "hypothesis": "Core 256 at 64x64",
+      "id": "b03_full_256"
+    },
+    {
+      "config": {
+        "action_effect_delay_ms": 8,
+        "development": false,
+        "encoding": "poisson",
+        "homeostasis": true,
+        "initial_drive": 0,
+        "motor_feedback": true,
+        "normalization": "equal_input_current",
+        "processing": 128,
+        "pruning_min_us": 5000000,
+        "resolution": 16,
+        "sensor": "pixels",
+        "stdp": true
+      },
+      "family": "encoding",
+      "hypothesis": "Stochastic sensory coding",
+      "id": "c01_poisson"
+    },
+    {
+      "config": {
+        "action_effect_delay_ms": 8,
+        "development": false,
+        "encoding": "on_off",
+        "homeostasis": true,
+        "initial_drive": 0,
+        "motor_feedback": true,
+        "normalization": "equal_input_current",
+        "processing": 128,
+        "pruning_min_us": 5000000,
+        "resolution": 16,
+        "sensor": "pixels",
+        "stdp": true
+      },
+      "family": "encoding",
+      "hypothesis": "ON/OFF change coding",
+      "id": "c02_on_off"
+    },
+    {
+      "config": {
+        "action_effect_delay_ms": 2,
+        "development": false,
+        "encoding": "deterministic",
+        "homeostasis": true,
+        "initial_drive": 0,
+        "motor_feedback": true,
+        "normalization": "equal_input_current",
+        "processing": 128,
+        "pruning_min_us": 5000000,
+        "resolution": 16,
+        "sensor": "pixels",
+        "stdp": true
+      },
+      "family": "timing",
+      "hypothesis": "Actual action-effect delay 2 ms",
+      "id": "d01_delay_2"
+    },
+    {
+      "config": {
+        "action_effect_delay_ms": 20,
+        "development": false,
+        "encoding": "deterministic",
+        "homeostasis": true,
+        "initial_drive": 0,
+        "motor_feedback": true,
+        "normalization": "equal_input_current",
+        "processing": 128,
+        "pruning_min_us": 5000000,
+        "resolution": 16,
+        "sensor": "pixels",
+        "stdp": true
+      },
+      "family": "timing",
+      "hypothesis": "Actual action-effect delay 20 ms",
+      "id": "d02_delay_20"
+    },
+    {
+      "config": {
+        "action_effect_delay_ms": 50,
+        "development": false,
+        "encoding": "deterministic",
+        "homeostasis": true,
+        "initial_drive": 0,
+        "motor_feedback": true,
+        "normalization": "equal_input_current",
+        "processing": 128,
+        "pruning_min_us": 5000000,
+        "resolution": 16,
+        "sensor": "pixels",
+        "stdp": true
+      },
+      "family": "timing",
+      "hypothesis": "Actual action-effect delay 50 ms",
+      "id": "d03_delay_50"
+    },
+    {
+      "config": {
+        "action_effect_delay_ms": 8,
+        "development": false,
+        "encoding": "deterministic",
+        "homeostasis": true,
+        "initial_drive": 0,
+        "motor_feedback": false,
+        "normalization": "equal_input_current",
+        "processing": 128,
+        "pruning_min_us": 5000000,
+        "resolution": 16,
+        "sensor": "pixels",
+        "stdp": true
+      },
+      "family": "causality",
+      "hypothesis": "No motor feedback",
+      "id": "e01_no_feedback"
+    },
+    {
+      "config": {
+        "action_effect_delay_ms": 8,
+        "development": false,
+        "encoding": "deterministic",
+        "homeostasis": true,
+        "initial_drive": 0,
+        "motor_feedback": true,
+        "normalization": "equal_input_current",
+        "processing": 128,
+        "pruning_min_us": 5000000,
+        "resolution": 16,
+        "sensor": "pixels",
+        "stdp": false
+      },
+      "family": "causality",
+      "hypothesis": "No synaptic learning",
+      "id": "e02_no_stdp"
+    },
+    {
+      "config": {
+        "action_effect_delay_ms": 8,
+        "development": false,
+        "encoding": "deterministic",
+        "homeostasis": false,
+        "initial_drive": 0,
+        "motor_feedback": true,
+        "normalization": "equal_input_current",
+        "processing": 128,
+        "pruning_min_us": 5000000,
+        "resolution": 16,
+        "sensor": "pixels",
+        "stdp": true
+      },
+      "family": "plasticity",
+      "hypothesis": "No homeostasis",
+      "id": "e03_with_homeostasis_off"
+    },
+    {
+      "config": {
+        "action_effect_delay_ms": 8,
+        "development": true,
+        "encoding": "deterministic",
+        "homeostasis": true,
+        "initial_drive": 0,
+        "motor_feedback": true,
+        "normalization": "equal_input_current",
+        "processing": 128,
+        "pruning_min_us": 5000000,
+        "resolution": 16,
+        "sensor": "pixels",
+        "stdp": true
+      },
+      "family": "plasticity",
+      "hypothesis": "Structural plasticity with zero start drive",
+      "id": "e04_with_development"
+    },
+    {
+      "config": {
+        "action_effect_delay_ms": 8,
+        "development": true,
+        "encoding": "deterministic",
+        "homeostasis": true,
+        "initial_drive": 0,
+        "motor_feedback": true,
+        "normalization": "equal_input_current",
+        "processing": 128,
+        "pruning_min_us": 300000,
+        "resolution": 16,
+        "sensor": "pixels",
+        "stdp": true
+      },
+      "family": "plasticity",
+      "hypothesis": "Pruning grace 300 ms",
+      "id": "e05_early_pruning"
+    },
+    {
+      "config": {
+        "action_effect_delay_ms": 8,
+        "development": true,
+        "encoding": "deterministic",
+        "homeostasis": true,
+        "initial_drive": 2.5,
+        "motor_feedback": true,
+        "normalization": "equal_input_current",
+        "processing": 128,
+        "pruning_min_us": 5000000,
+        "resolution": 16,
+        "sensor": "pixels",
+        "stdp": true
+      },
+      "family": "plasticity",
+      "hypothesis": "Preloaded initial drive 2.5",
+      "id": "e06_start_drive"
+    },
+    {
+      "config": {
+        "action_effect_delay_ms": 8,
+        "development": false,
+        "encoding": "poisson",
+        "homeostasis": true,
+        "initial_drive": 0,
+        "motor_feedback": true,
+        "normalization": "equal_input_current",
+        "processing": 32,
+        "pruning_min_us": 5000000,
+        "resolution": 64,
+        "sensor": "pixels",
+        "stdp": true
+      },
+      "family": "reference",
+      "hypothesis": "M3-like sensory complexity with the declared M4 normalizer",
+      "id": "f01_reference_64_32_poisson"
+    }
+  ],
+  "checks": [
+    "No future sensory/action label leakage",
+    "Bit-identical initial networks",
+    "Paired equals frozen replay; scrambled preserves action stream and image marginals",
+    "Independent calibration and probe streams",
+    "Frozen probe",
+    "Balanced labels",
+    "Measured expected and actual input current",
+    "Controlled actions separate from decoder proposals"
+  ],
+  "protocol": "NERVA-M4-v1",
+  "seeds": [
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109
+  ],
+  "stage": "confirm"
+}

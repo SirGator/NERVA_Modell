@@ -1,0 +1,24 @@
+[package]
+name = "nerva-vm"
+version = "0.1.0"
+edition = "2024"
+default-run = "nerva-vm"
+description = "Visual NERVA model: perception, local learning and QEMU keyboard actions"
+
+[[bin]]
+name = "nerva-m4"
+path = "src/m4_main.rs"
+
+[[bin]]
+name = "nerva-m5"
+path = "src/m5_main.rs"
+
+[[bin]]
+name = "nerva-m6"
+path = "src/m6_main.rs"
+
+[dependencies]
+ctrlc = { version = "3", features = ["termination"] }
+nerva = { path = "../../NERVA", features = ["development"] }
+nerva-qemu = { path = "../nerva-qemu" }
+serde_json = "1"
