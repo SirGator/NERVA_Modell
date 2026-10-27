@@ -1,3 +1,5 @@
+mod telemetry;
+
 use nerva_qemu::{
     Result,
     capture::Frame,
@@ -34,7 +36,7 @@ fn run() -> Result<()> {
     let command = args.next().unwrap_or_else(|| "help".into());
     if matches!(command.as_str(), "help" | "--help" | "-h") {
         println!(
-            "Usage:\n  nerva-vm demo [OPTIONS]\n  nerva-vm smoke [OPTIONS]\n  nerva-vm attach QMP_SOCKET [OPTIONS]\n  nerva-vm layout\n\nOptions: --steps N (40), --seed N (42),\n --keyboard full|wasd|ad (default full, German ISO-105),\n --encoding brightness|change, --motor-decoder timing|count (default timing),\n --model recurrent|direct, --processing N (256), --frozen,\n --fixed-topology, --no-feedback, --no-homeostasis,\n --initial-drive F (2.5), --pruning-min-us N (300000), --output NEW_DIRECTORY\n\nDemo/smoke boot a disposable VGA guest. Attach leaves the existing VM running.\nSmoke verifies A/D key effects and all 105 physical keyboard codes.\nResearch protocols live in Experimente/run.sh."
+            "Usage:\n  nerva-vm demo [OPTIONS]\n  nerva-vm smoke [OPTIONS]\n  nerva-vm attach QMP_SOCKET [OPTIONS]\n  nerva-vm layout\n\nOptions: --dashboard (write live observations), --steps N (40), --seed N (42),\n --keyboard full|wasd|ad (default full, German ISO-105),\n --encoding brightness|change, --motor-decoder timing|count (default timing),\n --model recurrent|direct, --processing N (256), --frozen,\n --fixed-topology, --no-feedback, --no-homeostasis,\n --initial-drive F (2.5), --pruning-min-us N (300000), --output NEW_DIRECTORY\n\nDemo/smoke boot a disposable VGA guest. Attach leaves the existing VM running.\nSmoke verifies A/D key effects and all 105 physical keyboard codes.\nResearch protocols live in Experimente/run.sh."
         );
         return Ok(());
     }
@@ -64,6 +66,7 @@ fn run() -> Result<()> {
     let mut steps = 40usize;
     let mut model_config = ModelConfig::default();
     let mut output = None;
+    let mut dashboard_enabled = false;
     while let Some(option) = args.next() {
         match option.as_str() {
             "--steps" => steps = args.next().ok_or("missing step count")?.parse()?,
@@ -76,6 +79,7 @@ fn run() -> Result<()> {
                 }
             }
             "--frozen" => model_config.learning = false,
+            "--dashboard" => dashboard_enabled = true,
             "--motor-decoder" => {
                 model_config.motor_timing = match args.next().as_deref() {
                     Some("timing") => true,
@@ -153,6 +157,11 @@ fn run() -> Result<()> {
         fs::create_dir_all(parent)?;
     }
     fs::create_dir(&output)?;
+    let mut dashboard = if dashboard_enabled {
+        Some(telemetry::Telemetry::new(&output)?)
+    } else {
+        None
+    };
     let (_vm, qmp) = match socket {
         Some(socket) => (None, Qmp::connect(&socket)?),
         None => {
@@ -235,6 +244,27 @@ fn run() -> Result<()> {
     let mut frame_changes = 0usize;
     let mut completed_steps = 0usize;
     for step in 0..steps {
+        if let Some(telemetry) = dashboard.as_mut() {
+            loop {
+                let control = telemetry.control()?;
+                if control.stop {
+                    cancelled.store(true, Ordering::Relaxed);
+                }
+                if cancelled.load(Ordering::Relaxed) {
+                    break;
+                }
+                if control.freeze && model.plasticity().learning {
+                    model.freeze()?;
+                    telemetry.settings(&model);
+                }
+                if !control.paused {
+                    break;
+                }
+                keyboard.release_all()?;
+                telemetry.status("paused")?;
+                thread::sleep(Duration::from_millis(100));
+            }
+        }
         if cancelled.load(Ordering::Relaxed) {
             break;
         }
@@ -301,6 +331,9 @@ fn run() -> Result<()> {
             keys,
             changed
         )?;
+        if let Some(telemetry) = dashboard.as_mut() {
+            telemetry.publish(&model, step, steps, &result, &frame)?;
+        }
         previous = Some(frame);
         completed_steps = step + 1;
         // Wall time lets the VM consume keyboard events; simulation time is
@@ -335,6 +368,9 @@ fn run() -> Result<()> {
         output.join("report.json"),
         serde_json::to_vec_pretty(&report)?,
     )?;
+    if let Some(telemetry) = dashboard.as_mut() {
+        telemetry.status(if interrupted { "stopped" } else { "completed" })?;
+    }
     if command == "smoke"
         && !interrupted
         && (sensory_spikes == 0

@@ -11,6 +11,16 @@ VM-Bild → Sensorik → räumlicher rekurrenter Core → Motorik → Tastatur
                        ↕ STDP / Homöostase            └→ Rückführung
 ```
 
+Das lokale **Live-Dashboard** zeigt Netzaktivität, VM-Bild, Tasten und
+Lern-/Strukturänderungen. Es startet mit:
+
+```bash
+./NERVA_Modell/Modell/run-demo.sh gui
+```
+
+[Bedienung und Voraussetzungen](../Dashboard/README.md). Die bisherigen
+Terminalaufrufe bleiben erhalten.
+
 Vom Projektverzeichnis `DSVLM` starten:
 
 ```bash

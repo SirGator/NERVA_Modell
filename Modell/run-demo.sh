@@ -4,6 +4,11 @@ set -euo pipefail
 model_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 runtime_dir="$model_dir/.tools/qemu"
 
+if [[ "${1:-}" == "gui" || "${1:-}" == "dashboard" ]]; then
+    shift
+    exec "$model_dir/gui.sh" "$@"
+fi
+
 if [[ "${1:-}" == "m4" || "${1:-}" == "m5" || "${1:-}" == "m6" ]]; then
     experiment_bin="nerva-$1"
     shift
