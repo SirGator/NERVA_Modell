@@ -39,6 +39,7 @@ const REST_SEED: u64 = 0x925d4e17;
 const INTER_SEED: u64 = 0xaba7c193;
 
 pub mod mechanisms;
+mod weight_resets;
 
 /// Optional measurements for subsequent experiments. The default preserves the
 /// historical M6 protocol and file contract exactly.
@@ -47,6 +48,7 @@ pub struct RunOptions {
     pub reference_gain: Option<f32>,
     pub checkpoint_rest_us: Option<u64>,
     pub propagation: bool,
+    pub weight_resets: bool,
 }
 
 pub struct Config {
@@ -873,6 +875,22 @@ pub fn run_with_options(
                     )?;
                 }
             }
+            let weight_resets = if options.weight_resets {
+                Some(weight_resets::probe(
+                    &session,
+                    &actor,
+                    arm,
+                    gain,
+                    raw,
+                    &initial_network,
+                    &calibration,
+                    options
+                        .checkpoint_rest_us
+                        .ok_or("weight resets require independent rest checkpoint")?,
+                )?)
+            } else {
+                None
+            };
             let immediate_start = actor.model.next_observation_us();
             ensure(
                 immediate_start == checkpoint_time,
@@ -936,6 +954,9 @@ pub fn run_with_options(
                         .collect::<Vec<_>>()
                 );
                 results.get_mut(arm).unwrap()["no_copy_probes"] = Value::Object(no_copy);
+            }
+            if let Some(probes) = weight_resets {
+                results.get_mut(arm).unwrap()["weight_reset_probes"] = probes;
             }
         }
         mappings.insert(mapping, results);

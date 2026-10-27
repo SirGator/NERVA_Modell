@@ -90,6 +90,15 @@ pub fn parameters(model: &ModelConfig) -> Value {
         "core_membrane_tau_us":model.core_membrane_tau_us,"action_copy_weight":model.action_copy_weight,"homeostasis":model.homeostasis,"development":model.development})
 }
 pub fn run(config: &Config, output: &Path, raw: bool, flag: &AtomicBool) -> Result<Value> {
+    run_with_weight_resets(config, output, raw, flag, false)
+}
+pub fn run_with_weight_resets(
+    config: &Config,
+    output: &Path,
+    raw: bool,
+    flag: &AtomicBool,
+    weight_resets: bool,
+) -> Result<Value> {
     let mut base = config.engine.base.clone();
     let defaults = ModelConfig::default();
     base.model.core_threshold = defaults.core_threshold;
@@ -110,6 +119,7 @@ pub fn run(config: &Config, output: &Path, raw: bool, flag: &AtomicBool) -> Resu
             reference_gain: Some(gain),
             checkpoint_rest_us: Some(2_000_000),
             propagation: true,
+            weight_resets,
         },
     )?;
     result["protocol"] = json!("NERVA-M8-v1");

@@ -5,6 +5,9 @@ Auswertungen. Gespeicherte Messungen liegen unter `Messungen/Experimente/`. Das 
 [NERVA_Modell/Modell/](../Modell/README.md) und wird als Bibliothek eingebunden.
 Das Modell selbst benötigt dieses Paket nicht.
 
+[Forschungsfahrplan M9–M13](ROADMAP.md): M9-v2 ist abgeschlossen, M10–M13 sind
+vorgeschlagene, vom Befund abhängige Forschungsrichtungen.
+
 Vom Projektverzeichnis `DSVLM` starten:
 
 ```bash
@@ -38,6 +41,7 @@ verwendet. Eine Systeminstallation oder `QEMU_SYSTEM_X86_64` hat Vorrang.
 | `m6/` | Kombinierter Wirkungslerntest mit Replay-Kalibrierung und separater Core-Kontrolle |
 | `src/m7.rs`, `m7/` | Synapsen-/Zeitpaardiagnose und kontrollierte Gewichtsgegenprüfungen auf M6-Replays |
 | `src/m8.rs`, `m8/` | Sechs Parameterscans mit Kontrollarmen, unabhängigen Checkpoint-/Ruheproben und No-copy-Kontrollen |
+| `src/m9.rs`, `m9/` | 2×2-Kombinationstest v2 mit Gewichtsrücksetzungen und 20 Bestätigungsseeds; v1 weiter reproduzierbar |
 | `tests/` | Versuchs-, Auswertungs-, Wiederholungs- und QEMU-Tests |
 | `../../Messungen/Experimente/` | Versuchsberichte, Rohdaten und historische Messläufe |
 
@@ -57,6 +61,7 @@ Auswertung. Lokale Lernregeln kommen weiterhin aus `NERVA/`.
 | M6: Kombination, unmittelbare Probe; Seeds 300–309 und separate Core-Kontrolle 400–409 | [M6_EXPERIMENT.md](M6_EXPERIMENT.md) |
 | M7: Belegungsabhängige Gewichtsänderungen und ihre Wirkung; bestehende Seeds 400–409 | [M7_EXPERIMENT.md](M7_EXPERIMENT.md) |
 | M8: Rekurrente Weiterleitung und stärkere Zuordnung; 13 Bedingungen, neue Seeds 510–519 | [M8_EXPERIMENT.md](M8_EXPERIMENT.md) |
+| M9-v2: Kombination und Gewichtskausalität; 20 neue Bestätigungsseeds, kein funktionaler Lernnachweis | [Ergebnisse](../../Messungen/M9_EXPERIMENT.md) · [Versuchsplan](M9_EXPERIMENT.md) |
 | Serielle Zuordnung | [SERIAL_MODEL.md](SERIAL_MODEL.md) |
 
 Die bisherigen kontrollierten Messreihen liefern keinen belastbaren Nachweis

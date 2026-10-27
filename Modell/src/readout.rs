@@ -8,6 +8,11 @@ pub struct Readout {
     centers: BTreeMap<i16, Vec<f64>>,
 }
 impl Readout {
+    /// Read-only external decoder parameters for independent probe audits.
+    pub(crate) fn snapshot(&self) -> Value {
+        json!({"mean":self.mean,"scale":self.scale,"centers":self.centers})
+    }
+
     pub fn fit(features: &[Vec<f64>], labels: &[i16]) -> Self {
         assert!(!features.is_empty() && features.len() == labels.len());
         let n = features.len() as f64;

@@ -32,12 +32,13 @@ def engine_config(config):
     c=m6.cases(config['seed'],(config['train_trials'],config['test_trials'],config['calibration_trials']))[3]
     c['base']['case_id']=config['case_id'];c['base']['params']['homeostasis']=False
     return c
-def validate(r,config,path=None):
-    audit=m6.validate(r,engine_config(config),path,protocol='NERVA-M8-v1',requested_config=config,stages=STAGES,checkpoint_rest_us=2000000,
+def validate(r,config,path=None,*,protocol='NERVA-M8-v1',condition_parameters=None):
+    audit=m6.validate(r,engine_config(config),path,protocol=protocol,requested_config=config,stages=STAGES,checkpoint_rest_us=2000000,
         extra_branches={'no_copy_checkpoint_probe':100000,'no_copy_rest_checkpoint_probe':2100000})
     defaults=dict(core_weight_scale=1,core_threshold=1,core_fanout=4,core_delay_us=None,stdp_tau_us=20000,sensory_weight_scale=1,
         core_membrane_tau_us=20000,action_copy_weight=.9,homeostasis=False,development=False)
-    if config['condition']['parameter']!='reference':defaults[config['condition']['parameter']]=config['condition']['value']
+    if condition_parameters is not None:defaults.update(condition_parameters)
+    elif config['condition']['parameter']!='reference':defaults[config['condition']['parameter']]=config['condition']['value']
     for key,value in defaults.items():
         actual=r['effective_parameters'][key]
         m6.require(actual==value if value is None or type(value)==bool else abs(actual-value)<1e-6,'effective parameter differs: '+key)
@@ -82,7 +83,7 @@ def validate(r,config,path=None):
 def sign_p(values):
     d=[x for x in values if x!=0];n=len(d);k=sum(x>0 for x in d)
     return sum(math.comb(n,j) for j in range(k,n+1))/2**n if n else 1.0
-def contrasts(name,values,stage):
+def contrasts(name,values,stage,*,family_size=26):
     passed,rows=m6.learning_contrasts(name,values,stage);exact=True
     for row in rows:
         if row['feature']=='time_bins':continue
@@ -92,17 +93,18 @@ def contrasts(name,values,stage):
         else:
             p=[r['arms']['paired'][row['mapping']][stage]['count']['balanced_accuracy'] for r in values]
             q=[.5]*len(values) if row['reference']=='chance' else [r['arms'][row['reference']][row['mapping']][stage]['count']['balanced_accuracy'] for r in values]
-        row['one_sided_sign_p']=sign_p([a-b for a,b in zip(p,q)]);row['family_alpha']=.05/26
-        exact=exact and row['one_sided_sign_p']<=.05/26
+        row['one_sided_sign_p']=sign_p([a-b for a,b in zip(p,q)]);row['family_alpha']=.05/family_size
+        exact=exact and row['one_sided_sign_p']<=.05/family_size
     for row in rows:
         row.setdefault('one_sided_sign_p','');row.setdefault('family_alpha','')
     return passed,passed and exact and stage in PRIMARY,rows
-def report(root):
+def report(root,*,validator=validate,contrast_fn=contrasts,protocol='NERVA-M8-v1',label='M8',family_size=26,matrix_validator=None):
     manifest=json.loads((root/'manifest.json').read_text());records={};summaries=[];tests=[];audits=[];prop=[];weights=[]
+    m6.require(manifest['protocol']==protocol,'wrong manifest protocol')
     for template in manifest['conditions']:
         name=template['case_id'];values=[];all_counts=[]
         for seed in manifest['seeds']:
-            config=dict(template,seed=seed);path=root/'results'/name/f'seed-{seed}.json';r=json.loads(path.read_text());a,c=validate(r,config,path);audits.append(dict(case=name,seed=seed,**a));values.append(r);all_counts.append(c)
+            config=dict(template,seed=seed);path=root/'results'/name/f'seed-{seed}.json';r=json.loads(path.read_text());a,c=validator(r,config,path);audits.append(dict(case=name,seed=seed,**a));values.append(r);all_counts.append(c)
             edges={e['id']:e for e in r['initial_synapses']};node={n['id']:n for n in r['initial_neurons']}
             action={key:{e['post'] for e in edges.values() if e['pre']==ident} for key,ident in [('a',36),('d',37)]}
             visual={label:{e['post'] for e in edges.values() if e['pre']==ident} for label,ident in [(-1,0),(1,1)]}
@@ -123,7 +125,7 @@ def report(root):
         row['initial_sensor_current']=statistics.mean(r['normalization']['initial_mean_current_per_core_second'] for r in values)
         for stage in STAGES:
             row[stage]=statistics.mean(r['arms']['paired'][m][stage]['count']['balanced_accuracy'] for r in values for m in m6.MAPS)
-            screen,confirmed,extra=contrasts(name,values,stage);row[stage+'_screen']=screen;row[stage+'_confirmed']=confirmed;tests+=extra
+            screen,confirmed,extra=contrast_fn(name,values,stage);row[stage+'_screen']=screen;row[stage+'_confirmed']=confirmed;tests+=extra
         for stage in PRIMARY:
             for arm in m6.DEFAULT_ARMS:
                 measurements=[q for counts in all_counts for mapping in ['normal','reversed'] for q in counts[arm,mapping,stage]]
@@ -138,7 +140,7 @@ def report(root):
                 for mapping in m6.MAPS:
                     a=r['arms'][arm][mapping]['stage_diagnostics'];b=base['arms'][arm][mapping]['stage_diagnostics']
                     m6.require({s:v['sensor']['generated_sensor_spikes'] for s,v in a.items()}=={s:v['sensor']['generated_sensor_spikes'] for s,v in b.items()},'generated visual inputs changed across conditions')
-            param=r['condition']['parameter'];scale=r['effective_parameters']['sensory_weight_scale'];cs=r['effective_parameters']['core_weight_scale'];delay=r['effective_parameters']['core_delay_us']
+            param=r['condition'].get('parameter');scale=r['effective_parameters']['sensory_weight_scale'];cs=r['effective_parameters']['core_weight_scale'];delay=r['effective_parameters']['core_delay_us']
             edges={e['id']:e for e in r['initial_synapses']};base_edges={e['id']:e for e in base['initial_synapses']}
             m6.require(set(base_edges)<=set(edges),'density removed original scaffold')
             for ident,e in base_edges.items():
@@ -147,6 +149,7 @@ def report(root):
                 m6.require(abs(a['weight']-e['weight']*factor)<1e-6 and a['delay_us']==(delay if core and delay is not None else e['delay_us']),'unrelated initial weight/delay changed')
             m6.require(all(a['position']==b['position'] and a['polarity']==b['polarity'] for a,b in zip(r['initial_neurons'],base['initial_neurons'])),'cell geometry/polarity changed')
             if param!='core_fanout':m6.require(set(edges)==set(base_edges),'unexpected added edges')
+    if matrix_validator is not None:matrix_validator(records)
     for filename,rows in [('summary.csv',summaries),('prediction-contrasts.csv',tests),('propagation-summary.csv',prop),('weight-summary.csv',weights)]:
         with (root/filename).open('w',newline='') as f:w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
     alignment_contrasts=[]
@@ -155,8 +158,8 @@ def report(root):
         def vector(case):return [next(w['alignment'] for w in weights if w['case']==case and w['arm']=='paired' and w['seed']==seed) for seed in manifest['seeds']]
         alignment_contrasts.append(dict(case=name,reference='reference',metric='paired_topological_weight_alignment',**m6.bootstrap_paired(vector(name),vector('reference'))))
     m6.json_out(root/'diagnostics.json',dict(audits=audits,total={key:sum(a[key] for a in audits) for key in ['trial_rows','phase_rows','sensor_rows','branch_rows','propagation_rows']},
-        matched_visual_generation=True,original_scaffold_preserved=True,exact_sign_family_alpha=.05/26,descriptive_alignment_contrasts=alignment_contrasts))
-    lines=['# M8 – gemessene Ergebnisse','',f"Stufe {manifest['stage']}; Seeds {manifest['seeds']}. Alle Bedingungen verwenden bestehende Lernregeln und dieselben vier Kontrollarme.",'',
+        matched_visual_generation=True,original_scaffold_preserved=True,exact_sign_family_alpha=.05/family_size,descriptive_alignment_contrasts=alignment_contrasts))
+    lines=[f'# {label} – gemessene Ergebnisse','',f"Stufe {manifest['stage']}; Seeds {manifest['seeds']}. Alle Bedingungen verwenden bestehende Lernregeln und dieselben vier Kontrollarme.",'',
         '| Fall | Sofort-Checkpoint | Checkpoint nach 2s Ruhe | Online | Visuell | Extra-Spikes sofort / ohne Kopie | Extra-Spikes nach Ruhe / ohne Kopie |',
         '|---|---:|---:|---:|---:|---:|---:|']
     for row in summaries:
@@ -164,8 +167,9 @@ def report(root):
         lines.append(f"| {row['case']} | {row['checkpoint_probe']:.1%} | {row['rest_checkpoint_probe']:.1%} | {row['probe']:.1%} | {row['visual']:.1%} | {p[0]['mean_extra_core_spikes']:.2f} / {p[0]['mean_no_copy_extra_spikes']:.2f} | {p[1]['mean_extra_core_spikes']:.2f} / {p[1]['mean_no_copy_extra_spikes']:.2f} |")
     for stage in PRIMARY:lines+=['',stage+' – Kriterien einschließlich Familienkorrektur: '+(', '.join(r['case'] for r in summaries if r[stage+'_confirmed']) or 'keine')+'.']
     lines+=['','[Kontroll-/Belegungskontraste](prediction-contrasts.csv) · [Weiterleitung und Kontrollarme](propagation-summary.csv) · [Gewichtsdiagnose](weight-summary.csv) · [Unabhängiger Datenaudit](diagnostics.json).',
-        '', 'Spikezahlen außerhalb der direkten Kopie-Zielzellen sind getrennt von der Vorhersageleistung zu bewerten. Prüfzeitpunkte sind getrennte Endpunkte; 95%-Bootstrapintervalle sind deskriptiv. Primär wird zusätzlich jeder gerichtete Kontrollkontrast durch einen exakten gepaarten Vorzeichentest mit Bonferroni über 13×2 Endpunkte geprüft.']
+        '', f'Spikezahlen außerhalb der direkten Kopie-Zielzellen sind getrennt von der Vorhersageleistung zu bewerten. Prüfzeitpunkte sind getrennte Endpunkte; 95%-Bootstrapintervalle sind deskriptiv. Primär wird zusätzlich jeder gerichtete Kontrollkontrast durch einen exakten gepaarten Vorzeichentest mit Bonferroni über {family_size//len(PRIMARY)}×{len(PRIMARY)} Endpunkte geprüft.']
     (root/'summary.md').write_text('\n'.join(lines)+'\n');print('Report:',root/'summary.md')
+    return records,summaries,weights
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('mode',choices=['plan','run','report']);p.add_argument('--stage',choices=['pilot','confirm'],default='pilot');p.add_argument('--output',type=Path,required=True);p.add_argument('--jobs',type=int,default=4)
     p.add_argument('--train-trials',type=int,default=256);p.add_argument('--test-trials',type=int,default=128);p.add_argument('--calibration-trials',type=int,default=128);args=p.parse_args();root=args.output

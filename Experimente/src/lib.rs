@@ -4,6 +4,7 @@ pub mod experiment;
 pub mod m3;
 pub mod m7;
 pub mod m8;
+pub mod m9;
 pub mod protocol;
 mod random;
 pub mod retention;

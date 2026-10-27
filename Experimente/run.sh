@@ -23,6 +23,7 @@ case "${1:-help}" in
     m3) experiment_binary="nerva-m3"; shift ;;
     m7) experiment_binary="nerva-m7"; shift ;;
     m8) experiment_binary="nerva-m8"; shift ;;
+    m9) experiment_binary="nerva-m9"; shift ;;
     sensorimotor) experiment_binary="nerva-sensorimotor"; shift ;;
     serial) experiment_binary="nerva-serial"; shift ;;
     --weights) experiment_binary="nerva-serial" ;;
