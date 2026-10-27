@@ -29,6 +29,18 @@ path = "src/m8_main.rs"
 name = "nerva-m9"
 path = "src/m9_main.rs"
 
+[[bin]]
+name = "nerva-m10"
+path = "src/m10_main.rs"
+
+[[bin]]
+name = "nerva-m10d"
+path = "src/m10d_main.rs"
+
+[[bin]]
+name = "nerva-m10e"
+path = "src/m10e_main.rs"
+
 [dependencies]
 ctrlc = { version = "3", features = ["termination"] }
 nerva-vm = { path = "../Modell" }

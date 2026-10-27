@@ -421,6 +421,14 @@ impl Model {
             .update_synapse(id, |edge| edge.set_weight(weight))?;
         Ok(())
     }
+    /// Frozen diagnostic branch only. Blocks selected transmissions and queued
+    /// arrivals while preserving their weights and all cellular state.
+    pub fn diagnostic_block_synapses(&mut self, ids: &[SynapseId]) -> Result<usize> {
+        if self.config.learning || self.config.development || self.config.homeostasis {
+            return Err("transmission block requires frozen rules".into());
+        }
+        Ok(self.simulation.disable_synapses_and_cancel_arrivals(ids)?)
+    }
     pub fn processing_ids(&self) -> &[NeuronId] {
         &self.processing
     }

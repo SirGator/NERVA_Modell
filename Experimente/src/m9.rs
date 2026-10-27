@@ -61,8 +61,60 @@ pub fn parse(value: Value) -> Result<Config> {
 }
 
 pub fn run(config: &Config, output: &Path, raw: bool, flag: &AtomicBool) -> Result<Value> {
+    run_with_trace(config, output, raw, flag, false)
+}
+pub fn run_with_trace(
+    config: &Config,
+    output: &Path,
+    raw: bool,
+    flag: &AtomicBool,
+    trace: bool,
+) -> Result<Value> {
+    run_with_diagnostics(config, output, raw, flag, trace, false)
+}
+pub fn run_with_diagnostics(
+    config: &Config,
+    output: &Path,
+    raw: bool,
+    flag: &AtomicBool,
+    trace: bool,
+    recurrence: bool,
+) -> Result<Value> {
+    run_extended(config, output, raw, flag, trace, recurrence, false)
+}
+
+pub fn run_with_crossed_weights(
+    config: &Config,
+    output: &Path,
+    raw: bool,
+    flag: &AtomicBool,
+) -> Result<Value> {
+    run_extended(config, output, raw, flag, false, false, true)
+}
+
+fn run_extended(
+    config: &Config,
+    output: &Path,
+    raw: bool,
+    flag: &AtomicBool,
+    trace: bool,
+    recurrence: bool,
+    crossed: bool,
+) -> Result<Value> {
     let causal = config.requested["protocol"] == "NERVA-M9-v2";
-    let mut result = m8::run_with_weight_resets(&config.experiment, output, raw, flag, causal)?;
+    let mut result = if crossed {
+        m8::run_with_crossed_weights(&config.experiment, output, raw, flag)?
+    } else {
+        m8::run_with_diagnostics(
+            &config.experiment,
+            output,
+            raw,
+            flag,
+            causal,
+            trace,
+            recurrence,
+        )?
+    };
     result["protocol"] = config.requested["protocol"].clone();
     result["requested_config"] = config.requested.clone();
     result["condition"] = config.requested["condition"].clone();

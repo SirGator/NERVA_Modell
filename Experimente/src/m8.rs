@@ -99,6 +99,67 @@ pub fn run_with_weight_resets(
     flag: &AtomicBool,
     weight_resets: bool,
 ) -> Result<Value> {
+    run_with_reset_trace(config, output, raw, flag, weight_resets, false)
+}
+pub fn run_with_reset_trace(
+    config: &Config,
+    output: &Path,
+    raw: bool,
+    flag: &AtomicBool,
+    weight_resets: bool,
+    weight_reset_trace: bool,
+) -> Result<Value> {
+    run_with_diagnostics(
+        config,
+        output,
+        raw,
+        flag,
+        weight_resets,
+        weight_reset_trace,
+        false,
+    )
+}
+pub fn run_with_diagnostics(
+    config: &Config,
+    output: &Path,
+    raw: bool,
+    flag: &AtomicBool,
+    weight_resets: bool,
+    weight_reset_trace: bool,
+    recurrence_probes: bool,
+) -> Result<Value> {
+    run_extended(
+        config,
+        output,
+        raw,
+        flag,
+        weight_resets,
+        weight_reset_trace,
+        recurrence_probes,
+        false,
+    )
+}
+
+pub fn run_with_crossed_weights(
+    config: &Config,
+    output: &Path,
+    raw: bool,
+    flag: &AtomicBool,
+) -> Result<Value> {
+    run_extended(config, output, raw, flag, true, false, false, true)
+}
+
+#[allow(clippy::too_many_arguments)]
+fn run_extended(
+    config: &Config,
+    output: &Path,
+    raw: bool,
+    flag: &AtomicBool,
+    weight_resets: bool,
+    weight_reset_trace: bool,
+    recurrence_probes: bool,
+    crossed_weight_probes: bool,
+) -> Result<Value> {
     let mut base = config.engine.base.clone();
     let defaults = ModelConfig::default();
     base.model.core_threshold = defaults.core_threshold;
@@ -120,6 +181,9 @@ pub fn run_with_weight_resets(
             checkpoint_rest_us: Some(2_000_000),
             propagation: true,
             weight_resets,
+            weight_reset_trace,
+            recurrence_probes,
+            crossed_weight_probes,
         },
     )?;
     result["protocol"] = json!("NERVA-M8-v1");

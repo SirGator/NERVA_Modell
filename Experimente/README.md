@@ -5,8 +5,8 @@ Auswertungen. Gespeicherte Messungen liegen unter `Messungen/Experimente/`. Das 
 [NERVA_Modell/Modell/](../Modell/README.md) und wird als Bibliothek eingebunden.
 Das Modell selbst benötigt dieses Paket nicht.
 
-[Forschungsfahrplan M9–M13](ROADMAP.md): M9-v2 ist abgeschlossen, M10–M13 sind
-vorgeschlagene, vom Befund abhängige Forschungsrichtungen.
+[Forschungsfahrplan M9–M13](ROADMAP.md): M9-v2 und die retrospektive M10-Diagnose
+sind abgeschlossen; die weiteren Schritte hängen vom Befund ab.
 
 Vom Projektverzeichnis `DSVLM` starten:
 
@@ -42,6 +42,11 @@ verwendet. Eine Systeminstallation oder `QEMU_SYSTEM_X86_64` hat Vorrang.
 | `src/m7.rs`, `m7/` | Synapsen-/Zeitpaardiagnose und kontrollierte Gewichtsgegenprüfungen auf M6-Replays |
 | `src/m8.rs`, `m8/` | Sechs Parameterscans mit Kontrollarmen, unabhängigen Checkpoint-/Ruheproben und No-copy-Kontrollen |
 | `src/m9.rs`, `m9/` | 2×2-Kombinationstest v2 mit Gewichtsrücksetzungen und 20 Bestätigungsseeds; v1 weiter reproduzierbar |
+| `src/m10.rs`, `m10/` | Retrospektive Signalweg-/Ausleserdiagnose und passive Replaytraces auf den vorhandenen M9-Seeds |
+| `m10e/` | Core-Gewichtsreset nach identischer Baseline mit vier Rekurrenzsperren gekreuzt; feste Ausleser und bekannte Checkpoints |
+| `m10d/` | Vier kontrollierte Übertragungssperren für rekurrente Core-Erregung/Hemmung auf eingefrorenen bekannten M9-Checkpoints |
+| `m10c/` | Retrospektive Bilanz von Eingängen, Refraktärfilter, Leck und Resets auf der festen neuronalen Auslesergewichtung |
+| `m10b/` | Retrospektive Diagnose der visuellen Wirkungsausrichtung und des gemeinsamen Decoderbias; keine neuen neuronalen Läufe |
 | `tests/` | Versuchs-, Auswertungs-, Wiederholungs- und QEMU-Tests |
 | `../../Messungen/Experimente/` | Versuchsberichte, Rohdaten und historische Messläufe |
 
@@ -62,6 +67,11 @@ Auswertung. Lokale Lernregeln kommen weiterhin aus `NERVA/`.
 | M7: Belegungsabhängige Gewichtsänderungen und ihre Wirkung; bestehende Seeds 400–409 | [M7_EXPERIMENT.md](M7_EXPERIMENT.md) |
 | M8: Rekurrente Weiterleitung und stärkere Zuordnung; 13 Bedingungen, neue Seeds 510–519 | [M8_EXPERIMENT.md](M8_EXPERIMENT.md) |
 | M9-v2: Kombination und Gewichtskausalität; 20 neue Bestätigungsseeds, kein funktionaler Lernnachweis | [Ergebnisse](../../Messungen/M9_EXPERIMENT.md) · [Versuchsplan](M9_EXPERIMENT.md) |
+| M10: Elektrisch wirksame Gewichte, selten geänderte Ausleserentscheidung; retrospektive Ursachenanalyse | [Ergebnisse](../../Messungen/M10_EXPERIMENT.md) · [Diagnoseplan](M10_EXPERIMENT.md) |
+| M10-E: Core-Gewichtsbeitrag und Rekurrenz gekreuzt, identische Zustände vor der Aktion | [Ergebnisse](../../Messungen/M10E_EXPERIMENT.md) · [Definition](M10E_EXPERIMENT.md) |
+| M10-D: Rekurrente Erregung und Hemmung getrennt blockiert; feste Checkpoints und Ausleser | [Ergebnisse](../../Messungen/M10D_EXPERIMENT.md) · [Definition](M10D_EXPERIMENT.md) |
+| M10-C: Unpassende Ausrichtung bereits in der Eingangsbilanz; 1.920 rekonstruierte Aktionsfenster | [Ergebnisse](../../Messungen/M10C_EXPERIMENT.md) · [Definition](M10C_EXPERIMENT.md) |
+| M10-B: Gemeinsamer Offset erklärt die Fehler nicht allein; diagnostische Paar-Rangfolge 42,5/45,0 % | [Ergebnisse](../../Messungen/M10B_EXPERIMENT.md) · [Definition](M10B_EXPERIMENT.md) |
 | Serielle Zuordnung | [SERIAL_MODEL.md](SERIAL_MODEL.md) |
 
 Die bisherigen kontrollierten Messreihen liefern keinen belastbaren Nachweis

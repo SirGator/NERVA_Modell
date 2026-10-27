@@ -1,6 +1,9 @@
 //! Controlled research protocols and external readouts; depends on the running model.
 pub mod agency;
 pub mod experiment;
+pub mod m10;
+pub mod m10d;
+pub mod m10e;
 pub mod m3;
 pub mod m7;
 pub mod m8;

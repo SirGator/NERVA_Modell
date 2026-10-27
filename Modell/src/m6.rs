@@ -49,6 +49,9 @@ pub struct RunOptions {
     pub checkpoint_rest_us: Option<u64>,
     pub propagation: bool,
     pub weight_resets: bool,
+    pub weight_reset_trace: bool,
+    pub recurrence_probes: bool,
+    pub crossed_weight_probes: bool,
 }
 
 pub struct Config {
@@ -887,11 +890,44 @@ pub fn run_with_options(
                     options
                         .checkpoint_rest_us
                         .ok_or("weight resets require independent rest checkpoint")?,
+                    options.weight_reset_trace,
                 )?)
             } else {
                 None
             };
             let immediate_start = actor.model.next_observation_us();
+            let recurrence = if options.recurrence_probes {
+                Some(weight_resets::recurrence_probe(
+                    &session,
+                    &actor,
+                    arm,
+                    gain,
+                    raw,
+                    &initial_network,
+                    &calibration,
+                    options
+                        .checkpoint_rest_us
+                        .ok_or("recurrence probes require rest checkpoint")?,
+                )?)
+            } else {
+                None
+            };
+            let crossed = if options.crossed_weight_probes {
+                Some(weight_resets::crossed_probe(
+                    &session,
+                    &actor,
+                    arm,
+                    gain,
+                    raw,
+                    &initial_network,
+                    &calibration,
+                    options
+                        .checkpoint_rest_us
+                        .ok_or("crossed probes require rest checkpoint")?,
+                )?)
+            } else {
+                None
+            };
             ensure(
                 immediate_start == checkpoint_time,
                 "gap before immediate parent probe",
@@ -957,6 +993,12 @@ pub fn run_with_options(
             }
             if let Some(probes) = weight_resets {
                 results.get_mut(arm).unwrap()["weight_reset_probes"] = probes;
+            }
+            if let Some(probes) = recurrence {
+                results.get_mut(arm).unwrap()["recurrence_probes"] = probes;
+            }
+            if let Some(probes) = crossed {
+                results.get_mut(arm).unwrap()["crossed_probes"] = probes;
             }
         }
         mappings.insert(mapping, results);

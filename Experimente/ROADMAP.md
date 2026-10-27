@@ -1,6 +1,6 @@
 # NERVA: Forschungsfahrplan
 
-Stand **27.10.2026**. Ziel ist zunächst ein kontrollierter Nachweis, dass lokale
+Stand **28.10.2026**. Ziel ist zunächst ein kontrollierter Nachweis, dass lokale
 Lernregeln einen erfahrenen Zusammenhang verändern und das Netzwerk diese
 Änderungen anschließend funktional nutzt. Eine sichtbare Gewichtsänderung oder
 mehr Aktivität allein genügt nicht. Die Aussagen gelten jeweils für die geprüfte
@@ -15,12 +15,12 @@ Gewichtszuordnung, aber keinen belastbaren funktionalen Lernnachweis.
 | Meilenstein | Forschungsfrage | Stand |
 |---|---|---|
 | M9 | Ermöglichen stärkere Rekurrenz und längere STDP-Zeitkonstanten gemeinsam funktionales, gewichtsabhängiges Lernen? | Abgeschlossen; auf 20 neuen Seeds kein funktionaler Lernnachweis. [Ergebnis](../../Messungen/M9_EXPERIMENT.md) |
-| M10 | An welcher Stelle wird erfahrungsabhängige Information gespeichert, weitergegeben oder ununterscheidbar? | Nächster vorgeschlagener Schritt; Protokoll noch festzulegen |
-| M11 | Unter welchen Bedingungen bleiben nachgewiesene Muster und ihre Funktion erhalten? | Vorgeschlagen; abhängig von messbarer Information und der M10-Diagnose |
+| M10 | An welcher Stelle wird erfahrungsabhängige Information gespeichert, weitergegeben oder ununterscheidbar? | Retrospektive Diagnose abgeschlossen: Gewichte wirken auf Eingänge/Potenziale und teilweise auf Spikes, selten auf die Entscheidung. [Ergebnis](../../Messungen/M10_EXPERIMENT.md) |
+| M11 | Macht lokale synaptische Konkurrenz vorhandene Gewichtsänderungen funktional nutzbar? | Vorgeschlagen: eine Änderung, zwei Varianten, technischer Pilot und 20 neue Seeds; noch nicht implementiert oder ausgeführt |
 | M12 | Können lokale Entwicklungsregeln funktionale Verschaltungen hervorbringen? | Vorgeschlagen; vorhandenes Wachstum/Pruning gezielt funktional prüfen |
 | M13 | Ist für die geprüfte Aufgabe eine andere zeitliche Verarbeitung nötig? | Optional; erst nach konkreter Diagnose |
 
-Diese Nummern definieren Forschungsrichtungen. M10–M13 sind keine bestehenden
+Diese Nummern definieren Forschungsrichtungen. M11–M13 sind keine bestehenden
 Messreihen und keine automatisch festgelegten Implementierungsaufträge.
 
 ## M9: vorhandene Mechanismen kombinieren
@@ -67,20 +67,71 @@ mögliche Ursachen. Ein negatives Ergebnis benennt nicht automatisch einen
 fehlenden biologischen Mechanismus.
 
 Bei positivem M9 lokalisiert M10 die tragenden Verbindungen und prüft die
-Reichweite des Befunds. Ein konkretes Protokoll mit Endpunkten und Kontrollarmen
-wird erst anhand der M9-Daten vorab festgelegt.
+Reichweite des Befunds. Das konkrete Diagnoseprotokoll wurde anhand der M9-Daten
+vor den zusätzlichen Replaymessungen festgelegt.
 
-## M11: Stabilisierung und Gedächtnis
+Die [abgeschlossene M10-Diagnose](../../Messungen/M10_EXPERIMENT.md) verwendet
+alle 80 M9-Quellfälle und passive Kombinations-Replays auf denselben 20 Seeds.
+In 160/160 gekoppelten Aktionsproben ändern Core-Gewichte Eingänge und synchrone
+Potenziale, in 61/160 das Spikezählmuster und in 5/160 die feste Entscheidung.
+Das lokalisiert begrenzte Übertragung an zwei Übergängen und bestätigt kein
+funktionales Lernen. Wirkungsspezifität und die Passung von Aktions- zu visuellen
+Zielmustern bleiben vor einer biologischen Erweiterung gezielt zu untersuchen.
 
-Zunächst die vorhandene Homöostase gezielt nach Population und Stärke untersuchen.
-M5 zeigt bereits, dass Sensor-Homöostase Weiterleitung schwächen kann. Erhalt
-relativer Gewichte, zeitliche Stabilität und funktionale Vorhersage werden
-getrennt gemessen, auch unter weiterlaufender Plastizität und Interferenz.
+Die anschließende [M10-B-Diagnose](../../Messungen/M10B_EXPERIMENT.md) entfernt
+einen gemeinsamen A-/D-Projektionsoffset rein für die Auswertung. Die Kombination
+erreicht dabei nur 42,5 % richtige Paar-Rangfolgen sofort und 45,0 % nach Ruhe.
+Eine reine Biaserklärung reicht nicht aus; die Wirkungsausrichtung der
+synaptischen Beiträge und ihrer Weiterverarbeitung bleibt zu lokalisieren.
+Die Paar-Rangfolge ist kein neuer unabhängiger Einzelvorhersage- oder Lernnachweis.
 
-Synaptische Konkurrenz und proportionale Skalierung sind mögliche gezielte
-Erweiterungen, sofern die Diagnose sie begründet. Sie sind noch kein vollständiger
-vorhandener Mechanismus. Inhibitorische Plastizität wäre ein eigener kontrollierter
-Versuch, keine stillschweigende Erweiterung des M9-Modells.
+Die [M10-C-Bilanz](../../Messungen/M10C_EXPERIMENT.md) zeigt anschließend
+23/40 negative Eingangsprojektionen auf der festen neuronalen Auslesergewichtung
+je Zeitpunkt. Filterung und Spikebildung ändern nur wenige Vorzeichen; die
+Eingänge enthalten aber schon rekurrente Rückkopplung. Damit bleibt vor einer
+neuen Lernregel ein kontrollierter Eingriff in rekurrente Beiträge identischer
+eingefrorener Checkpoints sinnvoll. Dies ist eine Diagnose derselben 20 Seeds
+und keine eigenständige Eingangs-/Potenzialklassifikation.
+
+Die [M10-D-Eingriffe](../../Messungen/M10D_EXPERIMENT.md) sind ebenfalls auf
+allen 20 bekannten Seeds abgeschlossen. Ohne rekurrente Hemmung verdoppelt sich
+die Aktivität ungefähr, ohne beidseitigen Vorhersagevorteil. Ohne Erregung
+verbleiben drei Spikes/Aktion und ebenfalls kein Vorhersagegewinn. Vor einer
+neuen Lernregel kann ein gekreuzter Gewichtsreset-/Übertragungsversuch direkte
+Aktionsantwort und Beitrag gelernter Core-Gewichte weiter trennen. Die
+getrennten bisherigen Eingriffe belegen deren Wechselwirkung noch nicht.
+
+Die [M10-E-Kreuzung](../../Messungen/M10E_EXPERIMENT.md) ist auf allen 20
+bekannten Seeds abgeschlossen. Bei aktiver Rekurrenz verändert der Core-Reset
+61/160 gekoppelte Spikezählmuster und 5/160 Vorhersagen; ohne rekurrente Erregung
+verschwindet der Gewichtseinfluss. Ohne Hemmung wird er stärker, ohne beidseitigen
+Vorhersagevorteil. Die Rücksetzung erfolgt nach identischer Baseline und ist
+methodisch von den früheren Rücksetzungen davor zu unterscheiden.
+
+**Planungsstand 28.10.2026:** M10 ist mit M10-E abgeschlossen. Der zunächst
+vorgeschlagene Gewichtstausch wird vorerst zurückgestellt; weitere M10-
+Zusatzdiagnosen sind nicht geplant. Die Befunde motivieren einen begrenzten
+Lernversuch, beweisen aber keinen bestimmten fehlenden Mechanismus.
+
+## M11: Synaptische Konkurrenz als begrenzter Lernversuch
+
+Vorgeschlagen wird genau eine Änderung: Die eingehenden erregenden Core-Synapsen
+jedes Neurons teilen sich ein festes Gewichtsbudget. Nach lokalen STDP-
+Änderungen werden ihre relativen Stärken auf dieses Gesamtbudget normalisiert.
+Die Hypothese ist, dass dadurch selektivere, funktional nutzbare Antworten
+entstehen. Die bisherigen Diagnosen belegen diese Hypothese noch nicht.
+
+Zwei Varianten vergleichen: bisheriges Netzwerk und dasselbe Netzwerk mit
+Konkurrenz. Aufgabe, Ausleser und Kontrollarme bleiben gleich: eingefrorenes
+Lernen, entkoppelte Erfahrung und beide Belegungen. Vor Umsetzung müssen die
+Normalisierung, das Budget und die Erfolgskriterien konkret festgelegt werden.
+Ein Nachweis verlangt bessere Vorhersagen als Zufall und Kontrollen in beiden
+Belegungen, Erhalt nach Ruhe und einen Verlust des Vorteils nach Gewichtsreset.
+
+Geplant sind ein technischer Pilot und anschließend ein unveränderter Vergleich
+auf 20 neuen Seeds. Danach wird über diese Hypothese entschieden; eine weitere
+Reihe von Zusatzdiagnosen ist nicht vorgesehen. Dies ist Forschungsplanung,
+kein bereits implementierter Mechanismus und kein Ausführungsauftrag.
 
 ## M12: selbstständige Netzwerkentwicklung
 
