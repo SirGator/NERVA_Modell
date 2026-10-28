@@ -1,0 +1,15 @@
+[experiment]
+name = "m0_research_smoke"
+scenario = "m0_sequence"
+seeds = [7, 19]
+max_runs = 16
+
+[base]
+training_repetitions = 4
+
+[[parameters]]
+name = "learning.a_plus"
+values = [0.02, 0.04]
+
+[measurements]
+metrics = ["sequence_score", "stability", "firing_rate"]

@@ -1,0 +1,17 @@
+[experiment]
+name = "stdp_learning_test"
+scenario = "m0_sequence"
+seeds = [7, 19, 41, 73, 101, 149]
+verify_replay = true
+max_runs = 1000
+
+[[parameters]]
+name = "learning.a_plus"
+values = [0.01, 0.02, 0.04, 0.08]
+
+[[parameters]]
+name = "learning.a_minus"
+values = [0.01, 0.02, 0.04]
+
+[measurements]
+metrics = ["sequence_score", "stability", "firing_rate"]

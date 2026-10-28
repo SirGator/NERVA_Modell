@@ -8,6 +8,17 @@ Das Modell selbst benötigt dieses Paket nicht.
 [Forschungsfahrplan M9–M13](ROADMAP.md): M9-v2 und die retrospektive M10-Diagnose
 sind abgeschlossen; die weiteren Schritte hängen vom Befund ab.
 
+Für neue Konfigurationsraster gibt es zusätzlich die unabhängige
+[Forschungsanwendung unter NERVA_Modell/research](../research/README.md).
+Sie führt zunächst das vorhandene M0-Szenario mit Parametervarianten und
+Kontrollgruppen aus und speichert Ergebnisse in SQLite. Die M3–M10-Protokolle
+und das laufende Modell verwenden weiterhin ihre bisherigen Runner; M0-
+Ergebnisse werden nicht als Handlungswirkungsnachweis dieser Reihen gewertet.
+Die [externe S1/S2-Selektion](../research/SELECTION.md) erzeugt inzwischen
+Konfigurationsnachkommen, erhält mehrere Pareto-Eliten und prüft einen vorher
+festgelegten Finalisten auf getrennten Seeds. Sie verändert keine Rust-Quellen
+und ist kein neuer M9/M11-Lernnachweis.
+
 Vom Projektverzeichnis `DSVLM` starten:
 
 ```bash

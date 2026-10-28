@@ -1,0 +1,30 @@
+[selection]
+name = "m0_selection_smoke"
+generations = 2
+elite_size = 2
+children_per_parent = 2
+max_candidates = 7
+mutation_seed = 42
+training_seeds = [7, 19]
+validation_seeds = [151, 191]
+retention_delay_us = 200000
+
+[base]
+training_repetitions = 24
+"learning.a_plus" = 0.04
+"learning.a_minus" = 0.045
+"mechanisms.stdp" = true
+"mechanisms.homeostasis" = false
+
+[[mutations]]
+name = "learning.a_plus"
+factors = [0.8, 1.2]
+min = 0.005
+max = 0.12
+
+[[mutations]]
+name = "mechanisms.homeostasis"
+values = [false, true]
+
+[validation]
+bootstrap_samples = 100

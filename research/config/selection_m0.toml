@@ -1,0 +1,50 @@
+[selection]
+name = "m0_external_selection"
+scenario = "m0_selection"
+generations = 4
+elite_size = 2
+children_per_parent = 4
+max_candidates = 32
+mutation_seed = 42
+training_seeds = [7, 19, 41, 73]
+validation_seeds = [151, 191, 229, 277, 307, 347]
+retention_delay_us = 2000000
+
+[base]
+training_repetitions = 24
+"learning.a_plus" = 0.04
+"learning.a_minus" = 0.045
+"mechanisms.stdp" = true
+"mechanisms.homeostasis" = false
+
+[[mutations]]
+name = "learning.a_plus"
+factors = [0.8, 1.2]
+min = 0.005
+max = 0.12
+
+[[mutations]]
+name = "learning.a_minus"
+factors = [0.8, 1.2]
+min = 0.005
+max = 0.12
+
+[[mutations]]
+name = "mechanisms.stdp"
+values = [false, true]
+
+[[mutations]]
+name = "mechanisms.homeostasis"
+values = [false, true]
+
+[requirements]
+min_retained_score = 1
+max_retention_loss = 0
+max_probe_rate_hz = 200
+max_event_count = 100000
+
+[validation]
+bootstrap_samples = 4000
+alpha = 0.05
+min_quality_gain = 0
+max_resource_ratio = 1.25

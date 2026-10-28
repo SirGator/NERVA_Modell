@@ -1,0 +1,9 @@
+[package]
+name = "nerva-research"
+version = "0.1.0"
+edition = "2024"
+description = "Configuration-driven research runner with independent scenario adapters"
+
+[dependencies]
+nerva = { path = "../../NERVA" }
+serde_json = { version = "1", features = ["float_roundtrip"] }
