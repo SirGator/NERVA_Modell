@@ -1,0 +1,50 @@
+# First priority: Morris screening and a small independent 2D sampled map.
+[research]
+name = "m0_screening"
+training_seeds = [7, 19, 41, 73]
+validation_seeds = [151, 191, 229, 277, 307, 347]
+design_seed = 42
+max_trials = 1000
+
+[base]
+training_repetitions = 24
+retention_delay_us = 2000000
+"learning.a_plus" = 0.04
+"learning.a_minus" = 0.045
+"learning.homeostasis.intrinsic_adjustment_rate" = 0.001
+"mechanisms.stdp" = true
+"mechanisms.homeostasis" = true
+
+[[studies]]
+id = "morris"
+method = "sensitivity"
+priority = 100
+[studies.options]
+trajectories = 4
+levels = 4
+metric = "retained_sequence_score"
+[[studies.options.axes]]
+name = "learning.a_plus"
+min = 0.01
+max = 0.08
+[[studies.options.axes]]
+name = "learning.a_minus"
+min = 0.015
+max = 0.085
+[[studies.options.axes]]
+name = "learning.homeostasis.intrinsic_adjustment_rate"
+min = 0.0001
+max = 0.01
+
+[[studies]]
+id = "learning_map"
+method = "phase_mapping"
+priority = 90
+[studies.options]
+max_rate_hz = 200.0
+[[studies.options.axes]]
+name = "learning.a_plus"
+values = [0.01, 0.03, 0.05, 0.08]
+[[studies.options.axes]]
+name = "learning.a_minus"
+values = [0.015, 0.035, 0.055, 0.085]

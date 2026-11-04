@@ -10,6 +10,16 @@ begrenzte S1/S2-Mutationen, harte Mindestanforderungen, Pareto-Eliten und eine
 getrennte Abschlussvalidierung. Sie verwendet einen eigenen kontrollierten
 M0-Adapter. Start: `./NERVA_Modell/research/run.sh select NERVA_Modell/research/config/selection_m0.toml`.
 
+Der [gemeinsame Forschungs-Harness](HARNESS.md) ergänzt Morris-Screening,
+2D-Zustandskarten, gepaarte Mechanismeninterventionen, Parameter-Stresstests und
+MAP-Elites mit Budgetplanung und Forschungsgedächtnis. Alle Methoden verwenden
+denselben Runner und getrennte Bestätigungsseeds:
+
+```bash
+./NERVA_Modell/research/run.sh research-plan NERVA_Modell/research/config/research_smoke.toml
+./NERVA_Modell/research/run.sh research NERVA_Modell/research/config/research_smoke.toml
+```
+
 Stand 28.10.2026. Voraussetzung: aktuelles Rust/Cargo und Python **3.11+**.
 Rust verwendet NERVA und `serde_json`; TOML und SQLite kommen aus der Python-
 Standardbibliothek. Die Builds laufen mit `--offline`. Die benötigten Cargo-
@@ -185,6 +195,8 @@ ohne SQLite-Integerüberlauf erhalten bleiben.
 - `main.rs`: explizite Adapterregistrierung und JSON-CLI.
 - `scenarios/m0_selection.rs`: kontrollierte Mechanismen und verzögerte Endpunkte.
 - `evolution/`: Population, Mutation, Auswahl, Bewertung, Generationen und Historie.
+- `analysis/`, `planning/`, `research_memory/`, `harness.py`: gemeinsame Forschungspläne,
+  Analysen, MAP-Elites, Scheduler und regelbasierte Folgeversuche ([Details](HARNESS.md)).
 - `run.py`: TOML-Eingang und SQLite-Katalog, ausschließlich Standardbibliothek.
 
 Ein neues Szenario implementiert `Scenario` mit eigenem Konfigurationstyp,

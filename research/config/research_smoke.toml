@@ -1,0 +1,77 @@
+[research]
+name = "m0_research_smoke"
+scenario = "m0_selection"
+training_seeds = [7, 19]
+validation_seeds = [151, 191]
+design_seed = 42
+max_trials = 400
+
+[base]
+training_repetitions = 24
+retention_delay_us = 200000
+"learning.a_plus" = 0.04
+"learning.a_minus" = 0.045
+"mechanisms.stdp" = true
+"mechanisms.homeostasis" = true
+
+[[studies]]
+id = "morris"
+method = "sensitivity"
+priority = 100
+[studies.options]
+trajectories = 2
+levels = 4
+metric = "sequence_score"
+[[studies.options.axes]]
+name = "learning.a_plus"
+min = 0.02
+max = 0.06
+[[studies.options.axes]]
+name = "learning.a_minus"
+min = 0.025
+max = 0.065
+
+[[studies]]
+id = "states"
+method = "phase_mapping"
+priority = 90
+[[studies.options.axes]]
+name = "learning.a_plus"
+values = [0.02, 0.06]
+[[studies.options.axes]]
+name = "learning.a_minus"
+values = [0.025, 0.065]
+
+[[studies]]
+id = "mechanisms"
+method = "causal"
+priority = 80
+
+[[studies]]
+id = "stress"
+method = "robustness"
+priority = 70
+[studies.options]
+metric = "retained_sequence_score"
+[[studies.options.axes]]
+name = "sensory_weight"
+values = [1.15, 1.25]
+[[studies.options.axes]]
+name = "retention_delay_us"
+values = [400000]
+
+[[studies]]
+id = "diversity"
+method = "quality_diversity"
+priority = 60
+[studies.options]
+max_evaluations = 5
+[[studies.options.axes]]
+name = "learning.a_plus"
+values = [0.02, 0.04, 0.06]
+[[studies.options.axes]]
+name = "mechanisms.homeostasis"
+values = [false, true]
+
+[validation]
+bootstrap_samples = 100

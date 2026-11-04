@@ -77,7 +77,8 @@ def catalog(root, binary):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("mode", choices=["plan", "run", "report", "list", "select-plan", "select", "selection-report"])
+    parser.add_argument("mode", choices=["plan", "run", "report", "list", "select-plan", "select", "selection-report",
+                                         "research-plan", "research", "research-report"])
     parser.add_argument("config", type=Path, nargs="?")
     parser.add_argument("--output", type=Path)
     parser.add_argument("--binary", type=Path, help="Use an explicitly supplied research binary instead of building")
@@ -85,12 +86,13 @@ def main():
     if args.mode != "list" and args.config is None:parser.error("a TOML config is required")
     if args.mode == "list" and (args.config is not None or args.output is not None):parser.error("list accepts no config/output")
     selection_mode = args.mode in ["select-plan", "select", "selection-report"]
+    research_mode = args.mode in ["research-plan", "research", "research-report"]
     if args.mode != "list":
         source_text = args.config.read_text(encoding="utf-8")
         spec = tomllib.loads(source_text)
         payload = json.dumps(spec, allow_nan=False)
         # Rust validates identifiers and all variants before creating the directory.
-        experiment = spec.get("selection" if selection_mode else "experiment", {})
+        experiment = spec.get("research" if research_mode else "selection" if selection_mode else "experiment", {})
         default_name = experiment.get("name", "unnamed") if isinstance(experiment, dict) else "unnamed"
         output = args.output or HERE/"results"/str(default_name)
         archived = output/"source.toml"
@@ -99,12 +101,25 @@ def main():
     if selection_mode:
         from evolution.spec import SelectionSpec
         selection_spec = SelectionSpec(spec)
+    if research_mode:
+        from planning.spec import ResearchSpec
+        research_spec = ResearchSpec(spec)
     if args.binary is None:
         subprocess.run(["cargo", "build", "--offline", "--release", "--manifest-path", str(HERE/"Cargo.toml")], check=True)
         binary = HERE/"target/release/nerva-research"
     else:binary = args.binary.resolve()
     if args.mode == "list":
         subprocess.run([str(binary), "list"], check=True); return
+    if research_mode:
+        import harness
+        from planning.backend import ResearchBackend
+        backend = ResearchBackend(binary, catalog)
+        if args.mode == "research-plan":
+            print(json.dumps(harness.plan(research_spec, output, backend, source_text), indent=2, sort_keys=True))
+        else:
+            result = harness.run(research_spec, output, backend, source_text, args.mode == "research-report")
+            print("RESEARCH", output/"research-summary.md", "held_out_quality_improved=", result["held_out_quality_improved"])
+        return
     if selection_mode:
         from evolution import generation, history
         from evolution.population import NativeBackend
