@@ -71,8 +71,20 @@ def ppm_png(path):
 
 class Dataset:
     def __init__(self, root):self.root=root.resolve()
+    def documents(self):
+        result=[]
+        for bucket in ('','Dokumentation','Berichte','Darstellung'):
+            parent=self.root/bucket
+            for p in sorted(parent.glob('*.md')):
+                if not p.is_file() or p.is_symlink():continue
+                safe_path(self.root,p.relative_to(self.root).as_posix())
+                result.append({'name':f'{bucket} / {p.stem}' if bucket else p.stem,
+                               'path':p.relative_to(self.root).as_posix()})
+        return result
     def runs(self):
         result=[]
+        catalog=read_json(self.root/'Dokumentation/MESSREIHEN.json',{})
+        entries={r['id']:r for r in catalog.get('runs',[]) if isinstance(r,dict) and isinstance(r.get('id'),str)}
         for bucket in ('Experimente','Modell'):
             parent=self.root/bucket
             if not parent.exists():continue
@@ -83,6 +95,7 @@ class Dataset:
                 seeds=manifest.get('seeds',[]) or [r['seed'] for r in manifest.get('references',[]) if 'seed' in r] or ([meta['seed']] if 'seed' in meta else [])
                 kind='Bestätigungsreihe' if 'confirm' in p.name else 'Pilot' if 'pilot' in p.name else 'Live-Lauf' if bucket=='Modell' else 'Diagnose' if any(t in p.name for t in ('audit','diagnostic','control')) else 'Messlauf'
                 if p.name in ('interrupted','agency-ten-seeds') or meta.get('interrupted'):kind='Unterbrochen'
+                kind=entries.get(p.relative_to(self.root).as_posix(),{}).get('kind',kind)
                 fixed=manifest.get('fixed',{})
                 conditions=manifest.get('conditions') or manifest.get('cases') or (fixed.get('conditions',[]) if isinstance(fixed,dict) else [])
                 report=next((q.name for q in sorted(p.glob('*summary.md'))),None)
@@ -130,7 +143,8 @@ class Dataset:
         if p.suffix=='.json' and len(raw)<=256*1024:
             try:text=json.dumps(json.loads(text),ensure_ascii=False,indent=2)
             except ValueError:pass
-        return {'kind':'markdown' if p.suffix=='.md' else 'text','text':text,'truncated':len(raw)>256*1024,'size':p.stat().st_size}
+        return {'kind':'markdown' if p.suffix=='.md' else 'text','text':text,'truncated':len(raw)>256*1024,
+                'size':p.stat().st_size,'path':p.relative_to(self.root).as_posix()}
 
 class Live:
     def __init__(self,root,model_script=None):
@@ -232,7 +246,7 @@ class Handler(BaseHTTPRequestHandler):
             if url.path=='/api/files':return self.send(ds.files(get('run'),get('prefix')))
             if url.path=='/api/preview':return self.send(ds.preview(get('path'),max(0,min(int(get('offset','0')),10_000_000)),get('search')))
             if url.path=='/api/documents':
-                return self.send([{'name':p.stem,'path':p.relative_to(ds.root).as_posix()} for p in sorted(ds.root.glob('*.md'))])
+                return self.send(ds.documents())
             if url.path=='/api/live':return self.send(self.server.live.state())
             if url.path=='/api/network':return self.send(read_json(self.server.live.run/'network.json',{},max_size=32*1024*1024) if self.server.live.run else {})
             if url.path in ('/api/image','/api/download'):

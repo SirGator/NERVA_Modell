@@ -1,0 +1,13 @@
+[experiment]
+name = "continual_sequences_technical"
+scenario = "continual_sequences"
+seeds = [900000001, 900104730]
+verify_replay = true
+max_runs = 8
+
+[base]
+training_repetitions = 24
+symbol_interval_us = 10000
+
+[measurements]
+metrics = ["after_a_score_a", "after_b_score_a", "after_b_score_b", "interference_assessable", "stability"]

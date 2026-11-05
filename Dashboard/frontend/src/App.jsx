@@ -6,7 +6,7 @@ import Live from './Live';
 import Archive from './Archive';
 import Preview from './Preview';
 export default function App(){
- const [config,setConfig]=useState(null),[runs,setRuns]=useState([]),[error,setError]=useState(''),[view,setView]=useState(''),[documents,setDocuments]=useState([]),[document,setDocument]=useState('PROJEKT.md');
+ const [config,setConfig]=useState(null),[runs,setRuns]=useState([]),[error,setError]=useState(''),[view,setView]=useState(''),[documents,setDocuments]=useState([]),[document,setDocument]=useState('Dokumentation/PROJEKT.md');
  const refresh=useCallback(()=>api('/api/runs').then(setRuns).catch(e=>setError(e.message)),[]);
  useEffect(()=>{let active=true;Promise.all([api('/api/config'),api('/api/runs'),api('/api/documents')]).then(([c,r,d])=>{if(active){setConfig(c);setRuns(r);setDocuments(d);setView(c.live?'live':'archive')}}).catch(e=>{if(active)setError(e.message)});return()=>{active=false}},[]);
  useEffect(()=>{if(view)documentTitle(view);if(view==='archive')refresh()},[view,refresh]);

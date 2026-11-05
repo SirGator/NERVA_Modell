@@ -1,5 +1,12 @@
 # NERVA: Forschungsfahrplan
 
+**Ergänzung 05.11.2026:** [Diagnose vor Optimierung](../research/DIAGNOSTICS.md)
+priorisiert die Prüfung vorhandener Repräsentationen und Auslesbarkeit sowie
+einen kleinen kontinuierlichen A/B-Lerntest. Ein externer Decoder-Pilot nutzt
+M9-Daten ohne neue neuronale Simulationen. Bestätigungsserien folgen erst auf
+informative Piloten; die M0-Parameteroptimierung hat niedrigere Priorität.
+Die folgenden historischen Versuchsstände bleiben als solche erhalten.
+
 Stand **28.10.2026**. Ziel ist zunächst ein kontrollierter Nachweis, dass lokale
 Lernregeln einen erfahrenen Zusammenhang verändern und das Netzwerk diese
 Änderungen anschließend funktional nutzt. Eine sichtbare Gewichtsänderung oder
@@ -14,8 +21,8 @@ Gewichtszuordnung, aber keinen belastbaren funktionalen Lernnachweis.
 
 | Meilenstein | Forschungsfrage | Stand |
 |---|---|---|
-| M9 | Ermöglichen stärkere Rekurrenz und längere STDP-Zeitkonstanten gemeinsam funktionales, gewichtsabhängiges Lernen? | Abgeschlossen; auf 20 neuen Seeds kein funktionaler Lernnachweis. [Ergebnis](../../Messungen/M9_EXPERIMENT.md) |
-| M10 | An welcher Stelle wird erfahrungsabhängige Information gespeichert, weitergegeben oder ununterscheidbar? | Retrospektive Diagnose abgeschlossen: Gewichte wirken auf Eingänge/Potenziale und teilweise auf Spikes, selten auf die Entscheidung. [Ergebnis](../../Messungen/M10_EXPERIMENT.md) |
+| M9 | Ermöglichen stärkere Rekurrenz und längere STDP-Zeitkonstanten gemeinsam funktionales, gewichtsabhängiges Lernen? | Abgeschlossen; auf 20 neuen Seeds kein funktionaler Lernnachweis. [Ergebnis](../../Messungen/Berichte/M9_EXPERIMENT.md) |
+| M10 | An welcher Stelle wird erfahrungsabhängige Information gespeichert, weitergegeben oder ununterscheidbar? | Retrospektive Diagnose abgeschlossen: Gewichte wirken auf Eingänge/Potenziale und teilweise auf Spikes, selten auf die Entscheidung. [Ergebnis](../../Messungen/Berichte/M10_EXPERIMENT.md) |
 | M11 | Macht lokale synaptische Konkurrenz vorhandene Gewichtsänderungen funktional nutzbar? | Vorgeschlagen: eine Änderung, zwei Varianten, technischer Pilot und 20 neue Seeds; noch nicht implementiert oder ausgeführt |
 | M12 | Können lokale Entwicklungsregeln funktionale Verschaltungen hervorbringen? | Vorgeschlagen; vorhandenes Wachstum/Pruning gezielt funktional prüfen |
 | M13 | Ist für die geprüfte Aufgabe eine andere zeitliche Verarbeitung nötig? | Optional; erst nach konkreter Diagnose |
@@ -70,7 +77,7 @@ Bei positivem M9 lokalisiert M10 die tragenden Verbindungen und prüft die
 Reichweite des Befunds. Das konkrete Diagnoseprotokoll wurde anhand der M9-Daten
 vor den zusätzlichen Replaymessungen festgelegt.
 
-Die [abgeschlossene M10-Diagnose](../../Messungen/M10_EXPERIMENT.md) verwendet
+Die [abgeschlossene M10-Diagnose](../../Messungen/Berichte/M10_EXPERIMENT.md) verwendet
 alle 80 M9-Quellfälle und passive Kombinations-Replays auf denselben 20 Seeds.
 In 160/160 gekoppelten Aktionsproben ändern Core-Gewichte Eingänge und synchrone
 Potenziale, in 61/160 das Spikezählmuster und in 5/160 die feste Entscheidung.
@@ -78,14 +85,14 @@ Das lokalisiert begrenzte Übertragung an zwei Übergängen und bestätigt kein
 funktionales Lernen. Wirkungsspezifität und die Passung von Aktions- zu visuellen
 Zielmustern bleiben vor einer biologischen Erweiterung gezielt zu untersuchen.
 
-Die anschließende [M10-B-Diagnose](../../Messungen/M10B_EXPERIMENT.md) entfernt
+Die anschließende [M10-B-Diagnose](../../Messungen/Berichte/M10B_EXPERIMENT.md) entfernt
 einen gemeinsamen A-/D-Projektionsoffset rein für die Auswertung. Die Kombination
 erreicht dabei nur 42,5 % richtige Paar-Rangfolgen sofort und 45,0 % nach Ruhe.
 Eine reine Biaserklärung reicht nicht aus; die Wirkungsausrichtung der
 synaptischen Beiträge und ihrer Weiterverarbeitung bleibt zu lokalisieren.
 Die Paar-Rangfolge ist kein neuer unabhängiger Einzelvorhersage- oder Lernnachweis.
 
-Die [M10-C-Bilanz](../../Messungen/M10C_EXPERIMENT.md) zeigt anschließend
+Die [M10-C-Bilanz](../../Messungen/Berichte/M10C_EXPERIMENT.md) zeigt anschließend
 23/40 negative Eingangsprojektionen auf der festen neuronalen Auslesergewichtung
 je Zeitpunkt. Filterung und Spikebildung ändern nur wenige Vorzeichen; die
 Eingänge enthalten aber schon rekurrente Rückkopplung. Damit bleibt vor einer
@@ -93,7 +100,7 @@ neuen Lernregel ein kontrollierter Eingriff in rekurrente Beiträge identischer
 eingefrorener Checkpoints sinnvoll. Dies ist eine Diagnose derselben 20 Seeds
 und keine eigenständige Eingangs-/Potenzialklassifikation.
 
-Die [M10-D-Eingriffe](../../Messungen/M10D_EXPERIMENT.md) sind ebenfalls auf
+Die [M10-D-Eingriffe](../../Messungen/Berichte/M10D_EXPERIMENT.md) sind ebenfalls auf
 allen 20 bekannten Seeds abgeschlossen. Ohne rekurrente Hemmung verdoppelt sich
 die Aktivität ungefähr, ohne beidseitigen Vorhersagevorteil. Ohne Erregung
 verbleiben drei Spikes/Aktion und ebenfalls kein Vorhersagegewinn. Vor einer
@@ -101,7 +108,7 @@ neuen Lernregel kann ein gekreuzter Gewichtsreset-/Übertragungsversuch direkte
 Aktionsantwort und Beitrag gelernter Core-Gewichte weiter trennen. Die
 getrennten bisherigen Eingriffe belegen deren Wechselwirkung noch nicht.
 
-Die [M10-E-Kreuzung](../../Messungen/M10E_EXPERIMENT.md) ist auf allen 20
+Die [M10-E-Kreuzung](../../Messungen/Berichte/M10E_EXPERIMENT.md) ist auf allen 20
 bekannten Seeds abgeschlossen. Bei aktiver Rekurrenz verändert der Core-Reset
 61/160 gekoppelte Spikezählmuster und 5/160 Vorhersagen; ohne rekurrente Erregung
 verschwindet der Gewichtseinfluss. Ohne Hemmung wird er stärker, ohne beidseitigen

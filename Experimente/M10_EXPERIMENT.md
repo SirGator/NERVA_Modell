@@ -6,7 +6,7 @@ keine neue Bestätigung auf unbenutzten Seeds.** Es wird keine neue biologische
 Regel ergänzt und kein neuer Ausleser auf den Aktionslabels trainiert.
 
 **Status: alle 20 Replaydiagnosen abgeschlossen und auditiert.**
-[Ergebnisse](../../Messungen/M10_EXPERIMENT.md).
+[Ergebnisse](../../Messungen/Berichte/M10_EXPERIMENT.md).
 
 ## Fragestellung und festgelegter Umfang
 

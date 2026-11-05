@@ -1,0 +1,83 @@
+# Larger follow-up to the smoke experiment. All seeds are new to research/results.
+# The primary validation family receives alpha=.025; two preregistered
+# secondary contrasts share another .025 in preregistered-contrasts.json.
+[research]
+name = "m0_followup_20261105"
+scenario = "m0_selection"
+training_seeds = [700000001, 700104730, 700209459, 700314188, 700418917, 700523646, 700628375, 700733104]
+validation_seeds = [800000011, 800104740, 800209469, 800314198, 800418927, 800523656, 800628385, 800733114, 800837843, 800942572, 801047301, 801152030, 801256759, 801361488, 801466217, 801570946, 801675675, 801780404, 801885133, 801989862, 802094591, 802199320, 802304049, 802408778]
+design_seed = 20261105
+max_trials = 3000
+
+[base]
+training_repetitions = 24
+retention_delay_us = 200000
+"learning.a_plus" = 0.04
+"learning.a_minus" = 0.045
+"mechanisms.stdp" = true
+"mechanisms.homeostasis" = true
+
+[[studies]]
+id = "morris"
+method = "sensitivity"
+priority = 100
+[studies.options]
+trajectories = 6
+levels = 6
+metric = "retained_sequence_score"
+[[studies.options.axes]]
+name = "learning.a_plus"
+min = 0.02
+max = 0.06
+[[studies.options.axes]]
+name = "learning.a_minus"
+min = 0.025
+max = 0.065
+
+[[studies]]
+id = "learning_map"
+method = "phase_mapping"
+priority = 90
+[[studies.options.axes]]
+name = "learning.a_plus"
+values = [0.02, 0.0225, 0.025, 0.0275, 0.03, 0.035, 0.04, 0.05, 0.06]
+[[studies.options.axes]]
+name = "learning.a_minus"
+values = [0.025, 0.045, 0.065]
+
+[[studies]]
+id = "mechanisms"
+method = "causal"
+priority = 80
+
+[[studies]]
+id = "stress"
+method = "robustness"
+priority = 70
+[studies.options]
+metric = "retained_sequence_score"
+[[studies.options.axes]]
+name = "sensory_weight"
+values = [1.15, 1.25]
+[[studies.options.axes]]
+name = "retention_delay_us"
+values = [400000, 2000000]
+
+[[studies]]
+id = "diversity"
+method = "quality_diversity"
+priority = 60
+[studies.options]
+max_evaluations = 12
+[[studies.options.axes]]
+name = "learning.a_plus"
+values = [0.02, 0.025, 0.03, 0.035, 0.04, 0.05, 0.06]
+[[studies.options.axes]]
+name = "mechanisms.homeostasis"
+values = [false, true]
+
+[validation]
+bootstrap_samples = 4000
+alpha = 0.025
+min_quality_gain = 0.0
+max_resource_ratio = 1.25

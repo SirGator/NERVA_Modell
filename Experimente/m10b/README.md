@@ -3,7 +3,7 @@
 [Auswertungsdefinition](../M10B_EXPERIMENT.md). Reine Auswertung vorhandener
 M9-Daten; keine Simulation und kein neuer Ausleserfit.
 
-[Abgeschlossene Ergebnisse](../../../Messungen/M10B_EXPERIMENT.md): Die
+[Abgeschlossene Ergebnisse](../../../Messungen/Berichte/M10B_EXPERIMENT.md): Die
 Kombination erreicht diagnostisch 42,5 % richtige Paar-Rangfolgen sofort und
 45,0 % nach Ruhe. Dies ist keine neue Einzelvorhersageleistung.
 

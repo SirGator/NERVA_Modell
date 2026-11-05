@@ -77,12 +77,12 @@ Auswertung. Lokale Lernregeln kommen weiterhin aus `NERVA/`.
 | M6: Kombination, unmittelbare Probe; Seeds 300–309 und separate Core-Kontrolle 400–409 | [M6_EXPERIMENT.md](M6_EXPERIMENT.md) |
 | M7: Belegungsabhängige Gewichtsänderungen und ihre Wirkung; bestehende Seeds 400–409 | [M7_EXPERIMENT.md](M7_EXPERIMENT.md) |
 | M8: Rekurrente Weiterleitung und stärkere Zuordnung; 13 Bedingungen, neue Seeds 510–519 | [M8_EXPERIMENT.md](M8_EXPERIMENT.md) |
-| M9-v2: Kombination und Gewichtskausalität; 20 neue Bestätigungsseeds, kein funktionaler Lernnachweis | [Ergebnisse](../../Messungen/M9_EXPERIMENT.md) · [Versuchsplan](M9_EXPERIMENT.md) |
-| M10: Elektrisch wirksame Gewichte, selten geänderte Ausleserentscheidung; retrospektive Ursachenanalyse | [Ergebnisse](../../Messungen/M10_EXPERIMENT.md) · [Diagnoseplan](M10_EXPERIMENT.md) |
-| M10-E: Core-Gewichtsbeitrag und Rekurrenz gekreuzt, identische Zustände vor der Aktion | [Ergebnisse](../../Messungen/M10E_EXPERIMENT.md) · [Definition](M10E_EXPERIMENT.md) |
-| M10-D: Rekurrente Erregung und Hemmung getrennt blockiert; feste Checkpoints und Ausleser | [Ergebnisse](../../Messungen/M10D_EXPERIMENT.md) · [Definition](M10D_EXPERIMENT.md) |
-| M10-C: Unpassende Ausrichtung bereits in der Eingangsbilanz; 1.920 rekonstruierte Aktionsfenster | [Ergebnisse](../../Messungen/M10C_EXPERIMENT.md) · [Definition](M10C_EXPERIMENT.md) |
-| M10-B: Gemeinsamer Offset erklärt die Fehler nicht allein; diagnostische Paar-Rangfolge 42,5/45,0 % | [Ergebnisse](../../Messungen/M10B_EXPERIMENT.md) · [Definition](M10B_EXPERIMENT.md) |
+| M9-v2: Kombination und Gewichtskausalität; 20 neue Bestätigungsseeds, kein funktionaler Lernnachweis | [Ergebnisse](../../Messungen/Berichte/M9_EXPERIMENT.md) · [Versuchsplan](M9_EXPERIMENT.md) |
+| M10: Elektrisch wirksame Gewichte, selten geänderte Ausleserentscheidung; retrospektive Ursachenanalyse | [Ergebnisse](../../Messungen/Berichte/M10_EXPERIMENT.md) · [Diagnoseplan](M10_EXPERIMENT.md) |
+| M10-E: Core-Gewichtsbeitrag und Rekurrenz gekreuzt, identische Zustände vor der Aktion | [Ergebnisse](../../Messungen/Berichte/M10E_EXPERIMENT.md) · [Definition](M10E_EXPERIMENT.md) |
+| M10-D: Rekurrente Erregung und Hemmung getrennt blockiert; feste Checkpoints und Ausleser | [Ergebnisse](../../Messungen/Berichte/M10D_EXPERIMENT.md) · [Definition](M10D_EXPERIMENT.md) |
+| M10-C: Unpassende Ausrichtung bereits in der Eingangsbilanz; 1.920 rekonstruierte Aktionsfenster | [Ergebnisse](../../Messungen/Berichte/M10C_EXPERIMENT.md) · [Definition](M10C_EXPERIMENT.md) |
+| M10-B: Gemeinsamer Offset erklärt die Fehler nicht allein; diagnostische Paar-Rangfolge 42,5/45,0 % | [Ergebnisse](../../Messungen/Berichte/M10B_EXPERIMENT.md) · [Definition](M10B_EXPERIMENT.md) |
 | Serielle Zuordnung | [SERIAL_MODEL.md](SERIAL_MODEL.md) |
 
 Die bisherigen kontrollierten Messreihen liefern keinen belastbaren Nachweis

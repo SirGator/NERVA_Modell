@@ -5,7 +5,7 @@ Ausführung dieser Zusatzdiagnose. **Retrospektive explorative Auswertung der
 vorhandenen Daten, keine neue unabhängige Bestätigung.**
 
 **Status: vollständig ausgewertet und auditiert.**
-[Ergebnisse](../../Messungen/M10B_EXPERIMENT.md).
+[Ergebnisse](../../Messungen/Berichte/M10B_EXPERIMENT.md).
 
 M10 zeigt, dass A und D neuronal verschieden aktiv sind, aber häufig derselben
 visuellen Klasse zugeordnet werden. M10-B trennt zwei Möglichkeiten: Die

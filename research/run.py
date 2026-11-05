@@ -78,7 +78,8 @@ def catalog(root, binary):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("mode", choices=["plan", "run", "report", "list", "select-plan", "select", "selection-report",
-                                         "research-plan", "research", "research-report"])
+                                         "research-plan", "research", "research-report",
+                                         "diagnose-plan", "diagnose", "diagnosis-report"])
     parser.add_argument("config", type=Path, nargs="?")
     parser.add_argument("--output", type=Path)
     parser.add_argument("--binary", type=Path, help="Use an explicitly supplied research binary instead of building")
@@ -87,17 +88,28 @@ def main():
     if args.mode == "list" and (args.config is not None or args.output is not None):parser.error("list accepts no config/output")
     selection_mode = args.mode in ["select-plan", "select", "selection-report"]
     research_mode = args.mode in ["research-plan", "research", "research-report"]
+    diagnosis_mode = args.mode in ["diagnose-plan", "diagnose", "diagnosis-report"]
     if args.mode != "list":
         source_text = args.config.read_text(encoding="utf-8")
         spec = tomllib.loads(source_text)
         payload = json.dumps(spec, allow_nan=False)
         # Rust validates identifiers and all variants before creating the directory.
-        experiment = spec.get("research" if research_mode else "selection" if selection_mode else "experiment", {})
+        experiment = spec.get("diagnosis" if diagnosis_mode else "research" if research_mode else "selection" if selection_mode else "experiment", {})
         default_name = experiment.get("name", "unnamed") if isinstance(experiment, dict) else "unnamed"
         output = args.output or HERE/"results"/str(default_name)
         archived = output/"source.toml"
         if archived.exists() and tomllib.loads(archived.read_text()) != spec:
             raise ValueError("archived TOML differs from the requested input")
+    if diagnosis_mode:
+        from diagnostics.spec import DiagnosisSpec
+        from diagnostics import runner
+        diagnosis_spec = DiagnosisSpec(spec, args.config.resolve().parent)
+        if args.mode == "diagnose-plan":
+            print(json.dumps(runner.plan(diagnosis_spec, output, source_text), indent=2, sort_keys=True))
+        else:
+            runner.run(diagnosis_spec, output, source_text, args.mode == "diagnosis-report")
+            print("DIAGNOSIS", output/"diagnosis-summary.md", "new_neural_trials=0")
+        return
     if selection_mode:
         from evolution.spec import SelectionSpec
         selection_spec = SelectionSpec(spec)
@@ -150,6 +162,18 @@ def main():
     else:atomic_text(source_path, source_text)
     if args.mode != "plan":
         catalog(output, binary)
+        if spec.get("experiment", {}).get("scenario") == "continual_sequences":
+            from dataclasses import asdict
+            from analysis.continual_learning import ContinualLearning
+            from evolution import history
+            native_manifest = json.loads((output/"manifest.json").read_bytes())
+            records = [json.loads((output/"records"/f"{job['id']}.json").read_bytes())["record"] for job in native_manifest["jobs"]]
+            assessment = asdict(ContinualLearning().analyze(records))
+            sources = [HERE/"analysis/continual_learning.py", HERE/"analysis/bottleneck_diagnostics.py"]
+            history.immutable(output/"continual-analysis-protocol.json", dict(
+                sources={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sources},
+                native_manifest_sha256=hashlib.sha256((output/"manifest.json").read_bytes()).hexdigest()))
+            history.immutable(output/"continual-analysis.json", assessment)
         print("DATABASE", output/"results.sqlite")
     else:print("MANIFEST", output/"manifest.json")
 

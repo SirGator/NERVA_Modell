@@ -6,7 +6,7 @@ Die [ursprüngliche v1-Planung](M9_V1_EXPERIMENT.md), ihre Manifeste und ihr
 technischer Kurzlauf bleiben erhalten; die wissenschaftlichen v1-Reihen wurden
 nicht gestartet.
 **Status: Pilot und Bestätigung auf 20 neuen Seeds abgeschlossen. Kein
-funktionaler Lernnachweis.** [Ergebnisse und Grenzen](../../Messungen/M9_EXPERIMENT.md).
+funktionaler Lernnachweis.** [Ergebnisse und Grenzen](../../Messungen/Berichte/M9_EXPERIMENT.md).
 Der folgende Versuchsplan wurde vor den wissenschaftlichen Reihen festgelegt;
 die gespeicherten Manifeste blieben unverändert.
 

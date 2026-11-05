@@ -5,6 +5,17 @@ Kontrollgruppen und reproduzierbare Ergebnisse. Der allgemeine Rust-Runner
 kennt keine M0-Neuronen, Abläufe oder Erfolgskriterien. Der erste produktive
 Szenarioadapter nutzt die vorhandene M0-Sequenz unverändert.
 
+**Aktuelle Priorität: [Diagnose vor Optimierung](DIAGNOSTICS.md).** Ein externer
+Decoder untersucht vorhandene M9-Daten auf Lerninformation und Auslesbarkeit.
+Ein kleiner A/B-Adapter prüft Akquisition und Musterüberlagerung bei
+fortlaufender Plastizität. Der Controller grenzt Verdachtsmomente ein und
+priorisiert gezielte Folgeversuche.
+
+```bash
+./NERVA_Modell/research/run.sh diagnose NERVA_Modell/research/config/diagnosis_m9.toml
+./NERVA_Modell/research/run.sh run NERVA_Modell/research/config/diagnostic_continual_smoke.toml
+```
+
 Die [externe Selektion](SELECTION.md) ergänzt jetzt reproduzierbare Generationen,
 begrenzte S1/S2-Mutationen, harte Mindestanforderungen, Pareto-Eliten und eine
 getrennte Abschlussvalidierung. Sie verwendet einen eigenen kontrollierten
@@ -194,6 +205,8 @@ ohne SQLite-Integerüberlauf erhalten bleiben.
 - `scenarios/m0.rs`: Konfiguration, vier native Eingriffe, Metriken und M0-Kriterium.
 - `main.rs`: explizite Adapterregistrierung und JSON-CLI.
 - `scenarios/m0_selection.rs`: kontrollierte Mechanismen und verzögerte Endpunkte.
+- `scenarios/continual.rs`: A/B-Akquisition mit plastischen Lernphasen und eingefrorenen Proben.
+- `diagnostics/`, `analysis/diagnostic_decoder.py`, `analysis/bottleneck_diagnostics.py`: externe Decoder, Kontrollgates und Fehlerhypothesen ([Details](DIAGNOSTICS.md)).
 - `evolution/`: Population, Mutation, Auswahl, Bewertung, Generationen und Historie.
 - `analysis/`, `planning/`, `research_memory/`, `harness.py`: gemeinsame Forschungspläne,
   Analysen, MAP-Elites, Scheduler und regelbasierte Folgeversuche ([Details](HARNESS.md)).

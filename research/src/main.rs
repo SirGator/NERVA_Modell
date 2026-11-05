@@ -3,6 +3,7 @@ use nerva_research::{
     Result, error,
     runner::ResearchRunner,
     scenarios::{
+        continual::ContinualScenario,
         m0::{M0Scenario, parameter_names},
         m0_selection::{M0SelectionScenario, selection_parameter_names},
     },
@@ -36,7 +37,9 @@ fn execute() -> Result<()> {
                 "metrics":M0Scenario.metric_names(),
                 "interventions":M0Scenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
                 {"name":"m0_selection","parameters":selection_parameter_names(),"metrics":M0SelectionScenario.metric_names(),
-                "interventions":M0SelectionScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()}]})
+                "interventions":M0SelectionScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
+                {"name":"continual_sequences","parameters":["training_repetitions","symbol_interval_us","learning.a_plus","learning.a_minus"],
+                "metrics":ContinualScenario.metric_names(),"interventions":ContinualScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()}]})
         );
         return Ok(());
     }
@@ -76,6 +79,7 @@ fn execute() -> Result<()> {
     match spec.scenario.as_str() {
         "m0_sequence" => dispatch(M0Scenario, &mode, &spec, output),
         "m0_selection" => dispatch(M0SelectionScenario, &mode, &spec, output),
+        "continual_sequences" => dispatch(ContinualScenario, &mode, &spec, output),
         _ => Err(error(format!("unregistered scenario: {}", spec.scenario))),
     }
 }

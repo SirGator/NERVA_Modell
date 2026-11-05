@@ -3,7 +3,7 @@
 [Vorab festgelegter Versuchsplan](../M9_EXPERIMENT.md): 2×2 aus Core-Gewichten
 ×1/×4 und STDP-Zeitkonstanten 20/100 ms. Pilot und Bestätigung auf 20 neuen
 Seeds sind abgeschlossen: **kein funktionaler Lernnachweis**.
-[Wissenschaftlicher Bericht](../../../Messungen/M9_EXPERIMENT.md).
+[Wissenschaftlicher Bericht](../../../Messungen/Berichte/M9_EXPERIMENT.md).
 Der Runner benötigt keine VM.
 
 Vom Projektverzeichnis `DSVLM`:

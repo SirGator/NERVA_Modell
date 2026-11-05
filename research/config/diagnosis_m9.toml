@@ -1,0 +1,14 @@
+# Retrospective diagnostic pilot on existing M9 data, not fresh confirmation.
+# Split entire seeds; include both mappings, arms and endpoints in each split.
+[diagnosis]
+name = "m9_representation_diagnosis"
+stage = "retrospective_pilot"
+archive = "../../../Messungen/Experimente/m9-v2-confirm"
+case = "weight4_tau100"
+training_seeds = [610, 611, 612, 613, 614, 615, 616, 617, 618, 619]
+test_seeds = [620, 621, 622, 623, 624, 625, 626, 627, 628, 629]
+ridge = 1.0
+time_bins = 5
+max_records = 640
+max_features = 160
+max_new_trials = 0

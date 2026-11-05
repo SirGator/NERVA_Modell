@@ -25,6 +25,19 @@ class DashboardTests(unittest.TestCase):
         runs=self.ds.runs();self.assertEqual(runs[0]['seeds'],[510,511]);self.assertEqual(runs[0]['conditions'],1)
         detail=self.ds.detail('Experimente/m8-confirm');self.assertEqual(detail['tables'][0]['rows'][0]['checkpoint_probe'],'0.5')
         self.assertEqual(detail['tables'][0]['rows'][0]['checkpoint_probe_confirmed'],'False')
+    def test_documents_include_organized_folders_without_duplicate_legacy_links(self):
+        for bucket in ('Dokumentation','Berichte','Darstellung'):
+            folder=self.root/bucket;folder.mkdir();(folder/'guide.md').write_text('# Guide\n')
+        (self.root/'legacy.md').symlink_to('Berichte/guide.md')
+        paths={d['path'] for d in self.ds.documents()}
+        self.assertEqual(paths,{'README.md','Dokumentation/guide.md','Berichte/guide.md','Darstellung/guide.md'})
+        preview=self.ds.preview('legacy.md')
+        self.assertEqual(preview['path'],'Berichte/guide.md')
+        self.assertEqual(preview['kind'],'markdown')
+    def test_catalog_distinguishes_unexecuted_plans_from_confirmation_runs(self):
+        folder=self.root/'Dokumentation';folder.mkdir()
+        (folder/'MESSREIHEN.json').write_text(json.dumps({'runs':[{'id':'Experimente/m8-confirm','kind':'Planungsstand'}]}))
+        self.assertEqual(self.ds.runs()[0]['kind'],'Planungsstand')
     def test_paged_csv_and_filtered_continuation_do_not_drop_rows(self):
         p=self.run/'rows.csv';first=server.csv_preview(p);second=server.csv_preview(p,first['next_offset']);third=server.csv_preview(p,second['next_offset'])
         all_rows=first['rows']+second['rows']+third['rows'];self.assertEqual([int(r['step']) for r in all_rows],list(range(240)))

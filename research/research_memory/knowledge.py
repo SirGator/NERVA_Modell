@@ -31,7 +31,12 @@ def hypotheses(reports, final):
 
 
 def followups(reports):
-    suggestions = []
+    suggestions = [
+        dict(source='research_strategy',method='diagnostic_decoder',track='A',priority=200,
+             config='config/diagnosis_m9.toml',reason='Diagnose the unresolved M9 representation/readout bottleneck before further M0 optimization'),
+        dict(source='research_strategy',method='continual_sequences',track='B',priority=190,
+             config='config/diagnostic_continual_smoke.toml',reason='Check acquisition and pattern overlap in a small controlled continual-learning assay'),
+    ]
     for study, report in reports.items():
         findings = report["findings"]
         if report["method"] == "sensitivity":
