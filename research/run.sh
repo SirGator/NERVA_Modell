@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 research_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+if [[ "${1:-}" == localize-homeostasis ]]; then
+    shift
+    exec python3 "$research_dir/localize_homeostasis.py" "$@"
+fi
+if [[ "${1:-}" == confirm-homeostasis ]]; then
+    shift
+    exec python3 "$research_dir/confirm_homeostasis.py" "$@"
+fi
 exec python3 "$research_dir/run.py" "$@"

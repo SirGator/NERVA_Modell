@@ -1,0 +1,33 @@
+# Fixed population-localization protocol, fresh paired seeds, no selection.
+[experiment]
+name = "homeostasis_populations_20261106"
+scenario = "sensorimotor_size"
+seeds = [1610000001, 1610104730, 1610209459, 1610314188, 1610418917, 1610523646, 1610628375, 1610733104, 1610837833, 1610942562, 1611047291, 1611152020, 1611256749, 1611361478, 1611466207, 1611570936, 1611675665, 1611780394, 1611885123, 1611989852, 1612094581, 1612199310, 1612304039, 1612408768]
+interventions = ["active", "active_frozen", "passive", "passive_frozen", "decoupled", "decoupled_frozen"]
+verify_replay = true
+max_runs = 2304
+
+[base]
+train_trials = 8
+test_trials = 8
+action_delay_us = 20000
+max_observed_events = 10000000
+max_total_neurons = 100000
+"mechanisms.development" = false
+
+[[parameters]]
+name = "processing_neurons"
+values = [17, 256, 1025, 4096]
+
+[[parameters]]
+name = "homeostasis.scope"
+values = ["off", "core", "core_sensor", "all"]
+
+[measurements]
+metrics = ["visual_accuracy", "position_mae", "prediction_accuracy", "core_rate_hz",
+    "observed_events", "initial_synapses", "final_synapses", "weight_updates",
+    "homeostasis_updates", "formed", "pruned", "parameters_preserved",
+    "sensor_rate_hz", "root_sensor_rate_hz", "training_sensor_rate_hz", "training_core_rate_hz",
+    "measurement_sensor_rate_hz", "measurement_core_rate_hz",
+    "sensor_intrinsic_current", "core_intrinsic_current", "motor_intrinsic_current", "copy_intrinsic_current",
+    "sensor_homeostasis_updates", "core_homeostasis_updates", "motor_homeostasis_updates", "copy_homeostasis_updates"]

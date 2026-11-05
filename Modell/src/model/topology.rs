@@ -147,12 +147,17 @@ pub(crate) fn build(config: &ModelConfig, sensor: &SensorConfig) -> Result<Topol
         }
     }
     let processing: Vec<_> = (sensors..motors).map(NeuronId).collect();
+    let index = spatial::SpatialIndex::new(
+        processing
+            .iter()
+            .map(|&id| (id, network.neuron(id).expect("processing cell").position())),
+    );
     let mut next_id = 0;
     // Four sparse local visual projections per input; no direct sensor→motor shortcut.
     for sensor in 0..sensors {
         let position = network.neuron(NeuronId(sensor)).expect("sensor").position();
         let mut nearby = processing.clone();
-        nearby.sort_by(|a, b| {
+        let by_distance = |a: &NeuronId, b: &NeuronId| {
             network
                 .neuron(*a)
                 .unwrap()
@@ -160,7 +165,12 @@ pub(crate) fn build(config: &ModelConfig, sensor: &SensorConfig) -> Result<Topol
                 .distance_to(position)
                 .total_cmp(&network.neuron(*b).unwrap().position().distance_to(position))
                 .then(a.cmp(b))
-        });
+        };
+        if nearby.len() > 24 {
+            nearby.select_nth_unstable_by(24, by_distance);
+            nearby.truncate(24);
+        }
+        nearby.sort_by(by_distance);
         nearby.truncate(24.min(nearby.len()));
         shuffle(&mut nearby, &mut rng);
         for &target in nearby.iter().take(4) {
@@ -179,14 +189,8 @@ pub(crate) fn build(config: &ModelConfig, sensor: &SensorConfig) -> Result<Topol
     // At most four initial recurrent edges per cell, selected locally at random.
     for &source in &processing {
         let pos = network.neuron(source).unwrap().position();
-        let mut nearby: Vec<_> = processing
-            .iter()
-            .copied()
-            .filter(|target| {
-                *target != source
-                    && network.neuron(*target).unwrap().position().distance_to(pos) <= 0.25
-            })
-            .collect();
+        let mut nearby = index.within(pos, 0.25);
+        nearby.retain(|&target| target != source);
         shuffle(&mut nearby, &mut rng);
         for &target in nearby.iter().take(4) {
             let weight = 0.18 + (next_random(&mut rng) % 10_000) as f32 * 0.00001;
@@ -300,9 +304,9 @@ pub(crate) fn build(config: &ModelConfig, sensor: &SensorConfig) -> Result<Topol
         let mut extra_rng = config.seed ^ 0xa68b712e5c934df0;
         for &source in &processing {
             let position = network.neuron(source).unwrap().position();
-            let mut nearby: Vec<_> = processing
-                .iter()
-                .copied()
+            let mut nearby: Vec<_> = index
+                .within(position, 0.25)
+                .into_iter()
                 .filter(|&target| {
                     target != source
                         && network

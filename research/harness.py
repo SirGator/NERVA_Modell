@@ -5,9 +5,10 @@ from dataclasses import asdict
 import fcntl
 import html
 import io
-from evolution import evaluator, history
+from evolution import history
 from evolution.spec import require
 from planning.scheduler import prepare
+from planning.profiles import profile
 from research_memory import knowledge
 
 
@@ -37,6 +38,7 @@ def plan(spec, root, backend, source_text):
 
 
 def run(spec, root, backend, source_text, report_only=False):
+    p = profile(spec.scenario)
     manifest, methods = prepare(spec, backend)
     with output(root, manifest, report_only):
         if report_only:
@@ -49,7 +51,7 @@ def run(spec, root, backend, source_text, report_only=False):
         def evaluate(candidate):
             cid = candidate["id"]
             if cid not in results:
-                cost = (len(results)+1)*len(spec.training)*4+manifest["reserved_validation_trials"]
+                cost = (len(results)+1)*len(spec.training)*len(p.groups)+manifest["reserved_validation_trials"]
                 require(cost <= spec.max_trials, "research trial budget exhausted")
                 result = backend.evaluate(candidate, spec.training, root/"training"/cid,
                                           "train", spec.requirements, report_only)
@@ -108,12 +110,12 @@ def run(spec, root, backend, source_text, report_only=False):
                     history.immutable(root/"validation-evaluations"/f"{cid}.json", result)
                     by_id[cid] = result
                 final[role] = dict(id=cid, evaluation=by_id[cid]["evaluation"])
-            decision = evaluator.validate(final["candidate"]["evaluation"], final["baseline"]["evaluation"], spec.validation_policy)
+            decision = p.validate(final["candidate"]["evaluation"], final["baseline"]["evaluation"], spec.validation_policy)
             final.update(validation_status="completed", decision=decision,
                          held_out_quality_improved=decision["held_out_quality_improved"])
         history.immutable(root/"final-result.json", final)
-        entries = knowledge.hypotheses(reports, final)
-        suggestions = knowledge.followups(reports)
+        entries = knowledge.hypotheses(reports, final, spec.scenario)
+        suggestions = knowledge.followups(reports, spec.scenario)
         history.immutable(root/"knowledge.json", entries)
         history.immutable(root/"next-experiments.json", suggestions)
         knowledge.catalog(root, manifest, results, reports, entries, final)
@@ -122,7 +124,7 @@ def run(spec, root, backend, source_text, report_only=False):
         for study in manifest["studies"]:
             lines.append(f"| {study['id']} | {study['plan']['method']} | {'explorativ' if study['scheduled'] else 'Budget: zurückgestellt'} |")
         lines += ["", f"Abschlussvalidierung: {final['validation_status']}; Qualitätsverbesserung: {final['held_out_quality_improved']}.", "",
-                  "Ein eingefrorener Finalist gegen Baseline auf getrennten Seeds derselben M0-Aufgabe. Die Abschlussvalidierung bestätigt keine Morris-Rangfolge, Phasengrenze oder Mechanismushypothese.", "",
+                  f"Ein eingefrorener Finalist gegen Baseline auf getrennten Seeds desselben Szenarios ({p.scope}). Die Abschlussvalidierung bestätigt keine weiteren explorativen Kontraste oder Mechanismushypothesen.", "",
                   "Rohdaten und Einzelkataloge: training/ und validation/. Analysen: reports/. Verhaltenskarten: maps/. Abfragbare Forschungshistorie: research.sqlite.", "",
                   "next-experiments.json enthält regelbasierte Vorschläge. Sie werden nicht automatisch ausgeführt; weitere Bestätigungen benötigen neue, unbenutzte Seeds.", ""]
         history.atomic(root/"research-summary.md", "\n".join(lines).encode())

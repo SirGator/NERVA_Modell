@@ -18,14 +18,22 @@ fn main() {
     println!("cargo:rerun-if-changed=src");
     println!("cargo:rerun-if-changed=build.rs");
     println!("cargo:rerun-if-changed=Cargo.lock");
+    println!("cargo:rerun-if-changed=../Modell/src");
+    println!("cargo:rerun-if-changed=../Modell/Cargo.toml");
+    println!("cargo:rerun-if-changed=../nerva-qemu/src");
+    println!("cargo:rerun-if-changed=../nerva-qemu/Cargo.toml");
     let mut paths = vec![
         PathBuf::from("Cargo.toml"),
         PathBuf::from("Cargo.lock"),
         PathBuf::from("../../NERVA/Cargo.toml"),
         PathBuf::from("build.rs"),
+        PathBuf::from("../Modell/Cargo.toml"),
+        PathBuf::from("../nerva-qemu/Cargo.toml"),
     ];
     collect(Path::new("../../NERVA/src"), &mut paths);
     collect(Path::new("src"), &mut paths);
+    collect(Path::new("../Modell/src"), &mut paths);
+    collect(Path::new("../nerva-qemu/src"), &mut paths);
     paths.sort();
     let mut hash = 0xcbf29ce484222325_u64;
     for path in paths {

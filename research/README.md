@@ -1,5 +1,40 @@
 # NERVA Research
 
+Die [geordnete Dokumentation](dokumentation/README.md) führt zu Forschungs-Harness,
+Diagnose und den einzelnen Versuchsreihen.
+
+Der [Codeabgleich zur nächsten Forschungsphase](NEXT_PHASE.md) dokumentiert
+vorhandene Mechanismen, fehlende Größen-/Umweltadapter und die Umsetzungsschritte.
+Eine feste Referenz mit unveränderten nativen M0-Defaults lässt sich mit
+`python3 NERVA_Modell/research/baseline.py run --output /tmp/nerva-m0-referenz` messen.
+[Messbericht, archivierter Programmstand und Prüfaufruf](PHASE1_BASELINE.md).
+
+Der [sensomotorische Größen-/Umweltadapter](SENSORIMOTOR.md) vergleicht jetzt
+256 und 1.024 Verarbeitungsneuronen mit aktiver, passiver und entkoppelter
+Rückkopplung, jeweils mit und ohne Plastizität. Er nutzt das bestehende Modell
+und eine persistente Bewegungswelt; die lokalen Lernregeln bleiben unverändert.
+
+```bash
+./NERVA_Modell/research/run.sh research NERVA_Modell/research/config/sensorimotor_sizes.toml
+```
+
+[Erster Messbericht](SENSORIMOTOR_RESULTS_20261105.md). Das kleine Protokoll ist
+ein technischer Größenvergleich und liefert keinen neuen Fähigkeitsnachweis.
+
+[Frei skalierbare Größen und Diagnoseprüfungen](SCALING.md): positive ganzzahlige
+Core-Größen statt der alten 16–1.024-Grenze, explizite Ressourcenbudgets und ein
+identischer 2×2-Vergleich von Strukturentwicklung/Homöostase je Größe.
+Startkonfiguration: [plasticity_diagnosis.toml](config/plasticity_diagnosis.toml).
+
+Der [vorregistrierte Homöostasevergleich](HOMEOSTASIS_CONFIRMATION.md) prüft den
+beobachteten Ausleseeffekt auf 24 neuen gepaarten Seeds mit deaktivierter
+Strukturentwicklung. Einstieg: `./NERVA_Modell/research/run.sh confirm-homeostasis plan|run|report`.
+
+Die [Lokalisierung nach Zellpopulation](HOMEOSTASIS_POPULATIONS.md) ergänzt
+`homeostasis.scope = "off"|"core"|"core_sensor"|"all"` sowie getrennte
+Sensor-Spikeraten und intrinsische Stromdiagnostik. Einstieg:
+`./NERVA_Modell/research/run.sh localize-homeostasis plan|run|report`.
+
 Eigenständige Forschungsanwendung für konfigurierbare Parameterraster, Seeds,
 Kontrollgruppen und reproduzierbare Ergebnisse. Der allgemeine Rust-Runner
 kennt keine M0-Neuronen, Abläufe oder Erfolgskriterien. Der erste produktive
@@ -32,7 +67,8 @@ denselben Runner und getrennte Bestätigungsseeds:
 ```
 
 Stand 28.10.2026. Voraussetzung: aktuelles Rust/Cargo und Python **3.11+**.
-Rust verwendet NERVA und `serde_json`; TOML und SQLite kommen aus der Python-
+Rust verwendet NERVA, das bestehende Modell mit QEMU-Adapterbibliothek und
+`serde_json`; TOML und SQLite kommen aus der Python-
 Standardbibliothek. Die Builds laufen mit `--offline`. Die benötigten Cargo-
 Pakete müssen wie bei den bestehenden Anwendungen lokal verfügbar sein.
 NERVA selbst erhält keine neuen Bibliotheksabhängigkeiten.
@@ -206,6 +242,8 @@ ohne SQLite-Integerüberlauf erhalten bleiben.
 - `main.rs`: explizite Adapterregistrierung und JSON-CLI.
 - `scenarios/m0_selection.rs`: kontrollierte Mechanismen und verzögerte Endpunkte.
 - `scenarios/continual.rs`: A/B-Akquisition mit plastischen Lernphasen und eingefrorenen Proben.
+- `scenarios/sensorimotor.rs`: Größen-/Rückkopplungsassay mit bestehendem Modell und persistenter Bewegungswelt.
+- `planning/profiles.py`, `analysis/size_environment.py`: szenariospezifische Kontroll-/Bewertungsverträge und gepaarte Größenvergleiche.
 - `diagnostics/`, `analysis/diagnostic_decoder.py`, `analysis/bottleneck_diagnostics.py`: externe Decoder, Kontrollgates und Fehlerhypothesen ([Details](DIAGNOSTICS.md)).
 - `evolution/`: Population, Mutation, Auswahl, Bewertung, Generationen und Historie.
 - `analysis/`, `planning/`, `research_memory/`, `harness.py`: gemeinsame Forschungspläne,

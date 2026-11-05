@@ -1,0 +1,36 @@
+# The same 2x2 diagnosis at every requested processing-neuron count.
+# Any positive integer is allowed, subject to the explicit resource budgets.
+[research]
+name = "plasticity_scaling_20261105"
+scenario = "sensorimotor_size"
+training_seeds = [1310000001, 1310104730]
+validation_seeds = [1320000011, 1320104740]
+design_seed = 20261105
+max_trials = 216
+
+[base]
+processing_neurons = 17
+train_trials = 4
+test_trials = 4
+action_delay_us = 20000
+max_observed_events = 10000000
+max_total_neurons = 100000
+
+[[studies]]
+id = "plasticity_by_size"
+method = "plasticity_diagnostics"
+priority = 100
+[studies.options]
+sizes = [17, 256, 1025, 4096]
+
+[requirements]
+max_core_rate_hz = 200.0
+max_observed_events = 10000000
+max_synapses = 1000000
+min_visual_accuracy = 0.5
+
+[validation]
+bootstrap_samples = 1000
+alpha = 0.05
+min_quality_gain = 0.0
+max_resource_ratio = 1.25

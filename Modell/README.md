@@ -107,3 +107,11 @@ Gewichtseingriff bei eingefrorenen Regeln und die vorhandene Zustandsprüfung be
 Das Modell stellt dafür Parameter für Core-Gewichte, Core-Schwelle, lokale
 Verbindungsdichte, Core-Verzögerung, bestehende STDP-Zeitskalen und visuelle
 Eingangsgewichte bereit. Sämtliche bisherigen Standardwerte bleiben erhalten.
+
+## Skalierbare Verarbeitungsnetze
+
+`processing_neurons` akzeptiert positive ganzzahlige Größen. Für reproduzierbare
+Größenvergleiche und den identischen Strukturentwicklungs-/Homöostasetest je
+Größe siehe [Research: Skalierung und Diagnose](../research/SCALING.md).
+Der Research-Adapter prüft zusätzlich explizite Neuronen-/Ereignisbudgets vor
+beziehungsweise während der Ausführung.

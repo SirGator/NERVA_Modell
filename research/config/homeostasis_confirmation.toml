@@ -1,0 +1,29 @@
+# Preregister before running. All seeds are new, not a finalist search.
+[experiment]
+name = "homeostasis_confirmation_20261105"
+scenario = "sensorimotor_size"
+seeds = [1510000001, 1510104730, 1510209459, 1510314188, 1510418917, 1510523646, 1510628375, 1510733104, 1510837833, 1510942562, 1511047291, 1511152020, 1511256749, 1511361478, 1511466207, 1511570936, 1511675665, 1511780394, 1511885123, 1511989852, 1512094581, 1512199310, 1512304039, 1512408768]
+interventions = ["active", "active_frozen", "passive", "passive_frozen", "decoupled", "decoupled_frozen"]
+verify_replay = true
+max_runs = 1152
+
+[base]
+train_trials = 8
+test_trials = 8
+action_delay_us = 20000
+max_observed_events = 10000000
+max_total_neurons = 100000
+"mechanisms.development" = false
+
+[[parameters]]
+name = "processing_neurons"
+values = [17, 256, 1025, 4096]
+
+[[parameters]]
+name = "mechanisms.homeostasis"
+values = [false, true]
+
+[measurements]
+metrics = ["visual_accuracy", "position_mae", "prediction_accuracy", "core_rate_hz",
+    "observed_events", "initial_synapses", "final_synapses", "weight_updates",
+    "homeostasis_updates", "formed", "pruned", "parameters_preserved"]

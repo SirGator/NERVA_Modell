@@ -1,0 +1,34 @@
+# Technical size/feedback screening; these sample counts cannot establish cognition.
+[research]
+name = "sensorimotor_sizes_20261105"
+scenario = "sensorimotor_size"
+training_seeds = [1210000001, 1210104730]
+validation_seeds = [1220000011, 1220104740]
+design_seed = 20261105
+max_trials = 48
+
+[base]
+processing_neurons = 256
+train_trials = 8
+test_trials = 8
+action_delay_us = 20000
+max_observed_events = 2000000
+
+[[studies]]
+id = "sizes_and_feedback"
+method = "size_environment"
+priority = 100
+[studies.options]
+sizes = [256, 1024]
+
+[requirements]
+max_core_rate_hz = 200.0
+max_observed_events = 2000000
+max_synapses = 40000
+min_visual_accuracy = 0.5
+
+[validation]
+bootstrap_samples = 1000
+alpha = 0.05
+min_quality_gain = 0.0
+max_resource_ratio = 1.25

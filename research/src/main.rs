@@ -6,6 +6,7 @@ use nerva_research::{
         continual::ContinualScenario,
         m0::{M0Scenario, parameter_names},
         m0_selection::{M0SelectionScenario, selection_parameter_names},
+        sensorimotor::{PARAMETERS as SENSORIMOTOR_PARAMETERS, SensorimotorScenario},
     },
     spec::ExperimentSpec,
 };
@@ -39,7 +40,9 @@ fn execute() -> Result<()> {
                 {"name":"m0_selection","parameters":selection_parameter_names(),"metrics":M0SelectionScenario.metric_names(),
                 "interventions":M0SelectionScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
                 {"name":"continual_sequences","parameters":["training_repetitions","symbol_interval_us","learning.a_plus","learning.a_minus"],
-                "metrics":ContinualScenario.metric_names(),"interventions":ContinualScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()}]})
+                "metrics":ContinualScenario.metric_names(),"interventions":ContinualScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
+                {"name":"sensorimotor_size","parameters":SENSORIMOTOR_PARAMETERS,"metrics":SensorimotorScenario.metric_names(),
+                "interventions":SensorimotorScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()}]})
         );
         return Ok(());
     }
@@ -80,6 +83,7 @@ fn execute() -> Result<()> {
         "m0_sequence" => dispatch(M0Scenario, &mode, &spec, output),
         "m0_selection" => dispatch(M0SelectionScenario, &mode, &spec, output),
         "continual_sequences" => dispatch(ContinualScenario, &mode, &spec, output),
+        "sensorimotor_size" => dispatch(SensorimotorScenario, &mode, &spec, output),
         _ => Err(error(format!("unregistered scenario: {}", spec.scenario))),
     }
 }

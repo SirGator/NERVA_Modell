@@ -7,7 +7,7 @@ use nerva::{
     core::{Network, Neuron, NeuronId, NeuronRole, Polarity, SimTime, Synapse, SynapseId},
     development::{
         CandidateSearchConfig, DevelopmentPlan, FormationConfig, PlannedFormation, PruningConfig,
-        PruningController, local_candidates,
+        PruningController, local_candidates_in,
     },
     io::{ChannelId, ReceptorSignal},
     learning::{ExcitatoryCausalUtility, LocalHomeostasis, PairStdp, UtilityDynamicsConfig},
@@ -26,6 +26,7 @@ pub mod audit;
 pub mod config;
 pub(crate) mod random;
 pub mod sensory;
+mod spatial;
 mod topology;
 pub use config::{HomeostasisScope, ModelConfig, ModelKind};
 pub use sensory::{SensorConfig, SensorMode, SpikeCoding};
@@ -89,6 +90,7 @@ pub struct Model {
     executed_keys: Vec<Key>,
     pruning: PruningController,
     formation: FormationConfig,
+    core_index: spatial::SpatialIndex,
     next_synapse: u64,
     motor_neurons: Vec<NeuronId>,
     next_development_us: u64,
@@ -167,6 +169,16 @@ impl Model {
     pub fn with_sensor(mut config: ModelConfig, sensor: SensorConfig) -> Result<Self> {
         config.validate()?;
         sensor.validate()?;
+        config
+            .processing_neurons
+            .checked_add(sensor.channels())
+            .and_then(|n| n.checked_add(config.keyboard.keys().len() * 2 + 2))
+            .ok_or("total neuron count exceeds host index range")?;
+        let core = u64::try_from(config.processing_neurons)
+            .map_err(|_| "processing count exceeds neuron ID range")?;
+        core.checked_add(sensor.channels() as u64)
+            .and_then(|n| n.checked_add(config.keyboard.keys().len() as u64 * 2 + 2))
+            .ok_or("total neuron count exceeds neuron ID range")?;
         config.encoding = if sensor.coding == SpikeCoding::OnOff {
             Encoding::Change
         } else {
@@ -265,7 +277,7 @@ impl Model {
                     .network()
                     .neuron_ids()
                     .filter(|id| {
-                        processing.contains(id)
+                        processing.binary_search(id).is_ok()
                             || (config.homeostasis_scope == HomeostasisScope::CoreSensor
                                 && id.0 < count)
                     })
@@ -294,6 +306,16 @@ impl Model {
             min_below_duration_us: config.pruning_min_below_us,
             prune_non_plastic: false,
         })?;
+        let core_index = spatial::SpatialIndex::new(processing.iter().map(|&id| {
+            (
+                id,
+                simulation
+                    .network()
+                    .neuron(id)
+                    .expect("processing cell")
+                    .position(),
+            )
+        }));
         Ok(Self {
             simulation,
             sensory_root,
@@ -311,6 +333,7 @@ impl Model {
             executed_keys: Vec::new(),
             pruning,
             formation,
+            core_index,
             next_synapse,
             motor_neurons,
             next_development_us: 100_000,
@@ -367,6 +390,7 @@ impl Model {
             && self.next_synapse == other.next_synapse
             && self.next_development_us == other.next_development_us
             && self.processing == other.processing
+            && self.core_index == other.core_index
             && self.action_copies == other.action_copies
             && self.motor_neurons == other.motor_neurons
             && format!(
@@ -545,11 +569,19 @@ impl Model {
             if demand <= self.formation.growth_threshold {
                 continue;
             }
-            if let Some(candidate) = local_candidates(
+            let nearby = self.core_index.within(
+                self.network()
+                    .neuron(target)
+                    .expect("processing cell")
+                    .position(),
+                self.formation.candidate_search.radius,
+            );
+            if let Some(candidate) = local_candidates_in(
                 self.network(),
                 target,
                 now,
                 &self.formation.candidate_search,
+                &nearby,
             )?
             .into_iter()
             .find(|candidate| self.is_core(candidate.source))

@@ -125,7 +125,7 @@ def main():
     if research_mode:
         import harness
         from planning.backend import ResearchBackend
-        backend = ResearchBackend(binary, catalog)
+        backend = ResearchBackend(binary, catalog, research_spec.scenario)
         if args.mode == "research-plan":
             print(json.dumps(harness.plan(research_spec, output, backend, source_text), indent=2, sort_keys=True))
         else:

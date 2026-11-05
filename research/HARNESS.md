@@ -1,9 +1,11 @@
 # Gemeinsamer Forschungs-Harness
 
-Stand **04.11.2026**. Der Harness ergänzt den bestehenden Research-Runner um
+Stand **05.11.2026**. Der Harness ergänzt den bestehenden Research-Runner um
 gemeinsame Versuchsplanung, fünf Analyseverfahren, ein Verhaltensarchiv und
-Forschungsgedächtnis. Alle neuronalen Versuche laufen weiterhin im vorhandenen
-Rust-Adapter `m0_selection`. Die Python-Schicht verwendet ausschließlich die
+Forschungsgedächtnis. Die bisherigen Protokolle verwenden den Rust-Adapter
+`m0_selection`. Zusätzlich bindet der [sensomotorische Größen-/Umweltadapter](SENSORIMOTOR.md)
+jetzt das bestehende Modell mit eigenem Profil `sensorimotor_size` ein.
+Die Python-Schicht verwendet ausschließlich die
 Standardbibliothek. NERVAs neuronale Regeln werden nicht geändert.
 
 ## Start
@@ -61,10 +63,17 @@ nativen Runner beziehungsweise im bestehenden unabhängigen
 | `analysis/quality_diversity.py` | MAP-Elites auf einem endlichen Parameterraum |
 | `planning/experiment_designer.py` | Morris-Trajektorien und faktorielle Designs |
 | `planning/scheduler.py` | Prioritäten, Budgetreservierung und native Vorabvalidierung |
+| `planning/profiles.py` | Szenariospezifische Kontrollen, Endpunkte, Budgetfaktoren und Bewertungsregeln |
+| `analysis/size_environment.py` | Gepaarter Größen-/Rückkopplungsvergleich für `sensorimotor_size` |
 | `harness.py` | Ausführung, gemeinsame Ergebnisse, Einfrieren und Bestätigung |
 | `research_memory/knowledge.py` | Evidenzverweise, SQLite und regelbasierte Folgeversuche |
 
 ## Konfiguration und Budget
+
+Die folgenden M0-Beispiele behalten ihre bisherigen Bewertungsregeln.
+Das neue Szenarioprofil hat sechs Kontrollen und zwei native Ausführungen je
+Job inklusive Wiederholung; sein konkretes Protokoll steht in
+[sensorimotor_sizes.toml](config/sensorimotor_sizes.toml).
 
 Die [kleine vollständige Konfiguration](config/research_smoke.toml) zeigt alle
 Verfahren; [research_screening.toml](config/research_screening.toml) konzentriert

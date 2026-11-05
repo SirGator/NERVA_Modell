@@ -6,7 +6,7 @@ from pathlib import Path
 from evolution.mutation import canonical_json
 
 
-def hypotheses(reports, final):
+def hypotheses(reports, final, scenario="m0_selection"):
     entries = []
     for study, report in reports.items():
         findings, method = report["findings"], report["method"]
@@ -18,25 +18,28 @@ def hypotheses(reports, final):
             claim = f"STDP/homeostasis interaction in {findings['metric']}: paired mean {findings['interaction']['mean']}"
         elif method == "robustness":
             claim = f"All declared stress configurations meet hard requirements: {findings['all_stress_gates_passed']}"
+        elif method in ["size_environment","plasticity_diagnostics"]:
+            claim = "Measured size/feedback learning gains: "+str([
+                dict(size=c["processing_neurons"],parameters=c["parameters"],gains=c["learning_gains"]) for c in findings["cells"]])
         else:
             claim = f"Eligible behavioral archive covers {findings['coverage']:.3f} of declared cells"
         entries.append(dict(id="study:"+study, status="unresolved", claim=claim,
                             evidence="reports/"+study+".json",
-                            scope="M0 exploration; independent confirmation of these findings is pending"))
+                            scope=f"{scenario} exploration; independent confirmation of these findings is pending"))
     if final["validation_status"] == "completed":
         entries.append(dict(id="confirmation:held_out_quality_gain", status="supported" if final["held_out_quality_improved"] else "unresolved",
-            claim="Frozen finalist improves control-adjusted M0 quality over baseline under the declared validation policy",
+            claim=f"Frozen finalist improves control-adjusted {scenario} quality over baseline under the declared validation policy",
             evidence="final-result.json", scope="Held-out seeds of the same task; failure to confirm does not refute the claim"))
     return entries
 
 
-def followups(reports):
+def followups(reports, scenario="m0_selection"):
     suggestions = [
         dict(source='research_strategy',method='diagnostic_decoder',track='A',priority=200,
              config='config/diagnosis_m9.toml',reason='Diagnose the unresolved M9 representation/readout bottleneck before further M0 optimization'),
         dict(source='research_strategy',method='continual_sequences',track='B',priority=190,
              config='config/diagnostic_continual_smoke.toml',reason='Check acquisition and pattern overlap in a small controlled continual-learning assay'),
-    ]
+    ] if scenario == "m0_selection" else []
     for study, report in reports.items():
         findings = report["findings"]
         if report["method"] == "sensitivity":
@@ -53,6 +56,9 @@ def followups(reports):
             suggestions.append(dict(source=study, method="robustness", priority=70,
                 reason="Stress-test representatives of occupied behavioral cells",
                 candidates=[c["candidate"] for c in findings["cells"]]))
+        elif report["method"] in ["size_environment","plasticity_diagnostics"]:
+            suggestions.append(dict(source=study, method=report["method"], priority=100,
+                reason="Inspect activity/readout gates, then preregister one paired size or mechanism contrast on fresh seeds"))
     return sorted(suggestions, key=lambda s: (-s["priority"], s["source"]))
 
 

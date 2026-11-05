@@ -1,0 +1,21 @@
+# Fixed model reference: existing local rules, diagnostic frame-only sensor,
+# A/D motor layout, persistent world, six paired feedback/plasticity controls.
+[experiment]
+name = "sensorimotor_baseline_20261105"
+scenario = "sensorimotor_size"
+seeds = [1210000001, 1210104730]
+verify_replay = true
+max_runs = 12
+
+[base]
+processing_neurons = 256
+train_trials = 8
+test_trials = 8
+action_delay_us = 20000
+max_observed_events = 2000000
+
+[measurements]
+metrics = ["prediction_accuracy", "position_mae", "persistence_mae", "majority_accuracy", "visual_accuracy",
+    "core_rate_hz", "peak_core_rate_hz", "silent_fraction", "observed_events", "processing_neurons",
+    "total_neurons", "initial_synapses", "final_synapses", "maximum_synapses", "core_inhibitory_fraction",
+    "weight_updates", "homeostasis_updates", "formed", "pruned", "action_copy_arrivals", "parameters_preserved"]

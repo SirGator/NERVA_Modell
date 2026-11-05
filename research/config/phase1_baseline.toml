@@ -1,0 +1,18 @@
+# Fixed reference, not a search or an independent confirmation.
+# No base overrides: use the unchanged native M0 defaults of this build.
+# These historical seeds are intentionally reused for regression comparisons.
+[experiment]
+name = "phase1_m0_baseline_20261105"
+scenario = "m0_sequence"
+seeds = [7, 19, 41, 73, 101, 149]
+interventions = ["none", "disable_stdp", "shuffle_input", "enable_homeostasis"]
+verify_replay = true
+max_runs = 24
+
+[measurements]
+metrics = [
+    "sequence_score", "stability", "firing_rate", "training_rate_hz",
+    "transition_hits", "false_transitions", "silent_fraction",
+    "persistent_fraction", "frozen_replay_identical", "weights_frozen",
+    "latency_hits", "rates_finite",
+]

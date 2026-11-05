@@ -119,8 +119,8 @@ impl ModelConfig {
         {
             return Err("motor inhibition weight must be finite and in 0..=10".into());
         }
-        if !(16..=1024).contains(&self.processing_neurons) {
-            return Err("processing neuron count must be in 16..=1024".into());
+        if self.processing_neurons == 0 {
+            return Err("processing neuron count must be positive".into());
         }
         if !self.initial_structural_drive.is_finite()
             || !(0.0..=3.0).contains(&self.initial_structural_drive)
