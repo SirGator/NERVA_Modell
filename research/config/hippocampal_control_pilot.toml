@@ -1,0 +1,13 @@
+# Fixed exploratory pilot; no parameter selection or independent confirmation.
+[control]
+name = "hippocampal_control_pilot_20261110"
+seeds = [17011, 17027]
+workers = 2
+max_trials = 16
+max_native_training_passes = 64
+max_wall_seconds = 600
+
+[model]
+processing_neurons = 256
+training_repetitions = 8
+rest_us = 11000000

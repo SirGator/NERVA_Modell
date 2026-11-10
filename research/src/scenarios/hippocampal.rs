@@ -11,6 +11,7 @@ use nerva_vm::model::{
 use serde_json::{Value, json};
 use std::collections::BTreeMap;
 
+pub mod association;
 pub mod causal;
 mod weights;
 use weights::{snapshot_json, weight_changes, weight_snapshot};

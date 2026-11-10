@@ -134,6 +134,12 @@ bleiben als historische Dokumentation erhalten. Neue Studien starten im Harness.
 
 ## Kausale Lerndiagnose
 
+Der Harness kann über `Model::with_sensor_and_learning` ausdrücklich
+`LearningRule::PairStdp` oder `LearningRule::ThreeFactor` wählen. Die
+Netzkonstruktion bleibt gleich; `LearningRule::Automatic` erhält die bisherigen
+Live-Standards. Das [Forschungskontrollzentrum](../research/CONTROL.md)
+vergleicht beide Regeln und Chemie an/aus auf identischen initialen Netzwerken.
+
 `Model::enable_learning_audit(max_records)` aktiviert die begrenzte Library-
 Beobachtung. Nach jedem Frame liefert `take_learning_audit()` Tags, Modulatorwerte,
 Gewichtseinzeländerungen und Integrationssummen; unvollständige Aufzeichnungen

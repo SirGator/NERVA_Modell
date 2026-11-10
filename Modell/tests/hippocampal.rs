@@ -34,6 +34,31 @@ fn white() -> Frame {
     Frame::new(8, 8, vec![255; 8 * 8 * 3]).unwrap()
 }
 #[test]
+fn explicit_learning_rule_preserves_network_and_automatic_defaults() {
+    use nerva_vm::model::LearningRule;
+    let sensor = SensorConfig {
+        resolution: 8,
+        coding: SpikeCoding::Deterministic,
+        ..Default::default()
+    };
+    let automatic = Model::with_sensor(config(true), sensor).unwrap();
+    let three =
+        Model::with_sensor_and_learning(config(true), sensor, LearningRule::ThreeFactor).unwrap();
+    let pair =
+        Model::with_sensor_and_learning(config(true), sensor, LearningRule::PairStdp).unwrap();
+    assert!(automatic.same_replay_state(&three));
+    assert_eq!(pair.network(), three.network());
+    assert!(!pair.same_replay_state(&three));
+    let cortical = ModelConfig {
+        architecture: Architecture::Cortical,
+        neuromodulation: false,
+        ..config(false)
+    };
+    let automatic = Model::with_sensor(cortical.clone(), sensor).unwrap();
+    let pair = Model::with_sensor_and_learning(cortical, sensor, LearningRule::PairStdp).unwrap();
+    assert!(automatic.same_replay_state(&pair));
+}
+#[test]
 fn shared_tissue_has_graded_profiles_cross_area_edges_and_real_release_classes() {
     let model = build(config(true));
     let summary = model.hippocampal_summary();

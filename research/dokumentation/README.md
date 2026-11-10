@@ -9,6 +9,11 @@ behalten ihren damaligen Stand.
 
 ## Neuromodulation und kausale Diagnose
 
+Der aktuelle Einstieg für gepaarte Vergleiche ist das
+[Forschungskontrollzentrum](../CONTROL.md). Es kombiniert die Chemie-/Lernregel-
+Kontrollen mit kompakten Learning Audits und einem Gewichtsreset beim Abruf.
+[Pilotbericht vom 10.11.2026](../HIPPOCAMPAL_CONTROL_RESULTS_20261110.md).
+
 | Thema | Protokoll | Ergebnisse |
 | --- | --- | --- |
 | Hippocampale Gewebeprofile und fester Bildpilot | [Hippocampus](../HIPPOCAMPAL.md) | [Integration und Pilot](../HIPPOCAMPAL_RESULTS_20261109.md) |

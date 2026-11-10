@@ -75,6 +75,14 @@ pub struct PlasticitySettings {
     pub homeostasis: bool,
 }
 
+/// Explicit experimental selection; Automatic preserves the live-model defaults.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum LearningRule {
+    Automatic,
+    PairStdp,
+    ThreeFactor,
+}
+
 pub struct Model {
     simulation: Simulation<PairStdp>,
     sensory_root: SensoryRoot,
@@ -169,7 +177,17 @@ impl Model {
 
     /// Assemble the same neural mechanisms with an explicitly selected,
     /// frame-only sensory front end. No world state or labels enter this API.
-    pub fn with_sensor(mut config: ModelConfig, sensor: SensorConfig) -> Result<Self> {
+    pub fn with_sensor(config: ModelConfig, sensor: SensorConfig) -> Result<Self> {
+        Self::with_sensor_and_learning(config, sensor, LearningRule::Automatic)
+    }
+
+    /// Change only the learning rule used to assemble the simulation. Network
+    /// construction, seeded inputs and live-model defaults remain unchanged.
+    pub fn with_sensor_and_learning(
+        mut config: ModelConfig,
+        sensor: SensorConfig,
+        learning_rule: LearningRule,
+    ) -> Result<Self> {
         config.validate()?;
         sensor.validate()?;
         config
@@ -245,7 +263,14 @@ impl Model {
             ..LearningConfig::default()
         })
         .map_err(|error| format!("STDP: {error:?}"))?;
-        let rule = if config.neuromodulation || config.architecture == Architecture::Hippocampal {
+        let three_factor = match learning_rule {
+            LearningRule::Automatic => {
+                config.neuromodulation || config.architecture == Architecture::Hippocampal
+            }
+            LearningRule::PairStdp => false,
+            LearningRule::ThreeFactor => true,
+        };
+        let rule = if three_factor {
             rule.with_three_factor(nerva::learning::ThreeFactorConfig::default())?
         } else {
             rule

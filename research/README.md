@@ -11,6 +11,21 @@ bereit. Neuronale Mechanismen stammen aus NERVA und dem laufenden Modell.
 
 ## Voraussetzungen und erster Lauf
 
+Für den gezielten Hippocampus-Vergleich dient der Harness als
+[Forschungskontrollzentrum](CONTROL.md): Neuromodulation an/aus, Drei-Faktor-
+gegen Pair-STDP und die Diagnose Eingang → Aktivität → Gewicht → Abruf.
+Ein fester Datensatz bedient alle drei Prioritäten, mit Wiederaufnahme,
+begrenzten parallelen Seeds und archiviertem Programmstand:
+
+```bash
+./NERVA_Modell/research/run.sh control plan NERVA_Modell/research/config/hippocampal_control_pilot.toml
+./NERVA_Modell/research/run.sh control run NERVA_Modell/research/config/hippocampal_control_pilot.toml
+./NERVA_Modell/research/run.sh control status NERVA_Modell/research/config/hippocampal_control_pilot.toml
+```
+
+[Erster 256-Zellen-Pilot und unabhängige Prüfung](HIPPOCAMPAL_CONTROL_RESULTS_20261110.md):
+kein positiver gewichtsbedingter Abrufgewinn auf den beiden geprüften Seeds.
+
 Alle Befehle beginnen in **`DSVLM/main/`**. Benötigt werden Rust/Cargo und
 Python **3.11+**. TOML und SQLite verwenden die Python-Standardbibliothek.
 Der Einstieg baut den Rust-Runner mit `--offline --release`; Cargo-Pakete

@@ -116,7 +116,7 @@ fn weights(model: &Model) -> Vec<(SynapseId, f32)> {
         .map(|s| (s.id(), s.weight().get()))
         .collect()
 }
-fn apply(model: &mut Model, values: &[(SynapseId, f32)]) -> Result<()> {
+pub(super) fn apply(model: &mut Model, values: &[(SynapseId, f32)]) -> Result<()> {
     for &(id, w) in values {
         if model
             .network()
@@ -131,7 +131,7 @@ fn apply(model: &mut Model, values: &[(SynapseId, f32)]) -> Result<()> {
     }
     Ok(())
 }
-fn verify_only_weights(
+pub(super) fn verify_only_weights(
     reference: &Model,
     branch: &mut Model,
     desired: &[(SynapseId, f32)],

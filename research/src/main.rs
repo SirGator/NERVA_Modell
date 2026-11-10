@@ -5,7 +5,8 @@ use nerva_research::{
     scenarios::{
         continual::ContinualScenario,
         hippocampal::{
-            HippocampalScenario, PARAMETERS as HIPPOCAMPAL_PARAMETERS, causal::CausalScenario,
+            HippocampalScenario, PARAMETERS as HIPPOCAMPAL_PARAMETERS,
+            association::AssociationScenario, causal::CausalScenario,
         },
         m0::{M0Scenario, parameter_names},
         m0_selection::{M0SelectionScenario, selection_parameter_names},
@@ -47,6 +48,7 @@ fn execute() -> Result<()> {
                 {"name":"sensorimotor_size","parameters":SENSORIMOTOR_PARAMETERS,"metrics":SensorimotorScenario.metric_names(),
                 "interventions":SensorimotorScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
                 {"name":"hippocampal_causality","parameters":HIPPOCAMPAL_PARAMETERS,"metrics":CausalScenario.metric_names(),"interventions":CausalScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
+                {"name":"hippocampal_association","parameters":HIPPOCAMPAL_PARAMETERS,"metrics":AssociationScenario.metric_names(),"interventions":AssociationScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
                 {"name":"hippocampal_probe","parameters":HIPPOCAMPAL_PARAMETERS,"metrics":HippocampalScenario.metric_names(),
                 "interventions":HippocampalScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()}]})
         );
@@ -92,6 +94,7 @@ fn execute() -> Result<()> {
         "sensorimotor_size" => dispatch(SensorimotorScenario, &mode, &spec, output),
         "hippocampal_probe" => dispatch(HippocampalScenario, &mode, &spec, output),
         "hippocampal_causality" => dispatch(CausalScenario, &mode, &spec, output),
+        "hippocampal_association" => dispatch(AssociationScenario, &mode, &spec, output),
         _ => Err(error(format!("unregistered scenario: {}", spec.scenario))),
     }
 }

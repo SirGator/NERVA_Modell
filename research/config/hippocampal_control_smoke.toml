@@ -1,0 +1,13 @@
+# Technical control-center check; not a learning confirmation.
+[control]
+name = "hippocampal_control_smoke"
+seeds = [7, 19]
+workers = 2
+max_trials = 16
+max_native_training_passes = 64
+max_wall_seconds = 120
+
+[model]
+processing_neurons = 16
+training_repetitions = 1
+rest_us = 100000
