@@ -9,6 +9,10 @@ behalten ihren damaligen Stand.
 
 ## Neuromodulation und kausale Diagnose
 
+[Diagnosekette A–D](../CAUSAL_CHAIN.md): numerische Plastizität, künstlicher
+A→B-Abruf, feste Wirksamkeitsdosen und lokale Prä-/Post-/Modulatorverfügbarkeit.
+[Geprüfte Befunde vom 10.11.2026](../CAUSAL_CHAIN_RESULTS_20261110.md).
+
 Der aktuelle Einstieg für gepaarte Vergleiche ist das
 [Forschungskontrollzentrum](../CONTROL.md). Es kombiniert die Chemie-/Lernregel-
 Kontrollen mit kompakten Learning Audits und einem Gewichtsreset beim Abruf.

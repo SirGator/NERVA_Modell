@@ -33,6 +33,22 @@ METRICS = ("completion_a", "completion_b", "acquisition_a", "acquisition_b",
 # Four primary cue comparisons plus the frozen and unpaired checks for three_on.
 CONTRASTS = ((1, "three_on", "three_off"), (2, "three_on", "pair_on"),
              (3, "three_on", "frozen_on"), (3, "three_on", "three_unpaired"))
+CHAIN_GROUPS = ("A_numeric", "B_memory", "C_gain", "D_local")
+CHAIN_METRICS = ("input_discriminable", "representation_discriminable", "local_tag_available",
+                 "persistent_weight_change", "native_recall_effect", "artificial_recall_effect",
+                 "diagnostic_controls_passed", "audit_complete", "native_training_passes", "audit_rows")
+
+
+def suite(spec):
+    return spec["control"].get("suite", "association")
+
+
+def design_counts(spec):
+    seeds = len(spec["control"]["seeds"])
+    if suite(spec) == "causal_chain":
+        # A/B/D are deterministic calibrations, shared once rather than counted as new seed evidence.
+        return seeds+3, 2*(7+6*seeds)
+    return seeds*len(GROUPS), seeds*len(GROUPS)*4
 
 
 def require(condition, message):
@@ -77,7 +93,8 @@ def parse(source):
     control, model = spec["control"], spec["model"]
     require(isinstance(control, dict) and isinstance(model, dict), "control/model must be TOML tables")
     allowed = {"name", "seeds", "workers", "max_trials", "max_native_training_passes", "max_wall_seconds"}
-    require(set(control) == allowed, "control fields must be exactly "+", ".join(sorted(allowed)))
+    require(set(control)-{"suite"} == allowed, "control fields must be "+", ".join(sorted(allowed))+" and optional suite")
+    require(suite(spec) in ("association", "causal_chain"), "unknown control suite")
     require(set(model) == {"processing_neurons", "training_repetitions", "rest_us"},
             "model requires processing_neurons, training_repetitions and rest_us")
     require(isinstance(control["name"], str) and re.fullmatch(r"[A-Za-z0-9_-]{1,80}", control["name"]),
@@ -94,14 +111,20 @@ def parse(source):
     integer(model["processing_neurons"], 16, 256, "processing_neurons")
     integer(model["training_repetitions"], 1, 16, "training_repetitions")
     integer(model["rest_us"], 100000, 20000000, "rest_us")
-    trials = len(seeds)*len(GROUPS)
+    trials, training_passes = design_counts(spec)
     require(trials <= control["max_trials"], "complete paired design exceeds max_trials")
-    require(trials*4 <= control["max_native_training_passes"],
+    require(training_passes <= control["max_native_training_passes"],
             "design including reconstruction and replay exceeds max_native_training_passes")
     return spec
 
 
 def study(spec, seed):
+    if suite(spec) == "causal_chain":
+        groups = CHAIN_GROUPS if seed == spec["control"]["seeds"][0] else ("C_gain",)
+        return dict(experiment=dict(name=f"chain_s{seed}", scenario="hippocampal_causal_chain",
+                                    seeds=[seed], interventions=list(groups), verify_replay=True,
+                                    max_runs=len(groups)), base=spec["model"],
+                    measurements=dict(metrics=list(CHAIN_METRICS)))
     return dict(experiment=dict(name=f"association_s{seed}", scenario="hippocampal_association",
                                 seeds=[seed], interventions=list(GROUPS),
                                 verify_replay=True, max_runs=len(GROUPS)),
@@ -141,7 +164,12 @@ def prepare(root, spec, source, binary=None):
     binary = binary.resolve()
     plans = [native(binary, "plan", study(spec, seed)) for seed in spec["control"]["seeds"]]
     trials = sum(p["counts"]["trials"] for p in plans)
-    require(trials == len(GROUPS)*len(plans), "native design size differs")
+    expected_trials, training_passes = design_counts(spec)
+    require(trials == expected_trials, "native design size differs")
+    if suite(spec) == "causal_chain":
+        native_passes = 2*sum(job["effective_config"]["training_passes_per_execution"]
+                              for plan in plans for job in plan["jobs"])
+        require(native_passes == training_passes, "native reconstruction/replay cost differs")
     shutil.copy2(binary, root/"runner")
     shutil.copy2(Path(__file__), root/"producer.py")
     atomic(root/"source.toml", source.encode())
@@ -156,16 +184,21 @@ def prepare(root, spec, source, binary=None):
         for path in sorted(set(paths)):
             archive.write(path, path.relative_to(project))
     model = spec["model"]
-    steps = (12*model["training_repetitions"]+12*math.ceil(model["rest_us"]/50000)+12)*trials*2
+    if suite(spec) == "causal_chain":
+        steps = (36*model["training_repetitions"]+20*math.ceil(model["rest_us"]/50000)+20)*len(plans)*2
+    else:
+        steps = (12*model["training_repetitions"]+12*math.ceil(model["rest_us"]/50000)+12)*trials*2
     plan = dict(protocol="NERVA-Research-Control/1", specification=spec, seeds=plans,
-                priorities=["chemistry_on_vs_off", "three_factor_vs_pair_stdp", "input_activity_weight_recall"],
+                suite=suite(spec),
+                priorities=list(CHAIN_GROUPS) if suite(spec) == "causal_chain" else
+                    ["chemistry_on_vs_off", "three_factor_vs_pair_stdp", "input_activity_weight_recall"],
                 counts=dict(trials=trials, replay_executions=trials*2,
-                            native_training_passes=trials*4, maximum_model_steps=steps),
+                            native_training_passes=training_passes, maximum_model_steps=steps),
                 artifacts={name:sha(root/name) for name in
                            ("runner", "producer.py", "source.toml", "source-code.zip")},
                 limits=["Exploratory fixed cue-completion assay; no independent confirmation.",
                         "No search, automatic winner selection or changes to neuronal rules.",
-                        "Workers are bounded per seed; every seed includes all eight controls.",
+                        "Workers are bounded per seed; each experiment retains its complete internal controls.",
                         "The wall budget covers native execution and verification, not compilation."])
     write_json(root/"control-plan.json", plan)
     atomic(root/"control-plan.sha256", (sha(root/"control-plan.json")+"\n").encode())
@@ -302,6 +335,107 @@ def analyze(records):
                         "Cue completion is a fixed external readout, not autonomous behavior or validated cognition."])
 
 
+def analyze_chain(records):
+    by_group = {name:[] for name in CHAIN_GROUPS}
+    seen = set()
+    pipeline = []
+    for row in records:
+        seed, group = row["job"]["seed"], row["job"]["intervention"]
+        require(group in by_group and (seed, group) not in seen, "duplicate/unknown chain experiment")
+        seen.add((seed, group))
+        metrics = row["metrics"]
+        require(set(metrics) == set(CHAIN_METRICS), "chain metric contract differs")
+        require(all(type(v) in (int, float) and math.isfinite(v) for v in metrics.values()),
+                "invalid chain metric")
+        require(row["full_replay_checked"] is True and metrics["audit_complete"] == 1,
+                "chain requires complete observations and replay")
+        require(row["details"]["functional_memory_demonstrated"] is False, "artificial diagnosis is not task learning")
+        by_group[group].append(row)
+        pipeline.append(dict(seed=seed, group=group, metrics=metrics,
+                             observations=[] if metrics["diagnostic_controls_passed"] == 1 else
+                             ["positive_or_negative_diagnostic_control_failed"]))
+    require(all(len(by_group[g]) == 1 for g in ("A_numeric", "B_memory", "D_local")) and by_group["C_gain"],
+            "one shared A/B/D calibration and at least one model seed required")
+    common_seed = by_group["A_numeric"][0]["job"]["seed"]
+    require(all(by_group[g][0]["job"]["seed"] == common_seed for g in ("B_memory", "D_local")),
+            "shared calibrations must belong to the same reference seed")
+    require(common_seed in {r["job"]["seed"] for r in by_group["C_gain"]}, "reference model seed missing")
+    data = {g:by_group[g][0]["details"]["data"] for g in ("A_numeric", "B_memory", "D_local")}
+    controls_ok = all(row["metrics"]["diagnostic_controls_passed"] == 1 for row in records)
+    models = []
+    stage_names = ("input_discriminable", "representation_discriminable", "local_tag_available",
+                   "persistent_weight_change", "native_recall_effect")
+    for row in sorted(by_group["C_gain"], key=lambda r:r["job"]["seed"]):
+        d = row["details"]["data"]
+        require([r["gain"] for r in d["doses"]] == [0, 1, 10, 100, 1000], "gain grid differs")
+        require(all(r["matched_checkpoint"] is True and r["only_weights_changed"] is True for r in d["doses"]),
+                "gain intervention changed unmatched state")
+        unresolved = next((key for key in stage_names if row["metrics"][key] == 0), None)
+        models.append(dict(seed=row["job"]["seed"], first_unresolved_observed_stage=unresolved,
+                           interpretation_valid=controls_ok, metrics=row["metrics"],
+                           first_sampled_core_effect_gain=d["first_sampled_core_effect_gain"],
+                           doses=[{key:value for key,value in r.items() if key != "recall"} for r in d["doses"]],
+                           bench_weight_curve=d["bench_weight_curve"]))
+    # Large native checkpoints, weights and recall vectors stay in the raw records.
+    return dict(protocol="NERVA-Causal-Chain-Report/1", suite="causal_chain",
+                calibrations=data, models=models, pipeline=pipeline,
+                paired_seeds=len(models), diagnostic_controls_passed=controls_ok,
+                functional_memory_demonstrated=False, independent_confirmation=False,
+                limits=["A/B/D are shared deterministic mechanism calibrations, not independent seed evidence.",
+                        "Artificial microcircuit success does not certify the hippocampal pathway.",
+                        "A finite gain grid gives sampled effects and clipping, not a universal or monotone threshold.",
+                        "Zero requested signal, numerical rounding and bounds are separately measured."])
+
+
+def chain_markdown(result, plan):
+    lines = ["# Kausale Diagnosekette A–D", "",
+             f"{len(result['models'])} Modellseeds, gemeinsame A/B/D-Kalibrierung; "
+             f"{plan['counts']['trials']} Records mit vollständigem Replay.", "",
+             f"Diagnosekontrollen bestanden: **{result['diagnostic_controls_passed']}**.",
+             "Künstlich garantierte Fähigkeiten werden getrennt vom natürlichen Lernen ausgewertet.", "",
+             "## A – Numerische Plastizität", "",
+             "| Fall | Faktor | Tag | Angeforderte Summe | Tatsächliche Summe | Weggerundet | Begrenzt |",
+             "| --- | ---: | ---: | ---: | ---: | ---: | ---: |"]
+    numeric = result["calibrations"]["A_numeric"]
+    for row in numeric["cases"]+numeric["partition_comparison"]:
+        lines.append(f"| {row['case']} | {row['held_factor']:.6g} | {row['tag_after_pair']:.6g} | "
+                     f"{row['requested_signed_sum']:.9g} | {row['actual_signed_sum']:.9g} | "
+                     f"{row['rounded_away_steps']} | {row['clipped_steps']} |")
+    lines += ["", "Der f64-Akkumulator ist eine externe Diagnose und ersetzt keine Lernregel.",
+              "Bei der Partitionierung werden angeforderte und tatsächliche Masse in beiden Ästen separat gemessen.", "",
+              "## B – Künstliches Gedächtnis", "",
+              "| Kontrolle | Gewicht | Cue-Zelle | B feuert | Gewicht erhalten |", "| --- | ---: | ---: | --- | --- |"]
+    for row in result["calibrations"]["B_memory"]["cases"]:
+        lines.append(f"| {row['control']} | {row['weight']} | {row['cue_neuron']} | {row['target_fired']} | {row['weight_retained']} |")
+    lines += ["", "Drei-Zell-Testnetz; die Zielzelle erhält keinen direkten Cue. Dies ist eine künstlich gesetzte Verbindung, kein Lernerfolg.", "",
+              "## C – Wirksamkeitsschwelle", "",
+              "| Seed | Gain | Installierte Änderung L1 | Begrenzte Kanten | Core-Spikes anders | Motor-Spikes anders |",
+              "| --- | ---: | ---: | ---: | --- | --- |"]
+    for model in result["models"]:
+        for row in model["doses"]:
+            lines.append(f"| {model['seed']} | {row['gain']} | {row['installed_l1_from_initial']:.9g} | "
+                         f"{row['clipped_edges']} | {row['core_effect']} | {row['motor_effect']} |")
+    lines += ["", "Gain 0 stellt Anfangsgewichte her; Gain 1 enthält native Lerndeltas; größere Gains sind künstliche Eingriffe.",
+              "Alle Äste starten mit demselben vollständigen trainierten Zustand. Kein adaptives Nachsuchen.", "",
+              "## D – Lokale Informationsverfügbarkeit", "",
+              "| Kontrolle | Pre-Ankünfte | Post-Spikes | Tag vor Puls | Nichtnull-Anfragen | Gewichtsdelta |",
+              "| --- | --- | --- | ---: | ---: | ---: |"]
+    for row in result["calibrations"]["D_local"]["cases"]:
+        lines.append(f"| {row['control']} | {row['pre_arrivals_us']} | {row['post_spikes_us']} | "
+                     f"{row['tag_before_release']:.9g} | {row['nonzero_requests']} | {row['weight_delta']:.9g} |")
+    lines += ["", "Prä-/Post-Zeiten und Faktoren werden am gleichen nativen Lernort gemessen.",
+              "Ein später Puls kann noch einen winzigen Tagrest treffen; Überlappung ist von wirksamer Speicherung zu unterscheiden.", "",
+              "## Beobachtete Grenze im Hippocampus-Modell", "",
+              "| Seed | Erste nicht bestandene beobachtete Stufe | Künstlicher Gain mit erster Core-Wirkung |",
+              "| --- | --- | --- |"]
+    for model in result["models"]:
+        stage = model["first_unresolved_observed_stage"] if model["interpretation_valid"] else "Diagnosekontrolle fehlgeschlagen"
+        lines.append(f"| {model['seed']} | {stage} | {model['first_sampled_core_effect_gain']} |")
+    lines += ["", "Stufen mit Messwert -1 wurden nicht geprüft. Diese Diagnose ist keine unabhängige Bestätigung.",
+              "Ein funktionaler Lern- oder Gedächtnisnachweis bleibt offen.", ""]
+    return lines
+
+
 def report(root, plan):
     records, hashes = [], {}
     for seed_plan in plan["seeds"]:
@@ -314,36 +448,40 @@ def report(root, plan):
             require(row["job"] == job, "record job differs")
             records.append(row)
             hashes[path.relative_to(root).as_posix()] = sha(path)
-    result = analyze(records)
+    result = analyze_chain(records) if suite(plan["specification"]) == "causal_chain" else analyze(records)
     result["counts"] = plan["counts"]
     result["record_bytes"] = sum((root/path).stat().st_size for path in hashes)
     write_json(root/"control-report.json", result)
-    lines = ["# Hippocampus: Forschungskontrolle", "",
-             f"{result['paired_seeds']} gepaarte Seeds; {plan['counts']['trials']} Records, vollständiger Replay.", "",
-             "| Priorität | Vergleich | Cue | Abrufdifferenz | Gewichtswirkung A − B | Positive Seeds | p (explorativ) |",
-             "| --- | --- | --- | ---: | ---: | ---: | ---: |"]
-    for contrast in result["priorities"]:
-        lines.append(f"| {contrast['priority']} | {contrast['a']} − {contrast['b']} | {contrast['cue']} | "
-                     f"{contrast['completion_mean']:.9g} | {contrast['mean']:.9g} | "
-                     f"{contrast['wins']}/{len(contrast['seeds'])} | {contrast['p_one_sided']:.6g} |")
-    lines += ["", "Gewichtswirkung = Ergänzungskontrast mit gelernten Gewichten minus demselben Abruf mit Anfangsgewichten.",
-              "Acht vorab feste Tests auf Gewichtswirkung; Gleichstände bleiben im Nenner. Keine unabhängige Bestätigung.", "",
-              "## Kontrollen im Mittel", "", "| Kontrolle | Ergänzung A | Ergänzung B | Netto-Gewichtsänderung L1 | Core-Spikes im Training |",
-              "| --- | ---: | ---: | ---: | ---: |"]
-    for group, metrics in result["control_means"].items():
-        lines.append(f"| {group} | {metrics['completion_a']:.9g} | {metrics['completion_b']:.9g} | "
-                     f"{metrics['weight_l1']:.9g} | {metrics['training_core_spikes']:.9g} |")
-    lines += ["", "## Beobachtete Engpässe", "", "| Seed | Kontrolle | Beobachtungen |", "| --- | --- | --- |"]
-    for row in result["pipeline"]:
-        lines.append(f"| {row['seed']} | {row['group']} | {', '.join(row['observations']) or 'Kein Engpass durch diese Regeln lokalisiert'} |")
-    lines += ["", "Diese Hinweise lokalisieren beobachtete Grenzen im festen Assay; sie beweisen keine Informationsabwesenheit.",
-              "Ein funktionaler Gedächtnisnachweis bleibt offen.", ""]
+    if suite(plan["specification"]) == "causal_chain":
+        lines = chain_markdown(result, plan)
+    else:
+        lines = ["# Hippocampus: Forschungskontrolle", "",
+                 f"{result['paired_seeds']} gepaarte Seeds; {plan['counts']['trials']} Records, vollständiger Replay.", "",
+                 "| Priorität | Vergleich | Cue | Abrufdifferenz | Gewichtswirkung A − B | Positive Seeds | p (explorativ) |",
+                 "| --- | --- | --- | ---: | ---: | ---: | ---: |"]
+        for contrast in result["priorities"]:
+            lines.append(f"| {contrast['priority']} | {contrast['a']} − {contrast['b']} | {contrast['cue']} | "
+                         f"{contrast['completion_mean']:.9g} | {contrast['mean']:.9g} | "
+                         f"{contrast['wins']}/{len(contrast['seeds'])} | {contrast['p_one_sided']:.6g} |")
+        lines += ["", "Gewichtswirkung = Ergänzungskontrast mit gelernten Gewichten minus demselben Abruf mit Anfangsgewichten.",
+                  "Acht vorab feste Tests auf Gewichtswirkung; Gleichstände bleiben im Nenner. Keine unabhängige Bestätigung.", "",
+                  "## Kontrollen im Mittel", "", "| Kontrolle | Ergänzung A | Ergänzung B | Netto-Gewichtsänderung L1 | Core-Spikes im Training |",
+                  "| --- | ---: | ---: | ---: | ---: |"]
+        for group, metrics in result["control_means"].items():
+            lines.append(f"| {group} | {metrics['completion_a']:.9g} | {metrics['completion_b']:.9g} | "
+                         f"{metrics['weight_l1']:.9g} | {metrics['training_core_spikes']:.9g} |")
+        lines += ["", "## Beobachtete Engpässe", "", "| Seed | Kontrolle | Beobachtungen |", "| --- | --- | --- |"]
+        for row in result["pipeline"]:
+            lines.append(f"| {row['seed']} | {row['group']} | {', '.join(row['observations']) or 'Kein Engpass durch diese Regeln lokalisiert'} |")
+        lines += ["", "Diese Hinweise lokalisieren beobachtete Grenzen im festen Assay; sie beweisen keine Informationsabwesenheit.",
+                  "Ein funktionaler Gedächtnisnachweis bleibt offen.", ""]
     atomic(root/"CONTROL_REPORT.md", "\n".join(lines).encode())
     output = io.StringIO()
     writer = csv.writer(output)
-    writer.writerow(["seed", "control", *METRICS])
+    metrics = CHAIN_METRICS if suite(plan["specification"]) == "causal_chain" else METRICS
+    writer.writerow(["seed", "control", *metrics])
     for row in result["pipeline"]:
-        writer.writerow([row["seed"], row["group"], *(row["metrics"][key] for key in METRICS)])
+        writer.writerow([row["seed"], row["group"], *(row["metrics"][key] for key in metrics)])
     atomic(root/"control-metrics.csv", output.getvalue().encode())
     descriptor, filename = tempfile.mkstemp(prefix="control-", suffix=".sqlite", dir=root)
     os.close(descriptor)

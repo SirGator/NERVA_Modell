@@ -11,6 +11,18 @@ bereit. Neuronale Mechanismen stammen aus NERVA und dem laufenden Modell.
 
 ## Voraussetzungen und erster Lauf
 
+Die [kausale Diagnosekette A–D](CAUSAL_CHAIN.md) ergänzt garantierte
+Positivkontrollen und einen festen Gewichtsverstärkungsvergleich:
+
+```bash
+./NERVA_Modell/research/run.sh control plan NERVA_Modell/research/config/causal_chain_pilot.toml
+./NERVA_Modell/research/run.sh control run NERVA_Modell/research/config/causal_chain_pilot.toml
+```
+
+Deterministische Kalibrierungen werden einmal gemeinsam ausgeführt; nur der
+Hippocampus-Vergleich wird über die Modellseeds wiederholt.
+[Pilotbefunde und unabhängige Prüfung](CAUSAL_CHAIN_RESULTS_20261110.md).
+
 Für den gezielten Hippocampus-Vergleich dient der Harness als
 [Forschungskontrollzentrum](CONTROL.md): Neuromodulation an/aus, Drei-Faktor-
 gegen Pair-STDP und die Diagnose Eingang → Aktivität → Gewicht → Abruf.

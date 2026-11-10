@@ -13,6 +13,7 @@ use std::collections::BTreeMap;
 
 pub mod association;
 pub mod causal;
+pub mod chain;
 mod weights;
 use weights::{snapshot_json, weight_changes, weight_snapshot};
 

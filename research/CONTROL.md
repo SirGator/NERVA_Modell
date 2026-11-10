@@ -1,5 +1,10 @@
 # Harness als Forschungskontrollzentrum
 
+Diese Seite beschreibt die Standardsuite `association`.
+Die zusätzliche [kausale Diagnosekette A–D](CAUSAL_CHAIN.md) verwendet denselben
+Einstieg mit `suite = "causal_chain"`: numerische Plastizität, künstliches
+Gedächtnis, feste Wirksamkeitsdosen und lokale Informationsverfügbarkeit.
+
 Der Befehl `research/run.sh control` bündelt drei Prioritäten in einem festen,
 gepaarten Versuch: Neuromodulation an/aus, Drei-Faktor-STDP gegen Pair-STDP und
 die Diagnose der Kette Eingang → Aktivität → Gewicht → Abruf. Er verwendet

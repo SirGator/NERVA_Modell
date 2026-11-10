@@ -150,13 +150,13 @@ impl Audit {
             "storage":"Streaming aggregates; full raw audit traces are not retained."})
     }
 }
-struct Training {
-    model: Model,
-    weights: Vec<(SynapseId, f32)>,
-    initial_digest: String,
-    details: Value,
+pub(super) struct Training {
+    pub model: Model,
+    pub weights: Vec<(SynapseId, f32)>,
+    pub initial_digest: String,
+    pub details: Value,
 }
-fn train(c: &Config, seed: u64, group: &str, audited: bool) -> Result<Training> {
+pub(super) fn train(c: &Config, seed: u64, group: &str, audited: bool) -> Result<Training> {
     let mut model = build(c, seed, group)?;
     let initial_digest = fingerprint_debug(model.network());
     let weights = model
@@ -183,6 +183,7 @@ fn train(c: &Config, seed: u64, group: &str, audited: bool) -> Result<Training> 
     let mut audit = Audit::default();
     let mut windows = Vec::new();
     let mut input_signatures = Vec::new();
+    let mut input_patterns = BTreeMap::<usize, BTreeSet<Vec<(u64, usize)>>>::new();
     let mut sensory = 0;
     let mut arrivals = 0;
     let mut core = 0;
@@ -196,11 +197,23 @@ fn train(c: &Config, seed: u64, group: &str, audited: bool) -> Result<Training> 
                 .ok_or_else(|| error("missing association input audit"))?;
             arrivals += input.sensor_to_core_arrivals;
             let signature = fingerprint_debug(&(&input.input_rates, &input.input_spikes));
+            // Compare channel patterns, excluding absolute frame times. Nonzero
+            // activity alone does not establish distinguishable input content.
+            let mut channels = BTreeMap::<u64, usize>::new();
+            for spike in &input.input_spikes {
+                *channels.entry(spike.channel.0).or_default() += 1;
+            }
+            let channel_counts: Vec<_> = channels.into_iter().collect();
+            input_patterns
+                .entry(image)
+                .or_default()
+                .insert(channel_counts.clone());
             input_signatures.push(signature.clone());
             let log = model.take_learning_audit().map_err(fail)?;
             audit.add(log, step.weight_changes, &model)?;
             windows.push(json!({"index":index,"image":image,"start_us":step.start_us,"end_us":step.end_us,
                 "input_digest":signature,"generated_spikes":step.sensory_spikes,
+                "input_channel_counts":channel_counts,
                 "visual_spikes":input.visual_neuron_spikes,"sensor_to_core_arrivals":input.sensor_to_core_arrivals,
                 "sensor_to_core_amplitude":input.sensor_to_core_amplitude,
                 "core_spikes":step.core_counts.iter().sum::<usize>(),"motor_spikes":step.motor_spikes,
@@ -216,16 +229,21 @@ fn train(c: &Config, seed: u64, group: &str, audited: bool) -> Result<Training> 
     model.freeze().map_err(fail)?;
     let after = weight_snapshot(&model);
     let changes = weight_changes(&before, &after, model.network())?;
+    let input_patterns_disjoint = input_patterns
+        .get(&0)
+        .zip(input_patterns.get(&1))
+        .is_some_and(|(a, b)| !a.is_empty() && !b.is_empty() && a.is_disjoint(b));
     Ok(Training {
         model,
         weights,
         initial_digest,
         details: json!({"input_digest":fingerprint_debug(&input_signatures),"sensory_spikes":sensory,
             "sensor_to_core_arrivals":arrivals,"core_spikes":core,"windows":windows,"audit":audit.json(),
+            "input_patterns_disjoint":input_patterns_disjoint,
             "weights_before":snapshot_json(&before),"weights_after":snapshot_json(&after),"weight_changes":changes}),
     })
 }
-fn recall(model: &mut Model, c: &Config) -> Result<Value> {
+pub(super) fn recall(model: &mut Model, c: &Config) -> Result<Value> {
     model.freeze().map_err(fail)?;
     let original = model.network().clone();
     let mut responses = Vec::new();
