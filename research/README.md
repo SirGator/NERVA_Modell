@@ -11,6 +11,17 @@ bereit. Neuronale Mechanismen stammen aus NERVA und dem laufenden Modell.
 
 ## Voraussetzungen und erster Lauf
 
+Die [Richtungs- und Abrufpfadanalyse](DIRECTION_PATH.md) vergleicht natürliche
+Gewichtsänderungen mit kontrolliert wirksamen künstlichen Referenzen und
+bilanziert Ankünfte, Schwellen, Refraktärzeit und Potenzialänderungen.
+Sensor→Core-Eingriffe und rein rekurrente Eingriffe werden getrennt geprüft:
+
+```bash
+./NERVA_Modell/research/run.sh control run NERVA_Modell/research/config/direction_path_pilot.toml
+```
+
+[Pilotbefunde und Aussagegrenzen](DIRECTION_PATH_RESULTS_20261110.md).
+
 Der [Präzisionsvergleich](PRECISION.md) prüft jetzt unveränderte f32-
 Direktupdates gegen einen synapsenlokalen f64-Restbetrag, mit eingefrorenen
 und entkoppelten Kontrollen:

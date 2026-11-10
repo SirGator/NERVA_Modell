@@ -437,6 +437,12 @@ impl Model {
             .and_then(|collector| collector.last.take())
     }
 
+    /// Exact, read-only integration/continuous-evolution events in raw input audits.
+    /// Drain after each step; this does not change any neural or learning parameter.
+    pub fn set_dynamics_auditing(&mut self, enabled: bool) {
+        self.simulation.set_dynamics_auditing(enabled);
+    }
+
     /// Fixed sensory rate gain, chosen before any neural observation. It does
     /// not change topology, weights or learning rules.
     pub fn set_sensory_gain(&mut self, gain: f32) -> Result<()> {

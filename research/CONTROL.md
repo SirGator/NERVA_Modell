@@ -1,6 +1,8 @@
 # Harness als Forschungskontrollzentrum
 
 Diese Seite beschreibt die Standardsuite `association`.
+Die [Richtungs- und Abrufpfadanalyse](DIRECTION_PATH.md), Suite `direction_path`,
+ergänzt eine begrenzte künstliche Referenzsuche und native elektrische Bilanzen.
 Die Suite [`precision`](PRECISION.md) vergleicht f32-Direktupdates und
 erhaltene kleine Lernbeiträge mit denselben Anfangsnetzwerken und Eingängen.
 Die zusätzliche [kausale Diagnosekette A–D](CAUSAL_CHAIN.md) verwendet denselben

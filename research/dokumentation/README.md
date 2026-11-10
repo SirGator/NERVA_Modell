@@ -9,6 +9,10 @@ behalten ihren damaligen Stand.
 
 ## Neuromodulation und kausale Diagnose
 
+[Richtungs- und Abrufpfadanalyse](../DIRECTION_PATH.md): künstliche Referenzen
+mit und ohne Sensorprojektion, natürliche Lerndeltas und elektrische Bilanzen.
+[Pilot vom 10.11.2026](../DIRECTION_PATH_RESULTS_20261110.md).
+
 [Präzisionsvergleich](../PRECISION.md): native Direktupdates gegen
 synapsenlokale Akkumulation; getrennte Masse-, Spike- und Assoziationsendpunkte.
 [Geprüfter Pilot vom 10.11.2026](../PRECISION_RESULTS_20261110.md).

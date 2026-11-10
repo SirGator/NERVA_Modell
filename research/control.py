@@ -41,6 +41,8 @@ PRECISION_GROUPS = ("direct", "accumulated", "direct_frozen", "accumulated_froze
                     "direct_unpaired", "accumulated_unpaired")
 PRECISION_METRICS = METRICS + ("requested_mass", "published_mass", "pending_mass", "clipped_mass",
     "rounding_error_mass", "mass_balance_max_error", "signed_requested_mass", "signed_published_mass", "signed_pending_mass")
+DIAGNOSIS_METRICS = ("reference_verified", "natural_core_effect", "natural_motor_effect",
+    "natural_margin_gain_a", "natural_margin_gain_b", "matched_checkpoints", "audit_rows", "native_training_passes")
 
 
 def suite(spec):
@@ -49,6 +51,8 @@ def suite(spec):
 
 def design_counts(spec):
     seeds = len(spec["control"]["seeds"])
+    if suite(spec) == "direction_path":
+        return seeds, seeds*28
     if suite(spec) == "precision":
         return seeds*len(PRECISION_GROUPS)+1, seeds*len(PRECISION_GROUPS)*4
     if suite(spec) == "causal_chain":
@@ -100,7 +104,7 @@ def parse(source):
     require(isinstance(control, dict) and isinstance(model, dict), "control/model must be TOML tables")
     allowed = {"name", "seeds", "workers", "max_trials", "max_native_training_passes", "max_wall_seconds"}
     require(set(control)-{"suite"} == allowed, "control fields must be "+", ".join(sorted(allowed))+" and optional suite")
-    require(suite(spec) in ("association", "causal_chain", "precision"), "unknown control suite")
+    require(suite(spec) in ("association", "causal_chain", "precision", "direction_path"), "unknown control suite")
     require(set(model) == {"processing_neurons", "training_repetitions", "rest_us"},
             "model requires processing_neurons, training_repetitions and rest_us")
     require(isinstance(control["name"], str) and re.fullmatch(r"[A-Za-z0-9_-]{1,80}", control["name"]),
@@ -125,6 +129,10 @@ def parse(source):
 
 
 def study(spec, seed):
+    if suite(spec) == "direction_path":
+        return dict(experiment=dict(name=f"diagnosis_s{seed}", scenario="hippocampal_direction_path",
+            seeds=[seed], interventions=["direction_path"], verify_replay=True, max_runs=1),
+            base=spec["model"], measurements=dict(metrics=list(DIAGNOSIS_METRICS)))
     if suite(spec) == "precision":
         groups = (("precision_numeric",) if seed == spec["control"]["seeds"][0] else ()) + PRECISION_GROUPS
         return dict(experiment=dict(name=f"precision_s{seed}", scenario="hippocampal_precision",
@@ -177,7 +185,7 @@ def prepare(root, spec, source, binary=None):
     trials = sum(p["counts"]["trials"] for p in plans)
     expected_trials, training_passes = design_counts(spec)
     require(trials == expected_trials, "native design size differs")
-    if suite(spec) in ("causal_chain", "precision"):
+    if suite(spec) in ("causal_chain", "precision", "direction_path"):
         native_passes = 2*sum(job["effective_config"]["training_passes_per_execution"]
                               for plan in plans for job in plan["jobs"])
         require(native_passes == training_passes, "native reconstruction/replay cost differs")
@@ -195,7 +203,9 @@ def prepare(root, spec, source, binary=None):
         for path in sorted(set(paths)):
             archive.write(path, path.relative_to(project))
     model = spec["model"]
-    if suite(spec) == "causal_chain":
+    if suite(spec) == "direction_path":
+        steps = 28*(12*model["training_repetitions"]+5*(math.ceil(model["rest_us"]/50000)+1))*trials
+    elif suite(spec) == "causal_chain":
         steps = (36*model["training_repetitions"]+20*math.ceil(model["rest_us"]/50000)+20)*len(plans)*2
     elif suite(spec) == "precision":
         steps = (12*model["training_repetitions"]+12*math.ceil(model["rest_us"]/50000)+12)*(trials-1)*2
@@ -203,7 +213,8 @@ def prepare(root, spec, source, binary=None):
         steps = (12*model["training_repetitions"]+12*math.ceil(model["rest_us"]/50000)+12)*trials*2
     plan = dict(protocol="NERVA-Research-Control/1", specification=spec, seeds=plans,
                 suite=suite(spec),
-                priorities=["retained_update_mass", "native_spike_effect", "controlled_association_gain"] if suite(spec) == "precision" else
+                priorities=["verified_artificial_direction", "exact_recall_path"] if suite(spec) == "direction_path" else
+                    ["retained_update_mass", "native_spike_effect", "controlled_association_gain"] if suite(spec) == "precision" else
                     list(CHAIN_GROUPS) if suite(spec) == "causal_chain" else
                     ["chemistry_on_vs_off", "three_factor_vs_pair_stdp", "input_activity_weight_recall"],
                 counts=dict(trials=trials, replay_executions=trials*2,
@@ -211,7 +222,7 @@ def prepare(root, spec, source, binary=None):
                 artifacts={name:sha(root/name) for name in
                            ("runner", "producer.py", "source.toml", "source-code.zip")},
                 limits=["Exploratory fixed cue-completion assay; no independent confirmation.",
-                        "No search or automatic selection. Precision compares only numerical publication of the same rule.",
+                        "Direction/path: fixed twelve-candidate search, two path scopes; first verified dose per scope, in-sample only. Other suites do not search.",
                         "Workers are bounded per seed; each experiment retains its complete internal controls.",
                         "The wall budget covers native execution and verification, not compilation."])
     write_json(root/"control-plan.json", plan)
@@ -560,6 +571,187 @@ def precision_markdown(result, plan):
     return lines
 
 
+def analyze_diagnosis(records):
+    pipeline, diagnoses, seen = [], [], set()
+    def close(a, b):
+        return math.isclose(a, b, rel_tol=1e-9, abs_tol=1e-12)
+    def similarity(a, b):
+        aa, bb = sum(x*x for x in a), sum(x*x for x in b)
+        return min(1., max(0., sum(x*y for x,y in zip(a,b))/math.sqrt(aa*bb))) if aa and bb else 0.
+    def margins(probe, targets):
+        counts = [f["core_counts"] for f in probe["frames"]]
+        return [similarity(counts[3],targets[0])-similarity(counts[3],targets[1]),
+                similarity(counts[4],targets[1])-similarity(counts[4],targets[0])]
+    def path_summary(probe):
+        neurons = [n for f in probe["frames"][3:] for n in f["neurons"]]
+        return {key:sum(n[key] for n in neurons) for key in (
+            "batches","spikes","refractory_batches","subthreshold_batches","excitation_cancelled_batches",
+            "positive_input","negative_input","continuous_potential_change","reset_potential_change")}
+    def trace_difference(base, branch, changed):
+        output = []
+        for original, actual in zip(base["frames"][3:],branch["frames"][3:]):
+            old_edges = {e["id"]:e for e in original["synapses"]}
+            new_edges = {e["id"]:e for e in actual["synapses"]}
+            active = changed & (old_edges.keys() | new_edges.keys())
+            differences = []
+            for sid in sorted(old_edges.keys() | new_edges.keys()):
+                old, new = old_edges.get(sid,{}), new_edges.get(sid,{})
+                delta = sum(new.get(k,0)-old.get(k,0) for k in ("positive_amplitude","negative_amplitude"))
+                if old != new:
+                    differences.append(dict(synapse_id=sid,changed_weight=sid in changed,
+                        delta_signed_amplitude=delta,before=old,after=new))
+            old_nodes = {n["id"]:n for n in original["neurons"]}
+            new_nodes = {n["id"]:n for n in actual["neurons"]}
+            node_ids = old_nodes.keys() | new_nodes.keys()
+            output.append(dict(image=actual["image"],changed_weight_edges=len(changed),
+                changed_weight_edges_with_arrivals=len(active),arrival_summary_changed_edges=len(differences),
+                changed_weight_edges_with_changed_arrivals=sum(e["changed_weight"] for e in differences),
+                spike_count_changed_neurons=sum(old_nodes.get(i,{}).get("spikes",0)!=new_nodes.get(i,{}).get("spikes",0) for i in node_ids),
+                threshold_gap_changed_neurons=sum(old_nodes.get(i,{}).get("minimum_eligible_threshold_gap")!=
+                    new_nodes.get(i,{}).get("minimum_eligible_threshold_gap") for i in node_ids),
+                largest_arrival_differences=sorted(differences,key=lambda e:(-abs(e["delta_signed_amplitude"]),e["synapse_id"]))[:32],
+                limits="Aggregate arrival differences can include divergent spike histories; unchanged sums do not prove identical timing."))
+        return output
+    for row in sorted(records,key=lambda r:r["job"]["seed"]):
+        seed, m, d = row["job"]["seed"], row["metrics"], row["details"]
+        require(seed not in seen and row["job"]["intervention"] == "direction_path", "duplicate/unknown diagnosis record")
+        seen.add(seed)
+        require(row["full_replay_checked"] is True and set(m) == set(DIAGNOSIS_METRICS), "diagnosis needs full replay and metrics")
+        require(all(type(v) in (float,int) and math.isfinite(v) for v in m.values()), "invalid diagnosis metric")
+        require(d["matched_checkpoint"] is True and d["only_weights_changed"] is True and m["matched_checkpoints"] == 1,
+                "diagnosis checkpoint control missing")
+        require(d["training"]["audit"]["complete"] is True and m["native_training_passes"] == 14, "diagnosis training audit/cost differs")
+        candidates = d["candidates"]
+        require([(c["scope"],c["dose"],c["family"]) for c in candidates] ==
+                [(scope,dose,family) for scope in ("sensory_and_recurrent","recurrent_only")
+                 for dose in (.25,1.,2.) for family in ("targeted","swapped")], "incomplete fixed candidate grid")
+        probes = [d["baseline"],d["natural"],*(c["probe"] for c in candidates)]
+        for probe in probes:
+            require(probe["complete"] is True and probe["parameters_preserved"] is True, "incomplete/learning recall audit")
+            require([f["image"] for f in probe["frames"]] == [4,0,1,2,3], "wrong diagnosis probes")
+            require(sum(f["audit_rows"] for f in probe["frames"]) == probe["audit_rows"], "electrical row count differs")
+            for frame in probe["frames"]:
+                for n in frame["neurons"]:
+                    error = n["stored_after"]-n["stored_before"]-(n["continuous_potential_change"]+n["accepted_net"]+
+                            n["integration_rounding"]+n["reset_potential_change"])
+                    require(abs(error)<1e-9 and close(error,n["balance_error"]), "recall potential ledger differs")
+                    require(n["batches"] == n["spikes"]+n["refractory_batches"]+n["subthreshold_batches"],
+                            "integration classifications overlap or are incomplete")
+        require(sum(p["audit_rows"] for p in probes)==m["audit_rows"], "total electrical budget differs")
+        targets = [f["core_counts"] for f in d["baseline"]["frames"][1:3]]
+        distinct = all(sum(t)>0 for t in targets) and similarity(*targets)<1.-1e-9
+        require(distinct == d["fixed_targets_distinct"], "fixed target separation differs")
+        base_margin, natural_margin = margins(d["baseline"],targets), margins(d["natural"],targets)
+        require(all(close(a,b) for a,b in zip(base_margin,d["baseline_margins"])) and
+                all(close(a,b) for a,b in zip(natural_margin,d["natural_margins"])), "fixed readout differs")
+        for cue in range(2):
+            require(close(natural_margin[cue]-base_margin[cue],m["natural_margin_gain_"+("a","b")[cue]]),
+                    "natural margin gain differs")
+        for metric, field in (("natural_core_effect","core_event_digest"),("natural_motor_effect","motor_event_digest")):
+            require(m[metric] == int(any(a[field]!=b[field] for a,b in
+                zip(d["natural"]["frames"],d["baseline"]["frames"]))), "natural spike effect differs")
+        first = None
+        for index,c in enumerate(candidates):
+            require(c["matched_checkpoint"] is True and c["only_weights_changed"] is True, "candidate checkpoint missing")
+            actual_margin = margins(c["probe"],targets)
+            gain = [a-b for a,b in zip(actual_margin,base_margin)]
+            require(all(close(a,b) for a,b in zip(actual_margin,c["completion_margins"])) and
+                    all(close(a,b) for a,b in zip(gain,c["margin_gains"])), "candidate readout differs")
+            eligible = distinct and all(x>1e-9 for x in actual_margin+gain) and all(
+                sum(f["core_counts"])>0 for f in c["probe"]["frames"][3:]) and (
+                sum(c["probe"]["frames"][0]["core_counts"])<=sum(d["baseline"]["frames"][0]["core_counts"]))
+            require(eligible == c["candidate_passed_without_swap_control"], "candidate controls differ")
+            # Recalculate alignment from the archived per-edge initial, natural and installed weights.
+            require(len(c["weights"]) == len(d["edges"]), "candidate weights missing")
+            pairs = []
+            for e,(sid,w) in zip(d["edges"],c["weights"]):
+                require(sid==e[0] and 0<=w<=2, "candidate edge identity/range differs")
+                if c["scope"]=="recurrent_only" and not e[3].startswith("core_"):
+                    require(w==e[4], "recurrent-only candidate changed an input connection")
+                pairs.append((e[5]-e[4],w-e[4]))
+            aa,bb = sum(a*a for a,b in pairs),sum(b*b for a,b in pairs)
+            cosine = sum(a*b for a,b in pairs)/math.sqrt(aa*bb) if aa and bb else None
+            stored = c["alignment"]["cosine"]
+            require((cosine is None and stored is None) or (cosine is not None and stored is not None and close(cosine,stored)),
+                    "direction alignment differs")
+            verified = eligible and index%2==0 and all(
+                gain[cue]>candidates[index+1]["margin_gains"][cue]+1e-9 for cue in range(2))
+            require(c["verified_reference"] == verified, "reference lacks swapped-target control")
+            if verified and (first is None or (index>=6 and first<6)):
+                first=index
+        require(d["reference_verified"] == (first is not None) and m["reference_verified"] == int(first is not None),
+                "reference status differs")
+        if first is None:
+            require(d["direction_reference"] is None, "unverified direction must remain unresolved")
+            observation = "Keine verifizierte Referenz im festen Suchraum; Ursachenentscheidung offen."
+        else:
+            require(d["direction_reference"]["candidate_index"]==first and
+                    d["direction_reference"]["scope"]==candidates[first]["scope"] and
+                    d["direction_reference"]["alignment"]==candidates[first]["alignment"], "wrong selected reference")
+            observation = "Künstlicher Abrufpfad verifiziert; Richtungswinkel ist eine lokale Diagnose, kein Lernnachweis."
+        require(d["functional_memory_demonstrated"] is False and d["independent_confirmation"] is False,
+                "artificial fitting cannot certify learned memory")
+        pipeline.append(dict(seed=seed,group="direction_path",metrics=m,observations=[observation]))
+        diagnoses.append(dict(seed=seed,reference_verified=first is not None,
+            reference_scope=candidates[first]["scope"] if first is not None else None,
+            references_by_scope={scope:next((index for index,c in enumerate(candidates)
+                if c["scope"]==scope and c["verified_reference"]),None)
+                for scope in ("sensory_and_recurrent","recurrent_only")},
+            selected_candidate=first,direction_reference=d["direction_reference"],
+            natural_margin_gains=[m["natural_margin_gain_a"],m["natural_margin_gain_b"]],
+            paths={name:path_summary(p) for name,p in (("baseline",d["baseline"]),("natural",d["natural"]))},
+            natural_path_difference=trace_difference(d["baseline"],d["natural"],{e[0] for e in d["edges"] if e[4]!=e[5]}),
+            reference_path_difference=trace_difference(d["baseline"],candidates[first]["probe"],
+                {e[0] for e,(_,w) in zip(d["edges"],candidates[first]["weights"]) if e[4]!=w}) if first is not None else None,
+            candidates=[{key:c[key] for key in ("scope","family","dose","installed_l1","margin_gains","verified_reference","alignment")}
+                        for c in candidates]))
+    require(pipeline, "no direction/path records")
+    return dict(protocol="NERVA-Direction-Path-Report/1",suite="direction_path",paired_seeds=len(pipeline),
+                pipeline=pipeline,diagnoses=diagnoses,functional_memory_demonstrated=False,independent_confirmation=False)
+
+
+def diagnosis_markdown(result, plan):
+    lines = ["# Richtungs- und Abrufpfadanalyse", "",
+        f"{result['paired_seeds']} Seeds; {plan['counts']['native_training_passes']} Trainingsdurchläufe einschließlich Replay.",
+        "", "| Seed | Verifizierte Referenz | Pfad | Natürliche Wirkung Cue A / B | Cosinus zur Referenz |",
+        "| --- | --- | --- | ---: | ---: |"]
+    for d in result["diagnoses"]:
+        direction=d["direction_reference"]
+        angle=direction["alignment"]["cosine"] if direction else None
+        gains=d["natural_margin_gains"]
+        lines.append(f"| {d['seed']} | {'ja' if d['reference_verified'] else 'offen'} | {d['reference_scope'] or 'offen'} | "
+                     f"{gains[0]:.9g} / {gains[1]:.9g} | {angle if angle is not None else 'nicht definiert'} |")
+    lines += ["", "| Seed | Pfadumfang | Erste gültige Dosis |", "| --- | --- | ---: |"]
+    for d in result["diagnoses"]:
+        for scope,index in d["references_by_scope"].items():
+            dose=d["candidates"][index]["dose"] if index is not None else "keine im Raster"
+            lines.append(f"| {d['seed']} | {scope} | {dose} |")
+    lines += ["", "Nur verbesserte, richtige Ergänzung beider Cues gegen Anfangsgewichte und vertauschte Zielzuordnung zählt als Referenz.",
+        "Die Vollmuster des Anfangsgewichts-Abrufs bleiben als Zielvektoren fest. Ohne Cue darf die Core-Spikezahl nicht steigen.",
+        "Die künstliche Suche nutzt Kalibrieraktivität; sie liefert keine unabhängige Bestätigung und keinen natürlichen Lernnachweis.",
+        "Rekurrente Eingriffe werden getrennt von Sensor→Core-Eingriffen geprüft; eine gültige rekurrente Referenz hat Vorrang.",
+        "Unterschiedliche Änderungsnormen und Clipping sind dokumentiert; der Richtungswinkel allein beweist keinen Lernregelfehler.",
+        "", "| Seed | Zweig | Cue-Batches | Spikes | Refraktär | Unterschwellig | Durch Hemmung unter Schwelle |",
+        "| --- | --- | ---: | ---: | ---: | ---: | ---: |"]
+    for d in result["diagnoses"]:
+        for name,p in d["paths"].items():
+            lines.append(f"| {d['seed']} | {name} | {p['batches']} | {p['spikes']} | {p['refractory_batches']} | "
+                         f"{p['subthreshold_batches']} | {p['excitation_cancelled_batches']} |")
+    lines += ["", "| Seed | Cue | Geänderte Gewichte mit Ankunft | Veränderte Ankunftssummen | Andere Schwellenabstände | Andere Spikezahlen |",
+              "| --- | --- | ---: | ---: | ---: | ---: |"]
+    for d in result["diagnoses"]:
+        for p in d["natural_path_difference"]:
+            lines.append(f"| {d['seed']} | {p['image']} | {p['changed_weight_edges_with_arrivals']}/{p['changed_weight_edges']} | "
+                         f"{p['arrival_summary_changed_edges']} | {p['threshold_gap_changed_neurons']} | {p['spike_count_changed_neurons']} |")
+    lines += ["", "Rohrecords enthalten alle Synapsen-/Neuronensummen je Probe sowie maximal 128 zeitgenaue Integrationsbeispiele.",
+        "Kontinuierliche Potenzialänderung enthält Leck, intrinsische Ströme und Modulation. Reset und Rundungsrest sind separat bilanziert.",
+        "Hemmungszählung: Erregung allein würde am selben Zustand die Schwelle erreichen; dies ersetzt keinen simulierten Knockout.",
+        "Eine erfolglose begrenzte Gewichtssuche beweist weder einen defekten Netzwerkpfad noch eine falsche Lernregel.",
+        "Unterschiedliche Zweige können im Verlauf der festen Probensequenz unterschiedliche Vorgeschichten entwickeln.", ""]
+    return lines
+
+
+
 def report(root, plan):
     records, hashes = [], {}
     for seed_plan in plan["seeds"]:
@@ -573,11 +765,13 @@ def report(root, plan):
             records.append(row)
             hashes[path.relative_to(root).as_posix()] = sha(path)
     family = suite(plan["specification"])
-    result = {"precision":analyze_precision,"causal_chain":analyze_chain,"association":analyze}[family](records)
+    result = {"direction_path":analyze_diagnosis,"precision":analyze_precision,"causal_chain":analyze_chain,"association":analyze}[family](records)
     result["counts"] = plan["counts"]
     result["record_bytes"] = sum((root/path).stat().st_size for path in hashes)
     write_json(root/"control-report.json", result)
-    if family == "precision":
+    if family == "direction_path":
+        lines = diagnosis_markdown(result, plan)
+    elif family == "precision":
         lines = precision_markdown(result,plan)
     elif family == "causal_chain":
         lines = chain_markdown(result, plan)
@@ -605,7 +799,7 @@ def report(root, plan):
     atomic(root/"CONTROL_REPORT.md", "\n".join(lines).encode())
     output = io.StringIO()
     writer = csv.writer(output)
-    metrics = {"precision":PRECISION_METRICS,"causal_chain":CHAIN_METRICS,"association":METRICS}[family]
+    metrics = {"direction_path":DIAGNOSIS_METRICS,"precision":PRECISION_METRICS,"causal_chain":CHAIN_METRICS,"association":METRICS}[family]
     writer.writerow(["seed", "control", *metrics])
     for row in result["pipeline"]:
         writer.writerow([row["seed"], row["group"], *(row["metrics"][key] for key in metrics)])
