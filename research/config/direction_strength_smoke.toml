@@ -1,0 +1,13 @@
+[control]
+name = "direction_strength_smoke_20261110_v2"
+suite = "direction_strength"
+seeds = [7, 19]
+workers = 2
+max_trials = 2
+max_native_training_passes = 100
+max_wall_seconds = 900
+
+[model]
+processing_neurons = 16
+training_repetitions = 1
+rest_us = 100000

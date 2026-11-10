@@ -54,12 +54,12 @@ impl Edge {
             "refractory_arrivals":self.refractory,"subthreshold_arrivals":self.subthreshold})
     }
 }
-pub(super) struct Probe {
+pub(in crate::scenarios::hippocampal) struct Probe {
     pub counts: Vec<Vec<usize>>,
     pub source_counts: Vec<BTreeMap<u64, usize>>,
     pub details: Value,
 }
-pub(super) fn run(model: &mut Model, c: &Config) -> Result<Probe> {
+pub(in crate::scenarios::hippocampal) fn run(model: &mut Model, c: &Config) -> Result<Probe> {
     model.freeze().map_err(fail)?;
     let parameters = model.network().clone();
     model.enable_audit(AuditOptions {
@@ -276,7 +276,10 @@ pub(super) fn run(model: &mut Model, c: &Config) -> Result<Probe> {
         "examples_scope":"First 128 boundaries per image; aggregate counts cover every boundary. Rest events are discarded per frame."}),
     })
 }
-pub(super) fn margins(probe: &Probe, targets: &[Vec<usize>]) -> [f64; 2] {
+pub(in crate::scenarios::hippocampal) fn margins(
+    probe: &Probe,
+    targets: &[Vec<usize>],
+) -> [f64; 2] {
     [
         cosine(&probe.counts[3], &targets[0]) - cosine(&probe.counts[3], &targets[1]),
         cosine(&probe.counts[4], &targets[1]) - cosine(&probe.counts[4], &targets[0]),

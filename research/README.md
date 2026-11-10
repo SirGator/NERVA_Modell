@@ -11,6 +11,17 @@ bereit. Neuronale Mechanismen stammen aus NERVA und dem laufenden Modell.
 
 ## Voraussetzungen und erster Lauf
 
+Der [Vierfeldervergleich von Richtung und Stärke](DIRECTION_STRENGTH.md)
+kreuzt natürliche und künstlich erfolgreiche Gewichtsdeltas bei kontrollierter
+L2-Stärke. Zusätzliche rein rekurrente Kontrast- und Relaisrichtungen suchen
+nach einem wirksamen internen Abrufpfad:
+
+```bash
+./NERVA_Modell/research/run.sh control run NERVA_Modell/research/config/direction_strength_pilot.toml
+```
+
+[Pilot und Aussagegrenzen](DIRECTION_STRENGTH_RESULTS_20261110.md).
+
 Die [Richtungs- und Abrufpfadanalyse](DIRECTION_PATH.md) vergleicht natürliche
 Gewichtsänderungen mit kontrolliert wirksamen künstlichen Referenzen und
 bilanziert Ankünfte, Schwellen, Refraktärzeit und Potenzialänderungen.

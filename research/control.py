@@ -20,6 +20,7 @@ import tempfile
 import time
 import tomllib
 import zipfile
+import factorial_report
 
 HERE = Path(__file__).resolve().parent
 GROUPS = ("three_on", "three_off", "pair_on", "pair_off", "frozen_on", "frozen_off",
@@ -51,6 +52,8 @@ def suite(spec):
 
 def design_counts(spec):
     seeds = len(spec["control"]["seeds"])
+    if suite(spec) == "direction_strength":
+        return seeds, seeds*50
     if suite(spec) == "direction_path":
         return seeds, seeds*28
     if suite(spec) == "precision":
@@ -104,7 +107,7 @@ def parse(source):
     require(isinstance(control, dict) and isinstance(model, dict), "control/model must be TOML tables")
     allowed = {"name", "seeds", "workers", "max_trials", "max_native_training_passes", "max_wall_seconds"}
     require(set(control)-{"suite"} == allowed, "control fields must be "+", ".join(sorted(allowed))+" and optional suite")
-    require(suite(spec) in ("association", "causal_chain", "precision", "direction_path"), "unknown control suite")
+    require(suite(spec) in ("association", "causal_chain", "precision", "direction_path", "direction_strength"), "unknown control suite")
     require(set(model) == {"processing_neurons", "training_repetitions", "rest_us"},
             "model requires processing_neurons, training_repetitions and rest_us")
     require(isinstance(control["name"], str) and re.fullmatch(r"[A-Za-z0-9_-]{1,80}", control["name"]),
@@ -129,6 +132,10 @@ def parse(source):
 
 
 def study(spec, seed):
+    if suite(spec) == "direction_strength":
+        return dict(experiment=dict(name=f"factorial_s{seed}", scenario="hippocampal_direction_strength",
+            seeds=[seed], interventions=["direction_strength"], verify_replay=True, max_runs=1),
+            base=spec["model"], measurements=dict(metrics=list(factorial_report.METRICS)))
     if suite(spec) == "direction_path":
         return dict(experiment=dict(name=f"diagnosis_s{seed}", scenario="hippocampal_direction_path",
             seeds=[seed], interventions=["direction_path"], verify_replay=True, max_runs=1),
@@ -185,15 +192,16 @@ def prepare(root, spec, source, binary=None):
     trials = sum(p["counts"]["trials"] for p in plans)
     expected_trials, training_passes = design_counts(spec)
     require(trials == expected_trials, "native design size differs")
-    if suite(spec) in ("causal_chain", "precision", "direction_path"):
+    if suite(spec) in ("causal_chain", "precision", "direction_path", "direction_strength"):
         native_passes = 2*sum(job["effective_config"]["training_passes_per_execution"]
                               for plan in plans for job in plan["jobs"])
         require(native_passes == training_passes, "native reconstruction/replay cost differs")
     shutil.copy2(binary, root/"runner")
     shutil.copy2(Path(__file__), root/"producer.py")
+    shutil.copy2(HERE/"factorial_report.py", root/"factorial_report.py")
     atomic(root/"source.toml", source.encode())
     project = HERE.parents[1]
-    paths = [Path(__file__)]
+    paths = [Path(__file__), HERE/"factorial_report.py"]
     for folder in ("NERVA", "NERVA_Modell/Modell", "NERVA_Modell/nerva-qemu", "NERVA_Modell/research"):
         package = project/folder
         paths += sorted((package/"src").rglob("*.rs"))
@@ -203,7 +211,9 @@ def prepare(root, spec, source, binary=None):
         for path in sorted(set(paths)):
             archive.write(path, path.relative_to(project))
     model = spec["model"]
-    if suite(spec) == "direction_path":
+    if suite(spec) == "direction_strength":
+        steps = 50*(12*model["training_repetitions"]+5*(math.ceil(model["rest_us"]/50000)+1))*trials
+    elif suite(spec) == "direction_path":
         steps = 28*(12*model["training_repetitions"]+5*(math.ceil(model["rest_us"]/50000)+1))*trials
     elif suite(spec) == "causal_chain":
         steps = (36*model["training_repetitions"]+20*math.ceil(model["rest_us"]/50000)+20)*len(plans)*2
@@ -213,16 +223,18 @@ def prepare(root, spec, source, binary=None):
         steps = (12*model["training_repetitions"]+12*math.ceil(model["rest_us"]/50000)+12)*trials*2
     plan = dict(protocol="NERVA-Research-Control/1", specification=spec, seeds=plans,
                 suite=suite(spec),
-                priorities=["verified_artificial_direction", "exact_recall_path"] if suite(spec) == "direction_path" else
+                priorities=["direction_strength_factorial", "recurrent_relay_search"] if suite(spec) == "direction_strength" else
+                    ["verified_artificial_direction", "exact_recall_path"] if suite(spec) == "direction_path" else
                     ["retained_update_mass", "native_spike_effect", "controlled_association_gain"] if suite(spec) == "precision" else
                     list(CHAIN_GROUPS) if suite(spec) == "causal_chain" else
                     ["chemistry_on_vs_off", "three_factor_vs_pair_stdp", "input_activity_weight_recall"],
                 counts=dict(trials=trials, replay_executions=trials*2,
                             native_training_passes=training_passes, maximum_model_steps=steps),
                 artifacts={name:sha(root/name) for name in
-                           ("runner", "producer.py", "source.toml", "source-code.zip")},
+                           ("runner", "producer.py", "factorial_report.py", "source.toml", "source-code.zip")},
                 limits=["Exploratory fixed cue-completion assay; no independent confirmation.",
-                        "Direction/path: fixed twelve-candidate search, two path scopes; first verified dose per scope, in-sample only. Other suites do not search.",
+                        "Direction/path and direction/strength use finite artificial searches; first verified dose per method, in-sample only.",
+                        "Direction/strength training and step counts are upper bounds; duplicate weight vectors reuse exact observations.",
                         "Workers are bounded per seed; each experiment retains its complete internal controls.",
                         "The wall budget covers native execution and verification, not compilation."])
     write_json(root/"control-plan.json", plan)
@@ -765,11 +777,13 @@ def report(root, plan):
             records.append(row)
             hashes[path.relative_to(root).as_posix()] = sha(path)
     family = suite(plan["specification"])
-    result = {"direction_path":analyze_diagnosis,"precision":analyze_precision,"causal_chain":analyze_chain,"association":analyze}[family](records)
+    result = {"direction_strength":factorial_report.analyze,"direction_path":analyze_diagnosis,"precision":analyze_precision,"causal_chain":analyze_chain,"association":analyze}[family](records)
     result["counts"] = plan["counts"]
     result["record_bytes"] = sum((root/path).stat().st_size for path in hashes)
     write_json(root/"control-report.json", result)
-    if family == "direction_path":
+    if family == "direction_strength":
+        lines = factorial_report.markdown(result, plan)
+    elif family == "direction_path":
         lines = diagnosis_markdown(result, plan)
     elif family == "precision":
         lines = precision_markdown(result,plan)
@@ -799,7 +813,7 @@ def report(root, plan):
     atomic(root/"CONTROL_REPORT.md", "\n".join(lines).encode())
     output = io.StringIO()
     writer = csv.writer(output)
-    metrics = {"direction_path":DIAGNOSIS_METRICS,"precision":PRECISION_METRICS,"causal_chain":CHAIN_METRICS,"association":METRICS}[family]
+    metrics = {"direction_strength":factorial_report.METRICS,"direction_path":DIAGNOSIS_METRICS,"precision":PRECISION_METRICS,"causal_chain":CHAIN_METRICS,"association":METRICS}[family]
     writer.writerow(["seed", "control", *metrics])
     for row in result["pipeline"]:
         writer.writerow([row["seed"], row["group"], *(row["metrics"][key] for key in metrics)])

@@ -7,7 +7,8 @@ use nerva_research::{
         hippocampal::{
             HippocampalScenario, PARAMETERS as HIPPOCAMPAL_PARAMETERS,
             association::AssociationScenario, causal::CausalScenario, chain::ChainScenario,
-            diagnosis::DiagnosisScenario, precision::PrecisionScenario,
+            diagnosis::DiagnosisScenario, factorial::FactorialScenario,
+            precision::PrecisionScenario,
         },
         m0::{M0Scenario, parameter_names},
         m0_selection::{M0SelectionScenario, selection_parameter_names},
@@ -51,6 +52,7 @@ fn execute() -> Result<()> {
                 {"name":"hippocampal_causality","parameters":HIPPOCAMPAL_PARAMETERS,"metrics":CausalScenario.metric_names(),"interventions":CausalScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
                 {"name":"hippocampal_precision","parameters":HIPPOCAMPAL_PARAMETERS,"metrics":PrecisionScenario.metric_names(),"interventions":PrecisionScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
                 {"name":"hippocampal_direction_path","parameters":HIPPOCAMPAL_PARAMETERS,"metrics":DiagnosisScenario.metric_names(),"interventions":DiagnosisScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
+                {"name":"hippocampal_direction_strength","parameters":HIPPOCAMPAL_PARAMETERS,"metrics":FactorialScenario.metric_names(),"interventions":FactorialScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
                 {"name":"hippocampal_causal_chain","parameters":HIPPOCAMPAL_PARAMETERS,"metrics":ChainScenario.metric_names(),"interventions":ChainScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
                 {"name":"hippocampal_association","parameters":HIPPOCAMPAL_PARAMETERS,"metrics":AssociationScenario.metric_names(),"interventions":AssociationScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
                 {"name":"hippocampal_probe","parameters":HIPPOCAMPAL_PARAMETERS,"metrics":HippocampalScenario.metric_names(),
@@ -102,6 +104,7 @@ fn execute() -> Result<()> {
         "hippocampal_causal_chain" => dispatch(ChainScenario, &mode, &spec, output),
         "hippocampal_precision" => dispatch(PrecisionScenario, &mode, &spec, output),
         "hippocampal_direction_path" => dispatch(DiagnosisScenario, &mode, &spec, output),
+        "hippocampal_direction_strength" => dispatch(FactorialScenario, &mode, &spec, output),
         _ => Err(error(format!("unregistered scenario: {}", spec.scenario))),
     }
 }

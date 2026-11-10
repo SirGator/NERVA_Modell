@@ -1,6 +1,9 @@
 # Harness als Forschungskontrollzentrum
 
 Diese Seite beschreibt die Standardsuite `association`.
+Die Suite [direction_strength](DIRECTION_STRENGTH.md) kreuzt Richtung und
+L2-Stärke und erweitert die rekurrente Referenzsuche; identische Gewichtsvektoren
+teilen eine Beobachtung, Plankosten sind dabei Obergrenzen.
 Die [Richtungs- und Abrufpfadanalyse](DIRECTION_PATH.md), Suite `direction_path`,
 ergänzt eine begrenzte künstliche Referenzsuche und native elektrische Bilanzen.
 Die Suite [`precision`](PRECISION.md) vergleicht f32-Direktupdates und

@@ -1,6 +1,8 @@
 //! Fixed, exploratory weight-direction search and exact recall-path accounting.
 use super::{
-    Config, HippocampalScenario, association::train_with_learning, causal::verify_only_weights,
+    Config, HippocampalScenario,
+    association::{Training, train_with_learning},
+    causal::verify_only_weights,
 };
 use crate::{
     Result, error,
@@ -10,7 +12,7 @@ use nerva::core::{NeuronRole, Polarity, SynapseId};
 use nerva_vm::model::LearningRule;
 use serde_json::{Value, json};
 use std::collections::BTreeMap;
-mod probe;
+pub(super) mod probe;
 use probe::{Probe, margins};
 pub const DOSES: [f64; 3] = [0.25, 1., 2.];
 pub const TRAINING_PASSES: usize = 14;
@@ -25,16 +27,20 @@ pub const METRICS: [&str; 8] = [
     "native_training_passes",
 ];
 pub struct DiagnosisScenario;
-struct Edge {
-    id: SynapseId,
-    pre: u64,
-    post: u64,
-    path: &'static str,
-    initial: f32,
-    natural: f32,
-    score: f64,
+pub(super) struct Edge {
+    pub id: SynapseId,
+    pub pre: u64,
+    pub post: u64,
+    pub path: &'static str,
+    pub initial: f32,
+    pub natural: f32,
+    pub score: f64,
 }
-fn alignment(edges: &[Edge], installed: &[(SynapseId, f32)], path: Option<&str>) -> Value {
+pub(super) fn alignment(
+    edges: &[Edge],
+    installed: &[(SynapseId, f32)],
+    path: Option<&str>,
+) -> Value {
     let (mut dot, mut aa, mut bb, mut natural_l1, mut support_l1, mut agree, mut overlap) =
         (0., 0., 0., 0., 0., 0usize, 0usize);
     for (e, &(id, w)) in edges.iter().zip(installed) {
@@ -60,7 +66,7 @@ fn alignment(edges: &[Edge], installed: &[(SynapseId, f32)], path: Option<&str>)
         "natural_l2":aa.sqrt(),"reference_l2":bb.sqrt(),"dot":dot,"natural_l1":natural_l1,
         "natural_l1_on_reference_support":support_l1,"overlapping_nonzero_edges":overlap,"same_sign_edges":agree})
 }
-fn effect(a: &Probe, b: &Probe, field: &str) -> bool {
+pub(super) fn effect(a: &Probe, b: &Probe, field: &str) -> bool {
     a.details["frames"]
         .as_array()
         .unwrap()
@@ -68,7 +74,13 @@ fn effect(a: &Probe, b: &Probe, field: &str) -> bool {
         .zip(b.details["frames"].as_array().unwrap())
         .any(|(x, y)| x[field] != y[field])
 }
-fn eligible(probe: &Probe, base: &Probe, gain: [f64; 2], margin: [f64; 2], distinct: bool) -> bool {
+pub(super) fn eligible(
+    probe: &Probe,
+    base: &Probe,
+    gain: [f64; 2],
+    margin: [f64; 2],
+    distinct: bool,
+) -> bool {
     distinct
         && gain.iter().all(|&x| x > 1e-9)
         && margin.iter().all(|&x| x > 1e-9)
@@ -76,6 +88,57 @@ fn eligible(probe: &Probe, base: &Probe, gain: [f64; 2], margin: [f64; 2], disti
             .iter()
             .all(|v| v.iter().sum::<usize>() > 0)
         && probe.counts[0].iter().sum::<usize>() <= base.counts[0].iter().sum::<usize>()
+}
+pub(super) fn build_edges(trained: &Training, base: &Probe) -> Result<Vec<Edge>> {
+    let mut edges = Vec::new();
+    for (s, &(id, initial)) in trained.model.network().synapses().zip(&trained.weights) {
+        if id != s.id() {
+            return Err(error("diagnosis edge identity differs"));
+        }
+        let pre = trained.model.network().neuron(s.pre()).unwrap();
+        let post = trained.model.network().neuron(s.post()).unwrap();
+        let path = match (pre.role(), post.role(), pre.polarity()) {
+            (Some(NeuronRole::Sensory), Some(NeuronRole::Processing), _) => "sensory_to_core",
+            (Some(NeuronRole::Processing), Some(NeuronRole::Processing), Polarity::Excitatory) => {
+                "core_exc_to_core"
+            }
+            (Some(NeuronRole::Processing), Some(NeuronRole::Processing), Polarity::Inhibitory) => {
+                "core_inh_to_core"
+            }
+            _ => "other",
+        };
+        let count =
+            |image: usize, node: u64| *base.source_counts[image].get(&node).unwrap_or(&0) as f64;
+        let cue = count(3, s.pre().0) - count(4, s.pre().0);
+        let missing_a = (count(1, s.post().0) - count(3, s.post().0)).max(0.);
+        let missing_b = (count(2, s.post().0) - count(4, s.post().0)).max(0.);
+        let sign = if pre.polarity() == Polarity::Excitatory {
+            1.
+        } else {
+            -1.
+        };
+        let score = if path != "other" && s.is_enabled() && s.is_plastic() {
+            sign * cue * (missing_a - missing_b)
+        } else {
+            0.
+        };
+        edges.push(Edge {
+            id,
+            pre: s.pre().0,
+            post: s.post().0,
+            path,
+            initial,
+            natural: s.weight().get(),
+            score,
+        });
+    }
+    let maximum = edges.iter().map(|e| e.score.abs()).fold(0f64, f64::max);
+    if maximum > 0. {
+        for e in &mut edges {
+            e.score /= maximum;
+        }
+    }
+    Ok(edges)
 }
 impl Scenario for DiagnosisScenario {
     type Config = Config;
@@ -141,59 +204,7 @@ impl Scenario for DiagnosisScenario {
         let base_margins = margins(&base, &targets);
         let distinct = targets.iter().all(|v| v.iter().sum::<usize>() > 0)
             && super::cosine(&targets[0], &targets[1]) < 1. - 1e-9;
-        let mut edges = Vec::new();
-        for (s, &(id, initial)) in trained.model.network().synapses().zip(&trained.weights) {
-            if id != s.id() {
-                return Err(error("diagnosis edge identity differs"));
-            }
-            let pre = trained.model.network().neuron(s.pre()).unwrap();
-            let post = trained.model.network().neuron(s.post()).unwrap();
-            let path = match (pre.role(), post.role(), pre.polarity()) {
-                (Some(NeuronRole::Sensory), Some(NeuronRole::Processing), _) => "sensory_to_core",
-                (
-                    Some(NeuronRole::Processing),
-                    Some(NeuronRole::Processing),
-                    Polarity::Excitatory,
-                ) => "core_exc_to_core",
-                (
-                    Some(NeuronRole::Processing),
-                    Some(NeuronRole::Processing),
-                    Polarity::Inhibitory,
-                ) => "core_inh_to_core",
-                _ => "other",
-            };
-            let count = |image: usize, node: u64| {
-                *base.source_counts[image].get(&node).unwrap_or(&0) as f64
-            };
-            let cue = count(3, s.pre().0) - count(4, s.pre().0);
-            let missing_a = (count(1, s.post().0) - count(3, s.post().0)).max(0.);
-            let missing_b = (count(2, s.post().0) - count(4, s.post().0)).max(0.);
-            let sign = if pre.polarity() == Polarity::Excitatory {
-                1.
-            } else {
-                -1.
-            };
-            let score = if path != "other" && s.is_enabled() && s.is_plastic() {
-                sign * cue * (missing_a - missing_b)
-            } else {
-                0.
-            };
-            edges.push(Edge {
-                id,
-                pre: s.pre().0,
-                post: s.post().0,
-                path,
-                initial,
-                natural: s.weight().get(),
-                score,
-            });
-        }
-        let maximum = edges.iter().map(|e| e.score.abs()).fold(0f64, f64::max);
-        if maximum > 0. {
-            for e in &mut edges {
-                e.score /= maximum;
-            }
-        }
+        let edges = build_edges(&trained, &base)?;
         let mut candidates = Vec::new();
         let mut candidate_weights = Vec::new();
         let mut total_rows = base.details["audit_rows"].as_u64().unwrap();

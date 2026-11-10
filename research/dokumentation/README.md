@@ -9,6 +9,10 @@ behalten ihren damaligen Stand.
 
 ## Neuromodulation und kausale Diagnose
 
+[Richtung × Stärke](../DIRECTION_STRENGTH.md): normkontrollierter Vierfeldervergleich
+und rekurrente Kontrast-/Relaiskontrollen.
+[Pilot vom 10.11.2026](../DIRECTION_STRENGTH_RESULTS_20261110.md).
+
 [Richtungs- und Abrufpfadanalyse](../DIRECTION_PATH.md): künstliche Referenzen
 mit und ohne Sensorprojektion, natürliche Lerndeltas und elektrische Bilanzen.
 [Pilot vom 10.11.2026](../DIRECTION_PATH_RESULTS_20261110.md).
