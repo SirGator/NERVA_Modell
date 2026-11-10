@@ -70,7 +70,23 @@ def ppm_png(path):
     return b'\x89PNG\r\n\x1a\n'+chunk(b'IHDR',struct.pack('>IIBBBBB',width,height,8,2,0,0,0))+chunk(b'IDAT',zlib.compress(raster,3))+chunk(b'IEND',b'')
 
 class Dataset:
-    def __init__(self, root):self.root=root.resolve()
+    def __init__(self, root):
+        self.root=root.resolve()
+        # The project keeps reports beside Messungen. Standalone data packages
+        # keep their existing local document layout and need no second root.
+        candidate=self.root.parent/'Doku'
+        self.documentation_root=candidate.resolve() if self.root.name=='Messungen' and candidate.is_dir() else None
+    def resolve_file(self, value):
+        parts=Path(value).parts
+        if self.documentation_root and value in ('M6_EXPERIMENT.md','M7_EXPERIMENT.md','M8_EXPERIMENT.md'):
+            parts=('Doku','Berichte',value)
+        if parts and parts[0]=='Doku':
+            if self.documentation_root is None:raise ValueError('Dokumentationsverzeichnis fehlt.')
+            p=safe_path(self.documentation_root,Path(*parts[1:]))
+            if p.suffix!='.md':raise ValueError('Nur Markdown-Dokumente sind freigegeben.')
+            return p,'Doku/'+p.relative_to(self.documentation_root).as_posix()
+        p=safe_path(self.root,value)
+        return p,p.relative_to(self.root).as_posix()
     def documents(self):
         result=[]
         for bucket in ('','Dokumentation','Berichte','Darstellung'):
@@ -80,6 +96,12 @@ class Dataset:
                 safe_path(self.root,p.relative_to(self.root).as_posix())
                 result.append({'name':f'{bucket} / {p.stem}' if bucket else p.stem,
                                'path':p.relative_to(self.root).as_posix()})
+        if self.documentation_root:
+            for p in sorted(self.documentation_root.rglob('*.md')):
+                relative=p.relative_to(self.documentation_root)
+                if not p.is_file() or p.is_symlink() or any(part.startswith('.') for part in relative.parts):continue
+                _,path=self.resolve_file('Doku/'+relative.as_posix())
+                result.append({'name':'Doku / '+relative.with_suffix('').as_posix(),'path':path})
         return result
     def runs(self):
         result=[]
@@ -128,7 +150,7 @@ class Dataset:
             files.append({'name':f.name,'path':f.relative_to(parent).as_posix(),'directory':f.is_dir(),'size':f.stat().st_size if f.is_file() else None})
         return sorted(files,key=lambda x:(not x['directory'],x['name']))
     def preview(self,value,offset=0,search=''):
-        p=safe_path(self.root,value)
+        p,display_path=self.resolve_file(value)
         if not p.is_file():raise FileNotFoundError(value)
         with p.open('rb') as f:prefix=f.read(64)
         if prefix.startswith(b'version https://git-lfs.github.com/spec/v1'):
@@ -144,7 +166,7 @@ class Dataset:
             try:text=json.dumps(json.loads(text),ensure_ascii=False,indent=2)
             except ValueError:pass
         return {'kind':'markdown' if p.suffix=='.md' else 'text','text':text,'truncated':len(raw)>256*1024,
-                'size':p.stat().st_size,'path':p.relative_to(self.root).as_posix()}
+                'size':p.stat().st_size,'path':display_path}
 
 class Live:
     def __init__(self,root,model_script=None):
@@ -253,7 +275,7 @@ class Handler(BaseHTTPRequestHandler):
                 if url.path=='/api/image' and get('live')=='1':
                     if not self.server.live.run:raise FileNotFoundError('Noch kein Live-Bild.')
                     p=self.server.live.run/'dashboard-frame.ppm'
-                else:p=safe_path(ds.root,get('path'))
+                else:p=ds.resolve_file(get('path'))[0]
                 if not p.is_file():raise FileNotFoundError(p.name)
                 if url.path=='/api/image':
                     if p.suffix.lower() not in ('.ppm','.png','.jpg','.jpeg','.bmp'):raise ValueError('Kein unterstütztes Bild.')

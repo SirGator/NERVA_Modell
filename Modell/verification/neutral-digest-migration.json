@@ -1,0 +1,19 @@
+{
+  "reason": "new neutral fields in Debug network snapshots; default native compatibility separately verified",
+  "historical": [
+    "8fd22becc219d623",
+    "f3d8367268cc2dcc",
+    "979aa15c66f44f2e",
+    "07f78159dc37360f",
+    "457c991f767554c3",
+    "b8f0e55f4c8d420d"
+  ],
+  "with_neutral_fields": [
+    "840dc0844bdbe9c3",
+    "fe90c87e666bca9d",
+    "07ce5e85304fd21f",
+    "bc3b38b3ced9359f",
+    "b78db7eca6418888",
+    "60aaf3c930e4072a"
+  ]
+}

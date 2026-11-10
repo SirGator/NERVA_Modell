@@ -1,0 +1,95 @@
+{
+  "protocol": "NERVA-M11-v1",
+  "date": "2026-10-28",
+  "status": "specified_not_implemented",
+  "hypothesis": "A fixed incoming excitatory Core weight budget makes experience-dependent weight differences useful for action-effect prediction.",
+  "baseline": "M9-v2 weight4_tau100",
+  "conditions": [
+    {"case_id": "reference", "competition": false},
+    {"case_id": "competition", "competition": true}
+  ],
+  "fixed": {
+    "sensor": "effect_2ch",
+    "processing": 32,
+    "encoding": "deterministic",
+    "core_weight_scale": 4,
+    "stdp_tau_us": 100000,
+    "stdp_window_us": 100000,
+    "a_plus": 0.0001,
+    "a_minus": 0.00012,
+    "weight_bounds": [0, 2],
+    "core_membrane_tau_us": 20000,
+    "action_copy_weight": 0.9,
+    "action_copy_targets_per_key": 3,
+    "action_effect_delay_us": 50000,
+    "homeostasis": false,
+    "development": false,
+    "rate_gain": "M9 unscaled reference-network gain for the seed, identical in both conditions",
+    "initial_state": "Same nodes, edges, weights, positions, polarities, delays and random streams within seed; no initial normalization"
+  },
+  "competition": {
+    "pool": "Initially enabled, plastic Core-to-Core synapses with excitatory presynaptic neuron, grouped by postsynaptic neuron; fixed IDs",
+    "budget": "Per-pool f64 sum of initial f32 weights after Core scaling; independent of mapping, arm, labels and outcomes",
+    "trigger": "Once per event timestamp and target pool with an actual STDP weight mutation, after all pre/post hooks and before spike propagation",
+    "order": "Ascending target neuron ID, then ascending synapse ID; never normalize between individual same-timestamp STDP hooks",
+    "projection": "For positive tentative weights v_i, solve sum(min(2, lambda*v_i))=B when B<=2*positive_count; zero weights stay zero. When B>2*positive_count, set positives to 2 and distribute the residual uniformly to zero weights. An all-zero pool receives B/pool_size.",
+    "empty_pool": "Budget zero, no operation",
+    "numeric_policy": "Solve active-set proportional rescaling in f64, cast to f32, then correct residual in ascending synapse ID within 0..2; deterministic, no random tie breaking",
+    "budget_tolerance": {"absolute": 0.000001, "relative": 0.000001, "rule": "absolute + relative*B"},
+    "invalid_state": "Abort on nonfinite weights, infeasible budget, changed pool membership, bound violation or residual above tolerance; never silently clamp or skip a failed pool",
+    "freeze": "Gated by learning and competition flags; off in all evaluation/calibration/rest/reset branches and frozen arms",
+    "in_flight": "Existing queued arrivals retain emission amplitudes; new emissions use normalized weights"
+  },
+  "arms": ["before", "aged_frozen", "paired", "scrambled"],
+  "mappings": ["normal_mapping", "reversed_mapping"],
+  "stages": {
+    "smoke": {"seeds": [792], "counts": {"train": 8, "calibration": 8, "test": 8}, "confirmatory": false},
+    "pilot": {"seeds": [700, 701, 702], "counts": {"train": 256, "calibration": 128, "test": 128}, "confirmatory": false},
+    "confirm": {"seeds": [710, 711, 712, 713, 714, 715, 716, 717, 718, 719, 720, 721, 722, 723, 724, 725, 726, 727, 728, 729], "counts": {"train": 256, "calibration": 128, "test": 128}, "confirmatory": true}
+  },
+  "evaluation": {
+    "primary": ["checkpoint_probe", "rest_checkpoint_probe"],
+    "rest_us": 2000000,
+    "actions_per_mapping_seed_endpoint": ["a", "d"],
+    "replay": "Independent exact replay per action/endpoint/intervention; calibration on separate branch; fixed checkpoint count decoder within each trained model",
+    "weight_resets": ["sham", "restore_core", "restore_all_plastic"],
+    "reset_timing": "After independent rest if any, before the 50000us neutral baseline; same as M9-v2, not M10-E",
+    "reset_scope": "Restore condition-specific initial weights only; preserve neuron state, traces, time and pending arrivals; no normalization after reset",
+    "no_copy_controls": true,
+    "secondary": ["online accuracy", "first16", "sequential retention/interference", "time-bin readout", "spike counts", "weight selectivity", "budget residuals", "visual weight retention"]
+  },
+  "inference": {
+    "minimum_confirmation_seeds": 20,
+    "unit": "paired seed; two action probes and both mappings are not independent seed replicates",
+    "family_size": 4,
+    "family": "Two condition-specific learning claims times two primary endpoints; competition claim also requires benefit over reference",
+    "family_alpha": 0.05,
+    "one_sided_sign_alpha": 0.0125,
+    "sign_test": "Exact paired sign test, ties omitted; no nonzero differences gives p=1",
+    "bootstrap": {"samples": 4000, "seed": 1234, "confidence": 0.95, "pairing": "Resample whole seeds jointly across conditions, arms, mappings and endpoints"},
+    "required_contrast": "Mean difference >0, descriptive bootstrap lower95 >0 and one-sided exact paired sign p<=0.0125; all required contrasts conjunctive",
+    "learning_per_condition_endpoint": {
+      "visual": "Mean paired-arm visual decodability >=0.8 separately in each mapping",
+      "accuracy": "Paired count balanced accuracy exceeds 0.5 and each of before/aged_frozen/scrambled separately in each mapping",
+      "mapping": "Paired flip_rate and dual_correct_rate each exceed every control arm",
+      "causality": "Paired sham accuracy exceeds restore_all_plastic separately in both mappings"
+    },
+    "competition_benefit_per_endpoint": {
+      "requires": "Competition learning criteria at this endpoint",
+      "raw_accuracy": "Competition paired accuracy exceeds reference paired accuracy separately in both mappings",
+      "learning_margin": "For each control and mapping, (competition paired-control) exceeds (reference paired-control)",
+      "core_causality": "Competition paired sham accuracy exceeds restore_core separately in both mappings"
+    },
+    "retained_competition_success": "All competition benefit and learning requirements pass at BOTH primary endpoints; no success from only the better endpoint",
+    "reference_claim": "Reference learning can be reported per endpoint independently; it does not establish competition benefit"
+  },
+  "execution_contract": {
+    "tuning": "No parameter, budget, seed, decoder, gate or endpoint selection from pilot/confirmation outcomes; changes require versioned protocol and new unused confirmation seeds",
+    "stage_gate": "Technical smoke then pilot, then unchanged confirmation if technical audits pass; pilot quality does not select cases or seeds",
+    "failed_runs": "Infrastructure failures may resume identical jobs. Neural instability is reported, not replaced by a new seed. Missing/invalid records prevent a complete confirmatory claim.",
+    "archives": "Write manifest and all effective configurations before execution; record protocol hash and source/build identity; completed raw records immutable",
+    "stop": "One pilot and one 20-seed confirmation; no automatic extra seed batches or follow-up M10 diagnostics",
+    "selection": "Fixed comparison; no S1/S2/S3 search or held-out-driven selection",
+    "original_model_modified": false
+  }
+}

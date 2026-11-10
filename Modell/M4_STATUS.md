@@ -1,3 +1,5 @@
+> Historischer M4-Stand. Die M4-Programme und Runner sind entfernt; aktuelle Forschung läuft über den [Harness](../research/README.md).
+
 # M4: Implementierungs- und Ausführungsstand
 
 **Die JSON-CLI ist implementiert:**
@@ -7,7 +9,7 @@
 ```
 
 Der neuronale Einzelfall läuft in `NERVA_Modell/Modell/src/m4/`, die Definitionen und der
-Python-Orchestrator liegen unter `NERVA_Modell/Experimente/m4/`. Die 20 ursprünglich
+Python-Orchestrator liegen unter `NERVA_Modell/research/experiments/m4/`. Die 20 ursprünglich
 bereitgestellten Konfigurationen sind übernommen. Die spätere Ergänzung wird
 als eigenes `gate` mit 2/7 Kanälen bei 8/20 ms ausgeführt.
 
@@ -37,7 +39,7 @@ Die zuletzt angeforderte Reihenfolge wurde eingehalten: zuerst kleine
 Sensorfälle, dann direkte Signal-/STDP-Prüfung, danach Skalierung, Kodierung
 und Lernmechanismen. Die zehn neuen Seeds wurden separat ausgewertet.
 
-[Vertrag und Startbefehle](../Experimente/m4/README.md) ·
-[Ergebnisse und Grenzen](../Experimente/M4_EXPERIMENT.md) ·
+[Vertrag und Startbefehle](../research/dokumentation/versuchsreihen/m4/README.md) ·
+[Ergebnisse und Grenzen](../research/dokumentation/versuchsreihen/M4_EXPERIMENT.md) ·
 [Zehn-Seed-Bericht](../../Messungen/Experimente/m4-confirm/summary.md) ·
 [Technische Verifikation](../../Messungen/Experimente/m4-confirm/verification.md)

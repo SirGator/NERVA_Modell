@@ -9,17 +9,11 @@ if [[ "${1:-}" == "gui" || "${1:-}" == "dashboard" ]]; then
     exec "$model_dir/gui.sh" "$@"
 fi
 
-if [[ "${1:-}" == "m4" || "${1:-}" == "m5" || "${1:-}" == "m6" ]]; then
-    experiment_bin="nerva-$1"
-    shift
-    exec cargo run --offline --release --manifest-path "$model_dir/Cargo.toml" --bin "$experiment_bin" -- "$@"
-fi
-
-# Preserve earlier invocations while keeping experimental code in its own crate.
 case "${1:-}" in
-    study|study-replay|record|retention|agency|sensorimotor|m3|serial|--weights)
-        echo "Weiterleitung an NERVA_Modell/Experimente/run.sh." >&2
-        exec "$model_dir/../Experimente/run.sh" "$@"
+    ""|--*|-h|demo|smoke|attach|layout|help) ;;
+    *)
+        echo "Unbekannter Modellaufruf: $1. Forschung startet über NERVA_Modell/research/run.sh." >&2
+        exit 2
         ;;
 esac
 

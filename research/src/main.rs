@@ -4,6 +4,9 @@ use nerva_research::{
     runner::ResearchRunner,
     scenarios::{
         continual::ContinualScenario,
+        hippocampal::{
+            HippocampalScenario, PARAMETERS as HIPPOCAMPAL_PARAMETERS, causal::CausalScenario,
+        },
         m0::{M0Scenario, parameter_names},
         m0_selection::{M0SelectionScenario, selection_parameter_names},
         sensorimotor::{PARAMETERS as SENSORIMOTOR_PARAMETERS, SensorimotorScenario},
@@ -42,7 +45,10 @@ fn execute() -> Result<()> {
                 {"name":"continual_sequences","parameters":["training_repetitions","symbol_interval_us","learning.a_plus","learning.a_minus"],
                 "metrics":ContinualScenario.metric_names(),"interventions":ContinualScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
                 {"name":"sensorimotor_size","parameters":SENSORIMOTOR_PARAMETERS,"metrics":SensorimotorScenario.metric_names(),
-                "interventions":SensorimotorScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()}]})
+                "interventions":SensorimotorScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
+                {"name":"hippocampal_causality","parameters":HIPPOCAMPAL_PARAMETERS,"metrics":CausalScenario.metric_names(),"interventions":CausalScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
+                {"name":"hippocampal_probe","parameters":HIPPOCAMPAL_PARAMETERS,"metrics":HippocampalScenario.metric_names(),
+                "interventions":HippocampalScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()}]})
         );
         return Ok(());
     }
@@ -84,6 +90,8 @@ fn execute() -> Result<()> {
         "m0_selection" => dispatch(M0SelectionScenario, &mode, &spec, output),
         "continual_sequences" => dispatch(ContinualScenario, &mode, &spec, output),
         "sensorimotor_size" => dispatch(SensorimotorScenario, &mode, &spec, output),
+        "hippocampal_probe" => dispatch(HippocampalScenario, &mode, &spec, output),
+        "hippocampal_causality" => dispatch(CausalScenario, &mode, &spec, output),
         _ => Err(error(format!("unregistered scenario: {}", spec.scenario))),
     }
 }

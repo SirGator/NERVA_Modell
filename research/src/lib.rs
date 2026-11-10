@@ -1,5 +1,6 @@
 //! Research orchestration; no neuron, environment or learning rule lives here.
 pub mod collector;
+mod readout;
 pub mod runner;
 pub mod scenario;
 pub mod scenarios;

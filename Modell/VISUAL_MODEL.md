@@ -3,8 +3,8 @@
 Das ausführbare Modell in `NERVA_Modell/Modell/` implementiert den ersten technischen Meilenstein:
 NERVA erhält ausschließlich Bildschirm-Pixel und steuert den Gast mit virtuellen
 Tasten. Die neuronalen Bausteine kommen aus `../../NERVA`, die QMP-, Bild- und
-Tastaturadapter aus `../nerva-qemu`. Die bisherige serielle Demo bleibt als
-separates Programm `nerva-serial` unter [NERVA_Modell/Experimente/](../Experimente/SERIAL_MODEL.md) erhalten.
+Tastaturadapter aus `../nerva-qemu`. Die frühere serielle Demo ist entfernt; ihre
+[Dokumentation](../research/dokumentation/versuchsreihen/SERIAL_MODEL.md) bleibt erhalten.
 
 ```text
 QEMU-VGA → QMP screendump → RGB-Bild → 64×64 Graustufen
@@ -90,7 +90,7 @@ beginnt mit höchstens vier lokalen ausgehenden Verbindungen pro Zelle; weitere
 Verbindungen können durch NERVAs Entwicklungsregeln entstehen und entfernt werden.
 
 Details, geometrische Anordnung, Rückführung, Regelparameter und der erste
-gepaarte Versuch stehen in [RECURRENT_EXPERIMENT.md](../Experimente/RECURRENT_EXPERIMENT.md).
+gepaarte Versuch stehen in [RECURRENT_EXPERIMENT.md](../research/dokumentation/versuchsreihen/RECURRENT_EXPERIMENT.md).
 `--model direct` erhält den früheren Schnittstellentest als Kontrolle.
 `--fixed-topology` schaltet nur Strukturänderungen ab; `--no-feedback` entfernt
 motorische Rückführung und Aktionskopien; `--no-homeostasis` deaktiviert lokale

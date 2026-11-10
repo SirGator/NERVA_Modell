@@ -18,6 +18,48 @@ fn sizes() -> Vec<usize> {
 }
 
 #[test]
+fn competition_uses_the_regular_harness_at_every_requested_size() {
+    let scenario = SensorimotorScenario;
+    assert!(
+        nerva_research::scenarios::sensorimotor::PARAMETERS
+            .contains(&"mechanisms.synaptic_competition")
+    );
+    for size in sizes() {
+        let mut c = scenario.default_config();
+        c.processing_neurons = size;
+        c.max_total_neurons = size + 11;
+        c.max_observed_events = 10_000_000;
+        c.train_trials = 4;
+        c.test_trials = 4;
+        scenario
+            .set_parameter(&mut c, "mechanisms.synaptic_competition", &json!(true))
+            .unwrap();
+        assert!(scenario.validate(&c).is_err());
+        c.development = false;
+        c.homeostasis = false;
+        scenario.validate(&c).unwrap();
+        assert!(
+            scenario
+                .set_parameter(&mut c, "mechanisms.synaptic_competition", &json!(1))
+                .is_err()
+        );
+        for name in GROUPS {
+            let result = scenario
+                .run_verified(&c, 17, &Intervention { name: name.into() })
+                .unwrap();
+            assert_eq!(result.values["total_neurons"], (size + 11) as f64);
+            assert_eq!(result.values["parameters_preserved"], 1.);
+            assert_eq!(result.values["formed"], 0.);
+            assert_eq!(result.values["pruned"], 0.);
+            assert_eq!(result.values["homeostasis_updates"], 0.);
+            if name.ends_with("_frozen") {
+                assert_eq!(result.values["weight_updates"], 0.);
+            }
+        }
+    }
+}
+
+#[test]
 fn paired_worlds_frozen_controls_and_forecasts_replay_exactly() {
     let scenario = SensorimotorScenario;
     for size in sizes() {
@@ -142,19 +184,23 @@ fn diagnosis_switches_apply_identically_at_every_size() {
 
 #[test]
 fn indexed_scaling_preserves_the_pre_change_reference_dynamics() {
+    // Hashes include newly visible neutral receptor/tag/STP fields. Historical
+    // numerical dynamics are separately byte-checked against the source archive
+    // in Modell/verification/cortical-default-compatibility.json.
+
     let scenario = SensorimotorScenario;
     for (size, initial, trained, final_digest) in [
         (
             17,
-            "8fd22becc219d623",
-            "f3d8367268cc2dcc",
-            "979aa15c66f44f2e",
+            "840dc0844bdbe9c3",
+            "fe90c87e666bca9d",
+            "07ce5e85304fd21f",
         ),
         (
             256,
-            "07f78159dc37360f",
-            "457c991f767554c3",
-            "b8f0e55f4c8d420d",
+            "bc3b38b3ced9359f",
+            "b78db7eca6418888",
+            "60aaf3c930e4072a",
         ),
     ] {
         let mut c = scenario.default_config();

@@ -1,8 +1,24 @@
 # Dokumentation: Forschung und Experimente
 
+[Aktueller Forschungsstand](../../../Doku/FORSCHUNGSSTAND.md) ·
+[Harness bedienen](../README.md) · [Zentrale Dokumentation](../../../Doku/README.md)
+
+Protokolle legen Ablauf und Kriterien fest. Ergebnisberichte beschreiben die
+tatsächlich ausgeführten Messungen und ihre Grenzen. Datierte Planungsdokumente
+behalten ihren damaligen Stand.
+
+## Neuromodulation und kausale Diagnose
+
+| Thema | Protokoll | Ergebnisse |
+| --- | --- | --- |
+| Hippocampale Gewebeprofile und fester Bildpilot | [Hippocampus](../HIPPOCAMPAL.md) | [Integration und Pilot](../HIPPOCAMPAL_RESULTS_20261109.md) |
+| Diagnose der Gewichtsänderungen | [Gewichtsdiagnostik](../WEIGHT_DIAGNOSTICS.md) | [Gewichtsbefunde](../results/hippocampal_weight_diagnostics_20261109/RESULTS.md) |
+| Bildvergleich mit 256 Processing-Zellen | [Konfiguration](../config/hippocampal_256_20261109.toml) | [256-Zellen-Pilot](../results/hippocampal_256_20261109/RESULTS.md) |
+| Eligibility, lokaler Faktor, Gewicht und Ausgabewirkung | [Kausales Diagnoseprotokoll](../CAUSALITY_256.md) | [Kausale Befunde](../results/hippocampal_causality_256_20261109/RESULTS.md) |
+
 ## Forschungs-Harness
 
-- [Nächste Forschungsphase: Codeabgleich und Umsetzung](../NEXT_PHASE.md).
+- [Planungsstand: Codeabgleich und Umsetzung](../NEXT_PHASE.md).
 - [Erste feste M0-Referenzmessung](../PHASE1_BASELINE.md).
 - [Sensomotorischer Größen-/Umweltadapter](../SENSORIMOTOR.md) und [erster Messbericht](../SENSORIMOTOR_RESULTS_20261105.md).
 - [Frei skalierbare Größen und Diagnoseprüfungen](../SCALING.md) · [erster Diagnoselauf](../SCALING_RESULTS_20261105.md).
@@ -16,18 +32,18 @@
 
 ## Versuchsreihen
 
-Die Protokolle beschreiben historische und laufende Forschungsstände; sie sind
+Die Protokolle beschreiben historische Forschungsstände; sie sind
 keine Aussage, dass ein Versuch erfolgreich war. Ergebnisse und Manifeste
 liegen separat im Ordner `Messungen/Experimente`.
 
-- [Übersicht und Startbefehle](../../Experimente/README.md) · [Roadmap](../../Experimente/ROADMAP.md)
-- [M3](../../Experimente/M3_EXPERIMENT.md) · [M4](../../Experimente/M4_EXPERIMENT.md) · [M5](../../Experimente/M5_EXPERIMENT.md) · [M6](../../Experimente/M6_EXPERIMENT.md)
-- [M7](../../Experimente/M7_EXPERIMENT.md) · [M8](../../Experimente/M8_EXPERIMENT.md) · [M9](../../Experimente/M9_EXPERIMENT.md) · [M9 V1](../../Experimente/M9_V1_EXPERIMENT.md)
-- [M10](../../Experimente/M10_EXPERIMENT.md) · [M10B](../../Experimente/M10B_EXPERIMENT.md) · [M10C](../../Experimente/M10C_EXPERIMENT.md) · [M10D](../../Experimente/M10D_EXPERIMENT.md) · [M10E](../../Experimente/M10E_EXPERIMENT.md)
-- Weitere Ansätze: [Agency](../../Experimente/AGENCY_EXPERIMENT.md), [Rekurrenz](../../Experimente/RECURRENT_EXPERIMENT.md), [Retention](../../Experimente/RETENTION_EXPERIMENT.md), [Sensomotorik](../../Experimente/SENSORIMOTOR_EXPERIMENT.md).
+- [Historische Übersicht und frühere Startbefehle](versuchsreihen/README.md) · [Roadmap](versuchsreihen/ROADMAP.md)
+- [M3](versuchsreihen/M3_EXPERIMENT.md) · [M4](versuchsreihen/M4_EXPERIMENT.md) · [M5](versuchsreihen/M5_EXPERIMENT.md) · [M6](versuchsreihen/M6_EXPERIMENT.md)
+- [M7](versuchsreihen/M7_EXPERIMENT.md) · [M8](versuchsreihen/M8_EXPERIMENT.md) · [M9](versuchsreihen/M9_EXPERIMENT.md) · [M9 V1](versuchsreihen/M9_V1_EXPERIMENT.md)
+- [M10](versuchsreihen/M10_EXPERIMENT.md) · [M10B](versuchsreihen/M10B_EXPERIMENT.md) · [M10C](versuchsreihen/M10C_EXPERIMENT.md) · [M10D](versuchsreihen/M10D_EXPERIMENT.md) · [M10E](versuchsreihen/M10E_EXPERIMENT.md)
+- [M11](versuchsreihen/M11_EXPERIMENT.md)
+- Weitere Ansätze: [Agency](versuchsreihen/AGENCY_EXPERIMENT.md), [Rekurrenz](versuchsreihen/RECURRENT_EXPERIMENT.md), [Retention](versuchsreihen/RETENTION_EXPERIMENT.md), [Sensomotorik](versuchsreihen/SENSORIMOTOR_EXPERIMENT.md).
 
-Die Detailanleitungen der automatisierten Reihen stehen jeweils unter
-`Experimente/<reihe>/README.md`. Zugang und Aufruf sind auch über
-`research/experimente` beziehungsweise `research/run.sh experiment` möglich.
-Die ursprünglichen Quellpfade bleiben erhalten, damit archivierte Fingerabdrücke
-und darauf aufbauende Bestätigungsläufe überprüfbar bleiben.
+Die historischen Anleitungen unter `dokumentation/versuchsreihen` enthalten
+keinen ausführbaren Experimentcode. Alte Startbefehle sind stillgelegt.
+Aktuelle Versuche starten über `research/run.sh`; siehe
+[Auflösung und integrierte Bausteine](versuchsreihen/MIGRATION.md).

@@ -1,12 +1,15 @@
 # Lokales NERVA-Dashboard
 
+[Projektstartseite](../../README.md) · [Installation](../../Doku/EINSTIEG.md) ·
+[Entwicklungsablauf](../../Doku/ENTWICKLUNG.md)
+
 Das Dashboard verbindet eine React-Oberfläche mit einem lokalen Python-Server.
 Die neuronale Simulation läuft weiterhin im bestehenden Rust-Modell.
 Die fertig gebaute Oberfläche liegt bei; zum Starten werden weder Node.js noch
 npm benötigt. Python 3.10 oder neuer und die bisherigen Modellvoraussetzungen
 reichen aus.
 
-Vom Projektverzeichnis `DSVLM`:
+Vom aktiven Projektverzeichnis `DSVLM/main/`:
 
 ```bash
 ./NERVA_Modell/Modell/run-demo.sh gui
@@ -81,8 +84,9 @@ Rust noch QEMU oder die Modellbibliothek. Die vollständige
 
 Beide Server binden ausschließlich an `127.0.0.1`. Steueranfragen benötigen einen
 Sitzungsschlüssel und werden bei fremdem Browser-Ursprung abgewiesen. Dateiwege
-sind auf das Messverzeichnis begrenzt; interne Git- und Konfigurationsordner sind
-ausgeschlossen. Es werden keine Messdaten an externe Dienste gesendet.
+sind auf das Messverzeichnis und freigegebene Markdown-Berichte im benachbarten
+`Doku/` begrenzt; interne Git- und Konfigurationsordner sind ausgeschlossen.
+Es werden keine Messdaten an externe Dienste gesendet.
 
 ## Oberfläche weiterentwickeln
 

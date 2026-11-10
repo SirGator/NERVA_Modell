@@ -1,0 +1,21 @@
+{
+  "schema": "NERVA-default-model-compatibility/1",
+  "cases": [
+    32,
+    128
+  ],
+  "frames_per_case": 4,
+  "exact_old_fields_steps_equal": true,
+  "reference_sha256": "1d8afb3f32ce5b52bfd170a9fae89e66490b5aab2f53a78989a4ae3b34e152f1",
+  "current_normalized_sha256": "1d8afb3f32ce5b52bfd170a9fae89e66490b5aab2f53a78989a4ae3b34e152f1",
+  "reference_archive_sha256": "67bae728fc572799f2925b1e7f864eb81366a909e4d71f238acd921df168a102",
+  "guest_source_sha256": "4198bec111085f49021b9ffb95afba0a23c1317a7cfe6eb8f51173d8fbe38033",
+  "excluded_fields": "only explicitly neutral new receptor/release/modulation, zero signed eligibility and absent STP metadata",
+  "bytes": 9214739,
+  "build_and_execution_seconds": {
+    "reference": 2.2330651950032916,
+    "current": 5.620613155973842
+  },
+  "reference_archive_file": "cortical-original-sources-20261109.zip",
+  "public_api_probe_source": "cortical-default-probe.rs"
+}

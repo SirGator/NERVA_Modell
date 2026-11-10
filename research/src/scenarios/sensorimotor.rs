@@ -2,6 +2,7 @@
 //! The evaluator owns the persistent world, prescribed exploration and decoder.
 use crate::{
     Result, error, fingerprint, fingerprint_debug,
+    readout::Readout,
     scenario::{Intervention, Scenario, TrialMetrics},
 };
 use nerva::core::{NeuronRole, Polarity};
@@ -10,13 +11,9 @@ use nerva_qemu::{
     keyboard::Key,
     test_world::{MotionWorld, PixelEnvironment},
 };
-use nerva_vm::{
-    model::{
-        HomeostasisScope, KeyboardLayout, Model, ModelConfig, SensorConfig, SensorMode,
-        SpikeCoding,
-        audit::{AuditOptions, learned_parameters_equal},
-    },
-    readout::Readout,
+use nerva_vm::model::{
+    HomeostasisScope, KeyboardLayout, Model, ModelConfig, SensorConfig, SensorMode, SpikeCoding,
+    audit::{AuditOptions, learned_parameters_equal},
 };
 use serde_json::{Value, json};
 use std::collections::BTreeMap;
@@ -29,7 +26,7 @@ pub const GROUPS: [&str; 6] = [
     "decoupled",
     "decoupled_frozen",
 ];
-pub const PARAMETERS: [&str; 9] = [
+pub const PARAMETERS: [&str; 10] = [
     "processing_neurons",
     "train_trials",
     "test_trials",
@@ -38,6 +35,7 @@ pub const PARAMETERS: [&str; 9] = [
     "max_total_neurons",
     "mechanisms.development",
     "mechanisms.homeostasis",
+    "mechanisms.synaptic_competition",
     "homeostasis.scope",
 ];
 pub struct SensorimotorScenario;
@@ -52,6 +50,7 @@ pub struct Config {
     pub max_total_neurons: usize,
     pub development: bool,
     pub homeostasis: bool,
+    pub synaptic_competition: bool,
     pub homeostasis_scope: HomeostasisScope,
 }
 
@@ -67,6 +66,7 @@ fn model_config(c: &Config, seed: u64) -> ModelConfig {
         development: c.development,
         homeostasis: c.homeostasis,
         homeostasis_scope: c.homeostasis_scope,
+        synaptic_competition: c.synaptic_competition,
         ..ModelConfig::default()
     }
 }
@@ -331,6 +331,7 @@ impl Scenario for SensorimotorScenario {
             max_total_neurons: 100_000,
             development: true,
             homeostasis: true,
+            synaptic_competition: false,
             homeostasis_scope: HomeostasisScope::All,
         }
     }
@@ -348,14 +349,19 @@ impl Scenario for SensorimotorScenario {
             c.homeostasis = scope != "off";
             return Ok(());
         }
-        if matches!(name, "mechanisms.development" | "mechanisms.homeostasis") {
+        if matches!(
+            name,
+            "mechanisms.development" | "mechanisms.homeostasis" | "mechanisms.synaptic_competition"
+        ) {
             let enabled = value
                 .as_bool()
                 .ok_or_else(|| error("mechanism switches must be boolean"))?;
             if name == "mechanisms.development" {
                 c.development = enabled;
-            } else {
+            } else if name == "mechanisms.homeostasis" {
                 c.homeostasis = enabled;
+            } else {
+                c.synaptic_competition = enabled;
             }
             return Ok(());
         }

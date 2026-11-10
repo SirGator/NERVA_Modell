@@ -1,4 +1,4 @@
-use super::KeyboardLayout;
+use super::{Architecture, KeyboardLayout};
 use crate::Result;
 use nerva_qemu::vision_encoder::Encoding;
 
@@ -23,6 +23,12 @@ pub struct ModelConfig {
     pub keyboard: KeyboardLayout,
     pub kind: ModelKind,
     pub processing_neurons: usize,
+    /// Synthetic spatial construction profile; the default preserves the original core.
+    pub architecture: Architecture,
+    /// Enable local activity-driven chemistry and delayed three-factor learning.
+    pub neuromodulation: bool,
+    /// Width in normalized tissue coordinates; zero is the sharp-boundary control.
+    pub area_transition_width: f32,
     pub learning: bool,
     pub development: bool,
     pub homeostasis: bool,
@@ -34,6 +40,8 @@ pub struct ModelConfig {
     pub core_fanout: usize,
     pub core_delay_us: Option<u64>,
     pub stdp_tau_us: f32,
+    /// Optional local incoming-weight competition; off by default.
+    pub synaptic_competition: bool,
     pub sensory_weight_scale: f32,
     pub feedback: bool,
     pub initial_structural_drive: f32,
@@ -53,6 +61,9 @@ impl Default for ModelConfig {
             keyboard: KeyboardLayout::Full,
             kind: ModelKind::Recurrent,
             processing_neurons: 256,
+            architecture: Architecture::Cortical,
+            neuromodulation: false,
+            area_transition_width: 0.16,
             learning: true,
             development: true,
             homeostasis: true,
@@ -64,6 +75,7 @@ impl Default for ModelConfig {
             core_fanout: 4,
             core_delay_us: None,
             stdp_tau_us: 20_000.0,
+            synaptic_competition: false,
             sensory_weight_scale: 1.0,
             feedback: true,
             initial_structural_drive: 2.5,
@@ -79,6 +91,23 @@ impl Default for ModelConfig {
 
 impl ModelConfig {
     pub fn validate(&self) -> Result<()> {
+        if (self.architecture == Architecture::Hippocampal || self.neuromodulation)
+            && self.kind != ModelKind::Recurrent
+        {
+            return Err(
+                "area profiles and neuromodulation require the recurrent shared network".into(),
+            );
+        }
+        if !self.area_transition_width.is_finite()
+            || !(0.0..=1.0).contains(&self.area_transition_width)
+        {
+            return Err("area transition width must be finite in 0..=1".into());
+        }
+        if self.synaptic_competition
+            && (self.kind != ModelKind::Recurrent || self.development || self.homeostasis)
+        {
+            return Err("synaptic competition requires a recurrent model with development and homeostasis off".into());
+        }
         if !self.core_threshold.is_finite()
             || !(0.2..=2.0).contains(&self.core_threshold)
             || !self.core_weight_scale.is_finite()

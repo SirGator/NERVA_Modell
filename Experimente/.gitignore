@@ -1,5 +1,0 @@
-/target/
-/runs/
-*.weights
-__pycache__/
-*.py[cod]

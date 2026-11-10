@@ -90,30 +90,51 @@ pub(crate) fn build(config: &ModelConfig, sensor: &SensorConfig) -> Result<Topol
                 },
             )
         };
+        let base = NeuronConfig {
+            resting_potential: 0.0,
+            reset_potential: 0.0,
+            threshold: if role == NeuronRole::Processing {
+                config.core_threshold
+            } else {
+                1.0
+            },
+            membrane_tau_us: if role == NeuronRole::Processing {
+                config.core_membrane_tau_us
+            } else {
+                20_000.0
+            },
+            refractory_period_us: refractory,
+            activity_trace_tau_us: 50_000.0,
+            intrinsic: Default::default(),
+        };
+        let weights = if config.architecture == Architecture::Hippocampal {
+            area::field_for_config(config)
+                .at(position)
+                .expect("validated position")
+        } else {
+            AreaWeights::CORTICAL
+        };
+        let params =
+            if role == NeuronRole::Processing && config.architecture == Architecture::Hippocampal {
+                area::electrical_profile(base, weights, polarity)?
+            } else {
+                base
+            };
         let mut neuron = Neuron::new(
             NeuronId(id),
             position,
             polarity,
             Some(role),
-            NeuronConfig {
-                resting_potential: 0.0,
-                reset_potential: 0.0,
-                threshold: if role == NeuronRole::Processing {
-                    config.core_threshold
-                } else {
-                    1.0
-                },
-                membrane_tau_us: if role == NeuronRole::Processing {
-                    config.core_membrane_tau_us
-                } else {
-                    20_000.0
-                },
-                refractory_period_us: refractory,
-                activity_trace_tau_us: 50_000.0,
-                intrinsic: Default::default(),
-            },
+            params,
             SimTime::ZERO,
         )?;
+        if role == NeuronRole::Processing
+            && (config.neuromodulation || config.architecture == Architecture::Hippocampal)
+        {
+            let (receptors, release) = area::chemical_profiles(weights, id - sensors, config.seed);
+            neuron.set_receptor_profile(receptors)?;
+            neuron.set_release_profile(release)?;
+        }
         if role == NeuronRole::Processing {
             // Uniform local startup demand, no preselected future endpoints.
             neuron.set_structural_drive_clamped(config.initial_structural_drive, 0.0, 3.0)?;
@@ -152,6 +173,7 @@ pub(crate) fn build(config: &ModelConfig, sensor: &SensorConfig) -> Result<Topol
             .iter()
             .map(|&id| (id, network.neuron(id).expect("processing cell").position())),
     );
+    let field = area::field_for_config(config);
     let mut next_id = 0;
     // Four sparse local visual projections per input; no direct sensor→motor shortcut.
     for sensor in 0..sensors {
@@ -191,7 +213,11 @@ pub(crate) fn build(config: &ModelConfig, sensor: &SensorConfig) -> Result<Topol
         let pos = network.neuron(source).unwrap().position();
         let mut nearby = index.within(pos, 0.25);
         nearby.retain(|&target| target != source);
-        shuffle(&mut nearby, &mut rng);
+        if config.architecture == Architecture::Hippocampal {
+            area::order_candidates(&network, source, &mut nearby, field, &mut rng);
+        } else {
+            shuffle(&mut nearby, &mut rng);
+        }
         for &target in nearby.iter().take(4) {
             let weight = 0.18 + (next_random(&mut rng) % 10_000) as f32 * 0.00001;
             let delay = 500 + next_random(&mut rng) % 1501;
@@ -321,7 +347,11 @@ pub(crate) fn build(config: &ModelConfig, sensor: &SensorConfig) -> Result<Topol
                             .any(|s| s.post() == target)
                 })
                 .collect();
-            shuffle(&mut nearby, &mut extra_rng);
+            if config.architecture == Architecture::Hippocampal {
+                area::order_candidates(&network, source, &mut nearby, field, &mut extra_rng);
+            } else {
+                shuffle(&mut nearby, &mut extra_rng);
+            }
             for target in nearby.into_iter().take(config.core_fanout - 4) {
                 let weight = (0.18 + (next_random(&mut extra_rng) % 10_000) as f32 * 0.00001)
                     * config.core_weight_scale;
@@ -336,6 +366,21 @@ pub(crate) fn build(config: &ModelConfig, sensor: &SensorConfig) -> Result<Topol
                     true,
                 )?;
             }
+        }
+    }
+    if config.architecture == Architecture::Hippocampal {
+        let ids: Vec<_> = network
+            .synapses()
+            .filter(|edge| {
+                (sensors..motors).contains(&edge.pre().0)
+                    && (sensors..motors).contains(&edge.post().0)
+            })
+            .map(Synapse::id)
+            .collect();
+        for id in ids {
+            let mut edge = network.synapse(id).unwrap().clone();
+            area::configure_synapse(&mut edge, &network, field)?;
+            *network.synapse_mut(id).unwrap() = edge;
         }
     }
     Ok(Topology {

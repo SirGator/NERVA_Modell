@@ -1,9 +1,12 @@
 # Laufendes NERVA-Modell
 
+[Projektstartseite](../../README.md) · [Installation](../../Doku/EINSTIEG.md) ·
+[Entwicklungsablauf](../../Doku/ENTWICKLUNG.md)
+
 `NERVA_Modell/Modell/` enthält das ausführbare visuelle Modell: Wahrnehmung, rekurrente
 Verarbeitung, lokales Lernen und Aktionen über die vollständige virtuelle Tastatur.
-Kontrollierte Forschungsversuche und ihre Auswertungen liegen im eigenen Ordner
-[NERVA_Modell/Experimente/](../Experimente/README.md).
+Kontrollierte Forschungsversuche und externe Auswertungen liegen ausschließlich
+im [Research-Harness](../research/README.md).
 
 ```text
 VM-Bild → Sensorik → räumlicher rekurrenter Core → Motorik → Tastatur
@@ -21,7 +24,8 @@ Lern-/Strukturänderungen. Es startet mit:
 [Bedienung und Voraussetzungen](../Dashboard/README.md). Die bisherigen
 Terminalaufrufe bleiben erhalten.
 
-Vom Projektverzeichnis `DSVLM` starten:
+Vom aktiven Projektverzeichnis `DSVLM/main/` starten. Die Skripte bauen
+offline; für `demo` und `smoke` werden QEMU und GNU-binutils benötigt:
 
 ```bash
 ./NERVA_Modell/Modell/run-demo.sh
@@ -41,19 +45,59 @@ VM. `smoke` prüft den vollständigen Weg mit echten Pixeln und allen 105 Tasten
 Neue Laufprotokolle und Bildschirmaufnahmen werden unter `Messungen/Modell/` abgelegt.
 Die bisherigen Messläufe liegen unverändert unter `Messungen/Experimente/`.
 
+## Gemeinsames Gewebe und lokale Neuromodulation
+
+Die Mechanismen wurden zuerst in [NERVA](../../NERVA/docs/neuromodulation.md)
+implementiert und geprüft; dieser Host baut daraus ein gemeinsames Netzwerk.
+Elektrische Zellprofile, Arealfeld, Rezeptorantwort, chemische Felder,
+signierte Lern-Eligibility und Kurzzeitplastizität stammen aus der Library.
+Der historische Cortical Core bleibt die Standardeinstellung.
+
+```bash
+./NERVA_Modell/Modell/run-demo.sh demo --architecture hippocampal
+./NERVA_Modell/Modell/run-demo.sh demo --architecture hippocampal --no-neuromodulation
+./NERVA_Modell/Modell/run-demo.sh demo --architecture hippocampal --area-transition-width 0
+./NERVA_Modell/Modell/run-demo.sh demo --architecture cortical --neuromodulation
+```
+
+Die CLI aktiviert Chemie beim Hippocampus-Profil standardmäßig; in `ModelConfig`
+wird `neuromodulation` ausdrücklich gesetzt. Width 0 ist der scharfe Vergleich,
+0,16 der weiche Standard. Cortex-, DG-, CA3- und CA1-ähnliche Einflüsse mischen
+geeignete lokale Eigenschaften. Alle Zellen bleiben in derselben `Network`;
+Neuronen speichern keine feste kognitive Arealidentität. Lokale Verbindungen
+können die Übergänge kreuzen, und neue Synapsen erhalten dieselben Library-Profile.
+
+Die Quellzellen sind normale Zellen mit plastischen Eingängen. Ihre eigenen
+Spikes setzen drei verschiedene Modulatorarten frei. Es gibt keinen externen
+Belohnungs-, Neuheits- oder Sollhandlungsalgorithmus. Hippocampale Varianten
+verwenden denselben Drei-Faktoren-Modus auch ohne Chemie; ohne dritten Faktor
+konsolidieren die markierten Gewichte dann nicht. Die Chemie-Ablation erhält
+die anfänglichen Zellen, Rezeptor-/Quellprofile und Verbindungen unverändert.
+STP und neuronale Aktivität laufen dabei weiter.
+
+`report.json` enthält `hippocampus` mit Profilverteilung, Quellenkonfiguration,
+aktiven chemischen Pulsen, tatsächlich modulierten Zellen und STP-Synapsen.
+Das sind technische Diagnosen. Die Profile sind synthetisch und keine validierte
+biologische Kalibrierung; ein Gedächtnis- oder Kognitionsgewinn ist damit nicht
+behauptet. [Fester Bildvergleich](../research/HIPPOCAMPAL.md).
+
+Geprüft sind native Replay-/Ablations- und Wachstumsfälle sowie ein echter
+12-Schritt-QEMU-Lauf mit 128 Processing-Zellen und vollständiger Tastaturprobe.
+Der Lauf erzeugte 1.342 Core-Spikes, 2.036 Motorimpulse, 486 Gewichtsänderungen,
+177 aktive chemische Pulse und 38 STP-Synapsen. Ein Vergleich mit gesicherten
+Originalquellen bestätigt die bisherigen Zustandswerte/Schritte des Standard-
+Cortical-Modells exakt: [Prüfbeleg](verification/cortical-default-compatibility.json).
+
 | Pfad | Aufgabe |
 |---|---|
 | `src/main.rs` | Laufender Bild–Modell–Tastatur-Zyklus und Live-CLI |
 | `src/lib.rs` | Modellbibliothek für die Live-Anwendung und externe Versuche |
 | `src/model.rs` | Neuronale Ausführung, Rückführung, Freeze und Entwicklungsschritte |
-| `src/model/topology.rs` | Dünnes räumliches Grundgerüst mit 256 Processing-Zellen |
+| `src/model/topology.rs` | Räumliches Grundgerüst; standardmäßig 256 Processing-Zellen |
+| `src/model/area.rs` | Host-Anbindung der Areal- und Zellprofile aus NERVA |
 | `src/model/config.rs` | Modellkonfiguration und Dynamikparameter |
 | `src/model/sensory.rs` | Optionale Pixel-/Diagnosesensoren und vorhandene deterministische/Poisson-Kodierer |
 | `src/model/audit.rs` | Optionale Eingangs-/Ereignisaudits und gemeinsamer Freeze-Vergleich |
-| `src/m4/`, `src/m4_main.rs` | JSON-Brücke für einzelne kontrollierte M4-Läufe mit dem vorhandenen Modell |
-| `src/m5.rs`, `src/m5_main.rs` | Gezielte Aktionskopie-/Homöostase-Versuche mit bestehenden Mechanismen |
-| `src/m6.rs`, `src/m6_main.rs`, `src/m6/` | Kombinierter JSON-Versuch, exakte Zustandsreplays und getrennte Einzelzelldiagnose |
-| `src/readout.rs` | Wiederverwendete externe Messauswerter; keine neuronale Lernregel |
 | `src/direct.rs` | Optionaler direkter Sensor→Motor-Modellaufbau |
 | `src/visual_vm.rs` | Lebenszyklus der visuellen Demo-VM; auch von Versuchen verwendbar |
 | `guest/visual.S` | Visuelle A/D-Umgebung im Gast |
@@ -61,7 +105,7 @@ Die bisherigen Messläufe liegen unverändert unter `Messungen/Experimente/`.
 | `../../Messungen/Modell/` | Protokolle und Bildschirmaufnahmen des laufenden Modells |
 
 Das Modell bindet `../../NERVA` und `../nerva-qemu` ein. Es hat keine Abhängigkeit
-von `NERVA_Modell/Experimente/`. Eigene ausgeführte Tasten werden zum Core zurückgeführt;
+vom Research-Harness. Eigene ausgeführte Tasten werden zum Core zurückgeführt;
 interner VM-Zustand, Zielkoordinaten und Auswerterlabels bleiben außerhalb des Modells.
 
 Standardmäßig laufen 256 Processing-Neuronen mit dünner räumlicher Vernetzung,
@@ -71,8 +115,10 @@ Zählgleichständen einen eindeutigen frühesten ersten Spike; `--motor-decoder 
 wählt die historische Regel. Modifier bleiben unabhängig.
 
 Details: [Visuelles Modell](VISUAL_MODEL.md), [Tastaturbelegung](KEYBOARD_LAYOUT.md),
-[Architektur](../../ARCHITECTURE.md). Forschungsstand und Messberichte:
-[NERVA_Modell/Experimente/README.md](../Experimente/README.md).
+[Architektur](../../ARCHITECTURE.md). Der aktuelle
+[Forschungsstand](../../Doku/FORSCHUNGSSTAND.md) ordnet die Messberichte ein.
+[Historische Versuchsreihen](../research/dokumentation/versuchsreihen/README.md)
+beschreiben frühere Protokolle.
 
 ```bash
 cargo test --offline --release --manifest-path NERVA_Modell/Modell/Cargo.toml
@@ -80,38 +126,21 @@ cargo clippy --offline --manifest-path NERVA_Modell/Modell/Cargo.toml --all-targ
 cargo fmt --manifest-path NERVA_Modell/Modell/Cargo.toml -- --check
 ```
 
-Frühere Aufrufe wie `./NERVA_Modell/Modell/run-demo.sh m3` funktionieren als Weiterleitung an
-`./NERVA_Modell/Experimente/run.sh m3`. Die Versuchsprogramme werden aus `NERVA_Modell/Experimente/` gebaut.
+Die eigenständigen M3–M11-Experimentprogramme einschließlich der M4–M6-Brücken
+sind entfernt. Frühere Startbefehle werden nicht weitergeleitet.
+[Protokolle und Ergebnisse](../research/dokumentation/versuchsreihen/README.md)
+bleiben als historische Dokumentation erhalten. Neue Studien starten im Harness.
 
-Die M4-JSON-Brücke startet mit `./NERVA_Modell/Modell/run-demo.sh m4 --config CONFIG --output RESULT`.
-Die Testsuite und Ergebnisse bleiben in `NERVA_Modell/Experimente/`. Stand und Grenzen:
-[M4_STATUS.md](M4_STATUS.md).
 
-M5 startet entsprechend mit `./NERVA_Modell/Modell/run-demo.sh m5 --config CONFIG --output RESULT`.
-Die Versuchspläne und Auswertung liegen unter [NERVA_Modell/Experimente/m5/](../Experimente/m5/README.md),
-die [M5-Ergebnisse hier](../Experimente/M5_EXPERIMENT.md). Die Standardwerte des
-Live-Modells bleiben Kopiegewicht 0,9, Core-Tau 20 ms und globale Homöostase;
-die neuen Bereiche und Signalparameter werden in M5 ausdrücklich konfiguriert.
+## Kausale Lerndiagnose
 
-M6 startet mit `./NERVA_Modell/Modell/run-demo.sh m6 --config CONFIG --output RESULT` und
-benötigt keine laufende VM. Die visuelle Kalibrierung erfolgt auf einem exakten
-Replayzweig; die Elterninstanz wird unmittelbar am Trainingsende geprüft.
-[Pläne und Aufrufe](../Experimente/m6/README.md),
-[M6-Ergebnisse einschließlich der getrennten Core-Kontrolle](../Experimente/M6_EXPERIMENT.md).
+`Model::enable_learning_audit(max_records)` aktiviert die begrenzte Library-
+Beobachtung. Nach jedem Frame liefert `take_learning_audit()` Tags, Modulatorwerte,
+Gewichtseinzeländerungen und Integrationssummen; unvollständige Aufzeichnungen
+werden als Fehler zurückgegeben. `disable_learning_audit()` liefert Restdaten
+zurück und schaltet die Beobachtung ab. Keine neuen Modellparameter sind nötig.
 
-Die anschließende [M7-Synapsendiagnose](../Experimente/M7_EXPERIMENT.md) liegt
-vollständig im Experimentpaket. Das Modell stellt dafür nur einen kontrollierten
-Gewichtseingriff bei eingefrorenen Regeln und die vorhandene Zustandsprüfung bereit.
-
-[M8](../Experimente/M8_EXPERIMENT.md) startet über `./NERVA_Modell/Experimente/run.sh m8`.
-Das Modell stellt dafür Parameter für Core-Gewichte, Core-Schwelle, lokale
-Verbindungsdichte, Core-Verzögerung, bestehende STDP-Zeitskalen und visuelle
-Eingangsgewichte bereit. Sämtliche bisherigen Standardwerte bleiben erhalten.
-
-## Skalierbare Verarbeitungsnetze
-
-`processing_neurons` akzeptiert positive ganzzahlige Größen. Für reproduzierbare
-Größenvergleiche und den identischen Strukturentwicklungs-/Homöostasetest je
-Größe siehe [Research: Skalierung und Diagnose](../research/SCALING.md).
-Der Research-Adapter prüft zusätzlich explizite Neuronen-/Ereignisbudgets vor
-beziehungsweise während der Ausführung.
+Der [kausale Harness-Versuch](../research/CAUSALITY_256.md) rekonstruiert identische
+trainierte Checkpoints, prüft `same_replay_state` und ändert danach ausschließlich
+Gewichte auf eingefrorenen Instanzen. [Ergebnisse und Grenzen](../research/results/hippocampal_causality_256_20261109/RESULTS.md)
+trennen tatsächliche Lernwirkung und den künstlichen Diagnosekontrast.

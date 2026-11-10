@@ -1,0 +1,13 @@
+{
+  "schema": "NERVA-model-integration-verification/1",
+  "date": "2026-11-09",
+  "sequence": "NERVA library implemented and validated before NERVA_Modell integration",
+  "model_tests_passed": 25,
+  "generic_qemu_test_ignored_by_default": 1,
+  "explicit_hippocampal_qemu_smoke_passed": true,
+  "research_rust_tests_passed": 23,
+  "research_python_tests_passed": 53,
+  "default_cortical_compatibility": "cortical-default-compatibility.json",
+  "functional_probe": "../../research/results/hippocampal_probe_20261109/verification.json",
+  "cognition_or_memory_gain_proven": false
+}

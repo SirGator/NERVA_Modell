@@ -8,7 +8,7 @@ use nerva_qemu::{
     vision_encoder::Encoding,
 };
 use nerva_vm::{
-    model::{KeyboardLayout, Model, ModelConfig, ModelKind, WINDOW_US},
+    model::{Architecture, KeyboardLayout, Model, ModelConfig, ModelKind, WINDOW_US},
     visual_vm::DemoVm,
 };
 use serde_json::json;
@@ -36,7 +36,7 @@ fn run() -> Result<()> {
     let command = args.next().unwrap_or_else(|| "help".into());
     if matches!(command.as_str(), "help" | "--help" | "-h") {
         println!(
-            "Usage:\n  nerva-vm demo [OPTIONS]\n  nerva-vm smoke [OPTIONS]\n  nerva-vm attach QMP_SOCKET [OPTIONS]\n  nerva-vm layout\n\nOptions: --dashboard (write live observations), --steps N (40), --seed N (42),\n --keyboard full|wasd|ad (default full, German ISO-105),\n --encoding brightness|change, --motor-decoder timing|count (default timing),\n --model recurrent|direct, --processing N (256), --frozen,\n --fixed-topology, --no-feedback, --no-homeostasis,\n --initial-drive F (2.5), --pruning-min-us N (300000), --output NEW_DIRECTORY\n\nDemo/smoke boot a disposable VGA guest. Attach leaves the existing VM running.\nSmoke verifies A/D key effects and all 105 physical keyboard codes.\nResearch protocols live in Experimente/run.sh."
+            "Usage:\n  nerva-vm demo [OPTIONS]\n  nerva-vm smoke [OPTIONS]\n  nerva-vm attach QMP_SOCKET [OPTIONS]\n  nerva-vm layout\n\nOptions: --dashboard (write live observations), --steps N (40), --seed N (42),\n --keyboard full|wasd|ad (default full, German ISO-105),\n --encoding brightness|change, --motor-decoder timing|count (default timing),\n --model recurrent|direct, --processing N (256), --frozen,\n --architecture cortical|hippocampal (default cortical),\n --neuromodulation / --no-neuromodulation (hippocampal default on),\n --area-transition-width F (0.16; 0 is sharp-boundary control),\n --fixed-topology, --no-feedback, --no-homeostasis,\n --initial-drive F (2.5), --pruning-min-us N (300000), --output NEW_DIRECTORY\n\nDemo/smoke boot a disposable VGA guest. Attach leaves the existing VM running.\nSmoke verifies A/D key effects and all 105 physical keyboard codes.\nResearch protocols live in research/run.sh."
         );
         return Ok(());
     }
@@ -58,15 +58,14 @@ fn run() -> Result<()> {
             args.next().ok_or("attach requires a QMP socket")?,
         )),
         _ => {
-            return Err(
-                "unknown model command; use --help (experiments: Experimente/run.sh)".into(),
-            );
+            return Err("unknown model command; use --help (research: research/run.sh)".into());
         }
     };
     let mut steps = 40usize;
     let mut model_config = ModelConfig::default();
     let mut output = None;
     let mut dashboard_enabled = false;
+    let mut neuromodulation_override = None;
     while let Some(option) = args.next() {
         match option.as_str() {
             "--steps" => steps = args.next().ok_or("missing step count")?.parse()?,
@@ -98,6 +97,19 @@ fn run() -> Result<()> {
                     _ => return Err("model must be recurrent or direct".into()),
                 }
             }
+            "--architecture" => {
+                model_config.architecture = match args.next().as_deref() {
+                    Some("cortical") => Architecture::Cortical,
+                    Some("hippocampal") => Architecture::Hippocampal,
+                    _ => return Err("architecture must be cortical or hippocampal".into()),
+                }
+            }
+            "--neuromodulation" => neuromodulation_override = Some(true),
+            "--no-neuromodulation" => neuromodulation_override = Some(false),
+            "--area-transition-width" => {
+                model_config.area_transition_width =
+                    args.next().ok_or("missing area width")?.parse()?;
+            }
             "--fixed-topology" => model_config.development = false,
             "--no-feedback" => model_config.feedback = false,
             "--no-homeostasis" => model_config.homeostasis = false,
@@ -128,6 +140,8 @@ fn run() -> Result<()> {
     if !(1..=10_000).contains(&steps) {
         return Err("steps must be in 1..=10000".into());
     }
+    model_config.neuromodulation =
+        neuromodulation_override.unwrap_or(model_config.architecture == Architecture::Hippocampal);
     if !model_config.learning {
         model_config = model_config.frozen();
     }
@@ -351,6 +365,7 @@ fn run() -> Result<()> {
         "interrupted": interrupted, "seed": seed, "encoding": format!("{mode:?}"),
         "learning_enabled": learning, "sensory_spikes": sensory_spikes,
         "keyboard_layout": layout.name(), "motor_channels": layout.keys().len(),
+        "hippocampus": model.hippocampal_summary(),
         "model_kind": format!("{:?}",effective_config.kind),"processing_neurons": model.processing_ids().len(),
         "development_enabled": effective_config.development,"homeostasis_enabled": effective_config.homeostasis,
         "feedback_enabled": effective_config.feedback,"core_spikes": core_spikes,

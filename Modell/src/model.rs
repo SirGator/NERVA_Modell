@@ -22,12 +22,14 @@ use nerva_qemu::{
     vision_encoder::Encoding,
 };
 
+pub mod area;
 pub mod audit;
 pub mod config;
 pub(crate) mod random;
 pub mod sensory;
 mod spatial;
 mod topology;
+pub use area::{Architecture, AreaField, AreaWeights};
 pub use config::{HomeostasisScope, ModelConfig, ModelKind};
 pub use sensory::{SensorConfig, SensorMode, SpikeCoding};
 use sensory::{SensorEncoder, SpikeSource};
@@ -91,6 +93,7 @@ pub struct Model {
     pruning: PruningController,
     formation: FormationConfig,
     core_index: spatial::SpatialIndex,
+    area_field: AreaField,
     next_synapse: u64,
     motor_neurons: Vec<NeuronId>,
     next_development_us: u64,
@@ -242,6 +245,11 @@ impl Model {
             ..LearningConfig::default()
         })
         .map_err(|error| format!("STDP: {error:?}"))?;
+        let rule = if config.neuromodulation || config.architecture == Architecture::Hippocampal {
+            rule.with_three_factor(nerva::learning::ThreeFactorConfig::default())?
+        } else {
+            rule
+        };
         let mut simulation = if config.kind == ModelKind::Recurrent {
             Simulation::with_utility_rule(
                 network,
@@ -258,6 +266,10 @@ impl Model {
         } else {
             Simulation::new(network, rule, RuntimeConfig::default(), 1.0)?
         };
+        if config.neuromodulation {
+            simulation = simulation
+                .with_neuromodulation(nerva::neuromodulation::ChemicalConfig::default())?;
+        }
         {
             let homeostasis = HomeostasisConfig {
                 enabled: config.homeostasis,
@@ -285,6 +297,10 @@ impl Model {
                 simulation.set_homeostasis_population(Some(population))?;
             }
             simulation = simulation.with_homeostasis(LocalHomeostasis::new(&homeostasis))?;
+        }
+        if config.synaptic_competition {
+            simulation = simulation.with_incoming_competition(&processing)?;
+            simulation.set_competition_auditing(false);
         }
         simulation.set_learning_enabled(config.learning);
         let formation = FormationConfig {
@@ -327,6 +343,7 @@ impl Model {
             decoder: MotorDecoder::new(WINDOW_US, 1)?.with_timing_ties(config.motor_timing),
             next_start: 1,
             pending_motor: Vec::new(),
+            area_field: area::field_for_config(&config),
             config,
             processing,
             action_copies,
@@ -351,6 +368,35 @@ impl Model {
             self.motor_neurons.clone(),
             self.encoder.config().channels() as u64,
         ));
+    }
+
+    /// Opt-in bounded library observations; no model or learning parameter changes.
+    pub fn enable_learning_audit(&mut self, max_records: usize) -> Result<()> {
+        self.simulation.enable_learning_audit(max_records)?;
+        Ok(())
+    }
+    /// An incomplete diagnostic record is an invalid trial, never negative evidence.
+    pub fn take_learning_audit(&mut self) -> Result<nerva::runtime::LearningAuditLog> {
+        let log = self.simulation.drain_learning_audit();
+        if !log.is_complete() {
+            return Err(format!(
+                "incomplete learning audit: {} dropped events",
+                log.dropped_events
+            )
+            .into());
+        }
+        Ok(log)
+    }
+    pub fn disable_learning_audit(&mut self) -> Result<nerva::runtime::LearningAuditLog> {
+        let log = self.simulation.disable_learning_audit();
+        if !log.is_complete() {
+            return Err(format!(
+                "incomplete learning audit: {} dropped events",
+                log.dropped_events
+            )
+            .into());
+        }
+        Ok(log)
     }
 
     pub fn take_audit(&mut self) -> Option<audit::InputAudit> {
@@ -379,7 +425,7 @@ impl Model {
     /// implementations. Includes queued neural inputs, STDP-owned traces,
     /// sensory generator phase, decoder and execution clocks. Read-only audit
     /// collectors are excluded. Diagnostic string comparisons may conservatively
-    /// reject equal hash-map states; M6 uses the ordered deterministic generator.
+    /// reject equal hash-map states; replay uses the ordered deterministic generator.
     pub fn same_replay_state(&self, other: &Self) -> bool {
         self.config == other.config
             && self.simulation.same_replay_state(&other.simulation)
@@ -391,6 +437,7 @@ impl Model {
             && self.next_development_us == other.next_development_us
             && self.processing == other.processing
             && self.core_index == other.core_index
+            && self.area_field == other.area_field
             && self.action_copies == other.action_copies
             && self.motor_neurons == other.motor_neurons
             && format!(
@@ -426,6 +473,57 @@ impl Model {
     }
     pub fn network(&self) -> &Network {
         self.simulation.network()
+    }
+
+    /// Construction influences for a processing endpoint, independent of activity.
+    pub fn area_weights(&self, id: NeuronId) -> Option<AreaWeights> {
+        self.processing.binary_search(&id).ok()?;
+        Some(if self.config.architecture == Architecture::Hippocampal {
+            self.area_field
+                .at(self.network().neuron(id)?.position())
+                .ok()?
+        } else {
+            AreaWeights::CORTICAL
+        })
+    }
+
+    /// Read-only implementation diagnostics; these counts do not measure memory.
+    pub fn hippocampal_summary(&self) -> serde_json::Value {
+        let mut influence = [0f64; 4];
+        let mut dominant = [0usize; 4];
+        let mut sources = [0usize; 3];
+        for &id in &self.processing {
+            let weights = self.area_weights(id).expect("processing endpoint");
+            let index = weights
+                .as_array()
+                .into_iter()
+                .enumerate()
+                .max_by(|a, b| a.1.total_cmp(&b.1).then_with(|| b.0.cmp(&a.0)))
+                .unwrap()
+                .0;
+            dominant[index] += 1;
+            for (sum, value) in influence.iter_mut().zip(weights.as_array()) {
+                *sum += f64::from(value);
+            }
+            let release = self.network().neuron(id).unwrap().release_profile();
+            sources[0] += usize::from(release.dopamine > 0.);
+            sources[1] += usize::from(release.acetylcholine > 0.);
+            sources[2] += usize::from(release.noradrenaline > 0.);
+        }
+        serde_json::json!({
+            "architecture": self.config.architecture.name(),
+            "synthetic_qualitative_profiles": true,
+            "area_order": ["cortex", "DG-like", "CA3-like", "CA1-like"],
+            "transition_width": self.config.area_transition_width,
+            "influence_totals": influence,
+            "dominant_influence_counts": dominant,
+            "neuromodulation_enabled": self.config.neuromodulation,
+            "active_chemical_pulses": self.simulation.chemical_field().map_or(0, |field|field.pulse_count()),
+            "modulated_processing_neurons": self.processing.iter().filter(|&&id|self.network().neuron(id).unwrap().modulation()!=nerva::core::ModulationState::default()).count(),
+            "release_source_counts": sources,
+            "short_term_synapses": self.network().synapses().filter(|edge| edge.short_term_config().is_some()).count(),
+            "memory_or_cognition_proven": false
+        })
     }
 
     /// Controlled counterfactual on a frozen experimental instance. No clocks,
@@ -576,16 +674,42 @@ impl Model {
                     .position(),
                 self.formation.candidate_search.radius,
             );
-            if let Some(candidate) = local_candidates_in(
+            let candidates = local_candidates_in(
                 self.network(),
                 target,
                 now,
                 &self.formation.candidate_search,
                 &nearby,
-            )?
-            .into_iter()
-            .find(|candidate| self.is_core(candidate.source))
-            {
+            )?;
+            let candidates = candidates
+                .into_iter()
+                .filter(|candidate| self.is_core(candidate.source));
+            let chosen = if self.config.architecture == Architecture::Hippocampal {
+                let post = self
+                    .area_field
+                    .at(self.network().neuron(target).unwrap().position())
+                    .expect("validated position");
+                let score = |candidate: &nerva::development::Candidate| {
+                    let pre = self.network().neuron(candidate.source).unwrap();
+                    candidate.score
+                        * area::connection_affinity(
+                            self.area_field
+                                .at(pre.position())
+                                .expect("validated position"),
+                            post,
+                            pre.polarity(),
+                        )
+                        .expect("convex influences")
+                };
+                candidates.max_by(|a, b| {
+                    score(a)
+                        .total_cmp(&score(b))
+                        .then_with(|| b.source.cmp(&a.source))
+                })
+            } else {
+                candidates.into_iter().next()
+            };
+            if let Some(candidate) = chosen {
                 plan.formations.push(PlannedFormation {
                     target,
                     source: candidate.source,
@@ -610,6 +734,17 @@ impl Model {
                 SynapseId(self.next_synapse),
             )?
         };
+        if self.config.architecture == Architecture::Hippocampal {
+            let mut profiles = Vec::new();
+            for formed in &created {
+                let mut edge = self.network().synapse(formed.synapse_id).unwrap().clone();
+                area::configure_synapse(&mut edge, self.network(), self.area_field)?;
+                profiles.push((formed.synapse_id, edge.short_term_config()));
+            }
+            if !profiles.is_empty() {
+                self.simulation.set_short_term_profiles(&profiles)?;
+            }
+        }
         self.pruning.forget_plan(&plan);
         if let Some(last) = created.last() {
             self.next_synapse = last
@@ -636,7 +771,7 @@ impl Model {
     }
 
     /// A bounded observation interval, retaining all dynamics and pending events.
-    /// Motor decoding retains its 50-ms lookback; short M3 phases use Core state.
+    /// Motor decoding retains its 50-ms lookback; shorter phases use Core state.
     pub fn step_for(&mut self, frame: &Frame, duration_us: u64) -> Result<Step> {
         if duration_us == 0 || duration_us > WINDOW_US {
             return Err("observation interval must be 1..=50000 us".into());

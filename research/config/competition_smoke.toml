@@ -1,0 +1,28 @@
+# Technical integration check; not an M11 replication or scientific confirmation.
+[experiment]
+name = "competition_harness_smoke"
+scenario = "sensorimotor_size"
+seeds = [17]
+interventions = ["active", "active_frozen", "passive", "passive_frozen", "decoupled", "decoupled_frozen"]
+verify_replay = true
+max_runs = 24
+
+[base]
+train_trials = 4
+test_trials = 4
+max_observed_events = 10000000
+max_total_neurons = 100000
+"mechanisms.development" = false
+"mechanisms.homeostasis" = false
+
+[[parameters]]
+name = "processing_neurons"
+values = [17, 65]
+
+[[parameters]]
+name = "mechanisms.synaptic_competition"
+values = [false, true]
+
+[measurements]
+metrics = ["prediction_accuracy", "visual_accuracy", "position_mae", "core_rate_hz",
+    "observed_events", "weight_updates", "parameters_preserved"]

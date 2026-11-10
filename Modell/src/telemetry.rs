@@ -56,6 +56,8 @@ impl Telemetry {
         })
     }
     pub fn settings(&mut self, model: &Model) {
+        self.state["architecture"] = json!(model.config().architecture.name());
+        self.state["neuromodulation"] = json!(model.config().neuromodulation);
         self.state["learning"] = json!(model.plasticity().learning);
         self.state["development"] = json!(model.plasticity().development);
         self.state["homeostasis"] = json!(model.plasticity().homeostasis);

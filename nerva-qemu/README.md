@@ -1,8 +1,11 @@
 # QEMU-Schnittstellenbibliothek
 
+[Projektstartseite](../../README.md) · [Installation](../../Doku/EINSTIEG.md) ·
+[Architektur](../../ARCHITECTURE.md)
+
 `nerva-qemu` stellt die technischen Adapter bereit. Das ausführbare neuronale
-Modell liegt unter **[NERVA_Modell/Modell/](../Modell/README.md)**, die Versuche unter
-**[NERVA_Modell/Experimente/](../Experimente/README.md)**.
+Modell liegt unter **[NERVA_Modell/Modell/](../Modell/README.md)**, die Forschung im
+**[Research-Harness](../research/README.md)**.
 
 Die Bibliothek enthält:
 
@@ -29,3 +32,6 @@ Motorpulse in NERVA-Typen erfolgt ausschließlich in `NERVA_Modell/Modell/`.
 ./NERVA_Modell/Modell/run-demo.sh smoke
 cargo test --offline --manifest-path NERVA_Modell/nerva-qemu/Cargo.toml
 ```
+
+Diese Befehle beginnen in `DSVLM/main/`. Die Library-Tests verwenden keine
+laufende QEMU-VM; der Modell-Smoke-Test benötigt QEMU und GNU-binutils.

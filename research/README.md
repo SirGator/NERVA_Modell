@@ -1,112 +1,91 @@
-# NERVA Research
+# Research-Harness
 
-Die [geordnete Dokumentation](dokumentation/README.md) führt zu Forschungs-Harness,
-Diagnose und den einzelnen Versuchsreihen.
+Der Harness führt kontrollierte Versuche mit festen Konfigurationen,
+Parameterrastern, Seeds und Kontrollgruppen aus. Er prüft Replay und
+Ergebnisintegrität und stellt externe Analysen sowie einen SQLite-Katalog
+bereit. Neuronale Mechanismen stammen aus NERVA und dem laufenden Modell.
 
-Der [Codeabgleich zur nächsten Forschungsphase](NEXT_PHASE.md) dokumentiert
-vorhandene Mechanismen, fehlende Größen-/Umweltadapter und die Umsetzungsschritte.
-Eine feste Referenz mit unveränderten nativen M0-Defaults lässt sich mit
-`python3 NERVA_Modell/research/baseline.py run --output /tmp/nerva-m0-referenz` messen.
-[Messbericht, archivierter Programmstand und Prüfaufruf](PHASE1_BASELINE.md).
+[Installation](../../Doku/EINSTIEG.md) · [Forschungsstand](../../Doku/FORSCHUNGSSTAND.md) ·
+[Protokolle und Methoden](dokumentation/README.md) ·
+[Ablage und Reproduktion](ARCHIVING.md) · [Projektstartseite](../../README.md)
 
-Der [sensomotorische Größen-/Umweltadapter](SENSORIMOTOR.md) vergleicht jetzt
-256 und 1.024 Verarbeitungsneuronen mit aktiver, passiver und entkoppelter
-Rückkopplung, jeweils mit und ohne Plastizität. Er nutzt das bestehende Modell
-und eine persistente Bewegungswelt; die lokalen Lernregeln bleiben unverändert.
+## Voraussetzungen und erster Lauf
 
-```bash
-./NERVA_Modell/research/run.sh research NERVA_Modell/research/config/sensorimotor_sizes.toml
-```
-
-[Erster Messbericht](SENSORIMOTOR_RESULTS_20261105.md). Das kleine Protokoll ist
-ein technischer Größenvergleich und liefert keinen neuen Fähigkeitsnachweis.
-
-[Frei skalierbare Größen und Diagnoseprüfungen](SCALING.md): positive ganzzahlige
-Core-Größen statt der alten 16–1.024-Grenze, explizite Ressourcenbudgets und ein
-identischer 2×2-Vergleich von Strukturentwicklung/Homöostase je Größe.
-Startkonfiguration: [plasticity_diagnosis.toml](config/plasticity_diagnosis.toml).
-
-Der [vorregistrierte Homöostasevergleich](HOMEOSTASIS_CONFIRMATION.md) prüft den
-beobachteten Ausleseeffekt auf 24 neuen gepaarten Seeds mit deaktivierter
-Strukturentwicklung. Einstieg: `./NERVA_Modell/research/run.sh confirm-homeostasis plan|run|report`.
-
-Die [Lokalisierung nach Zellpopulation](HOMEOSTASIS_POPULATIONS.md) ergänzt
-`homeostasis.scope = "off"|"core"|"core_sensor"|"all"` sowie getrennte
-Sensor-Spikeraten und intrinsische Stromdiagnostik. Einstieg:
-`./NERVA_Modell/research/run.sh localize-homeostasis plan|run|report`.
-
-Eigenständige Forschungsanwendung für konfigurierbare Parameterraster, Seeds,
-Kontrollgruppen und reproduzierbare Ergebnisse. Der allgemeine Rust-Runner
-kennt keine M0-Neuronen, Abläufe oder Erfolgskriterien. Der erste produktive
-Szenarioadapter nutzt die vorhandene M0-Sequenz unverändert.
-
-**Aktuelle Priorität: [Diagnose vor Optimierung](DIAGNOSTICS.md).** Ein externer
-Decoder untersucht vorhandene M9-Daten auf Lerninformation und Auslesbarkeit.
-Ein kleiner A/B-Adapter prüft Akquisition und Musterüberlagerung bei
-fortlaufender Plastizität. Der Controller grenzt Verdachtsmomente ein und
-priorisiert gezielte Folgeversuche.
+Alle Befehle beginnen in **`DSVLM/main/`**. Benötigt werden Rust/Cargo und
+Python **3.11+**. TOML und SQLite verwenden die Python-Standardbibliothek.
+Der Einstieg baut den Rust-Runner mit `--offline --release`; Cargo-Pakete
+müssen vorher lokal vorhanden sein. Der M0-Kurzlauf braucht keine QEMU-VM.
 
 ```bash
-./NERVA_Modell/research/run.sh diagnose NERVA_Modell/research/config/diagnosis_m9.toml
-./NERVA_Modell/research/run.sh run NERVA_Modell/research/config/diagnostic_continual_smoke.toml
-```
-
-Die [externe Selektion](SELECTION.md) ergänzt jetzt reproduzierbare Generationen,
-begrenzte S1/S2-Mutationen, harte Mindestanforderungen, Pareto-Eliten und eine
-getrennte Abschlussvalidierung. Sie verwendet einen eigenen kontrollierten
-M0-Adapter. Start: `./NERVA_Modell/research/run.sh select NERVA_Modell/research/config/selection_m0.toml`.
-
-Der [gemeinsame Forschungs-Harness](HARNESS.md) ergänzt Morris-Screening,
-2D-Zustandskarten, gepaarte Mechanismeninterventionen, Parameter-Stresstests und
-MAP-Elites mit Budgetplanung und Forschungsgedächtnis. Alle Methoden verwenden
-denselben Runner und getrennte Bestätigungsseeds:
-
-```bash
-./NERVA_Modell/research/run.sh research-plan NERVA_Modell/research/config/research_smoke.toml
-./NERVA_Modell/research/run.sh research NERVA_Modell/research/config/research_smoke.toml
-```
-
-Stand 28.10.2026. Voraussetzung: aktuelles Rust/Cargo und Python **3.11+**.
-Rust verwendet NERVA, das bestehende Modell mit QEMU-Adapterbibliothek und
-`serde_json`; TOML und SQLite kommen aus der Python-
-Standardbibliothek. Die Builds laufen mit `--offline`. Die benötigten Cargo-
-Pakete müssen wie bei den bestehenden Anwendungen lokal verfügbar sein.
-NERVA selbst erhält keine neuen Bibliotheksabhängigkeiten.
-
-## Ausführen
-
-Vom Projektverzeichnis `DSVLM`:
-
-```bash
-# Adapter, Parameter, Metriken und Kontrollgruppen anzeigen:
+# Adapter, Parameter, Metriken und Kontrollen anzeigen:
 ./NERVA_Modell/research/run.sh list
 
-# Vollständige Validierung und Plan, noch keine neuronalen Läufe:
-./NERVA_Modell/research/run.sh plan NERVA_Modell/research/config/stdp_learning.toml
+# Den kleinen Beispielplan validieren und speichern:
+./NERVA_Modell/research/run.sh plan NERVA_Modell/research/config/smoke.toml --output /tmp/nerva-erster-versuch
 
-# Den gespeicherten Plan ausführen oder unterbrochene Läufe fortsetzen:
-./NERVA_Modell/research/run.sh run NERVA_Modell/research/config/stdp_learning.toml
+# Ausführen oder einen identischen unterbrochenen Lauf fortsetzen:
+./NERVA_Modell/research/run.sh run NERVA_Modell/research/config/smoke.toml --output /tmp/nerva-erster-versuch
 
-# Nur vorhandene Ergebnisse prüfen und Tabellen/Datenbank neu aufbauen:
-./NERVA_Modell/research/run.sh report NERVA_Modell/research/config/stdp_learning.toml
+# Vorhandene Records prüfen und Tabellen/Datenbank neu aufbauen:
+./NERVA_Modell/research/run.sh report NERVA_Modell/research/config/smoke.toml --output /tmp/nerva-erster-versuch
 ```
 
-Ohne `--output` liegt das Ergebnis in `research/results/<experiment.name>/`.
-Dieser Bereich ist von Git ausgeschlossen. Alternativ:
+`plan` schreibt bereits Manifest und Quellkonfiguration, startet aber keine
+neuronalen Läufe. Der Kurzlauf enthält **2 Varianten × 2 Seeds × 4 Kontrollen =
+16 Läufe**, mit vollständigem Replay 32 Ausführungen. Er ist eine technische
+Prüfung. Die größere [stdp_learning.toml](config/stdp_learning.toml) enthält
+12 Varianten × 6 Seeds × 4 Kontrollen = 288 Läufe und 576 Ausführungen.
 
-```bash
-./NERVA_Modell/research/run.sh run NERVA_Modell/research/config/smoke.toml --output /tmp/mein-nerva-versuch
-```
-
-Das komplette Beispiel erzeugt **12 Parametervarianten × 6 Seeds = 72
-Parameter-Seed-Kombinationen**. Mit den vier M0-Gruppen sind es **288 einzelne
-Versuchsläufe**. Bei der standardmäßig eingeschalteten vollständigen Wiedergabe
-wird jeder Lauf zweimal ausgeführt, also 576 Adapteraufrufe. Zusätzlich gehören
-zu jedem nativen M0-Lauf bereits dessen zwei interne eingefrorene Proben.
+Ohne `--output` werden Ergebnisse unter
+`NERVA_Modell/research/results/<experiment.name>/` abgelegt. Dieser Bereich ist
+von Git ausgeschlossen. Dauerhafte Ergebnisse separat sichern; `/tmp` dient
+nur dem Beispiel. Bei geänderten Parametern oder Quellen einen neuen Ausgabeordner
+verwenden. Gleicher Plan und gleicher Build ermöglichen die Wiederaufnahme.
 
 Negative wissenschaftliche Ergebnisse sind reguläre Ergebnisse. CLI-Fehler
-bedeuten ungültige Eingaben, beschädigte Archive oder fehlgeschlagene Ausführung,
-nicht allein ein nicht bestandenes Lernkriterium.
+bedeuten ungültige Eingaben, beschädigte Archive oder fehlgeschlagene
+Ausführung; ein nicht bestandenes Lernkriterium allein ist kein CLI-Fehler.
+
+## Den passenden Ablauf wählen
+
+Die Befehlsfamilien verwenden unterschiedliche Konfigurationsverträge.
+Zuerst die jeweilige Planfunktion verwenden, um Umfang und Budget zu prüfen.
+
+| Aufgabe | Planen / Ausführen / erneut auswerten | Anleitung und Beispielkonfiguration |
+| --- | --- | --- |
+| Festes Raster eines Szenarios | `plan` / `run` / `report` | Diese Seite; [smoke.toml](config/smoke.toml) |
+| Screening, Zustandskarten, gepaarte Eingriffe und MAP-Elites | `research-plan` / `research` / `research-report` | [Forschungsmethoden](HARNESS.md); [research_smoke.toml](config/research_smoke.toml) |
+| Externe S1/S2-Selektion mit Abschlussvalidierung | `select-plan` / `select` / `selection-report` | [Selektion](SELECTION.md); [selection_smoke.toml](config/selection_smoke.toml) |
+| Retrospektiver Decoder auf M9-Archiven | `diagnose-plan` / `diagnose` / `diagnosis-report` | [Diagnostik](DIAGNOSTICS.md); [diagnosis_m9.toml](config/diagnosis_m9.toml) |
+| Vorregistrierter Homöostasevergleich | `confirm-homeostasis plan` / `run` / `report` | [Protokoll](HOMEOSTASIS_CONFIRMATION.md) |
+| Homöostase nach Zellpopulation | `localize-homeostasis plan` / `run` / `report` | [Protokoll](HOMEOSTASIS_POPULATIONS.md) |
+
+Bei den beiden letzten Zeilen wird der Präfix beibehalten, zum Beispiel
+`./NERVA_Modell/research/run.sh confirm-homeostasis report`.
+Die retrospektive M9-Diagnose benötigt die archivierten Daten, aber keinen
+Rust-Build und keine neue neuronale Simulation.
+
+## Szenarien und Protokolle
+
+| Thema | Dokumentation |
+| --- | --- |
+| Feste native M0-Referenz | [Baseline und Messbericht](PHASE1_BASELINE.md) |
+| Sensorimotorik und persistente Bewegungswelt | [Adapter](SENSORIMOTOR.md), [Größen-/Umweltvergleich](SENSORIMOTOR_RESULTS_20261105.md) |
+| Skalierbare Core-Größen und Ressourcenbudgets | [Skalierung](SCALING.md), [Diagnoselauf](SCALING_RESULTS_20261105.md) |
+| Homöostase und visuelle Auslesbarkeit | [Bestätigung](HOMEOSTASIS_RESULTS_20261105.md), [Populationsvergleich](HOMEOSTASIS_POPULATIONS_RESULTS_20261106.md) |
+| Hippocampus und Neuromodulation | [Bildprotokoll](HIPPOCAMPAL.md), [Integration und Befunde](HIPPOCAMPAL_RESULTS_20261109.md) |
+| Kleine Gewichtsänderungen und ihre Wirkung | [Gewichtsdiagnostik](WEIGHT_DIAGNOSTICS.md), [kausales Protokoll bei 256 Zellen](CAUSALITY_256.md) |
+| Historische M3–M11-Reihen | [Protokollarchiv](dokumentation/versuchsreihen/README.md), [Migration](dokumentation/versuchsreihen/MIGRATION.md) |
+
+Die früheren eigenständigen Experimentprogramme sind entfernt. Neue Studien
+verwenden den Harness; vorhandene historische Startbefehle benötigen ihren
+damaligen Quellstand. Ein neuer Harness-Kurzlauf repliziert oder bestätigt
+keinen früheren M11-Piloten.
+
+Der Sensorimotorik-Adapter enthält den externen Centroid-Decoder und
+`mechanisms.synaptic_competition` (Standard: `false`). Konkurrenz benötigt
+`mechanisms.development = false` und `mechanisms.homeostasis = false`.
+[Technische Beispielkonfiguration](config/competition_smoke.toml).
 
 ## Konfiguration
 
@@ -243,6 +222,8 @@ ohne SQLite-Integerüberlauf erhalten bleiben.
 - `scenarios/m0_selection.rs`: kontrollierte Mechanismen und verzögerte Endpunkte.
 - `scenarios/continual.rs`: A/B-Akquisition mit plastischen Lernphasen und eingefrorenen Proben.
 - `scenarios/sensorimotor.rs`: Größen-/Rückkopplungsassay mit bestehendem Modell und persistenter Bewegungswelt.
+- `scenarios/hippocampal.rs`, `scenarios/hippocampal/`: Bildpilot, Gewichts- und kausale Lerndiagnose.
+- `readout.rs`: externer Centroid-Decoder des Sensorimotorik-Adapters.
 - `planning/profiles.py`, `analysis/size_environment.py`: szenariospezifische Kontroll-/Bewertungsverträge und gepaarte Größenvergleiche.
 - `diagnostics/`, `analysis/diagnostic_decoder.py`, `analysis/bottleneck_diagnostics.py`: externe Decoder, Kontrollgates und Fehlerhypothesen ([Details](DIAGNOSTICS.md)).
 - `evolution/`: Population, Mutation, Auswahl, Bewertung, Generationen und Historie.

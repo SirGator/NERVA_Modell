@@ -1,0 +1,16 @@
+# Fixed native-image pilot. No parameter grid or automatic selection.
+[experiment]
+name = "hippocampal_probe_20261109"
+scenario = "hippocampal_probe"
+seeds = [42, 73]
+verify_replay = true
+max_runs = 10
+
+[base]
+processing_neurons = 128
+training_repetitions = 8
+rest_us = 11000000
+
+[measurements]
+metrics = ["completion_a", "completion_b", "acquisition_a", "acquisition_b", "separation",
+    "all_responses_active", "weight_updates", "training_core_spikes", "parameters_preserved"]

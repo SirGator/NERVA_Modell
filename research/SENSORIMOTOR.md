@@ -189,3 +189,12 @@ sechsfaches Harnessbudget, getrennte Prüfseeds, erneute Auswertung ohne neue
 Trials, beschädigte Archive und Abweisung ungültiger später Designpunkte.
 Synthetische positive und negative Endpunkte prüfen die neue externe Policy;
 sie sind keine NERVA-Messergebnisse.
+
+## Integrierte synaptische Konkurrenz
+
+`mechanisms.synaptic_competition` aktiviert den vorhandenen lokalen Mechanismus
+im selben Adapter; Standard ist `false`. Voraussetzung sind deaktivierte
+Strukturentwicklung und Homöostase. Größe, Kontrollen, Budgets, externe Auswertung
+und vollständiger Replay bleiben die des Harness.
+[Technische Konfiguration](config/competition_smoke.toml). Dieser Größenvergleich
+ist kein Ersatz für das historische M11-Protokoll oder dessen Bestätigung.

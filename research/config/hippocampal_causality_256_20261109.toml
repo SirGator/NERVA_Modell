@@ -1,0 +1,16 @@
+# Fixed causal diagnosis, not a parameter search or a memory-success experiment.
+[experiment]
+name = "hippocampal_causality_256_20261109"
+scenario = "hippocampal_causality"
+seeds = [42, 73]
+verify_replay = true
+max_runs = 8
+
+[base]
+processing_neurons = 256
+training_repetitions = 8
+rest_us = 11000000
+
+[measurements]
+metrics = ["native_core_spike_effect", "native_motor_spike_effect", "native_key_effect",
+    "amplified_spike_effect", "matched_checkpoints"]

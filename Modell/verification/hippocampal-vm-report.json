@@ -1,0 +1,66 @@
+{
+  "core_spikes": 1342,
+  "development_enabled": true,
+  "encoding": "Brightness",
+  "executed_action_copy_arrivals": 228,
+  "feedback_enabled": true,
+  "final_core_synapses": 561,
+  "formed": 293,
+  "frame_changes": 1,
+  "full_layout_verified": true,
+  "hippocampus": {
+    "active_chemical_pulses": 177,
+    "architecture": "hippocampal",
+    "area_order": [
+      "cortex",
+      "DG-like",
+      "CA3-like",
+      "CA1-like"
+    ],
+    "dominant_influence_counts": [
+      22,
+      43,
+      42,
+      21
+    ],
+    "influence_totals": [
+      27.924102460517773,
+      36.90075324177451,
+      36.21358861932822,
+      26.961555957291633
+    ],
+    "memory_or_cognition_proven": false,
+    "modulated_processing_neurons": 128,
+    "neuromodulation_enabled": true,
+    "release_source_counts": [
+      4,
+      4,
+      4
+    ],
+    "short_term_synapses": 38,
+    "synthetic_qualitative_profiles": true,
+    "transition_width": 0.1599999964237213
+  },
+  "homeostasis_changes": 768,
+  "homeostasis_enabled": true,
+  "initial_structural_drive": 2.5,
+  "interrupted": false,
+  "key_frames": 12,
+  "keyboard_feedback_verified": true,
+  "keyboard_layout": "de-iso105",
+  "learning_enabled": true,
+  "model_kind": "Recurrent",
+  "motor_channels": 105,
+  "motor_decoder": "count_then_first_spike",
+  "motor_spikes": 2036,
+  "output": "/home/simon/projekte/active/Big/DSVLM/main/Messungen/Modell/hippocampal-engineering-20261109",
+  "processing_neurons": 128,
+  "pruned": 244,
+  "pruning_min_below_us": 300000,
+  "raw_motor_feedback_arrivals": 6096,
+  "requested_steps": 12,
+  "seed": 42,
+  "sensory_spikes": 1636,
+  "steps": 12,
+  "weight_changes": 486
+}
