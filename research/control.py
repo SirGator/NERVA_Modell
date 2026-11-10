@@ -37,6 +37,10 @@ CHAIN_GROUPS = ("A_numeric", "B_memory", "C_gain", "D_local")
 CHAIN_METRICS = ("input_discriminable", "representation_discriminable", "local_tag_available",
                  "persistent_weight_change", "native_recall_effect", "artificial_recall_effect",
                  "diagnostic_controls_passed", "audit_complete", "native_training_passes", "audit_rows")
+PRECISION_GROUPS = ("direct", "accumulated", "direct_frozen", "accumulated_frozen",
+                    "direct_unpaired", "accumulated_unpaired")
+PRECISION_METRICS = METRICS + ("requested_mass", "published_mass", "pending_mass", "clipped_mass",
+    "rounding_error_mass", "mass_balance_max_error", "signed_requested_mass", "signed_published_mass", "signed_pending_mass")
 
 
 def suite(spec):
@@ -45,6 +49,8 @@ def suite(spec):
 
 def design_counts(spec):
     seeds = len(spec["control"]["seeds"])
+    if suite(spec) == "precision":
+        return seeds*len(PRECISION_GROUPS)+1, seeds*len(PRECISION_GROUPS)*4
     if suite(spec) == "causal_chain":
         # A/B/D are deterministic calibrations, shared once rather than counted as new seed evidence.
         return seeds+3, 2*(7+6*seeds)
@@ -94,7 +100,7 @@ def parse(source):
     require(isinstance(control, dict) and isinstance(model, dict), "control/model must be TOML tables")
     allowed = {"name", "seeds", "workers", "max_trials", "max_native_training_passes", "max_wall_seconds"}
     require(set(control)-{"suite"} == allowed, "control fields must be "+", ".join(sorted(allowed))+" and optional suite")
-    require(suite(spec) in ("association", "causal_chain"), "unknown control suite")
+    require(suite(spec) in ("association", "causal_chain", "precision"), "unknown control suite")
     require(set(model) == {"processing_neurons", "training_repetitions", "rest_us"},
             "model requires processing_neurons, training_repetitions and rest_us")
     require(isinstance(control["name"], str) and re.fullmatch(r"[A-Za-z0-9_-]{1,80}", control["name"]),
@@ -119,6 +125,11 @@ def parse(source):
 
 
 def study(spec, seed):
+    if suite(spec) == "precision":
+        groups = (("precision_numeric",) if seed == spec["control"]["seeds"][0] else ()) + PRECISION_GROUPS
+        return dict(experiment=dict(name=f"precision_s{seed}", scenario="hippocampal_precision",
+            seeds=[seed], interventions=list(groups), verify_replay=True, max_runs=len(groups)),
+            base=spec["model"], measurements=dict(metrics=list(PRECISION_METRICS)))
     if suite(spec) == "causal_chain":
         groups = CHAIN_GROUPS if seed == spec["control"]["seeds"][0] else ("C_gain",)
         return dict(experiment=dict(name=f"chain_s{seed}", scenario="hippocampal_causal_chain",
@@ -166,7 +177,7 @@ def prepare(root, spec, source, binary=None):
     trials = sum(p["counts"]["trials"] for p in plans)
     expected_trials, training_passes = design_counts(spec)
     require(trials == expected_trials, "native design size differs")
-    if suite(spec) == "causal_chain":
+    if suite(spec) in ("causal_chain", "precision"):
         native_passes = 2*sum(job["effective_config"]["training_passes_per_execution"]
                               for plan in plans for job in plan["jobs"])
         require(native_passes == training_passes, "native reconstruction/replay cost differs")
@@ -186,18 +197,21 @@ def prepare(root, spec, source, binary=None):
     model = spec["model"]
     if suite(spec) == "causal_chain":
         steps = (36*model["training_repetitions"]+20*math.ceil(model["rest_us"]/50000)+20)*len(plans)*2
+    elif suite(spec) == "precision":
+        steps = (12*model["training_repetitions"]+12*math.ceil(model["rest_us"]/50000)+12)*(trials-1)*2
     else:
         steps = (12*model["training_repetitions"]+12*math.ceil(model["rest_us"]/50000)+12)*trials*2
     plan = dict(protocol="NERVA-Research-Control/1", specification=spec, seeds=plans,
                 suite=suite(spec),
-                priorities=list(CHAIN_GROUPS) if suite(spec) == "causal_chain" else
+                priorities=["retained_update_mass", "native_spike_effect", "controlled_association_gain"] if suite(spec) == "precision" else
+                    list(CHAIN_GROUPS) if suite(spec) == "causal_chain" else
                     ["chemistry_on_vs_off", "three_factor_vs_pair_stdp", "input_activity_weight_recall"],
                 counts=dict(trials=trials, replay_executions=trials*2,
                             native_training_passes=training_passes, maximum_model_steps=steps),
                 artifacts={name:sha(root/name) for name in
                            ("runner", "producer.py", "source.toml", "source-code.zip")},
                 limits=["Exploratory fixed cue-completion assay; no independent confirmation.",
-                        "No search, automatic winner selection or changes to neuronal rules.",
+                        "No search or automatic selection. Precision compares only numerical publication of the same rule.",
                         "Workers are bounded per seed; each experiment retains its complete internal controls.",
                         "The wall budget covers native execution and verification, not compilation."])
     write_json(root/"control-plan.json", plan)
@@ -436,6 +450,116 @@ def chain_markdown(result, plan):
     return lines
 
 
+def analyze_precision(records):
+    calibration = [r for r in records if r["job"]["intervention"] == "precision_numeric"]
+    require(len(calibration) == 1 and calibration[0]["full_replay_checked"] is True,
+            "one replay-verified precision calibration required")
+    numeric = calibration[0]["details"]
+    require(numeric["controls_passed"] is True, "numeric accumulation controls failed")
+    paired = {}
+    pipeline = []
+    for row in records:
+        group = row["job"]["intervention"]
+        if group == "precision_numeric":
+            continue
+        seed = row["job"]["seed"]
+        require(group in PRECISION_GROUPS and group not in paired.setdefault(seed, {}), "duplicate/unknown precision control")
+        require(row["full_replay_checked"] is True, "precision requires full replay")
+        m = row["metrics"]
+        require(set(m) == set(PRECISION_METRICS) and
+                all(type(v) in (int,float) and math.isfinite(v) for v in m.values()), "invalid precision metrics")
+        require(row["details"]["matched_checkpoint"] is True and row["details"]["only_weights_changed"] is True,
+                "precision checkpoint/weight control missing")
+        require(row["details"]["training"]["audit"]["complete"] is True and m["mass_balance_max_error"] < 1e-12,
+                "incomplete or unbalanced precision audit")
+        if group.endswith("frozen"):
+            require(m["weight_l1"] == 0 and m["pending_mass"] == 0 and m["published_mass"] == 0,
+                    "frozen precision control changed weights or carry")
+        paired[seed][group] = row
+        pipeline.append(dict(seed=seed,group=group,metrics=m,
+                             observations=hints(m,row["details"]["training"]["audit"])))
+    require(paired and all(set(g) == set(PRECISION_GROUPS) for g in paired.values()),
+            "all six precision controls required per seed")
+    effects = []
+    for seed,groups in sorted(paired.items()):
+        require(len({r["details"]["initial_network_digest"] for r in groups.values()}) == 1,
+                "precision initial networks differ")
+        starting_weights=[r["details"]["training"]["weights_before"] for r in groups.values()]
+        require(all(w == starting_weights[0] for w in starting_weights), "precision starting weights differ")
+        require(len({r["details"]["training"]["input_digest"] for g,r in groups.items() if not g.endswith("unpaired")}) == 1,
+                "paired precision inputs differ")
+        direct,accumulated = groups["direct"],groups["accumulated"]
+        def changed(field):
+            a=direct["details"]["learned_recall"]["observations"]
+            b=accumulated["details"]["learned_recall"]["observations"]
+            return any(x[field]!=y[field] for x,y in zip(a,b))
+        effects.append(dict(seed=seed, core_spikes_changed=changed("core_event_digest"),
+                            motor_spikes_changed=changed("motor_event_digest"),
+                            potentials_changed=changed("stored_potentials"),
+                            direct=direct["metrics"],accumulated=accumulated["metrics"]))
+    contrasts = []
+    for label,a,b in (("accumulated_minus_direct","accumulated","direct"),
+                       ("accumulated_minus_frozen","accumulated","accumulated_frozen"),
+                       ("accumulated_minus_unpaired","accumulated","accumulated_unpaired"),
+                       ("positive_accumulated_weight_gain","accumulated",None)):
+        for cue in ("a","b"):
+            differences=[g[a]["metrics"]["weight_gain_"+cue]-(g[b]["metrics"]["weight_gain_"+cue] if b else 0.)
+                         for _,g in sorted(paired.items())]
+            n=len(differences);wins=sum(d>0 for d in differences)
+            p=sum(math.comb(n,k) for k in range(wins,n+1))/2**n
+            mean=sum(differences)/n
+            contrasts.append(dict(comparison=label,cue=cue,mean=mean,differences=differences,
+                                  wins=wins,ties=sum(d==0 for d in differences),p_one_sided=p,
+                                  threshold=0.05/8,exploratory_threshold_met=mean>0 and p<0.05/8))
+    means={group:{key:sum(g[group]["metrics"][key] for g in paired.values())/len(paired)
+                  for key in PRECISION_METRICS} for group in PRECISION_GROUPS}
+    advantage=all(c["exploratory_threshold_met"] for c in contrasts) and all(
+        g["accumulated"]["metrics"]["all_responses_active"] == 1 for g in paired.values())
+    return dict(protocol="NERVA-Precision-Report/1",suite="precision",numeric_calibration=numeric,
+                pipeline=pipeline,paired_seeds=len(paired),control_means=means,effects=effects,contrasts=contrasts,
+                exploratory_association_advantage=advantage,functional_memory_demonstrated=False,
+                independent_confirmation=False,
+                limits=["Only numerical publication differs; eligibility still uses f32.",
+                        "Gross requested, published, clipped and rounding-error mass are separate quantities.",
+                        "Opposing signed updates may cancel; counts of unchanged requests are not lost mass.",
+                        "Two known seeds provide an engineering comparison, not independent confirmation."])
+
+
+def precision_markdown(result, plan):
+    lines=["# Erhalt kleiner Lernbeiträge: Direktupdates gegen Akkumulator","",
+           f"{result['paired_seeds']} gepaarte Modellseeds; {plan['counts']['trials']} Records mit vollständigem Replay.","",
+           "## 1. Numerische Kalibrierung","",
+           "| Modus | Intervalle | Angefordert | Sichtbar publiziert | Restbetrag | Nicht erhaltene Masse |",
+           "| --- | ---: | ---: | ---: | ---: | ---: |"]
+    for c in result["numeric_calibration"]["cases"]:
+        lines.append(f"| {c['mode']} | {c['partitions']} | {c['requested']:.12g} | {c['published']:.12g} | "
+                     f"{c['residual']:.12g} | {c['effective_mass_error']:.12g} |")
+    lines+=["","## 2. Änderungsmasse im Modell (Kontrollmittel)","",
+            "| Kontrolle | Angeforderte Bruttomasse | Publizierte Bruttomasse | Rest L1 | Begrenzte Masse | Rundungsfehler L1 |",
+            "| --- | ---: | ---: | ---: | ---: | ---: |"]
+    for group,m in result["control_means"].items():
+        lines.append(f"| {group} | {m['requested_mass']:.9g} | {m['published_mass']:.9g} | "
+                     f"{m['pending_mass']:.9g} | {m['clipped_mass']:.9g} | {m['rounding_error_mass']:.9g} |")
+    lines+=["","Bruttomassen dürfen wegen Vorzeichenwechseln nicht mit Netto-Endgewichtsänderungen gleichgesetzt werden.",
+            "Ein nicht sichtbarer Einzelbeitrag kann im Akkumulator erhalten sein.","",
+            "## 3. Native Spikewirkung und Assoziation","",
+            "| Seed | Core-Spikes durch Präzision geändert | Motor-Spikes geändert | Direkter Gewichtseffekt A/B | Akkumulierter Gewichtseffekt A/B |",
+            "| --- | --- | --- | --- | --- |"]
+    for e in result["effects"]:
+        d,a=e["direct"],e["accumulated"]
+        lines.append(f"| {e['seed']} | {e['core_spikes_changed']} | {e['motor_spikes_changed']} | "
+                     f"{d['weight_gain_a']:.9g} / {d['weight_gain_b']:.9g} | {a['weight_gain_a']:.9g} / {a['weight_gain_b']:.9g} |")
+    lines+=["","## Kontrollierte Assoziationsvergleiche","",
+            "| Vergleich | Cue | Mittlere Differenz | Positive Seeds | p (explorativ) |",
+            "| --- | --- | ---: | ---: | ---: |"]
+    for c in result["contrasts"]:
+        lines.append(f"| {c['comparison']} | {c['cue']} | {c['mean']:.9g} | {c['wins']}/{result['paired_seeds']} | {c['p_one_sided']:.6g} |")
+    lines+=["",f"Explorative Kriterien für Assoziationsvorteil erfüllt: **{result['exploratory_association_advantage']}**.",
+            "Acht vorab feste einseitige Tests; Gleichstände bleiben im Nenner. Keine unabhängige Bestätigung.",
+            "Ein funktionaler Gedächtnisnachweis wird daraus nicht abgeleitet.",""]
+    return lines
+
+
 def report(root, plan):
     records, hashes = [], {}
     for seed_plan in plan["seeds"]:
@@ -448,11 +572,14 @@ def report(root, plan):
             require(row["job"] == job, "record job differs")
             records.append(row)
             hashes[path.relative_to(root).as_posix()] = sha(path)
-    result = analyze_chain(records) if suite(plan["specification"]) == "causal_chain" else analyze(records)
+    family = suite(plan["specification"])
+    result = {"precision":analyze_precision,"causal_chain":analyze_chain,"association":analyze}[family](records)
     result["counts"] = plan["counts"]
     result["record_bytes"] = sum((root/path).stat().st_size for path in hashes)
     write_json(root/"control-report.json", result)
-    if suite(plan["specification"]) == "causal_chain":
+    if family == "precision":
+        lines = precision_markdown(result,plan)
+    elif family == "causal_chain":
         lines = chain_markdown(result, plan)
     else:
         lines = ["# Hippocampus: Forschungskontrolle", "",
@@ -478,7 +605,7 @@ def report(root, plan):
     atomic(root/"CONTROL_REPORT.md", "\n".join(lines).encode())
     output = io.StringIO()
     writer = csv.writer(output)
-    metrics = CHAIN_METRICS if suite(plan["specification"]) == "causal_chain" else METRICS
+    metrics = {"precision":PRECISION_METRICS,"causal_chain":CHAIN_METRICS,"association":METRICS}[family]
     writer.writerow(["seed", "control", *metrics])
     for row in result["pipeline"]:
         writer.writerow([row["seed"], row["group"], *(row["metrics"][key] for key in metrics)])
@@ -494,6 +621,8 @@ def report(root, plan):
                            json.dumps(row["metrics"],sort_keys=True),json.dumps(row["observations"])))
             db.execute("CREATE TABLE metadata(key TEXT PRIMARY KEY,value TEXT)")
             db.execute("INSERT INTO metadata VALUES(?,?)", ("plan_sha256",sha(root/"control-plan.json")))
+            if family == "precision":
+                db.execute("INSERT INTO metadata VALUES(?,?)", ("numeric_calibration",json.dumps(result["numeric_calibration"],sort_keys=True)))
             require(db.execute("PRAGMA integrity_check").fetchone()[0] == "ok", "control SQLite integrity failure")
         os.replace(temporary, root/"control.sqlite")
     finally:

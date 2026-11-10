@@ -47,6 +47,11 @@ fn explicit_learning_rule_preserves_network_and_automatic_defaults() {
     let pair =
         Model::with_sensor_and_learning(config(true), sensor, LearningRule::PairStdp).unwrap();
     assert!(automatic.same_replay_state(&three));
+    let accumulated =
+        Model::with_sensor_and_learning(config(true), sensor, LearningRule::ThreeFactorAccumulated)
+            .unwrap();
+    assert_eq!(three.network(), accumulated.network());
+    assert!(!three.same_replay_state(&accumulated));
     assert_eq!(pair.network(), three.network());
     assert!(!pair.same_replay_state(&three));
     let cortical = ModelConfig {

@@ -55,6 +55,7 @@ impl TrainingAudit {
                     old_weight,
                     new_weight,
                     delayed,
+                    ..
                 } => {
                     observed += usize::from(old_weight != new_weight);
                     let phase = match phase {

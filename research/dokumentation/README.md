@@ -9,6 +9,10 @@ behalten ihren damaligen Stand.
 
 ## Neuromodulation und kausale Diagnose
 
+[Präzisionsvergleich](../PRECISION.md): native Direktupdates gegen
+synapsenlokale Akkumulation; getrennte Masse-, Spike- und Assoziationsendpunkte.
+[Geprüfter Pilot vom 10.11.2026](../PRECISION_RESULTS_20261110.md).
+
 [Diagnosekette A–D](../CAUSAL_CHAIN.md): numerische Plastizität, künstlicher
 A→B-Abruf, feste Wirksamkeitsdosen und lokale Prä-/Post-/Modulatorverfügbarkeit.
 [Geprüfte Befunde vom 10.11.2026](../CAUSAL_CHAIN_RESULTS_20261110.md).

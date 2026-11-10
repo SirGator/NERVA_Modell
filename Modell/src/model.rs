@@ -81,6 +81,8 @@ pub enum LearningRule {
     Automatic,
     PairStdp,
     ThreeFactor,
+    /// Same three-factor timing with synapse-local f64 publication carry.
+    ThreeFactorAccumulated,
 }
 
 pub struct Model {
@@ -268,10 +270,15 @@ impl Model {
                 config.neuromodulation || config.architecture == Architecture::Hippocampal
             }
             LearningRule::PairStdp => false,
-            LearningRule::ThreeFactor => true,
+            LearningRule::ThreeFactor | LearningRule::ThreeFactorAccumulated => true,
         };
         let rule = if three_factor {
             rule.with_three_factor(nerva::learning::ThreeFactorConfig::default())?
+        } else {
+            rule
+        };
+        let rule = if learning_rule == LearningRule::ThreeFactorAccumulated {
+            rule.with_weight_update_mode(nerva::learning::WeightUpdateMode::Accumulated)
         } else {
             rule
         };
@@ -564,8 +571,9 @@ impl Model {
         if weight.get() > 2.0 {
             return Err("diagnostic weight must be within 0..=2".into());
         }
-        self.simulation
-            .update_synapse(id, |edge| edge.set_weight(weight))?;
+        self.simulation.update_synapse(id, |edge| {
+            edge.set_weight_preserving_learning_residual(weight)
+        })?;
         Ok(())
     }
     /// Frozen diagnostic branch only. Blocks selected transmissions and queued

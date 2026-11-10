@@ -1,0 +1,14 @@
+# Fixed same-seed engineering comparison; no parameter optimization or confirmation.
+[control]
+name = "precision_pilot_20261110_v2"
+suite = "precision"
+seeds = [17011, 17027]
+workers = 2
+max_trials = 13
+max_native_training_passes = 48
+max_wall_seconds = 600
+
+[model]
+processing_neurons = 256
+training_repetitions = 8
+rest_us = 11000000

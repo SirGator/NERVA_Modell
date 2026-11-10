@@ -134,6 +134,11 @@ bleiben als historische Dokumentation erhalten. Neue Studien starten im Harness.
 
 ## Kausale Lerndiagnose
 
+`LearningRule::ThreeFactorAccumulated` wählt die Library-Variante mit
+synapsenlokalem f64-Restbetrag. Die [kontrollierte Präzisionsstudie](../research/PRECISION.md)
+vergleicht sie mit den bisherigen Direktupdates. Freeze erhält Restbeträge;
+eingefrorene Gewichtsinterventionen verändern nur das sichtbare Gewicht.
+
 Der Harness kann über `Model::with_sensor_and_learning` ausdrücklich
 `LearningRule::PairStdp` oder `LearningRule::ThreeFactor` wählen. Die
 Netzkonstruktion bleibt gleich; `LearningRule::Automatic` erhält die bisherigen

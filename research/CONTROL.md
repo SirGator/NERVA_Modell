@@ -1,6 +1,8 @@
 # Harness als Forschungskontrollzentrum
 
 Diese Seite beschreibt die Standardsuite `association`.
+Die Suite [`precision`](PRECISION.md) vergleicht f32-Direktupdates und
+erhaltene kleine Lernbeiträge mit denselben Anfangsnetzwerken und Eingängen.
 Die zusätzliche [kausale Diagnosekette A–D](CAUSAL_CHAIN.md) verwendet denselben
 Einstieg mit `suite = "causal_chain"`: numerische Plastizität, künstliches
 Gedächtnis, feste Wirksamkeitsdosen und lokale Informationsverfügbarkeit.

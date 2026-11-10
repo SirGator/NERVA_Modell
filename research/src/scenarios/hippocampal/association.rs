@@ -46,7 +46,7 @@ fn settings(group: &str) -> Result<(LearningRule, bool, bool, bool)> {
         group.ends_with("unpaired"),
     ))
 }
-fn build(c: &Config, seed: u64, group: &str) -> Result<Model> {
+fn build(c: &Config, seed: u64, group: &str, override_rule: Option<LearningRule>) -> Result<Model> {
     let (rule, chemistry, _, _) = settings(group)?;
     Model::with_sensor_and_learning(
         model_config(c, seed, if chemistry { "smooth" } else { "no_chemistry" }),
@@ -56,7 +56,7 @@ fn build(c: &Config, seed: u64, group: &str) -> Result<Model> {
             coding: SpikeCoding::Deterministic,
             max_rate_hz: 120.,
         },
-        rule,
+        override_rule.unwrap_or(rule),
     )
     .map_err(fail)
 }
@@ -87,6 +87,20 @@ struct Audit {
     requested_mass: f64,
     actual_mass: f64,
     motor_signal_samples: usize,
+    track_mass: bool,
+    mass: BTreeMap<u64, MassLedger>,
+}
+
+#[derive(Default)]
+struct MassLedger {
+    requested: f64,
+    actual: f64,
+    first_residual: Option<f64>,
+    last_residual: f64,
+    clipped: f64,
+    clipped_l1: f64,
+    rounding: f64,
+    rounding_l1: f64,
 }
 impl Audit {
     fn add(&mut self, log: LearningAuditLog, native_changes: usize, model: &Model) -> Result<()> {
@@ -132,22 +146,47 @@ impl Audit {
             return Err(error("learning audit weight-event mismatch"));
         }
         self.changed += changes;
-        for summary in log.delayed.values() {
+        for (id, summary) in &log.delayed {
             self.requested += summary.nonzero_requested;
             self.rounded += summary.nonzero_requested_without_weight_change;
             self.zero_signal += summary.zero_signal_integrations;
             self.requested_mass += summary.positive_requested - summary.negative_requested;
+            if self.track_mass {
+                let entry = self.mass.entry(id.0).or_default();
+                entry.requested += summary.positive_requested + summary.negative_requested;
+                entry.actual += summary.positive_actual + summary.negative_actual;
+                if let Some(value) = summary.first_residual {
+                    entry.first_residual.get_or_insert(value);
+                }
+                if let Some(value) = summary.last_residual {
+                    entry.last_residual = value;
+                }
+                entry.clipped += summary.positive_clipped + summary.negative_clipped;
+                entry.clipped_l1 += summary.positive_clipped - summary.negative_clipped;
+                entry.rounding += summary.positive_rounding_error + summary.negative_rounding_error;
+                entry.rounding_l1 +=
+                    summary.positive_rounding_error - summary.negative_rounding_error;
+            }
         }
         Ok(())
     }
     fn json(&self) -> Value {
-        json!({"complete":true,"observed_rows":self.rows,"trace_events":self.traces,
+        let mut result = json!({"complete":true,"observed_rows":self.rows,"trace_events":self.traces,
             "chemical_samples":self.chemicals,"tag_events":self.tags,
             "weight_events":self.changed,"requested_updates":self.requested,
             "requests_without_change":self.rounded,"zero_factor_integrations":self.zero_signal,
             "requested_absolute_mass":self.requested_mass,"actual_absolute_mass":self.actual_mass,
             "nonzero_motor_factor_samples":self.motor_signal_samples,
-            "storage":"Streaming aggregates; full raw audit traces are not retained."})
+            "storage":"Streaming aggregates; full raw audit traces are not retained."});
+        if self.track_mass {
+            let rows:Vec<_>=self.mass.iter().map(|(id,m)|json!({"synapse_id":id,
+                "requested":m.requested,"actual":m.actual,"residual_before":m.first_residual.unwrap_or(0.),
+                "residual_after":m.last_residual,"clipped":m.clipped,"clipped_l1":m.clipped_l1,
+                "rounding":m.rounding,"rounding_l1":m.rounding_l1,
+                "balance_error":m.requested-m.actual-(m.last_residual-m.first_residual.unwrap_or(0.))-m.clipped-m.rounding})).collect();
+            result["mass_ledger"] = json!(rows);
+        }
+        result
     }
 }
 pub(super) struct Training {
@@ -157,7 +196,16 @@ pub(super) struct Training {
     pub details: Value,
 }
 pub(super) fn train(c: &Config, seed: u64, group: &str, audited: bool) -> Result<Training> {
-    let mut model = build(c, seed, group)?;
+    train_with_learning(c, seed, group, audited, None)
+}
+pub(super) fn train_with_learning(
+    c: &Config,
+    seed: u64,
+    group: &str,
+    audited: bool,
+    override_rule: Option<LearningRule>,
+) -> Result<Training> {
+    let mut model = build(c, seed, group, override_rule)?;
     let initial_digest = fingerprint_debug(model.network());
     let weights = model
         .network()
@@ -180,7 +228,10 @@ pub(super) fn train(c: &Config, seed: u64, group: &str, audited: bool) -> Result
             input_spikes: true,
         });
     }
-    let mut audit = Audit::default();
+    let mut audit = Audit {
+        track_mass: override_rule.is_some(),
+        ..Default::default()
+    };
     let mut windows = Vec::new();
     let mut input_signatures = Vec::new();
     let mut input_patterns = BTreeMap::<usize, BTreeSet<Vec<(u64, usize)>>>::new();
@@ -228,6 +279,15 @@ pub(super) fn train(c: &Config, seed: u64, group: &str, audited: bool) -> Result
     }
     model.freeze().map_err(fail)?;
     let after = weight_snapshot(&model);
+    let residuals: Vec<_> = if override_rule.is_some() {
+        model
+            .network()
+            .synapses()
+            .map(|s| (s.id().0, s.learning_weight_residual()))
+            .collect()
+    } else {
+        Vec::new()
+    };
     let changes = weight_changes(&before, &after, model.network())?;
     let input_patterns_disjoint = input_patterns
         .get(&0)
@@ -240,6 +300,7 @@ pub(super) fn train(c: &Config, seed: u64, group: &str, audited: bool) -> Result
         details: json!({"input_digest":fingerprint_debug(&input_signatures),"sensory_spikes":sensory,
             "sensor_to_core_arrivals":arrivals,"core_spikes":core,"windows":windows,"audit":audit.json(),
             "input_patterns_disjoint":input_patterns_disjoint,
+            "weight_residuals_after":residuals,
             "weights_before":snapshot_json(&before),"weights_after":snapshot_json(&after),"weight_changes":changes}),
     })
 }
@@ -298,6 +359,83 @@ fn differs(a: &Value, b: &Value, key: &str) -> bool {
         .zip(b["observations"].as_array().unwrap())
         .any(|(x, y)| x[key] != y[key])
 }
+pub(super) fn run_with_learning(
+    c: &Config,
+    seed: u64,
+    group: &str,
+    override_rule: Option<LearningRule>,
+) -> Result<TrialMetrics> {
+    AssociationScenario.validate(c)?;
+    let mut trained = train_with_learning(c, seed, group, true, override_rule)?;
+    let mut reset = train_with_learning(c, seed, group, false, override_rule)?;
+    if !trained.model.same_replay_state(&reset.model) {
+        return Err(error(
+            "audited and unaudited association checkpoints differ",
+        ));
+    }
+    let mut baseline = build(c, seed, group, override_rule)?;
+    if fingerprint_debug(baseline.network()) != trained.initial_digest {
+        return Err(error("association initial network differs"));
+    }
+    let before = recall(&mut baseline, c)?;
+    verify_only_weights(&trained.model, &mut reset.model, &trained.weights)?;
+    // Verify both directions: restoring learned weights must recover the full checkpoint.
+    let learned: Vec<_> = trained
+        .model
+        .network()
+        .synapses()
+        .map(|s| (s.id(), s.weight().get()))
+        .collect();
+    apply(&mut reset.model, &learned)?;
+    if !trained.model.same_replay_state(&reset.model) {
+        return Err(error("non-weight state was changed"));
+    }
+    apply(&mut reset.model, &trained.weights)?;
+    let after = recall(&mut trained.model, c)?;
+    let without = recall(&mut reset.model, c)?;
+    let margin = |phase: &Value, cue: usize| phase["completion_margins"][cue].as_f64().unwrap();
+    let audit = &trained.details["audit"];
+    let number = |key: &str| audit[key].as_f64().unwrap();
+    let flag = |x: bool| if x { 1. } else { 0. };
+    let values = vec![
+        margin(&after, 0),
+        margin(&after, 1),
+        margin(&after, 0) - margin(&before, 0),
+        margin(&after, 1) - margin(&before, 1),
+        margin(&after, 0) - margin(&without, 0),
+        margin(&after, 1) - margin(&without, 1),
+        after["separation"].as_f64().unwrap(),
+        flag(after["all_responses_active"] == true),
+        trained.details["weight_changes"]["all"]["l1"]
+            .as_f64()
+            .unwrap(),
+        trained.details["sensory_spikes"].as_f64().unwrap(),
+        trained.details["sensor_to_core_arrivals"].as_f64().unwrap(),
+        trained.details["core_spikes"].as_f64().unwrap(),
+        number("requested_updates"),
+        number("requests_without_change"),
+        number("actual_absolute_mass"),
+        number("zero_factor_integrations"),
+        number("nonzero_motor_factor_samples"),
+        flag(differs(&after, &without, "core_event_digest")),
+        flag(differs(&after, &without, "motor_event_digest")),
+        flag(differs(&after, &without, "stored_potentials")),
+        1.,
+    ];
+    Ok(TrialMetrics {
+        values: AssociationScenario
+            .metric_names()
+            .into_iter()
+            .map(str::to_owned)
+            .zip(values)
+            .collect(),
+        details: json!({"initial_network_digest":trained.initial_digest,"training":trained.details,
+                "before":before,"learned_recall":after,"reset_recall":without,
+                "matched_checkpoint":true,"only_weights_changed":true,
+                "limits":"External cue-completion assay; stored potentials have native cell timestamps. Input/event fingerprints are noncryptographic. No labels, reward or artificial modulator pulses enter learning. No independent confirmation."}),
+    })
+}
+
 impl Scenario for AssociationScenario {
     type Config = Config;
     fn name(&self) -> &'static str {
@@ -364,75 +502,7 @@ impl Scenario for AssociationScenario {
         ]
     }
     fn run(&self, c: &Config, seed: u64, i: &Intervention) -> Result<TrialMetrics> {
-        self.validate(c)?;
-        let mut trained = train(c, seed, &i.name, true)?;
-        let mut reset = train(c, seed, &i.name, false)?;
-        if !trained.model.same_replay_state(&reset.model) {
-            return Err(error(
-                "audited and unaudited association checkpoints differ",
-            ));
-        }
-        let mut baseline = build(c, seed, &i.name)?;
-        if fingerprint_debug(baseline.network()) != trained.initial_digest {
-            return Err(error("association initial network differs"));
-        }
-        let before = recall(&mut baseline, c)?;
-        verify_only_weights(&trained.model, &mut reset.model, &trained.weights)?;
-        // Verify both directions: restoring learned weights must recover the full checkpoint.
-        let learned: Vec<_> = trained
-            .model
-            .network()
-            .synapses()
-            .map(|s| (s.id(), s.weight().get()))
-            .collect();
-        apply(&mut reset.model, &learned)?;
-        if !trained.model.same_replay_state(&reset.model) {
-            return Err(error("non-weight state was changed"));
-        }
-        apply(&mut reset.model, &trained.weights)?;
-        let after = recall(&mut trained.model, c)?;
-        let without = recall(&mut reset.model, c)?;
-        let margin = |phase: &Value, cue: usize| phase["completion_margins"][cue].as_f64().unwrap();
-        let audit = &trained.details["audit"];
-        let number = |key: &str| audit[key].as_f64().unwrap();
-        let flag = |x: bool| if x { 1. } else { 0. };
-        let values = vec![
-            margin(&after, 0),
-            margin(&after, 1),
-            margin(&after, 0) - margin(&before, 0),
-            margin(&after, 1) - margin(&before, 1),
-            margin(&after, 0) - margin(&without, 0),
-            margin(&after, 1) - margin(&without, 1),
-            after["separation"].as_f64().unwrap(),
-            flag(after["all_responses_active"] == true),
-            trained.details["weight_changes"]["all"]["l1"]
-                .as_f64()
-                .unwrap(),
-            trained.details["sensory_spikes"].as_f64().unwrap(),
-            trained.details["sensor_to_core_arrivals"].as_f64().unwrap(),
-            trained.details["core_spikes"].as_f64().unwrap(),
-            number("requested_updates"),
-            number("requests_without_change"),
-            number("actual_absolute_mass"),
-            number("zero_factor_integrations"),
-            number("nonzero_motor_factor_samples"),
-            flag(differs(&after, &without, "core_event_digest")),
-            flag(differs(&after, &without, "motor_event_digest")),
-            flag(differs(&after, &without, "stored_potentials")),
-            1.,
-        ];
-        Ok(TrialMetrics {
-            values: self
-                .metric_names()
-                .into_iter()
-                .map(str::to_owned)
-                .zip(values)
-                .collect(),
-            details: json!({"initial_network_digest":trained.initial_digest,"training":trained.details,
-                "before":before,"learned_recall":after,"reset_recall":without,
-                "matched_checkpoint":true,"only_weights_changed":true,
-                "limits":"External cue-completion assay; stored potentials have native cell timestamps. Input/event fingerprints are noncryptographic. No labels, reward or artificial modulator pulses enter learning. No independent confirmation."}),
-        })
+        run_with_learning(c, seed, &i.name, None)
     }
     fn evaluate(&self, records: &[Value], replay: bool) -> Result<Value> {
         let mut paired = BTreeMap::<u64, BTreeMap<String, &Value>>::new();
@@ -511,9 +581,12 @@ mod tests {
             training_repetitions: 1,
             rest_us: 100000,
         };
-        let expected = build(&c, 7, "three_on").unwrap();
+        let expected = build(&c, 7, "three_on", None).unwrap();
         for group in GROUPS {
-            assert_eq!(build(&c, 7, group).unwrap().network(), expected.network());
+            assert_eq!(
+                build(&c, 7, group, None).unwrap().network(),
+                expected.network()
+            );
         }
         let mut paired = schedule(&c, 7, false);
         let mut unpaired = schedule(&c, 7, true);

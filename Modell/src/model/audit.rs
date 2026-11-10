@@ -308,6 +308,7 @@ pub fn learned_parameters_equal(a: &Network, b: &Network) -> bool {
                 && x.pre() == y.pre()
                 && x.post() == y.post()
                 && x.weight() == y.weight()
+                && x.learning_weight_residual() == y.learning_weight_residual()
                 && x.delay_us() == y.delay_us()
                 && x.short_term_config() == y.short_term_config()
                 && x.is_plastic() == y.is_plastic()

@@ -11,6 +11,19 @@ bereit. Neuronale Mechanismen stammen aus NERVA und dem laufenden Modell.
 
 ## Voraussetzungen und erster Lauf
 
+Der [Präzisionsvergleich](PRECISION.md) prüft jetzt unveränderte f32-
+Direktupdates gegen einen synapsenlokalen f64-Restbetrag, mit eingefrorenen
+und entkoppelten Kontrollen:
+
+```bash
+./NERVA_Modell/research/run.sh control plan NERVA_Modell/research/config/precision_pilot.toml
+./NERVA_Modell/research/run.sh control run NERVA_Modell/research/config/precision_pilot.toml
+```
+
+Erhaltene Änderungsmasse, native Spikewirkung und Assoziationsgewinn werden
+getrennt ausgewertet.
+[Ergebnisse des festen Piloten](PRECISION_RESULTS_20261110.md).
+
 Die [kausale Diagnosekette A–D](CAUSAL_CHAIN.md) ergänzt garantierte
 Positivkontrollen und einen festen Gewichtsverstärkungsvergleich:
 
