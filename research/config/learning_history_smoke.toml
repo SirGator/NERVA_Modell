@@ -1,0 +1,24 @@
+[experiment]
+name = "learning_history_smoke"
+scenario = "hippocampal_learning_history"
+seeds = [7]
+interventions = ["three_on", "three_off", "pair_on", "frozen_on"]
+verify_replay = true
+max_runs = 4
+
+[base]
+processing_neurons = 16
+training_repetitions = 1
+rest_us = 100000
+
+[base.history]
+# Empty neuron/synapse lists collect only network and per-synapse summaries.
+neurons = [64]
+synapses = []
+max_rows = 100000
+max_source_rows = 20000000
+
+[measurements]
+metrics = ["weight_events", "requests_without_change", "trace_rows",
+           "recall_used_changed_synapses", "recall_core_effect", "recall_motor_effect",
+           "weight_gain_a", "weight_gain_b", "matched_checkpoints"]

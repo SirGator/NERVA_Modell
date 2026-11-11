@@ -16,6 +16,7 @@ pub mod causal;
 pub mod chain;
 pub mod diagnosis;
 pub mod factorial;
+pub mod history;
 pub mod precision;
 mod weights;
 use weights::{snapshot_json, weight_changes, weight_snapshot};

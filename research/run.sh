@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 research_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+if [[ "${1:-}" == history ]]; then
+    shift
+    exec python3 "$research_dir/learning_history.py" "$@"
+fi
 if [[ "${1:-}" == control ]]; then
     shift
     exec python3 "$research_dir/control.py" "$@"

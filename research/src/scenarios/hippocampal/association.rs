@@ -46,7 +46,12 @@ fn settings(group: &str) -> Result<(LearningRule, bool, bool, bool)> {
         group.ends_with("unpaired"),
     ))
 }
-fn build(c: &Config, seed: u64, group: &str, override_rule: Option<LearningRule>) -> Result<Model> {
+pub(super) fn build(
+    c: &Config,
+    seed: u64,
+    group: &str,
+    override_rule: Option<LearningRule>,
+) -> Result<Model> {
     let (rule, chemistry, _, _) = settings(group)?;
     Model::with_sensor_and_learning(
         model_config(c, seed, if chemistry { "smooth" } else { "no_chemistry" }),
@@ -205,7 +210,20 @@ pub(super) fn train_with_learning(
     audited: bool,
     override_rule: Option<LearningRule>,
 ) -> Result<Training> {
+    train_observed(c, seed, group, audited, override_rule, None)
+}
+pub(super) fn train_observed(
+    c: &Config,
+    seed: u64,
+    group: &str,
+    audited: bool,
+    override_rule: Option<LearningRule>,
+    mut history: Option<&mut super::history::History>,
+) -> Result<Training> {
     let mut model = build(c, seed, group, override_rule)?;
+    if let Some(h) = &mut history {
+        h.initialize(&model)?;
+    }
     let initial_digest = fingerprint_debug(model.network());
     let weights = model
         .network()
@@ -224,10 +242,11 @@ pub(super) fn train_with_learning(
     if audited {
         model.enable_learning_audit(100_000).map_err(fail)?;
         model.enable_audit(AuditOptions {
-            raw_events: false,
+            raw_events: history.is_some(),
             input_spikes: true,
         });
     }
+    model.set_dynamics_auditing(history.is_some());
     let mut audit = Audit {
         track_mass: override_rule.is_some(),
         ..Default::default()
@@ -261,6 +280,9 @@ pub(super) fn train_with_learning(
                 .insert(channel_counts.clone());
             input_signatures.push(signature.clone());
             let log = model.take_learning_audit().map_err(fail)?;
+            if let Some(h) = &mut history {
+                h.add("training", &input, Some(&log), &model)?;
+            }
             audit.add(log, step.weight_changes, &model)?;
             windows.push(json!({"index":index,"image":image,"start_us":step.start_us,"end_us":step.end_us,
                 "input_digest":signature,"generated_spikes":step.sensory_spikes,
@@ -277,6 +299,7 @@ pub(super) fn train_with_learning(
             return Err(error("undrained association audit"));
         }
     }
+    model.set_dynamics_auditing(false);
     model.freeze().map_err(fail)?;
     let after = weight_snapshot(&model);
     let residuals: Vec<_> = if override_rule.is_some() {
@@ -305,6 +328,20 @@ pub(super) fn train_with_learning(
     })
 }
 pub(super) fn recall(model: &mut Model, c: &Config) -> Result<Value> {
+    recall_observed(model, c, None)
+}
+pub(super) fn recall_observed(
+    model: &mut Model,
+    c: &Config,
+    mut history: Option<&mut super::history::History>,
+) -> Result<Value> {
+    if history.is_some() {
+        model.enable_audit(AuditOptions {
+            raw_events: true,
+            input_spikes: false,
+        });
+        model.set_dynamics_auditing(true);
+    }
     model.freeze().map_err(fail)?;
     let original = model.network().clone();
     let mut responses = Vec::new();
@@ -318,9 +355,21 @@ pub(super) fn recall(model: &mut Model, c: &Config) -> Result<Value> {
                 .step_for(&frame(4).map_err(fail)?, duration)
                 .map_err(fail)?;
             resting += step.core_counts.iter().sum::<usize>();
+            if let Some(h) = &mut history {
+                let audit = model
+                    .take_audit()
+                    .ok_or_else(|| error("missing history rest audit"))?;
+                h.add("recall_rest", &audit, None, model)?;
+            }
             remaining -= duration;
         }
         let step = model.step(&frame(image).map_err(fail)?).map_err(fail)?;
+        if let Some(h) = &mut history {
+            let audit = model
+                .take_audit()
+                .ok_or_else(|| error("missing history recall audit"))?;
+            h.add("recall", &audit, None, model)?;
+        }
         let potentials: Vec<_> = model
             .processing_ids()
             .iter()
@@ -346,6 +395,7 @@ pub(super) fn recall(model: &mut Model, c: &Config) -> Result<Value> {
     if !learned_parameters_equal(&original, model.network()) {
         return Err(error("association recall changed weights"));
     }
+    model.set_dynamics_auditing(false);
     let mut result = summarize(&responses);
     result["observations"] = json!(observations);
     result["parameters_preserved"] = json!(true);

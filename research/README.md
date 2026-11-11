@@ -11,6 +11,15 @@ bereit. Neuronale Mechanismen stammen aus NERVA und dem laufenden Modell.
 
 ## Voraussetzungen und erster Lauf
 
+[Learning History & Causal Trace](LEARNING_HISTORY.md) verbindet die nativen
+Lern-, Chemie- und Elektroereignisse für ausgewählte Neuronen und Synapsen,
+mit netzweiten Statistiken und geprüftem Gewichts-Reset beim Abruf:
+
+```bash
+./NERVA_Modell/research/run.sh run NERVA_Modell/research/config/learning_history_smoke.toml
+```
+
+
 Der [Vierfeldervergleich von Richtung und Stärke](DIRECTION_STRENGTH.md)
 kreuzt natürliche und künstlich erfolgreiche Gewichtsdeltas bei kontrollierter
 L2-Stärke. Zusätzliche rein rekurrente Kontrast- und Relaisrichtungen suchen
