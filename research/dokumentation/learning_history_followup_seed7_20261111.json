@@ -1,0 +1,2445 @@
+{
+  "groups": {
+    "frozen_on": {
+      "chemistry": {
+        "84": {
+          "acetylcholine": {
+            "max": 0.2518465220928192,
+            "min": 0.003332672407850623
+          },
+          "dopamine": {
+            "max": 0.0,
+            "min": 0.0
+          },
+          "learning_signal": {
+            "max": 0.045893020927906036,
+            "min": 0.0018810542533174157
+          },
+          "noradrenaline": {
+            "max": 0.09520816057920456,
+            "min": 0.007203725166618824
+          }
+        },
+        "91": {
+          "acetylcholine": {
+            "max": 0.09938500076532364,
+            "min": 0.0027152434922754765
+          },
+          "dopamine": {
+            "max": 0.0,
+            "min": 0.0
+          },
+          "learning_signal": {
+            "max": 0.03326956182718277,
+            "min": 0.0015991729451343417
+          },
+          "noradrenaline": {
+            "max": 0.23167625069618225,
+            "min": 0.009188405238091946
+          }
+        }
+      },
+      "metrics": {
+        "matched_checkpoints": 1.0,
+        "recall_core_effect": 0.0,
+        "recall_motor_effect": 0.0,
+        "recall_used_changed_synapses": 0.0,
+        "requests_without_change": 0.0,
+        "trace_rows": 54956.0,
+        "weight_events": 0.0,
+        "weight_gain_a": 0.0,
+        "weight_gain_b": 0.0
+      },
+      "motor_factor_samples": 0,
+      "negative_actual_mass": 0.0,
+      "negative_actual_mass_share": null,
+      "opposing_mass": 0.0,
+      "opposing_synapses": 0,
+      "positive_actual_mass": 0.0,
+      "strengthened_synapses": 0,
+      "synapses": {
+        "360": {
+          "all_delayed_integrations": {
+            "negative_requested": 0,
+            "negative_tag_integral": 0,
+            "positive_requested": 0,
+            "positive_tag_integral": 0
+          },
+          "edge": {
+            "changed_at_checkpoint": false,
+            "negative_actual": 0.0,
+            "opposing_update_mass": -0.0,
+            "positive_actual": 0.0,
+            "recall_arrivals": 2,
+            "requests": 0,
+            "requests_without_change": 0,
+            "source_id": 90,
+            "synapse_id": 360,
+            "target_id": 84,
+            "weight_after": 0.19116000831127167,
+            "weight_before": 0.19116000831127167,
+            "weight_events": 0,
+            "zero_signal_integrations": 0
+          },
+          "examples": [],
+          "negative_requested_share": null,
+          "negative_tag_integral_share": null,
+          "net_delta": 0.0,
+          "published_delayed_sign_cases": {},
+          "residual_direction_differences": 0
+        },
+        "52": {
+          "all_delayed_integrations": {
+            "negative_requested": 0,
+            "negative_tag_integral": 0,
+            "positive_requested": 0,
+            "positive_tag_integral": 0
+          },
+          "edge": {
+            "changed_at_checkpoint": false,
+            "negative_actual": 0.0,
+            "opposing_update_mass": -0.0,
+            "positive_actual": 0.0,
+            "recall_arrivals": 10,
+            "requests": 0,
+            "requests_without_change": 0,
+            "source_id": 13,
+            "synapse_id": 52,
+            "target_id": 91,
+            "weight_after": 0.6590400338172913,
+            "weight_before": 0.6590400338172913,
+            "weight_events": 0,
+            "zero_signal_integrations": 0
+          },
+          "examples": [],
+          "negative_requested_share": null,
+          "negative_tag_integral_share": null,
+          "net_delta": 0.0,
+          "published_delayed_sign_cases": {},
+          "residual_direction_differences": 0
+        },
+        "57": {
+          "all_delayed_integrations": {
+            "negative_requested": 0,
+            "negative_tag_integral": 0,
+            "positive_requested": 0,
+            "positive_tag_integral": 0
+          },
+          "edge": {
+            "changed_at_checkpoint": false,
+            "negative_actual": 0.0,
+            "opposing_update_mass": -0.0,
+            "positive_actual": 0.0,
+            "recall_arrivals": 10,
+            "requests": 0,
+            "requests_without_change": 0,
+            "source_id": 14,
+            "synapse_id": 57,
+            "target_id": 84,
+            "weight_after": 0.675540030002594,
+            "weight_before": 0.675540030002594,
+            "weight_events": 0,
+            "zero_signal_integrations": 0
+          },
+          "examples": [],
+          "negative_requested_share": null,
+          "negative_tag_integral_share": null,
+          "net_delta": 0.0,
+          "published_delayed_sign_cases": {},
+          "residual_direction_differences": 0
+        }
+      },
+      "weakened_synapses": 0,
+      "weight_paths": {
+        "all": {
+          "changed": 0,
+          "edges": 1320,
+          "l1": 0.0,
+          "maximum": 0.0,
+          "signed": 0.0,
+          "stored_tag_l1": 0.0
+        },
+        "by_path": {
+          "core_exc_to_core": {
+            "changed": 0,
+            "edges": 820,
+            "l1": 0.0,
+            "maximum": 0.0,
+            "signed": 0.0,
+            "stored_tag_l1": 0.0
+          },
+          "core_inh_to_core": {
+            "changed": 0,
+            "edges": 204,
+            "l1": 0.0,
+            "maximum": 0.0,
+            "signed": 0.0,
+            "stored_tag_l1": 0.0
+          },
+          "core_to_motor": {
+            "changed": 0,
+            "edges": 40,
+            "l1": 0.0,
+            "maximum": 0.0,
+            "signed": 0.0,
+            "stored_tag_l1": 0.0
+          },
+          "sensory_to_core": {
+            "changed": 0,
+            "edges": 256,
+            "l1": 0.0,
+            "maximum": 0.0,
+            "signed": 0.0,
+            "stored_tag_l1": 0.0
+          }
+        }
+      }
+    },
+    "pair_off": {
+      "chemistry": {
+        "84": null,
+        "91": null
+      },
+      "metrics": {
+        "matched_checkpoints": 1.0,
+        "recall_core_effect": 0.0,
+        "recall_motor_effect": 0.0,
+        "recall_used_changed_synapses": 60.0,
+        "requests_without_change": 0.0,
+        "trace_rows": 2308.0,
+        "weight_events": 4338.0,
+        "weight_gain_a": 0.0,
+        "weight_gain_b": 0.0
+      },
+      "motor_factor_samples": 0,
+      "negative_actual_mass": -0.1547195166349411,
+      "negative_actual_mass_share": 0.5056842073888267,
+      "opposing_mass": 0.12810789048671722,
+      "opposing_synapses": 57,
+      "positive_actual_mass": 0.1512412279844284,
+      "strengthened_synapses": 25,
+      "synapses": {
+        "360": {
+          "all_delayed_integrations": {
+            "negative_requested": 0,
+            "negative_tag_integral": 0,
+            "positive_requested": 0,
+            "positive_tag_integral": 0
+          },
+          "edge": {
+            "changed_at_checkpoint": true,
+            "negative_actual": -0.0012273192405700684,
+            "opposing_update_mass": 0.0007458031177520752,
+            "positive_actual": 0.0007458031177520752,
+            "recall_arrivals": 2,
+            "requests": 0,
+            "requests_without_change": 0,
+            "source_id": 90,
+            "synapse_id": 360,
+            "target_id": 84,
+            "weight_after": 0.19067849218845367,
+            "weight_before": 0.19116000831127167,
+            "weight_events": 32,
+            "zero_signal_integrations": 0
+          },
+          "examples": [
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -0.00010992586612701416,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.19105008244514465,
+                "weight_before": 0.19116000831127167
+              },
+              "id": 2,
+              "mechanism": "stdp_pre",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 90,
+              "stream": "learning",
+              "synapse_id": 360,
+              "target_id": 84,
+              "time_us": 36090
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 2.0623207092285156e-05,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.19107070565223694,
+                "weight_before": 0.19105008244514465
+              },
+              "id": 89,
+              "mechanism": "stdp_post",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 90,
+              "stream": "learning",
+              "synapse_id": 360,
+              "target_id": 84,
+              "time_us": 67669
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -0.00010238587856292725,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.190968319773674,
+                "weight_before": 0.19107070565223694
+              },
+              "id": 91,
+              "mechanism": "stdp_pre",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 90,
+              "stream": "learning",
+              "synapse_id": 360,
+              "target_id": 84,
+              "time_us": 70844
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 2.2143125534057617e-05,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.19099046289920807,
+                "weight_before": 0.190968319773674
+              },
+              "id": 195,
+              "mechanism": "stdp_post",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 90,
+              "stream": "learning",
+              "synapse_id": 360,
+              "target_id": 84,
+              "time_us": 101002
+            }
+          ],
+          "negative_requested_share": null,
+          "negative_tag_integral_share": null,
+          "net_delta": -0.00048151612281799316,
+          "published_delayed_sign_cases": {},
+          "residual_direction_differences": 0
+        },
+        "52": {
+          "all_delayed_integrations": {
+            "negative_requested": 0,
+            "negative_tag_integral": 0,
+            "positive_requested": 0,
+            "positive_tag_integral": 0
+          },
+          "edge": {
+            "changed_at_checkpoint": true,
+            "negative_actual": -0.0029958486557006836,
+            "opposing_update_mass": 0.0016002655029296875,
+            "positive_actual": 0.0016002655029296875,
+            "recall_arrivals": 10,
+            "requests": 0,
+            "requests_without_change": 0,
+            "source_id": 13,
+            "synapse_id": 52,
+            "target_id": 91,
+            "weight_after": 0.6576444506645203,
+            "weight_before": 0.6590400338172913,
+            "weight_events": 86,
+            "zero_signal_integrations": 0
+          },
+          "examples": [
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.00010001659393310547,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.6591400504112244,
+                "weight_before": 0.6590400338172913
+              },
+              "id": 1,
+              "mechanism": "stdp_post",
+              "neuron_id": 91,
+              "phase": "training",
+              "source_id": 13,
+              "stream": "learning",
+              "synapse_id": 52,
+              "target_id": 91,
+              "time_us": 34336
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -7.909536361694336e-05,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.6590609550476074,
+                "weight_before": 0.6591400504112244
+              },
+              "id": 3,
+              "mechanism": "stdp_pre",
+              "neuron_id": 91,
+              "phase": "training",
+              "source_id": 13,
+              "stream": "learning",
+              "synapse_id": 52,
+              "target_id": 91,
+              "time_us": 42669
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -5.21540641784668e-05,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.659008800983429,
+                "weight_before": 0.6590609550476074
+              },
+              "id": 82,
+              "mechanism": "stdp_pre",
+              "neuron_id": 91,
+              "phase": "training",
+              "source_id": 13,
+              "stream": "learning",
+              "synapse_id": 52,
+              "target_id": 91,
+              "time_us": 51002
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -3.439188003540039e-05,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.6589744091033936,
+                "weight_before": 0.659008800983429
+              },
+              "id": 84,
+              "mechanism": "stdp_pre",
+              "neuron_id": 91,
+              "phase": "training",
+              "source_id": 13,
+              "stream": "learning",
+              "synapse_id": 52,
+              "target_id": 91,
+              "time_us": 59336
+            }
+          ],
+          "negative_requested_share": null,
+          "negative_tag_integral_share": null,
+          "net_delta": -0.001395583152770996,
+          "published_delayed_sign_cases": {},
+          "residual_direction_differences": 0
+        },
+        "57": {
+          "all_delayed_integrations": {
+            "negative_requested": 0,
+            "negative_tag_integral": 0,
+            "positive_requested": 0,
+            "positive_tag_integral": 0
+          },
+          "edge": {
+            "changed_at_checkpoint": true,
+            "negative_actual": -0.0036751627922058105,
+            "opposing_update_mass": 0.0024003982543945312,
+            "positive_actual": 0.0024003982543945312,
+            "recall_arrivals": 10,
+            "requests": 0,
+            "requests_without_change": 0,
+            "source_id": 14,
+            "synapse_id": 57,
+            "target_id": 84,
+            "weight_after": 0.6742652654647827,
+            "weight_before": 0.675540030002594,
+            "weight_events": 101,
+            "zero_signal_integrations": 0
+          },
+          "examples": [
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.00010001659393310547,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.6756400465965271,
+                "weight_before": 0.675540030002594
+              },
+              "id": 0,
+              "mechanism": "stdp_post",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 14,
+              "stream": "learning",
+              "synapse_id": 57,
+              "target_id": 84,
+              "time_us": 34336
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -7.909536361694336e-05,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.6755609512329102,
+                "weight_before": 0.6756400465965271
+              },
+              "id": 4,
+              "mechanism": "stdp_pre",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 14,
+              "stream": "learning",
+              "synapse_id": 57,
+              "target_id": 84,
+              "time_us": 42669
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -5.21540641784668e-05,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.6755087971687317,
+                "weight_before": 0.6755609512329102
+              },
+              "id": 83,
+              "mechanism": "stdp_pre",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 14,
+              "stream": "learning",
+              "synapse_id": 57,
+              "target_id": 84,
+              "time_us": 51002
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -3.439188003540039e-05,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.6754744052886963,
+                "weight_before": 0.6755087971687317
+              },
+              "id": 85,
+              "mechanism": "stdp_pre",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 14,
+              "stream": "learning",
+              "synapse_id": 57,
+              "target_id": 84,
+              "time_us": 59336
+            }
+          ],
+          "negative_requested_share": null,
+          "negative_tag_integral_share": null,
+          "net_delta": -0.0012747645378112793,
+          "published_delayed_sign_cases": {},
+          "residual_direction_differences": 0
+        }
+      },
+      "weakened_synapses": 35,
+      "weight_paths": {
+        "all": {
+          "changed": 60,
+          "edges": 1320,
+          "l1": 0.04974496364593506,
+          "maximum": 0.0032739639282226562,
+          "signed": -0.0034782886505126953,
+          "stored_tag_l1": 0.0
+        },
+        "by_path": {
+          "core_exc_to_core": {
+            "changed": 24,
+            "edges": 820,
+            "l1": 0.012857496738433838,
+            "maximum": 0.0018603801727294922,
+            "signed": -0.005470573902130127,
+            "stored_tag_l1": 0.0
+          },
+          "core_inh_to_core": {
+            "changed": 0,
+            "edges": 204,
+            "l1": 0.0,
+            "maximum": 0.0,
+            "signed": 0.0,
+            "stored_tag_l1": 0.0
+          },
+          "core_to_motor": {
+            "changed": 0,
+            "edges": 40,
+            "l1": 0.0,
+            "maximum": 0.0,
+            "signed": 0.0,
+            "stored_tag_l1": 0.0
+          },
+          "sensory_to_core": {
+            "changed": 36,
+            "edges": 256,
+            "l1": 0.03688746690750122,
+            "maximum": 0.0032739639282226562,
+            "signed": 0.0019922852516174316,
+            "stored_tag_l1": 0.0
+          }
+        }
+      }
+    },
+    "pair_on": {
+      "chemistry": {
+        "84": {
+          "acetylcholine": {
+            "max": 0.2518465220928192,
+            "min": 0.003332672407850623
+          },
+          "dopamine": {
+            "max": 0.0,
+            "min": 0.0
+          },
+          "learning_signal": {
+            "max": 0.045893020927906036,
+            "min": 0.0018810542533174157
+          },
+          "noradrenaline": {
+            "max": 0.09520816057920456,
+            "min": 0.007203725166618824
+          }
+        },
+        "91": {
+          "acetylcholine": {
+            "max": 0.09938500076532364,
+            "min": 0.0027152434922754765
+          },
+          "dopamine": {
+            "max": 0.0,
+            "min": 0.0
+          },
+          "learning_signal": {
+            "max": 0.03326956182718277,
+            "min": 0.0015991729451343417
+          },
+          "noradrenaline": {
+            "max": 0.23167625069618225,
+            "min": 0.009188405238091946
+          }
+        }
+      },
+      "metrics": {
+        "matched_checkpoints": 1.0,
+        "recall_core_effect": 0.0,
+        "recall_motor_effect": 0.0,
+        "recall_used_changed_synapses": 60.0,
+        "requests_without_change": 0.0,
+        "trace_rows": 55172.0,
+        "weight_events": 4345.0,
+        "weight_gain_a": 0.0,
+        "weight_gain_b": 0.0
+      },
+      "motor_factor_samples": 0,
+      "negative_actual_mass": -0.15486358106136322,
+      "negative_actual_mass_share": 0.5053900162227142,
+      "opposing_mass": 0.12837852537631989,
+      "opposing_synapses": 58,
+      "positive_actual_mass": 0.15156032145023346,
+      "strengthened_synapses": 25,
+      "synapses": {
+        "360": {
+          "all_delayed_integrations": {
+            "negative_requested": 0,
+            "negative_tag_integral": 0,
+            "positive_requested": 0,
+            "positive_tag_integral": 0
+          },
+          "edge": {
+            "changed_at_checkpoint": true,
+            "negative_actual": -0.0014725923538208008,
+            "opposing_update_mass": 0.0006146728992462158,
+            "positive_actual": 0.0006146728992462158,
+            "recall_arrivals": 2,
+            "requests": 0,
+            "requests_without_change": 0,
+            "source_id": 90,
+            "synapse_id": 360,
+            "target_id": 84,
+            "weight_after": 0.19030208885669708,
+            "weight_before": 0.19116000831127167,
+            "weight_events": 32,
+            "zero_signal_integrations": 0
+          },
+          "examples": [
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -0.00010992586612701416,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.19105008244514465,
+                "weight_before": 0.19116000831127167
+              },
+              "id": 2,
+              "mechanism": "stdp_pre",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 90,
+              "stream": "learning",
+              "synapse_id": 360,
+              "target_id": 84,
+              "time_us": 36090
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 2.0623207092285156e-05,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.01509661041200161,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.19107070565223694,
+                "weight_before": 0.19105008244514465
+              },
+              "id": 137,
+              "mechanism": "stdp_post",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 90,
+              "stream": "learning",
+              "synapse_id": 360,
+              "target_id": 84,
+              "time_us": 67669
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -0.00010238587856292725,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.034911658614873886,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.190968319773674,
+                "weight_before": 0.19107070565223694
+              },
+              "id": 144,
+              "mechanism": "stdp_pre",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 90,
+              "stream": "learning",
+              "synapse_id": 360,
+              "target_id": 84,
+              "time_us": 70844
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 2.2143125534057617e-05,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.023806218057870865,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.19099046289920807,
+                "weight_before": 0.190968319773674
+              },
+              "id": 326,
+              "mechanism": "stdp_post",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 90,
+              "stream": "learning",
+              "synapse_id": 360,
+              "target_id": 84,
+              "time_us": 101002
+            }
+          ],
+          "negative_requested_share": null,
+          "negative_tag_integral_share": null,
+          "net_delta": -0.000857919454574585,
+          "published_delayed_sign_cases": {},
+          "residual_direction_differences": 0
+        },
+        "52": {
+          "all_delayed_integrations": {
+            "negative_requested": 0,
+            "negative_tag_integral": 0,
+            "positive_requested": 0,
+            "positive_tag_integral": 0
+          },
+          "edge": {
+            "changed_at_checkpoint": true,
+            "negative_actual": -0.0029958486557006836,
+            "opposing_update_mass": 0.0016002655029296875,
+            "positive_actual": 0.0016002655029296875,
+            "recall_arrivals": 10,
+            "requests": 0,
+            "requests_without_change": 0,
+            "source_id": 13,
+            "synapse_id": 52,
+            "target_id": 91,
+            "weight_after": 0.6576444506645203,
+            "weight_before": 0.6590400338172913,
+            "weight_events": 86,
+            "zero_signal_integrations": 0
+          },
+          "examples": [
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.00010001659393310547,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.6591400504112244,
+                "weight_before": 0.6590400338172913
+              },
+              "id": 1,
+              "mechanism": "stdp_post",
+              "neuron_id": 91,
+              "phase": "training",
+              "source_id": 13,
+              "stream": "learning",
+              "synapse_id": 52,
+              "target_id": 91,
+              "time_us": 34336
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -7.909536361694336e-05,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.01772858202457428,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.6590609550476074,
+                "weight_before": 0.6591400504112244
+              },
+              "id": 8,
+              "mechanism": "stdp_pre",
+              "neuron_id": 91,
+              "phase": "training",
+              "source_id": 13,
+              "stream": "learning",
+              "synapse_id": 52,
+              "target_id": 91,
+              "time_us": 42669
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -5.21540641784668e-05,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.01564459316432476,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.659008800983429,
+                "weight_before": 0.6590609550476074
+              },
+              "id": 115,
+              "mechanism": "stdp_pre",
+              "neuron_id": 91,
+              "phase": "training",
+              "source_id": 13,
+              "stream": "learning",
+              "synapse_id": 52,
+              "target_id": 91,
+              "time_us": 51002
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -3.439188003540039e-05,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.013869548216462135,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.6589744091033936,
+                "weight_before": 0.659008800983429
+              },
+              "id": 127,
+              "mechanism": "stdp_pre",
+              "neuron_id": 91,
+              "phase": "training",
+              "source_id": 13,
+              "stream": "learning",
+              "synapse_id": 52,
+              "target_id": 91,
+              "time_us": 59336
+            }
+          ],
+          "negative_requested_share": null,
+          "negative_tag_integral_share": null,
+          "net_delta": -0.001395583152770996,
+          "published_delayed_sign_cases": {},
+          "residual_direction_differences": 0
+        },
+        "57": {
+          "all_delayed_integrations": {
+            "negative_requested": 0,
+            "negative_tag_integral": 0,
+            "positive_requested": 0,
+            "positive_tag_integral": 0
+          },
+          "edge": {
+            "changed_at_checkpoint": true,
+            "negative_actual": -0.003647923469543457,
+            "opposing_update_mass": 0.0023872852325439453,
+            "positive_actual": 0.0023872852325439453,
+            "recall_arrivals": 10,
+            "requests": 0,
+            "requests_without_change": 0,
+            "source_id": 14,
+            "synapse_id": 57,
+            "target_id": 84,
+            "weight_after": 0.6742793917655945,
+            "weight_before": 0.675540030002594,
+            "weight_events": 98,
+            "zero_signal_integrations": 0
+          },
+          "examples": [
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.00010001659393310547,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.6756400465965271,
+                "weight_before": 0.675540030002594
+              },
+              "id": 0,
+              "mechanism": "stdp_post",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 14,
+              "stream": "learning",
+              "synapse_id": 57,
+              "target_id": 84,
+              "time_us": 34336
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -7.909536361694336e-05,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.021667974069714546,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.6755609512329102,
+                "weight_before": 0.6756400465965271
+              },
+              "id": 9,
+              "mechanism": "stdp_pre",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 14,
+              "stream": "learning",
+              "synapse_id": 57,
+              "target_id": 84,
+              "time_us": 42669
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -5.21540641784668e-05,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.01860254630446434,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.6755087971687317,
+                "weight_before": 0.6755609512329102
+              },
+              "id": 116,
+              "mechanism": "stdp_pre",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 14,
+              "stream": "learning",
+              "synapse_id": 57,
+              "target_id": 84,
+              "time_us": 51002
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -3.439188003540039e-05,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.016146689653396606,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 0.0,
+                "tag_anchor_before_us": null,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.6754744052886963,
+                "weight_before": 0.6755087971687317
+              },
+              "id": 128,
+              "mechanism": "stdp_pre",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 14,
+              "stream": "learning",
+              "synapse_id": 57,
+              "target_id": 84,
+              "time_us": 59336
+            }
+          ],
+          "negative_requested_share": null,
+          "negative_tag_integral_share": null,
+          "net_delta": -0.0012606382369995117,
+          "published_delayed_sign_cases": {},
+          "residual_direction_differences": 0
+        }
+      },
+      "weakened_synapses": 35,
+      "weight_paths": {
+        "all": {
+          "changed": 60,
+          "edges": 1320,
+          "l1": 0.04966685175895691,
+          "maximum": 0.0032739639282226562,
+          "signed": -0.0033032596111297607,
+          "stored_tag_l1": 0.0
+        },
+        "by_path": {
+          "core_exc_to_core": {
+            "changed": 24,
+            "edges": 820,
+            "l1": 0.01274082064628601,
+            "maximum": 0.0018603801727294922,
+            "signed": -0.005256980657577515,
+            "stored_tag_l1": 0.0
+          },
+          "core_inh_to_core": {
+            "changed": 0,
+            "edges": 204,
+            "l1": 0.0,
+            "maximum": 0.0,
+            "signed": 0.0,
+            "stored_tag_l1": 0.0
+          },
+          "core_to_motor": {
+            "changed": 0,
+            "edges": 40,
+            "l1": 0.0,
+            "maximum": 0.0,
+            "signed": 0.0,
+            "stored_tag_l1": 0.0
+          },
+          "sensory_to_core": {
+            "changed": 36,
+            "edges": 256,
+            "l1": 0.0369260311126709,
+            "maximum": 0.0032739639282226562,
+            "signed": 0.001953721046447754,
+            "stored_tag_l1": 0.0
+          }
+        }
+      }
+    },
+    "three_off": {
+      "chemistry": {
+        "84": null,
+        "91": null
+      },
+      "metrics": {
+        "matched_checkpoints": 1.0,
+        "recall_core_effect": 0.0,
+        "recall_motor_effect": 0.0,
+        "recall_used_changed_synapses": 0.0,
+        "requests_without_change": 0.0,
+        "trace_rows": 2352.0,
+        "weight_events": 0.0,
+        "weight_gain_a": 0.0,
+        "weight_gain_b": 0.0
+      },
+      "motor_factor_samples": 0,
+      "negative_actual_mass": 0.0,
+      "negative_actual_mass_share": null,
+      "opposing_mass": 0.0,
+      "opposing_synapses": 0,
+      "positive_actual_mass": 0.0,
+      "strengthened_synapses": 0,
+      "synapses": {
+        "360": {
+          "all_delayed_integrations": {
+            "negative_requested": 0.0,
+            "negative_tag_integral": -0.00021958846425779527,
+            "positive_requested": 0.0,
+            "positive_tag_integral": 0.0
+          },
+          "edge": {
+            "changed_at_checkpoint": false,
+            "negative_actual": 0.0,
+            "opposing_update_mass": -0.0,
+            "positive_actual": 0.0,
+            "recall_arrivals": 2,
+            "requests": 0,
+            "requests_without_change": 0,
+            "source_id": 90,
+            "synapse_id": 360,
+            "target_id": 84,
+            "weight_after": 0.19116000831127167,
+            "weight_before": 0.19116000831127167,
+            "weight_events": 0,
+            "zero_signal_integrations": 3192
+          },
+          "examples": [
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.0,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": -0.00010992427269229665,
+                "tag_anchor_before_us": 36090,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.19116000831127167,
+                "weight_before": 0.19116000831127167
+              },
+              "id": 2,
+              "mechanism": "stdp_pre",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 90,
+              "stream": "learning",
+              "synapse_id": 360,
+              "target_id": 84,
+              "time_us": 36090
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.0,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": -8.257722220150754e-05,
+                "tag_anchor_before_us": 67669,
+                "tag_before": -0.00010319636930944398,
+                "tag_integral_seconds": null,
+                "weight_after": 0.19116000831127167,
+                "weight_before": 0.19116000831127167
+              },
+              "id": 89,
+              "mechanism": "stdp_post",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 90,
+              "stream": "learning",
+              "synapse_id": 360,
+              "target_id": 84,
+              "time_us": 67669
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.0,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": -0.00018443966109771281,
+                "tag_anchor_before_us": 70844,
+                "tag_before": -8.205451013054699e-05,
+                "tag_integral_seconds": null,
+                "weight_after": 0.19116000831127167,
+                "weight_before": 0.19116000831127167
+              },
+              "id": 91,
+              "mechanism": "stdp_pre",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 90,
+              "stream": "learning",
+              "synapse_id": 360,
+              "target_id": 84,
+              "time_us": 70844
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.0,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": -0.000151506406837143,
+                "tag_anchor_before_us": 101002,
+                "tag_before": -0.00017364384257234633,
+                "tag_integral_seconds": null,
+                "weight_after": 0.19116000831127167,
+                "weight_before": 0.19116000831127167
+              },
+              "id": 195,
+              "mechanism": "stdp_post",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 90,
+              "stream": "learning",
+              "synapse_id": 360,
+              "target_id": 84,
+              "time_us": 101002
+            }
+          ],
+          "negative_requested_share": null,
+          "negative_tag_integral_share": 1.0,
+          "net_delta": 0.0,
+          "published_delayed_sign_cases": {},
+          "residual_direction_differences": 0
+        },
+        "52": {
+          "all_delayed_integrations": {
+            "negative_requested": 0.0,
+            "negative_tag_integral": -0.000530846988166529,
+            "positive_requested": 0.0,
+            "positive_tag_integral": 1.247275223611978e-06
+          },
+          "edge": {
+            "changed_at_checkpoint": false,
+            "negative_actual": 0.0,
+            "opposing_update_mass": -0.0,
+            "positive_actual": 0.0,
+            "recall_arrivals": 10,
+            "requests": 0,
+            "requests_without_change": 0,
+            "source_id": 13,
+            "synapse_id": 52,
+            "target_id": 91,
+            "weight_after": 0.6590400338172913,
+            "weight_before": 0.6590400338172913,
+            "weight_events": 0,
+            "zero_signal_integrations": 3209
+          },
+          "examples": [
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.0,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 9.999999747378752e-05,
+                "tag_anchor_before_us": 34336,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.6590400338172913,
+                "weight_before": 0.6590400338172913
+              },
+              "id": 1,
+              "mechanism": "stdp_post",
+              "neuron_id": 91,
+              "phase": "training",
+              "source_id": 13,
+              "stream": "learning",
+              "synapse_id": 52,
+              "target_id": 91,
+              "time_us": 34336
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.0,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 1.923700619954616e-05,
+                "tag_anchor_before_us": 42669,
+                "tag_before": 9.834719821810722e-05,
+                "tag_integral_seconds": null,
+                "weight_after": 0.6590400338172913,
+                "weight_before": 0.6590400338172913
+              },
+              "id": 3,
+              "mechanism": "stdp_pre",
+              "neuron_id": 91,
+              "phase": "training",
+              "source_id": 13,
+              "stream": "learning",
+              "synapse_id": 52,
+              "target_id": 91,
+              "time_us": 42669
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.0,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": -3.3234464353881776e-05,
+                "tag_anchor_before_us": 51002,
+                "tag_before": 1.8919059584732167e-05,
+                "tag_integral_seconds": null,
+                "weight_after": 0.6590400338172913,
+                "weight_before": 0.6590400338172913
+              },
+              "id": 82,
+              "mechanism": "stdp_pre",
+              "neuron_id": 91,
+              "phase": "training",
+              "source_id": 13,
+              "stream": "learning",
+              "synapse_id": 52,
+              "target_id": 91,
+              "time_us": 51002
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.0,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": -6.706568092340603e-05,
+                "tag_anchor_before_us": 59336,
+                "tag_before": -3.268510408815928e-05,
+                "tag_integral_seconds": null,
+                "weight_after": 0.6590400338172913,
+                "weight_before": 0.6590400338172913
+              },
+              "id": 84,
+              "mechanism": "stdp_pre",
+              "neuron_id": 91,
+              "phase": "training",
+              "source_id": 13,
+              "stream": "learning",
+              "synapse_id": 52,
+              "target_id": 91,
+              "time_us": 59336
+            }
+          ],
+          "negative_requested_share": null,
+          "negative_tag_integral_share": 0.9976559130412997,
+          "net_delta": 0.0,
+          "published_delayed_sign_cases": {},
+          "residual_direction_differences": 0
+        },
+        "57": {
+          "all_delayed_integrations": {
+            "negative_requested": 0.0,
+            "negative_tag_integral": -0.00046660136480485866,
+            "positive_requested": 0.0,
+            "positive_tag_integral": 1.633254482157033e-06
+          },
+          "edge": {
+            "changed_at_checkpoint": false,
+            "negative_actual": 0.0,
+            "opposing_update_mass": -0.0,
+            "positive_actual": 0.0,
+            "recall_arrivals": 10,
+            "requests": 0,
+            "requests_without_change": 0,
+            "source_id": 14,
+            "synapse_id": 57,
+            "target_id": 84,
+            "weight_after": 0.675540030002594,
+            "weight_before": 0.675540030002594,
+            "weight_events": 0,
+            "zero_signal_integrations": 3209
+          },
+          "examples": [
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.0,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 9.999999747378752e-05,
+                "tag_anchor_before_us": 34336,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.675540030002594,
+                "weight_before": 0.675540030002594
+              },
+              "id": 0,
+              "mechanism": "stdp_post",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 14,
+              "stream": "learning",
+              "synapse_id": 57,
+              "target_id": 84,
+              "time_us": 34336
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.0,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 1.923700619954616e-05,
+                "tag_anchor_before_us": 42669,
+                "tag_before": 9.834719821810722e-05,
+                "tag_integral_seconds": null,
+                "weight_after": 0.675540030002594,
+                "weight_before": 0.675540030002594
+              },
+              "id": 4,
+              "mechanism": "stdp_pre",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 14,
+              "stream": "learning",
+              "synapse_id": 57,
+              "target_id": 84,
+              "time_us": 42669
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.0,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": -3.3234464353881776e-05,
+                "tag_anchor_before_us": 51002,
+                "tag_before": 1.8919059584732167e-05,
+                "tag_integral_seconds": null,
+                "weight_after": 0.675540030002594,
+                "weight_before": 0.675540030002594
+              },
+              "id": 83,
+              "mechanism": "stdp_pre",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 14,
+              "stream": "learning",
+              "synapse_id": 57,
+              "target_id": 84,
+              "time_us": 51002
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.0,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": -6.706568092340603e-05,
+                "tag_anchor_before_us": 59336,
+                "tag_before": -3.268510408815928e-05,
+                "tag_integral_seconds": null,
+                "weight_after": 0.675540030002594,
+                "weight_before": 0.675540030002594
+              },
+              "id": 85,
+              "mechanism": "stdp_pre",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 14,
+              "stream": "learning",
+              "synapse_id": 57,
+              "target_id": 84,
+              "time_us": 59336
+            }
+          ],
+          "negative_requested_share": null,
+          "negative_tag_integral_share": 0.9965118886667457,
+          "net_delta": 0.0,
+          "published_delayed_sign_cases": {},
+          "residual_direction_differences": 0
+        }
+      },
+      "weakened_synapses": 0,
+      "weight_paths": {
+        "all": {
+          "changed": 0,
+          "edges": 1320,
+          "l1": 0.0,
+          "maximum": 0.0,
+          "signed": 0.0,
+          "stored_tag_l1": 0.0116293726701997
+        },
+        "by_path": {
+          "core_exc_to_core": {
+            "changed": 0,
+            "edges": 820,
+            "l1": 0.0,
+            "maximum": 0.0,
+            "signed": 0.0,
+            "stored_tag_l1": 0.0029825669067804483
+          },
+          "core_inh_to_core": {
+            "changed": 0,
+            "edges": 204,
+            "l1": 0.0,
+            "maximum": 0.0,
+            "signed": 0.0,
+            "stored_tag_l1": 0.0
+          },
+          "core_to_motor": {
+            "changed": 0,
+            "edges": 40,
+            "l1": 0.0,
+            "maximum": 0.0,
+            "signed": 0.0,
+            "stored_tag_l1": 0.0
+          },
+          "sensory_to_core": {
+            "changed": 0,
+            "edges": 256,
+            "l1": 0.0,
+            "maximum": 0.0,
+            "signed": 0.0,
+            "stored_tag_l1": 0.008646805763419252
+          }
+        }
+      }
+    },
+    "three_on": {
+      "chemistry": {
+        "84": {
+          "acetylcholine": {
+            "max": 0.2518465220928192,
+            "min": 0.003332672407850623
+          },
+          "dopamine": {
+            "max": 0.0,
+            "min": 0.0
+          },
+          "learning_signal": {
+            "max": 0.045893020927906036,
+            "min": 0.0018810542533174157
+          },
+          "noradrenaline": {
+            "max": 0.09520816057920456,
+            "min": 0.007203725166618824
+          }
+        },
+        "91": {
+          "acetylcholine": {
+            "max": 0.09938500076532364,
+            "min": 0.0027152434922754765
+          },
+          "dopamine": {
+            "max": 0.0,
+            "min": 0.0
+          },
+          "learning_signal": {
+            "max": 0.03326956182718277,
+            "min": 0.0015991729451343417
+          },
+          "noradrenaline": {
+            "max": 0.23167625069618225,
+            "min": 0.009188405238091946
+          }
+        }
+      },
+      "metrics": {
+        "matched_checkpoints": 1.0,
+        "recall_core_effect": 0.0,
+        "recall_motor_effect": 0.0,
+        "recall_used_changed_synapses": 34.0,
+        "requests_without_change": 207302.0,
+        "trace_rows": 55867.0,
+        "weight_events": 1392.0,
+        "weight_gain_a": 0.0,
+        "weight_gain_b": 0.0
+      },
+      "motor_factor_samples": 0,
+      "negative_actual_mass": -4.881620407104492e-05,
+      "negative_actual_mass_share": 0.9852631578947368,
+      "opposing_mass": 1.043081283569336e-07,
+      "opposing_synapses": 2,
+      "positive_actual_mass": 7.301568984985352e-07,
+      "strengthened_synapses": 8,
+      "synapses": {
+        "360": {
+          "all_delayed_integrations": {
+            "negative_requested": -6.8088824650572945e-06,
+            "negative_tag_integral": -0.0003507189692865882,
+            "positive_requested": 0.0,
+            "positive_tag_integral": 0.0
+          },
+          "edge": {
+            "changed_at_checkpoint": true,
+            "negative_actual": -6.809830665588379e-06,
+            "opposing_update_mass": 0.0,
+            "positive_actual": 0.0,
+            "recall_arrivals": 2,
+            "requests": 3602,
+            "requests_without_change": 3241,
+            "source_id": 90,
+            "synapse_id": 360,
+            "target_id": 84,
+            "weight_after": 0.19115319848060608,
+            "weight_before": 0.19116000831127167,
+            "weight_events": 361,
+            "zero_signal_integrations": 5
+          },
+          "examples": [
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.0,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": -0.00010992427269229665,
+                "tag_anchor_before_us": 36090,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.19116000831127167,
+                "weight_before": 0.19116000831127167
+              },
+              "id": 2,
+              "mechanism": "stdp_pre",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 90,
+              "stream": "learning",
+              "synapse_id": 360,
+              "target_id": 84,
+              "time_us": 36090
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -1.4901161193847656e-08,
+                "apply_weight": true,
+                "clipped_delta": 0.0,
+                "held_learning_signal": 0.021667974069714546,
+                "requested_delta": -2.353053754903818e-09,
+                "residual_after": 7.0401013591523735e-09,
+                "residual_before": -5.508006079791465e-09,
+                "rounding_error": 0.0,
+                "tag_after": -0.00010848736565094441,
+                "tag_anchor_before_us": 41669,
+                "tag_before": -0.0001087045602616854,
+                "tag_integral_seconds": -1.0859592813491019e-07,
+                "weight_after": 0.19115999341011047,
+                "weight_before": 0.19116000831127167
+              },
+              "id": 8,
+              "mechanism": "three_factor",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 90,
+              "stream": "learning",
+              "synapse_id": 360,
+              "target_id": 84,
+              "time_us": 42669
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -1.4901161193847656e-08,
+                "apply_weight": true,
+                "clipped_delta": 0.0,
+                "held_learning_signal": 0.020046837627887726,
+                "requested_delta": -1.0783939043154743e-08,
+                "residual_after": 7.245229351830833e-09,
+                "residual_before": 3.1280072011379195e-09,
+                "rounding_error": 0.0,
+                "tag_after": -0.00010705039312597364,
+                "tag_anchor_before_us": 44336,
+                "tag_before": -0.0001081262671505101,
+                "tag_integral_seconds": -5.379371671147224e-07,
+                "weight_after": 0.19115997850894928,
+                "weight_before": 0.19115999341011047
+              },
+              "id": 16,
+              "mechanism": "three_factor",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 90,
+              "stream": "learning",
+              "synapse_id": 360,
+              "target_id": 84,
+              "time_us": 49336
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -1.4901161193847656e-08,
+                "apply_weight": true,
+                "clipped_delta": 0.0,
+                "held_learning_signal": 0.017309516668319702,
+                "requested_delta": -7.308937140130634e-09,
+                "residual_after": 4.930023891421463e-09,
+                "residual_before": -2.6622001622955603e-09,
+                "rounding_error": -1.6543612251060553e-24,
+                "tag_after": -0.00010514072346268222,
+                "tag_anchor_before_us": 54336,
+                "tag_before": -0.00010598522203508765,
+                "tag_integral_seconds": -4.2224963759430835e-07,
+                "weight_after": 0.19115996360778809,
+                "weight_before": 0.19115997850894928
+              },
+              "id": 124,
+              "mechanism": "three_factor",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 90,
+              "stream": "learning",
+              "synapse_id": 360,
+              "target_id": 84,
+              "time_us": 58336
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -4.470348358154297e-08,
+                "apply_weight": true,
+                "clipped_delta": 0.0,
+                "held_learning_signal": 0.045893020927906036,
+                "requested_delta": -4.894145942122332e-08,
+                "residual_after": 1.341839893914088e-09,
+                "residual_before": 5.57981573359444e-09,
+                "rounding_error": -1.6543612251060553e-24,
+                "tag_after": -0.00022680380789097399,
+                "tag_anchor_before_us": 1894656,
+                "tag_before": -0.00022893665300216526,
+                "tag_integral_seconds": -1.0664248818596214e-06,
+                "weight_after": 0.1911545991897583,
+                "weight_before": 0.19115464389324188
+              },
+              "id": 5980,
+              "mechanism": "three_factor",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 90,
+              "stream": "learning",
+              "synapse_id": 360,
+              "target_id": 84,
+              "time_us": 1899336
+            }
+          ],
+          "negative_requested_share": 1.0,
+          "negative_tag_integral_share": 1.0,
+          "net_delta": -6.809830665588379e-06,
+          "published_delayed_sign_cases": {
+            "tag_negative__factor_positive__request_negative": 361
+          },
+          "residual_direction_differences": 0
+        },
+        "52": {
+          "all_delayed_integrations": {
+            "negative_requested": -8.030708133725324e-06,
+            "negative_tag_integral": -0.0005451951769578256,
+            "positive_requested": 1.2634748017276016e-08,
+            "positive_tag_integral": 1.2472750374116884e-06
+          },
+          "edge": {
+            "changed_at_checkpoint": true,
+            "negative_actual": -8.046627044677734e-06,
+            "opposing_update_mass": 0.0,
+            "positive_actual": 0.0,
+            "recall_arrivals": 10,
+            "requests": 3602,
+            "requests_without_change": 3467,
+            "source_id": 13,
+            "synapse_id": 52,
+            "target_id": 91,
+            "weight_after": 0.6590319871902466,
+            "weight_before": 0.6590400338172913,
+            "weight_events": 135,
+            "zero_signal_integrations": 22
+          },
+          "examples": [
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.0,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 9.999999747378752e-05,
+                "tag_anchor_before_us": 34336,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.6590400338172913,
+                "weight_before": 0.6590400338172913
+              },
+              "id": 1,
+              "mechanism": "stdp_post",
+              "neuron_id": 91,
+              "phase": "training",
+              "source_id": 13,
+              "stream": "learning",
+              "synapse_id": 52,
+              "target_id": 91,
+              "time_us": 34336
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.0,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.01772858202457428,
+                "requested_delta": null,
+                "residual_after": 5.8306856655152374e-09,
+                "residual_before": 5.8306856655152374e-09,
+                "rounding_error": null,
+                "tag_after": 1.923700619954616e-05,
+                "tag_anchor_before_us": 42669,
+                "tag_before": 9.834719821810722e-05,
+                "tag_integral_seconds": null,
+                "weight_after": 0.6590400338172913,
+                "weight_before": 0.6590400338172913
+              },
+              "id": 9,
+              "mechanism": "stdp_pre",
+              "neuron_id": 91,
+              "phase": "training",
+              "source_id": 13,
+              "stream": "learning",
+              "synapse_id": 52,
+              "target_id": 91,
+              "time_us": 42669
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.0,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.01564459316432476,
+                "requested_delta": null,
+                "residual_after": 8.479832273116916e-09,
+                "residual_before": 8.479832273116916e-09,
+                "rounding_error": null,
+                "tag_after": -3.3234464353881776e-05,
+                "tag_anchor_before_us": 51002,
+                "tag_before": 1.8919059584732167e-05,
+                "tag_integral_seconds": null,
+                "weight_after": 0.6590400338172913,
+                "weight_before": 0.6590400338172913
+              },
+              "id": 117,
+              "mechanism": "stdp_pre",
+              "neuron_id": 91,
+              "phase": "training",
+              "source_id": 13,
+              "stream": "learning",
+              "synapse_id": 52,
+              "target_id": 91,
+              "time_us": 51002
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.0,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.013869548216462135,
+                "requested_delta": null,
+                "residual_after": 4.334095082609962e-09,
+                "residual_before": 4.334095082609962e-09,
+                "rounding_error": null,
+                "tag_after": -6.706568092340603e-05,
+                "tag_anchor_before_us": 59336,
+                "tag_before": -3.268510408815928e-05,
+                "tag_integral_seconds": null,
+                "weight_after": 0.6590400338172913,
+                "weight_before": 0.6590400338172913
+              },
+              "id": 130,
+              "mechanism": "stdp_pre",
+              "neuron_id": 91,
+              "phase": "training",
+              "source_id": 13,
+              "stream": "learning",
+              "synapse_id": 52,
+              "target_id": 91,
+              "time_us": 59336
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -5.960464477539063e-08,
+                "apply_weight": true,
+                "clipped_delta": 0.0,
+                "held_learning_signal": 0.024330157786607742,
+                "requested_delta": -6.844198662353163e-09,
+                "residual_after": 2.963884848614629e-08,
+                "residual_before": -2.312159762689117e-08,
+                "rounding_error": 0.0,
+                "tag_after": -0.0001177655576611869,
+                "tag_anchor_before_us": 86953,
+                "tag_before": -0.00011832817108370364,
+                "tag_integral_seconds": -2.8130514904101747e-07,
+                "weight_after": 0.6590399742126465,
+                "weight_before": 0.6590400338172913
+              },
+              "id": 173,
+              "mechanism": "three_factor",
+              "neuron_id": 91,
+              "phase": "training",
+              "source_id": 13,
+              "stream": "learning",
+              "synapse_id": 52,
+              "target_id": 91,
+              "time_us": 89336
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -5.960464477539063e-08,
+                "apply_weight": true,
+                "clipped_delta": 0.0,
+                "held_learning_signal": 0.03220219537615776,
+                "requested_delta": -5.7436941499708634e-08,
+                "residual_after": 4.743847479845601e-09,
+                "residual_before": 2.5761442041636126e-09,
+                "rounding_error": 3.308722450212111e-24,
+                "tag_after": -0.00037933760904707015,
+                "tag_anchor_before_us": 1894656,
+                "tag_before": -0.000382904865546152,
+                "tag_integral_seconds": -1.7836343401057205e-06,
+                "weight_after": 0.6590339541435242,
+                "weight_before": 0.659034013748169
+              },
+              "id": 5978,
+              "mechanism": "three_factor",
+              "neuron_id": 91,
+              "phase": "training",
+              "source_id": 13,
+              "stream": "learning",
+              "synapse_id": 52,
+              "target_id": 91,
+              "time_us": 1899336
+            }
+          ],
+          "negative_requested_share": 0.9984291670511828,
+          "negative_tag_integral_share": 0.9977174631420793,
+          "net_delta": -8.046627044677734e-06,
+          "published_delayed_sign_cases": {
+            "tag_negative__factor_positive__request_negative": 135
+          },
+          "residual_direction_differences": 0
+        },
+        "57": {
+          "all_delayed_integrations": {
+            "negative_requested": -9.205812554040651e-06,
+            "negative_tag_integral": -0.00047599557687583936,
+            "positive_requested": 2.7997460684236378e-08,
+            "positive_tag_integral": 1.908370830212076e-06
+          },
+          "edge": {
+            "changed_at_checkpoint": true,
+            "negative_actual": -9.179115295410156e-06,
+            "opposing_update_mass": 0.0,
+            "positive_actual": 0.0,
+            "recall_arrivals": 10,
+            "requests": 3602,
+            "requests_without_change": 3450,
+            "source_id": 14,
+            "synapse_id": 57,
+            "target_id": 84,
+            "weight_after": 0.6755308508872986,
+            "weight_before": 0.675540030002594,
+            "weight_events": 152,
+            "zero_signal_integrations": 22
+          },
+          "examples": [
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.0,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.0,
+                "requested_delta": null,
+                "residual_after": 0.0,
+                "residual_before": 0.0,
+                "rounding_error": null,
+                "tag_after": 9.999999747378752e-05,
+                "tag_anchor_before_us": 34336,
+                "tag_before": 0.0,
+                "tag_integral_seconds": null,
+                "weight_after": 0.675540030002594,
+                "weight_before": 0.675540030002594
+              },
+              "id": 0,
+              "mechanism": "stdp_post",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 14,
+              "stream": "learning",
+              "synapse_id": 57,
+              "target_id": 84,
+              "time_us": 34336
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.0,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.021667974069714546,
+                "requested_delta": null,
+                "residual_after": 7.126297277126667e-09,
+                "residual_before": 7.126297277126667e-09,
+                "rounding_error": null,
+                "tag_after": 1.923700619954616e-05,
+                "tag_anchor_before_us": 42669,
+                "tag_before": 9.834719821810722e-05,
+                "tag_integral_seconds": null,
+                "weight_after": 0.675540030002594,
+                "weight_before": 0.675540030002594
+              },
+              "id": 10,
+              "mechanism": "stdp_pre",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 14,
+              "stream": "learning",
+              "synapse_id": 57,
+              "target_id": 84,
+              "time_us": 42669
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.0,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.01860254630446434,
+                "requested_delta": null,
+                "residual_after": 1.031951611353329e-08,
+                "residual_before": 1.031951611353329e-08,
+                "rounding_error": null,
+                "tag_after": -3.3234464353881776e-05,
+                "tag_anchor_before_us": 51002,
+                "tag_before": 1.8919059584732167e-05,
+                "tag_integral_seconds": null,
+                "weight_after": 0.675540030002594,
+                "weight_before": 0.675540030002594
+              },
+              "id": 118,
+              "mechanism": "stdp_pre",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 14,
+              "stream": "learning",
+              "synapse_id": 57,
+              "target_id": 84,
+              "time_us": 51002
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": 0.0,
+                "apply_weight": null,
+                "clipped_delta": null,
+                "held_learning_signal": 0.016146689653396606,
+                "requested_delta": null,
+                "residual_after": 5.422133814597509e-09,
+                "residual_before": 5.422133814597509e-09,
+                "rounding_error": null,
+                "tag_after": -6.706568092340603e-05,
+                "tag_anchor_before_us": 59336,
+                "tag_before": -3.268510408815928e-05,
+                "tag_integral_seconds": null,
+                "weight_after": 0.675540030002594,
+                "weight_before": 0.675540030002594
+              },
+              "id": 131,
+              "mechanism": "stdp_pre",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 14,
+              "stream": "learning",
+              "synapse_id": 57,
+              "target_id": 84,
+              "time_us": 59336
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -5.960464477539063e-08,
+                "apply_weight": true,
+                "clipped_delta": 0.0,
+                "held_learning_signal": 0.02858802303671837,
+                "requested_delta": -8.041958081132101e-09,
+                "residual_after": 2.4663434206926814e-08,
+                "residual_before": -2.6899252487331713e-08,
+                "rounding_error": -6.617444900424222e-24,
+                "tag_after": -0.0001177655576611869,
+                "tag_anchor_before_us": 86953,
+                "tag_before": -0.00011832817108370364,
+                "tag_integral_seconds": -2.8130514904101747e-07,
+                "weight_after": 0.6755399703979492,
+                "weight_before": 0.675540030002594
+              },
+              "id": 174,
+              "mechanism": "three_factor",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 14,
+              "stream": "learning",
+              "synapse_id": 57,
+              "target_id": 84,
+              "time_us": 89336
+            },
+            {
+              "branch": "learned",
+              "data": {
+                "actual_delta": -5.960464477539063e-08,
+                "apply_weight": true,
+                "clipped_delta": 0.0,
+                "held_learning_signal": 0.038387976586818695,
+                "requested_delta": -7.150454758554726e-08,
+                "residual_after": -2.0569899704203508e-08,
+                "residual_before": -8.669996894046872e-09,
+                "rounding_error": 0.0,
+                "tag_after": -0.00037067660014145076,
+                "tag_anchor_before_us": 1909336,
+                "tag_before": -0.0003744019486475736,
+                "tag_integral_seconds": -1.8626808168394012e-06,
+                "weight_after": 0.6755329966545105,
+                "weight_before": 0.6755330562591553
+              },
+              "id": 6150,
+              "mechanism": "three_factor",
+              "neuron_id": 84,
+              "phase": "training",
+              "source_id": 14,
+              "stream": "learning",
+              "synapse_id": 57,
+              "target_id": 84,
+              "time_us": 1914336
+            }
+          ],
+          "negative_requested_share": 0.9969679405749534,
+          "negative_tag_integral_share": 0.9960067899849493,
+          "net_delta": -9.179115295410156e-06,
+          "published_delayed_sign_cases": {
+            "tag_negative__factor_positive__request_negative": 152
+          },
+          "residual_direction_differences": 0
+        }
+      },
+      "weakened_synapses": 26,
+      "weight_paths": {
+        "all": {
+          "changed": 34,
+          "edges": 1320,
+          "l1": 4.933774471282959e-05,
+          "maximum": 9.179115295410156e-06,
+          "signed": -4.808604717254639e-05,
+          "stored_tag_l1": 0.010559082801336217
+        },
+        "by_path": {
+          "core_exc_to_core": {
+            "changed": 17,
+            "edges": 820,
+            "l1": 1.5422701835632324e-05,
+            "maximum": 6.809830665588379e-06,
+            "signed": -1.4171004295349121e-05,
+            "stored_tag_l1": 0.002677425948348855
+          },
+          "core_inh_to_core": {
+            "changed": 0,
+            "edges": 204,
+            "l1": 0.0,
+            "maximum": 0.0,
+            "signed": 0.0,
+            "stored_tag_l1": 0.0
+          },
+          "core_to_motor": {
+            "changed": 0,
+            "edges": 40,
+            "l1": 0.0,
+            "maximum": 0.0,
+            "signed": 0.0,
+            "stored_tag_l1": 0.0
+          },
+          "sensory_to_core": {
+            "changed": 17,
+            "edges": 256,
+            "l1": 3.3915042877197266e-05,
+            "maximum": 9.179115295410156e-06,
+            "signed": -3.3915042877197266e-05,
+            "stored_tag_l1": 0.007881656852987362
+          }
+        }
+      }
+    }
+  },
+  "initial_weights_topology_selected_neurons_and_inputs_match": true,
+  "limits": [
+    "Post-hoc selection of the three largest seed-7 weight changes; no independent confirmation.",
+    "Sign cases cover published delayed updates. Window integrals include no-change integrations.",
+    "Native eligibility-integral \u00d7 held-factor arithmetic is checked with the unchanged default learning rate.",
+    "Unweighted eligibility integrals are descriptive arithmetic, not a simulated chemical knockout.",
+    "Controls can change neural trajectories; they do not isolate an individual mechanism from a common intermediate state."
+  ],
+  "pre_run_provenance": {
+    "artifacts_sha256": {
+      "manifest.json": "52d654df944d2d169b62e721350366f1f526ed25ea0d0a9a9e4cda90c36f0791",
+      "producer.py": "97c82bff9fdef665e64d9d73f5c5807b7ab32b5d0a5c35f3e92d49be1b3d2330",
+      "runner": "2ffebb22bf8351a3e95225a2fcd1275744e32576cfa1640c6511643846c3bf90",
+      "source-code.zip": "ad1c7d8e9c361e904a1dcbab2478202e83a562e7a848a012a58e8536d29618fb",
+      "source.toml": "f6427958f69cbcd343ce0b491dad1a5fb6d4179fed1c0738bfba03b2af60c427"
+    },
+    "captured_before_execution": true,
+    "git_heads": {
+      "NERVA": "036b0367d9dbac27ea903f30fdbe67f298354d0f",
+      "NERVA_Modell": "66db7f1020321e97aa1ba0d5567526a98c8b666c"
+    },
+    "protocol": "NERVA-Learning-History-Followup-Provenance/1"
+  },
+  "protocol": "NERVA-Learning-History-Followup/1",
+  "records_sha256": {
+    "v00000-s7-i000.json": "ef0b3a92f66eea39241e69dd7b1275f3bc4a4610168d995bdb5150eb703bce29",
+    "v00000-s7-i001.json": "3752be2d62c330af8c0dc2feecb51984172eb891919878cc1c1753ecb0ab24bc",
+    "v00000-s7-i002.json": "8be7de8a777886dd8859ff5697333c42ae503caaeb2b2e8d41e909b8b3e3ca7b",
+    "v00000-s7-i003.json": "b38dff6f096c23b8cd787e01a5a8ff45f82da6b1999a4ed24464ee3eb66a70d5",
+    "v00000-s7-i004.json": "da863e6f2d22728c6aa8fbc17773b8296ed29bdaffc890b06defea578b2d8213"
+  },
+  "seed": 7
+}

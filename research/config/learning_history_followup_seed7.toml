@@ -1,0 +1,24 @@
+# Fixed follow-up to the observed seed-7 history; no biological parameter search.
+[experiment]
+name = "learning_history_followup_seed7_20261111"
+scenario = "hippocampal_learning_history"
+seeds = [7]
+interventions = ["three_on", "three_off", "pair_on", "pair_off", "frozen_on"]
+verify_replay = true
+max_runs = 5
+
+[base]
+processing_neurons = 256
+training_repetitions = 8
+rest_us = 11000000
+
+[base.history]
+neurons = []
+synapses = [52, 57, 360]
+max_rows = 250000
+max_source_rows = 20000000
+
+[measurements]
+metrics = ["weight_events", "requests_without_change", "trace_rows",
+           "recall_used_changed_synapses", "recall_core_effect", "recall_motor_effect",
+           "weight_gain_a", "weight_gain_b", "matched_checkpoints"]

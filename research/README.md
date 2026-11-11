@@ -13,7 +13,9 @@ bereit. Neuronale Mechanismen stammen aus NERVA und dem laufenden Modell.
 
 [Learning History & Causal Trace](LEARNING_HISTORY.md) verbindet die nativen
 Lern-, Chemie- und Elektroereignisse für ausgewählte Neuronen und Synapsen,
-mit netzweiten Statistiken und geprüftem Gewichts-Reset beim Abruf:
+mit netzweiten Statistiken und geprüftem Gewichts-Reset beim Abruf.
+[Gezielter Seed-7-Folgeversuch](LEARNING_HISTORY_FOLLOWUP_RESULTS_20261111.md):
+negative Eligibility an den stärksten Abschwächungen bei positivem chemischem Faktor.
 
 ```bash
 ./NERVA_Modell/research/run.sh run NERVA_Modell/research/config/learning_history_smoke.toml

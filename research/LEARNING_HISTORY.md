@@ -136,3 +136,6 @@ einen entsprechend definierten Gegenversuch. Dieser Adapter lädt auch keine
 beliebigen alten Netzwerkzustände: Er rekonstruiert sein Trainingsprotokoll
 reproduzierbar. `passed` bleibt `null`; die Historie ist ein Beobachtungs- und
 Diagnosewerkzeug.
+
+[Gezielter Seed-7-Vergleich der stärksten Abschwächungen](LEARNING_HISTORY_FOLLOWUP_RESULTS_20261111.md):
+negative Eligibility bei positivem Faktor, einschließlich Pair- und Chemiekontrollen.
