@@ -83,6 +83,8 @@ pub enum LearningRule {
     ThreeFactor,
     /// Same three-factor timing with synapse-local f64 publication carry.
     ThreeFactorAccumulated,
+    /// Diagnostic: learning signal fixed at +1; all cellular chemistry stays native.
+    ThreeFactorConstantPositive,
 }
 
 pub struct Model {
@@ -270,15 +272,25 @@ impl Model {
                 config.neuromodulation || config.architecture == Architecture::Hippocampal
             }
             LearningRule::PairStdp => false,
-            LearningRule::ThreeFactor | LearningRule::ThreeFactorAccumulated => true,
+            LearningRule::ThreeFactor
+            | LearningRule::ThreeFactorAccumulated
+            | LearningRule::ThreeFactorConstantPositive => true,
         };
         let rule = if three_factor {
             rule.with_three_factor(nerva::learning::ThreeFactorConfig::default())?
         } else {
             rule
         };
-        let rule = if learning_rule == LearningRule::ThreeFactorAccumulated {
+        let rule = if matches!(
+            learning_rule,
+            LearningRule::ThreeFactorAccumulated | LearningRule::ThreeFactorConstantPositive
+        ) {
             rule.with_weight_update_mode(nerva::learning::WeightUpdateMode::Accumulated)
+        } else {
+            rule
+        };
+        let rule = if learning_rule == LearningRule::ThreeFactorConstantPositive {
+            rule.with_learning_signal_override(1.)?
         } else {
             rule
         };
@@ -405,6 +417,11 @@ impl Model {
     /// Opt-in bounded library observations; no model or learning parameter changes.
     pub fn enable_learning_audit(&mut self, max_records: usize) -> Result<()> {
         self.simulation.enable_learning_audit(max_records)?;
+        Ok(())
+    }
+    /// Exact local-rule replay boundaries, independent of cellular modulation.
+    pub fn enable_learning_replay_audit(&mut self, max_records: usize) -> Result<()> {
+        self.simulation.enable_learning_replay_audit(max_records)?;
         Ok(())
     }
     /// An incomplete diagnostic record is an invalid trial, never negative evidence.

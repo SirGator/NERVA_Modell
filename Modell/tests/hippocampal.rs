@@ -252,3 +252,42 @@ fn learning_audit_preserves_full_model_replay_and_reports_limits() {
     audited.step(&white()).unwrap();
     assert!(audited.take_learning_audit().is_err());
 }
+
+#[test]
+fn constant_learning_factor_preserves_all_frozen_chemistry_and_electrical_events() {
+    use nerva_vm::model::{LearningRule, audit::AuditOptions};
+    let sensor = SensorConfig {
+        resolution: 8,
+        coding: SpikeCoding::Deterministic,
+        ..Default::default()
+    };
+    let mut c = config(true);
+    c.processing_neurons = 16;
+    let mut original =
+        Model::with_sensor_and_learning(c.clone(), sensor, LearningRule::ThreeFactorAccumulated)
+            .unwrap();
+    let mut constant =
+        Model::with_sensor_and_learning(c, sensor, LearningRule::ThreeFactorConstantPositive)
+            .unwrap();
+    for model in [&mut original, &mut constant] {
+        model.freeze().unwrap();
+        model.enable_audit(AuditOptions {
+            raw_events: true,
+            input_spikes: true,
+        });
+        model.enable_learning_replay_audit(100000).unwrap();
+        model.set_dynamics_auditing(true);
+    }
+    for _ in 0..4 {
+        let a = original.step(&white()).unwrap();
+        let b = constant.step(&white()).unwrap();
+        assert_eq!(a.core_events, b.core_events);
+        assert_eq!(a.motor_events, b.motor_events);
+        assert_eq!(original.network(), constant.network());
+        assert_eq!(original.take_audit(), constant.take_audit());
+        assert_eq!(
+            original.take_learning_audit().unwrap(),
+            constant.take_learning_audit().unwrap()
+        );
+    }
+}

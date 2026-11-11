@@ -1,0 +1,17 @@
+# Fixed multilevel diagnosis. Confirmation seed chosen before primary execution.
+[experiment]
+name = "multilevel_smoke"
+scenario = "hippocampal_multilevel_diagnosis"
+seeds = [7]
+interventions = ["diagnose"]
+verify_replay = true
+max_runs = 1
+
+[base]
+processing_neurons = 16
+training_repetitions = 1
+rest_us = 100000
+
+[measurements]
+metrics = ["offline_replay_verified", "constant_core_effect", "constant_gain_a", "constant_gain_b",
+           "reference_verified", "matched_norm_comparison_valid", "native_training_passes", "audit_rows"]

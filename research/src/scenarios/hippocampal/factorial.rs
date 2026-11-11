@@ -16,8 +16,8 @@ use nerva::core::SynapseId;
 use nerva_vm::model::LearningRule;
 use serde_json::{Value, json};
 use std::collections::BTreeMap;
-mod search;
-mod weights;
+pub(super) mod search;
+pub(super) mod weights;
 use weights::{norm, plan};
 pub const MAX_TRAINING_PASSES: usize = 25;
 pub const METRICS: [&str; 8] = [

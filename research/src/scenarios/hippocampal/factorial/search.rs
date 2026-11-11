@@ -18,7 +18,12 @@ pub(super) fn normalize(mut values: Vec<f64>) -> Vec<f64> {
     }
     values
 }
-pub(super) fn scores(method: &str, edges: &[Edge], training: &Training, base: &Probe) -> Vec<f64> {
+pub(in crate::scenarios::hippocampal) fn scores(
+    method: &str,
+    edges: &[Edge],
+    training: &Training,
+    base: &Probe,
+) -> Vec<f64> {
     if method == "sensory_and_recurrent" {
         return normalize(edges.iter().map(|e| e.score).collect());
     }

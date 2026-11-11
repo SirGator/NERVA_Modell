@@ -155,3 +155,10 @@ Der [kausale Harness-Versuch](../research/CAUSALITY_256.md) rekonstruiert identi
 trainierte Checkpoints, prüft `same_replay_state` und ändert danach ausschließlich
 Gewichte auf eingefrorenen Instanzen. [Ergebnisse und Grenzen](../research/results/hippocampal_causality_256_20261109/RESULTS.md)
 trennen tatsächliche Lernwirkung und den künstlichen Diagnosekontrast.
+
+`LearningRule::ThreeFactorConstantPositive` ist ein expliziter Diagnoseeingriff:
+nur der Lernfaktor bleibt auf +1, während die natürliche Chemie und ihre
+anderen Rezeptorwirkungen erhalten bleiben. `enable_learning_replay_audit()`
+ergänzt genaue Integrationsgrenzen für die lokale Nachrechnung. Beides wird im
+[mehrstufigen Diagnoseprotokoll](../research/MULTILEVEL_DIAGNOSIS.md) verwendet;
+die Live-Standards bleiben unverändert.

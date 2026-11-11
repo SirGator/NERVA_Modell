@@ -1,14 +1,17 @@
 //! Norm-controlled rays. Bound violations never silently rotate a direction.
 use nerva::core::SynapseId;
 use serde_json::{Value, json};
-pub(super) struct Plan {
+pub(in crate::scenarios::hippocampal) struct Plan {
     pub weights: Option<Vec<(SynapseId, f32)>>,
     pub details: Value,
 }
-pub(super) fn norm(vector: &[f64]) -> f64 {
+pub(in crate::scenarios::hippocampal) fn norm(vector: &[f64]) -> f64 {
     vector.iter().map(|v| v * v).sum::<f64>().sqrt()
 }
-pub(super) fn limit(initial: &[(SynapseId, f32)], direction: &[f64]) -> Option<f64> {
+pub(in crate::scenarios::hippocampal) fn limit(
+    initial: &[(SynapseId, f32)],
+    direction: &[f64],
+) -> Option<f64> {
     assert_eq!(initial.len(), direction.len());
     let length = norm(direction);
     if length == 0. {
@@ -30,7 +33,11 @@ pub(super) fn limit(initial: &[(SynapseId, f32)], direction: &[f64]) -> Option<f
             .fold(f64::INFINITY, f64::min),
     )
 }
-pub(super) fn plan(initial: &[(SynapseId, f32)], direction: &[f64], requested: f64) -> Plan {
+pub(in crate::scenarios::hippocampal) fn plan(
+    initial: &[(SynapseId, f32)],
+    direction: &[f64],
+    requested: f64,
+) -> Plan {
     let length = norm(direction);
     let maximum = limit(initial, direction);
     if length == 0. || !requested.is_finite() || requested < 0. {

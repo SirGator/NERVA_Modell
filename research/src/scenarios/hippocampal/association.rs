@@ -218,9 +218,38 @@ pub(super) fn train_observed(
     group: &str,
     audited: bool,
     override_rule: Option<LearningRule>,
-    mut history: Option<&mut super::history::History>,
+    history: Option<&mut super::history::History>,
+) -> Result<Training> {
+    train_recorded(
+        c,
+        seed,
+        group,
+        audited,
+        override_rule,
+        Observers {
+            history,
+            tape: None,
+        },
+    )
+}
+#[derive(Default)]
+pub(super) struct Observers<'a> {
+    pub history: Option<&'a mut super::history::History>,
+    pub tape: Option<&'a mut super::multilevel::tape::Tape>,
+}
+pub(super) fn train_recorded(
+    c: &Config,
+    seed: u64,
+    group: &str,
+    audited: bool,
+    override_rule: Option<LearningRule>,
+    mut observers: Observers<'_>,
 ) -> Result<Training> {
     let mut model = build(c, seed, group, override_rule)?;
+    let mut history = observers.history.take();
+    if let Some(tape) = &mut observers.tape {
+        tape.initialize(&model);
+    }
     if let Some(h) = &mut history {
         h.initialize(&model)?;
     }
@@ -240,13 +269,17 @@ pub(super) fn train_observed(
         })
         .map_err(fail)?;
     if audited {
-        model.enable_learning_audit(100_000).map_err(fail)?;
+        if observers.tape.is_some() {
+            model.enable_learning_replay_audit(100_000).map_err(fail)?;
+        } else {
+            model.enable_learning_audit(100_000).map_err(fail)?;
+        }
         model.enable_audit(AuditOptions {
-            raw_events: history.is_some(),
+            raw_events: history.is_some() || observers.tape.is_some(),
             input_spikes: true,
         });
     }
-    model.set_dynamics_auditing(history.is_some());
+    model.set_dynamics_auditing(history.is_some() || observers.tape.is_some());
     let mut audit = Audit {
         track_mass: override_rule.is_some(),
         ..Default::default()
@@ -282,6 +315,9 @@ pub(super) fn train_observed(
             let log = model.take_learning_audit().map_err(fail)?;
             if let Some(h) = &mut history {
                 h.add("training", &input, Some(&log), &model)?;
+            }
+            if let Some(tape) = &mut observers.tape {
+                tape.add(&input, &log)?;
             }
             audit.add(log, step.weight_changes, &model)?;
             windows.push(json!({"index":index,"image":image,"start_us":step.start_us,"end_us":step.end_us,

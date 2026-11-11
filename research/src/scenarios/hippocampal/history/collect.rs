@@ -153,7 +153,8 @@ impl History {
         log: Option<&LearningAuditLog>,
         model: &Model,
     ) -> Result<()> {
-        let rows = audit.raw_events.len() + log.map_or(0, |l| l.events.len() + l.delayed.len());
+        let rows = audit.raw_events.len()
+            + log.map_or(0, |l| l.events.len() + l.delayed.len() + l.boundaries.len());
         self.observed += rows;
         if rows > FRAME_LIMIT || self.observed > self.max_source_rows {
             return Err(error(format!(

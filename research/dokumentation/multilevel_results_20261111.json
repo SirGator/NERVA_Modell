@@ -1,0 +1,1303 @@
+{
+  "confirmation": {
+    "common_high_norm": 0.7294196431954652,
+    "input_digest": "01b0a80c25c2f305",
+    "limits": [
+      "Artificial image-specific reference; no learned-memory claim. Only B-checkpoint transplants isolate weight direction. Live C/D can alter later spikes. Undefined, bounded or quantization-unfaithful norm arms stay unexecuted. Offline local replay does not generate counterfactual spike trains.",
+      "The reference recipe uses these images; a new seed tests protocol transfer, not independent task learning.",
+      "Unexecuted bounded/quantized comparisons do not establish a direction contrast."
+    ],
+    "live": {
+      "A_frozen": {
+        "core_effect": false,
+        "gain_vs_own_reset": [
+          0.0,
+          0.0
+        ],
+        "motor_effect": false,
+        "offline_vs_live_different_weights": 0,
+        "offline_vs_live_l2": 0.0,
+        "selected_spike_history_comparison": {
+          "identical": true,
+          "live_only_examples": [],
+          "live_spikes": 72,
+          "original_only_examples": [],
+          "original_spikes": 72,
+          "selected_neurons": [
+            0,
+            1,
+            67,
+            80,
+            85,
+            86,
+            87,
+            92,
+            113,
+            120
+          ]
+        },
+        "training_core_spikes": 597,
+        "weight_paths": {
+          "all": {
+            "changed": 0,
+            "edges": 1320,
+            "l1": 0.0,
+            "maximum": 0.0,
+            "signed": 0.0,
+            "stored_tag_l1": 0.0
+          },
+          "by_path": {
+            "core_exc_to_core": {
+              "changed": 0,
+              "edges": 820,
+              "l1": 0.0,
+              "maximum": 0.0,
+              "signed": 0.0,
+              "stored_tag_l1": 0.0
+            },
+            "core_inh_to_core": {
+              "changed": 0,
+              "edges": 204,
+              "l1": 0.0,
+              "maximum": 0.0,
+              "signed": 0.0,
+              "stored_tag_l1": 0.0
+            },
+            "core_to_motor": {
+              "changed": 0,
+              "edges": 40,
+              "l1": 0.0,
+              "maximum": 0.0,
+              "signed": 0.0,
+              "stored_tag_l1": 0.0
+            },
+            "sensory_to_core": {
+              "changed": 0,
+              "edges": 256,
+              "l1": 0.0,
+              "maximum": 0.0,
+              "signed": 0.0,
+              "stored_tag_l1": 0.0
+            }
+          }
+        }
+      },
+      "C_constant": {
+        "core_effect": false,
+        "gain_vs_own_reset": [
+          0.0,
+          0.0
+        ],
+        "motor_effect": false,
+        "offline_vs_live_different_weights": 0,
+        "offline_vs_live_l2": 0.0,
+        "selected_spike_history_comparison": {
+          "identical": true,
+          "live_only_examples": [],
+          "live_spikes": 514,
+          "original_only_examples": [],
+          "original_spikes": 514,
+          "selected_neurons": [
+            14,
+            18,
+            45,
+            64,
+            67,
+            68,
+            72,
+            81,
+            82,
+            83,
+            91
+          ]
+        },
+        "training_core_spikes": 597,
+        "weight_paths": {
+          "all": {
+            "changed": 64,
+            "edges": 1320,
+            "l1": 0.018514499068260193,
+            "maximum": 0.0007288455963134766,
+            "signed": -0.006500706076622009,
+            "stored_tag_l1": 0.010395464596314241
+          },
+          "by_path": {
+            "core_exc_to_core": {
+              "changed": 25,
+              "edges": 820,
+              "l1": 0.006777867674827576,
+              "maximum": 0.0007288455963134766,
+              "signed": -0.002476915717124939,
+              "stored_tag_l1": 0.003959851201017273
+            },
+            "core_inh_to_core": {
+              "changed": 0,
+              "edges": 204,
+              "l1": 0.0,
+              "maximum": 0.0,
+              "signed": 0.0,
+              "stored_tag_l1": 0.0
+            },
+            "core_to_motor": {
+              "changed": 3,
+              "edges": 40,
+              "l1": 0.0007560253143310547,
+              "maximum": 0.0002950429916381836,
+              "signed": 0.0007560253143310547,
+              "stored_tag_l1": 0.00040355278906645253
+            },
+            "sensory_to_core": {
+              "changed": 36,
+              "edges": 256,
+              "l1": 0.010980606079101562,
+              "maximum": 0.0005922317504882812,
+              "signed": -0.004779815673828125,
+              "stored_tag_l1": 0.006032060606230516
+            }
+          }
+        }
+      },
+      "D_pair": {
+        "core_effect": false,
+        "gain_vs_own_reset": [
+          0.0,
+          0.0
+        ],
+        "motor_effect": false,
+        "offline_vs_live_different_weights": 0,
+        "offline_vs_live_l2": 0.0,
+        "selected_spike_history_comparison": {
+          "identical": true,
+          "live_only_examples": [],
+          "live_spikes": 481,
+          "original_only_examples": [],
+          "original_spikes": 481,
+          "selected_neurons": [
+            14,
+            18,
+            45,
+            64,
+            67,
+            68,
+            70,
+            72,
+            82,
+            83,
+            91
+          ]
+        },
+        "training_core_spikes": 597,
+        "weight_paths": {
+          "all": {
+            "changed": 64,
+            "edges": 1320,
+            "l1": 0.04738423228263855,
+            "maximum": 0.0018641948699951172,
+            "signed": -0.016450464725494385,
+            "stored_tag_l1": 0.0
+          },
+          "by_path": {
+            "core_exc_to_core": {
+              "changed": 25,
+              "edges": 820,
+              "l1": 0.017473608255386353,
+              "maximum": 0.0018641948699951172,
+              "signed": -0.006125092506408691,
+              "stored_tag_l1": 0.0
+            },
+            "core_inh_to_core": {
+              "changed": 0,
+              "edges": 204,
+              "l1": 0.0,
+              "maximum": 0.0,
+              "signed": 0.0,
+              "stored_tag_l1": 0.0
+            },
+            "core_to_motor": {
+              "changed": 3,
+              "edges": 40,
+              "l1": 0.0019170045852661133,
+              "maximum": 0.0007441043853759766,
+              "signed": 0.0019170045852661133,
+              "stored_tag_l1": 0.0
+            },
+            "sensory_to_core": {
+              "changed": 36,
+              "edges": 256,
+              "l1": 0.027993619441986084,
+              "maximum": 0.0015211701393127441,
+              "signed": -0.012242376804351807,
+              "stored_tag_l1": 0.0
+            }
+          }
+        }
+      }
+    },
+    "local_replay_events": {
+      "chemicals": 153780,
+      "clocks": 3233,
+      "post_spikes": 1581,
+      "pre_arrivals": 6338
+    },
+    "matched_raw_gains": {
+      "A_frozen": [
+        0.0,
+        0.0
+      ],
+      "B_original": [
+        0.0,
+        0.0
+      ],
+      "C_constant": [
+        0.0,
+        0.0
+      ],
+      "D_pair": [
+        0.0,
+        0.0
+      ],
+      "E_reference": [
+        0.04588829197744598,
+        0.18153208188196884
+      ],
+      "offline_constant": [
+        0.0,
+        0.0
+      ],
+      "offline_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    "metrics": {
+      "audit_rows": 178867.0,
+      "constant_core_effect": 0.0,
+      "constant_gain_a": 0.0,
+      "constant_gain_b": 0.0,
+      "matched_norm_comparison_valid": 1.0,
+      "native_training_passes": 20.0,
+      "offline_replay_verified": 1.0,
+      "reference_verified": 1.0
+    },
+    "native_chemical_observations": {
+      "maximum_dopamine": 0.23723973333835602,
+      "maximum_learning_factor": 0.1081869974732399,
+      "minimum_learning_factor": 0.0,
+      "negative_learning_factor_samples": 0,
+      "samples": 153780
+    },
+    "natural_gains": [
+      0.0,
+      0.0
+    ],
+    "normalized": {
+      "A_frozen": {
+        "at_common_high_strength": {
+          "executed": false,
+          "faithful": false,
+          "reason": "undefined_direction_or_norm",
+          "requested_norm": 0.7294196431954652
+        },
+        "at_natural_strength": {
+          "executed": false,
+          "faithful": false,
+          "reason": "undefined_direction_or_norm",
+          "requested_norm": 3.337434332803468e-05
+        }
+      },
+      "B_original": {
+        "at_common_high_strength": {
+          "actual_norm": 0.7294196547462228,
+          "core_effect": true,
+          "direction_cosine": 0.9999999999999911,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            -0.04456889117247756,
+            0.0
+          ],
+          "motor_effect": true,
+          "relative_norm_error": 1.583554513703927e-08,
+          "requested_norm": 0.7294196431954652,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 557,
+            "different_sample_times": 31,
+            "different_stored_potentials": 533
+          }
+        },
+        "at_natural_strength": {
+          "actual_norm": 3.337434332803468e-05,
+          "core_effect": false,
+          "direction_cosine": 1.0000000000000002,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            0.0,
+            0.0
+          ],
+          "motor_effect": false,
+          "relative_norm_error": 0.0,
+          "requested_norm": 3.337434332803468e-05,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 796,
+            "different_sample_times": 0,
+            "different_stored_potentials": 53
+          }
+        }
+      },
+      "C_constant": {
+        "at_common_high_strength": {
+          "actual_norm": 0.7294196265310695,
+          "core_effect": true,
+          "direction_cosine": 0.9999999999999897,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            -0.17702212687898194,
+            0.0
+          ],
+          "motor_effect": true,
+          "relative_norm_error": 2.284610209862477e-08,
+          "requested_norm": 0.7294196431954652,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 539,
+            "different_sample_times": 19,
+            "different_stored_potentials": 535
+          }
+        },
+        "at_natural_strength": {
+          "actual_norm": 3.3374556228244415e-05,
+          "core_effect": false,
+          "direction_cosine": 0.999995128375512,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            0.0,
+            0.0
+          ],
+          "motor_effect": false,
+          "relative_norm_error": 6.379158015005928e-06,
+          "requested_norm": 3.337434332803468e-05,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 796,
+            "different_sample_times": 0,
+            "different_stored_potentials": 56
+          }
+        }
+      },
+      "D_pair": {
+        "at_common_high_strength": {
+          "actual_norm": 0.729419637334177,
+          "core_effect": true,
+          "direction_cosine": 0.9999999999999863,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            -0.17702212687898194,
+            0.0
+          ],
+          "motor_effect": true,
+          "relative_norm_error": 8.035550147573781e-09,
+          "requested_norm": 0.7294196431954652,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 539,
+            "different_sample_times": 19,
+            "different_stored_potentials": 533
+          }
+        },
+        "at_natural_strength": {
+          "actual_norm": 3.3372590176232014e-05,
+          "core_effect": false,
+          "direction_cosine": 0.9999924984183131,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            0.0,
+            0.0
+          ],
+          "motor_effect": false,
+          "relative_norm_error": 5.252992651970489e-05,
+          "requested_norm": 3.337434332803468e-05,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 796,
+            "different_sample_times": 0,
+            "different_stored_potentials": 56
+          }
+        }
+      },
+      "E_reference": {
+        "at_common_high_strength": {
+          "actual_norm": 0.729419692905273,
+          "core_effect": true,
+          "direction_cosine": 1.0,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            0.04072609442727673,
+            0.17719180836116621
+          ],
+          "motor_effect": true,
+          "relative_norm_error": 6.814980689006778e-08,
+          "requested_norm": 0.7294196431954652,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 796,
+            "different_sample_times": 22,
+            "different_stored_potentials": 289
+          }
+        },
+        "at_natural_strength": {
+          "actual_norm": 3.336966250681004e-05,
+          "core_effect": false,
+          "direction_cosine": 0.9999999960351531,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            0.0,
+            0.0
+          ],
+          "motor_effect": false,
+          "relative_norm_error": 0.00014025208462183002,
+          "requested_norm": 3.337434332803468e-05,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 796,
+            "different_sample_times": 0,
+            "different_stored_potentials": 9
+          }
+        }
+      },
+      "offline_constant": {
+        "at_common_high_strength": {
+          "actual_norm": 0.7294196265310695,
+          "core_effect": true,
+          "direction_cosine": 0.9999999999999897,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            -0.17702212687898194,
+            0.0
+          ],
+          "motor_effect": true,
+          "relative_norm_error": 2.284610209862477e-08,
+          "requested_norm": 0.7294196431954652,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 539,
+            "different_sample_times": 19,
+            "different_stored_potentials": 535
+          }
+        },
+        "at_natural_strength": {
+          "actual_norm": 3.3374556228244415e-05,
+          "core_effect": false,
+          "direction_cosine": 0.999995128375512,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            0.0,
+            0.0
+          ],
+          "motor_effect": false,
+          "relative_norm_error": 6.379158015005928e-06,
+          "requested_norm": 3.337434332803468e-05,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 796,
+            "different_sample_times": 0,
+            "different_stored_potentials": 56
+          }
+        }
+      },
+      "offline_pair": {
+        "at_common_high_strength": {
+          "actual_norm": 0.729419637334177,
+          "core_effect": true,
+          "direction_cosine": 0.9999999999999863,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            -0.17702212687898194,
+            0.0
+          ],
+          "motor_effect": true,
+          "relative_norm_error": 8.035550147573781e-09,
+          "requested_norm": 0.7294196431954652,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 539,
+            "different_sample_times": 19,
+            "different_stored_potentials": 533
+          }
+        },
+        "at_natural_strength": {
+          "actual_norm": 3.3372590176232014e-05,
+          "core_effect": false,
+          "direction_cosine": 0.9999924984183131,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            0.0,
+            0.0
+          ],
+          "motor_effect": false,
+          "relative_norm_error": 5.252992651970489e-05,
+          "requested_norm": 3.337434332803468e-05,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 796,
+            "different_sample_times": 0,
+            "different_stored_potentials": 56
+          }
+        }
+      }
+    },
+    "offline": {
+      "constant_positive": {
+        "negative_actual_mass": -0.012932255864143372,
+        "negative_actual_mass_share": 0.6678571401087972,
+        "negative_requested": -0.012932078958712897,
+        "negative_tag_integral": -0.012932078958712897,
+        "negative_tag_integral_share": 0.6678566905754141,
+        "pending_residual_l1": 7.741280166608038e-07,
+        "positive_actual_mass": 0.006431549787521362,
+        "positive_requested": 0.006431474841385798,
+        "positive_tag_integral": 0.006431474841385798,
+        "weight_changes": 92723,
+        "weight_l1": 0.018514499068260193,
+        "weight_l2": 0.0026541069656198088
+      },
+      "immediate_pair": {
+        "negative_actual_mass": -0.152846559882164,
+        "negative_actual_mass_share": 0.5284371347706059,
+        "negative_requested": null,
+        "negative_tag_integral": 0.0,
+        "negative_tag_integral_share": null,
+        "pending_residual_l1": 0.0,
+        "positive_actual_mass": 0.13639609515666962,
+        "positive_requested": null,
+        "positive_tag_integral": 0.0,
+        "weight_changes": 4257,
+        "weight_l1": 0.04738423228263855,
+        "weight_l2": 0.00676675928514514
+      },
+      "original": {
+        "negative_actual_mass": -0.00011932849884033203,
+        "negative_actual_mass_share": 0.7124555160142348,
+        "negative_requested": -0.00011941871384059589,
+        "negative_tag_integral": -0.012932078958712897,
+        "negative_tag_integral_share": 0.6678566905754141,
+        "pending_residual_l1": 6.15130503452584e-07,
+        "positive_actual_mass": 4.8160552978515625e-05,
+        "positive_requested": 4.815556928690402e-05,
+        "positive_tag_integral": 0.006431474841385798,
+        "weight_changes": 5249,
+        "weight_l1": 0.00016224384307861328,
+        "weight_l2": 3.337434332803468e-05
+      }
+    },
+    "offline_original_verified": true,
+    "protocol": "NERVA-Multilevel-Summary/1",
+    "record_sha256": "406683f0c873210c4e4d7fc08f4431090d263d8e7f265ce34cd361e9e5641b05",
+    "reference": {
+      "dose": 1.0,
+      "margin_gains": [
+        0.04588829197744598,
+        0.18153208188196884
+      ],
+      "method": "sensory_and_recurrent",
+      "norm": 1.3266499168160903,
+      "observation": 4,
+      "swap_margin_gains": [
+        0.0,
+        0.0
+      ],
+      "swap_observation": 5,
+      "verified": true
+    },
+    "seed": 23003,
+    "selected_synapses": [
+      53,
+      73,
+      106,
+      187,
+      292,
+      351,
+      373,
+      376
+    ]
+  },
+  "confirmation_decision": {
+    "biological_parameters_changed": false,
+    "confirmation_config_sha256": "80eba85d916ed38a49c27f331df1b37aeb22748ec94f257ec0dfefc697bbba7a",
+    "confirmation_seed": 23003,
+    "criterion": "fixed reference verified and matched-norm comparison distinguishes directions",
+    "diagnosis_sha256": "dd8c1c4af40dad1ec25364f3b9a6e80c4ce876790082d45773e2de830dacdfe8",
+    "primary_record_sha256": "6032cdd94c1388f79e1c5ccb40749b3ad6b107e007011592c996888797c25a12",
+    "run_confirmation": true
+  },
+  "confirmation_pre_run": {
+    "artifacts_sha256": {
+      "manifest.json": "6ff97a4969dcc83301640a074210e2b35953f7bf2dde86f63d9dcf73714442ce",
+      "producer.py": "97c82bff9fdef665e64d9d73f5c5807b7ab32b5d0a5c35f3e92d49be1b3d2330",
+      "runner": "ad6a391a266e0c3de6da4a873fd4ed432de0b75335f40691744aa22a6560c472",
+      "source-code.zip": "df211330cddc10fd7415ff6bf46fd2e8cfd0d7def4c1c9953f53a34d9d4b6ba9",
+      "source.toml": "80eba85d916ed38a49c27f331df1b37aeb22748ec94f257ec0dfefc697bbba7a"
+    },
+    "biological_parameters_changed": false,
+    "captured_before_confirmation_execution": true,
+    "decision_sha256": "f2ae7c181385962d23a61d40c902c7ae89aa11fa1c58f1a24f1812afdec0e93e",
+    "primary_pre_run_provenance_sha256": "4edbb345d2f354c71784caf57983ca9a624b4d4132a3b50e419bf64a2f570b25",
+    "protocol": "NERVA-Multilevel-Confirmation/1",
+    "reference_recipe_changed": false,
+    "seed": 23003,
+    "seed_preselected_before_primary": true
+  },
+  "primary": {
+    "common_high_norm": 1.0529441603764547,
+    "input_digest": "01b0a80c25c2f305",
+    "limits": [
+      "Artificial image-specific reference; no learned-memory claim. Only B-checkpoint transplants isolate weight direction. Live C/D can alter later spikes. Undefined, bounded or quantization-unfaithful norm arms stay unexecuted. Offline local replay does not generate counterfactual spike trains.",
+      "The reference recipe uses these images; a new seed tests protocol transfer, not independent task learning.",
+      "Unexecuted bounded/quantized comparisons do not establish a direction contrast."
+    ],
+    "live": {
+      "A_frozen": {
+        "core_effect": false,
+        "gain_vs_own_reset": [
+          0.0,
+          0.0
+        ],
+        "motor_effect": false,
+        "offline_vs_live_different_weights": 0,
+        "offline_vs_live_l2": 0.0,
+        "selected_spike_history_comparison": {
+          "identical": true,
+          "live_only_examples": [],
+          "live_spikes": 194,
+          "original_only_examples": [],
+          "original_spikes": 194,
+          "selected_neurons": [
+            0,
+            1,
+            74,
+            75,
+            79,
+            85,
+            86,
+            92,
+            120
+          ]
+        },
+        "training_core_spikes": 737,
+        "weight_paths": {
+          "all": {
+            "changed": 0,
+            "edges": 1320,
+            "l1": 0.0,
+            "maximum": 0.0,
+            "signed": 0.0,
+            "stored_tag_l1": 0.0
+          },
+          "by_path": {
+            "core_exc_to_core": {
+              "changed": 0,
+              "edges": 820,
+              "l1": 0.0,
+              "maximum": 0.0,
+              "signed": 0.0,
+              "stored_tag_l1": 0.0
+            },
+            "core_inh_to_core": {
+              "changed": 0,
+              "edges": 204,
+              "l1": 0.0,
+              "maximum": 0.0,
+              "signed": 0.0,
+              "stored_tag_l1": 0.0
+            },
+            "core_to_motor": {
+              "changed": 0,
+              "edges": 40,
+              "l1": 0.0,
+              "maximum": 0.0,
+              "signed": 0.0,
+              "stored_tag_l1": 0.0
+            },
+            "sensory_to_core": {
+              "changed": 0,
+              "edges": 256,
+              "l1": 0.0,
+              "maximum": 0.0,
+              "signed": 0.0,
+              "stored_tag_l1": 0.0
+            }
+          }
+        }
+      },
+      "C_constant": {
+        "core_effect": false,
+        "gain_vs_own_reset": [
+          0.0,
+          0.0
+        ],
+        "motor_effect": false,
+        "offline_vs_live_different_weights": 2,
+        "offline_vs_live_l2": 3.973122403694692e-05,
+        "selected_spike_history_comparison": {
+          "identical": true,
+          "live_only_examples": [],
+          "live_spikes": 775,
+          "original_only_examples": [],
+          "original_spikes": 775,
+          "selected_neurons": [
+            10,
+            14,
+            18,
+            25,
+            26,
+            76,
+            78,
+            79,
+            81,
+            87,
+            98,
+            324
+          ]
+        },
+        "training_core_spikes": 737,
+        "weight_paths": {
+          "all": {
+            "changed": 70,
+            "edges": 1320,
+            "l1": 0.022757932543754578,
+            "maximum": 0.0009769648313522339,
+            "signed": -0.0007431656122207642,
+            "stored_tag_l1": 0.01250209299286098
+          },
+          "by_path": {
+            "core_exc_to_core": {
+              "changed": 28,
+              "edges": 820,
+              "l1": 0.006621047854423523,
+              "maximum": 0.0009769648313522339,
+              "signed": -0.0008796602487564087,
+              "stored_tag_l1": 0.003955433413636911
+            },
+            "core_inh_to_core": {
+              "changed": 0,
+              "edges": 204,
+              "l1": 0.0,
+              "maximum": 0.0,
+              "signed": 0.0,
+              "stored_tag_l1": 0.0
+            },
+            "core_to_motor": {
+              "changed": 4,
+              "edges": 40,
+              "l1": 0.0016183853149414062,
+              "maximum": 0.0006808042526245117,
+              "signed": 0.0016183853149414062,
+              "stored_tag_l1": 0.0008190321077563567
+            },
+            "sensory_to_core": {
+              "changed": 38,
+              "edges": 256,
+              "l1": 0.014518499374389648,
+              "maximum": 0.0008251667022705078,
+              "signed": -0.0014818906784057617,
+              "stored_tag_l1": 0.007727627471467713
+            }
+          }
+        }
+      },
+      "D_pair": {
+        "core_effect": false,
+        "gain_vs_own_reset": [
+          0.0,
+          0.0
+        ],
+        "motor_effect": false,
+        "offline_vs_live_different_weights": 6,
+        "offline_vs_live_l2": 0.00048465708096385204,
+        "selected_spike_history_comparison": {
+          "identical": true,
+          "live_only_examples": [],
+          "live_spikes": 775,
+          "original_only_examples": [],
+          "original_spikes": 775,
+          "selected_neurons": [
+            10,
+            14,
+            18,
+            25,
+            26,
+            76,
+            78,
+            79,
+            81,
+            87,
+            98,
+            324
+          ]
+        },
+        "training_core_spikes": 737,
+        "weight_paths": {
+          "all": {
+            "changed": 70,
+            "edges": 1320,
+            "l1": 0.05774495005607605,
+            "maximum": 0.0026055127382278442,
+            "signed": -0.0015414655208587646,
+            "stored_tag_l1": 0.0
+          },
+          "by_path": {
+            "core_exc_to_core": {
+              "changed": 28,
+              "edges": 820,
+              "l1": 0.016952842473983765,
+              "maximum": 0.0026055127382278442,
+              "signed": -0.0017376840114593506,
+              "stored_tag_l1": 0.0
+            },
+            "core_inh_to_core": {
+              "changed": 0,
+              "edges": 204,
+              "l1": 0.0,
+              "maximum": 0.0,
+              "signed": 0.0,
+              "stored_tag_l1": 0.0
+            },
+            "core_to_motor": {
+              "changed": 4,
+              "edges": 40,
+              "l1": 0.0040585994720458984,
+              "maximum": 0.0017178058624267578,
+              "signed": 0.0040585994720458984,
+              "stored_tag_l1": 0.0
+            },
+            "sensory_to_core": {
+              "changed": 38,
+              "edges": 256,
+              "l1": 0.03673350811004639,
+              "maximum": 0.002077817916870117,
+              "signed": -0.0038623809814453125,
+              "stored_tag_l1": 0.0
+            }
+          }
+        }
+      }
+    },
+    "local_replay_events": {
+      "chemicals": 156420,
+      "clocks": 3760,
+      "post_spikes": 1738,
+      "pre_arrivals": 6917
+    },
+    "matched_raw_gains": {
+      "A_frozen": [
+        0.0,
+        0.0
+      ],
+      "B_original": [
+        0.0,
+        0.0
+      ],
+      "C_constant": [
+        0.0,
+        0.0
+      ],
+      "D_pair": [
+        0.0,
+        0.0
+      ],
+      "E_reference": [
+        0.025017149600073618,
+        0.03927678075145746
+      ],
+      "offline_constant": [
+        0.0,
+        0.0
+      ],
+      "offline_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    "metrics": {
+      "audit_rows": 317926.0,
+      "constant_core_effect": 0.0,
+      "constant_gain_a": 0.0,
+      "constant_gain_b": 0.0,
+      "matched_norm_comparison_valid": 1.0,
+      "native_training_passes": 26.0,
+      "offline_replay_verified": 1.0,
+      "reference_verified": 1.0
+    },
+    "native_chemical_observations": {
+      "maximum_dopamine": 0.35027357935905457,
+      "maximum_learning_factor": 0.13994818925857544,
+      "minimum_learning_factor": 0.0,
+      "negative_learning_factor_samples": 0,
+      "samples": 156420
+    },
+    "natural_gains": [
+      0.0,
+      0.0
+    ],
+    "normalized": {
+      "A_frozen": {
+        "at_common_high_strength": {
+          "executed": false,
+          "faithful": false,
+          "reason": "undefined_direction_or_norm",
+          "requested_norm": 1.0529441603764547
+        },
+        "at_natural_strength": {
+          "executed": false,
+          "faithful": false,
+          "reason": "undefined_direction_or_norm",
+          "requested_norm": 6.70749764361736e-05
+        }
+      },
+      "B_original": {
+        "at_common_high_strength": {
+          "actual_norm": 1.0529441680299731,
+          "core_effect": true,
+          "direction_cosine": 0.999999999999996,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            -0.07327566720037332,
+            -0.0009739642350816702
+          ],
+          "motor_effect": true,
+          "relative_norm_error": 7.268684108474789e-09,
+          "requested_norm": 1.0529441603764547,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 556,
+            "different_sample_times": 43,
+            "different_stored_potentials": 550
+          }
+        },
+        "at_natural_strength": {
+          "actual_norm": 6.70749764361736e-05,
+          "core_effect": false,
+          "direction_cosine": 1.0,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            0.0,
+            0.0
+          ],
+          "motor_effect": false,
+          "relative_norm_error": 0.0,
+          "requested_norm": 6.70749764361736e-05,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 1030,
+            "different_sample_times": 0,
+            "different_stored_potentials": 54
+          }
+        }
+      },
+      "C_constant": {
+        "at_common_high_strength": {
+          "actual_norm": 1.0529441393705066,
+          "core_effect": true,
+          "direction_cosine": 0.9999999999999918,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            -0.09214098633383958,
+            -0.1254969041322867
+          ],
+          "motor_effect": true,
+          "relative_norm_error": 1.9949726569125486e-08,
+          "requested_norm": 1.0529441603764547,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 1030,
+            "different_sample_times": 518,
+            "different_stored_potentials": 520
+          }
+        },
+        "at_natural_strength": {
+          "actual_norm": 6.708624076138388e-05,
+          "core_effect": false,
+          "direction_cosine": 0.9999979184655551,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            0.0,
+            0.0
+          ],
+          "motor_effect": false,
+          "relative_norm_error": 0.000167936327506503,
+          "requested_norm": 6.70749764361736e-05,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 1030,
+            "different_sample_times": 0,
+            "different_stored_potentials": 58
+          }
+        }
+      },
+      "D_pair": {
+        "at_common_high_strength": {
+          "actual_norm": 1.0529441589011934,
+          "core_effect": true,
+          "direction_cosine": 0.9999999999999937,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            -0.09214098633383958,
+            -0.1254969041322867
+          ],
+          "motor_effect": true,
+          "relative_norm_error": 1.401082129530967e-09,
+          "requested_norm": 1.0529441603764547,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 1030,
+            "different_sample_times": 518,
+            "different_stored_potentials": 520
+          }
+        },
+        "at_natural_strength": {
+          "actual_norm": 6.70739899314832e-05,
+          "core_effect": false,
+          "direction_cosine": 0.9999979238436734,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            0.0,
+            0.0
+          ],
+          "motor_effect": false,
+          "relative_norm_error": 1.4707492165104644e-05,
+          "requested_norm": 6.70749764361736e-05,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 1030,
+            "different_sample_times": 0,
+            "different_stored_potentials": 58
+          }
+        }
+      },
+      "E_reference": {
+        "at_common_high_strength": {
+          "actual_norm": 1.0529441767757284,
+          "core_effect": true,
+          "direction_cosine": 0.9999999999999987,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            0.025017149600073618,
+            0.04221688446571892
+          ],
+          "motor_effect": false,
+          "relative_norm_error": 1.557468509147587e-08,
+          "requested_norm": 1.0529441603764547,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 1030,
+            "different_sample_times": 0,
+            "different_stored_potentials": 17
+          }
+        },
+        "at_natural_strength": {
+          "actual_norm": 6.709317616891904e-05,
+          "core_effect": false,
+          "direction_cosine": 0.9999999210770114,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            0.0,
+            0.0
+          ],
+          "motor_effect": false,
+          "relative_norm_error": 0.0002713341653240229,
+          "requested_norm": 6.70749764361736e-05,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 1030,
+            "different_sample_times": 0,
+            "different_stored_potentials": 3
+          }
+        }
+      },
+      "offline_constant": {
+        "at_common_high_strength": {
+          "actual_norm": 1.0529441392096932,
+          "core_effect": true,
+          "direction_cosine": 0.9999999999999936,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            -0.09214098633383958,
+            -0.1254969041322867
+          ],
+          "motor_effect": true,
+          "relative_norm_error": 2.010245391087626e-08,
+          "requested_norm": 1.0529441603764547,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 1030,
+            "different_sample_times": 518,
+            "different_stored_potentials": 520
+          }
+        },
+        "at_natural_strength": {
+          "actual_norm": 6.707535216484937e-05,
+          "core_effect": false,
+          "direction_cosine": 0.9999977262811448,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            0.0,
+            0.0
+          ],
+          "motor_effect": false,
+          "relative_norm_error": 5.601622180561371e-06,
+          "requested_norm": 6.70749764361736e-05,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 1030,
+            "different_sample_times": 0,
+            "different_stored_potentials": 58
+          }
+        }
+      },
+      "offline_pair": {
+        "at_common_high_strength": {
+          "actual_norm": 1.0529441506314179,
+          "core_effect": true,
+          "direction_cosine": 0.9999999999999938,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            -0.09214098633383958,
+            -0.1254969041322867
+          ],
+          "motor_effect": true,
+          "relative_norm_error": 9.25503663370602e-09,
+          "requested_norm": 1.0529441603764547,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 1030,
+            "different_sample_times": 518,
+            "different_stored_potentials": 520
+          }
+        },
+        "at_natural_strength": {
+          "actual_norm": 6.706908036517649e-05,
+          "core_effect": false,
+          "direction_cosine": 0.9999975471422163,
+          "executed": true,
+          "faithful": true,
+          "margin_gains": [
+            0.0,
+            0.0
+          ],
+          "motor_effect": false,
+          "relative_norm_error": 8.790269203788868e-05,
+          "requested_norm": 6.70749764361736e-05,
+          "stored_potential_comparison": {
+            "compared_neuron_frames": 1030,
+            "different_sample_times": 0,
+            "different_stored_potentials": 58
+          }
+        }
+      }
+    },
+    "offline": {
+      "constant_positive": {
+        "negative_actual_mass": -0.012093305587768555,
+        "negative_actual_mass_share": 0.516617258472227,
+        "negative_requested": -0.012093942784039358,
+        "negative_tag_integral": -0.012093942784039358,
+        "negative_tag_integral_share": 0.516612067559425,
+        "pending_residual_l1": 8.663074830294786e-07,
+        "positive_actual_mass": 0.011315330862998962,
+        "positive_requested": 0.011316162289915794,
+        "positive_tag_integral": 0.011316162289915794,
+        "weight_changes": 105467,
+        "weight_l1": 0.022792741656303406,
+        "weight_l2": 0.0034050882799846484
+      },
+      "immediate_pair": {
+        "negative_actual_mass": -0.17034676671028137,
+        "negative_actual_mass_share": 0.5028156596339869,
+        "negative_requested": null,
+        "negative_tag_integral": 0.0,
+        "negative_tag_integral_share": null,
+        "pending_residual_l1": 0.0,
+        "positive_actual_mass": 0.16843895614147186,
+        "positive_requested": null,
+        "positive_tag_integral": 0.0,
+        "weight_changes": 4906,
+        "weight_l1": 0.05806489288806915,
+        "weight_l2": 0.008667473337282166
+      },
+      "original": {
+        "negative_actual_mass": -0.00019481778144836426,
+        "negative_actual_mass_share": 0.5986537845139429,
+        "negative_requested": -0.00019473398081639205,
+        "negative_tag_integral": -0.012093942784039358,
+        "negative_tag_integral_share": 0.516612067559425,
+        "pending_residual_l1": 6.890141118792409e-07,
+        "positive_actual_mass": 0.0001306086778640747,
+        "positive_requested": 0.00013050487320534823,
+        "positive_tag_integral": 0.011316162289915794,
+        "weight_changes": 7761,
+        "weight_l1": 0.00031991302967071533,
+        "weight_l2": 6.70749764361736e-05
+      }
+    },
+    "offline_original_verified": true,
+    "protocol": "NERVA-Multilevel-Summary/1",
+    "record_sha256": "6032cdd94c1388f79e1c5ccb40749b3ad6b107e007011592c996888797c25a12",
+    "reference": {
+      "dose": 1.0,
+      "margin_gains": [
+        0.025017149600073618,
+        0.03927678075145746
+      ],
+      "method": "sensory_and_recurrent",
+      "norm": 1.118033988749895,
+      "observation": 6,
+      "swap_margin_gains": [
+        0.0,
+        -0.06922152495616929
+      ],
+      "swap_observation": 7,
+      "verified": true
+    },
+    "seed": 17027,
+    "selected_synapses": [
+      53,
+      56,
+      180,
+      182,
+      183,
+      184,
+      314,
+      392
+    ]
+  },
+  "primary_pre_run": {
+    "artifacts_sha256": {
+      "manifest.json": "e85b0e116b29fde811c53bc844331cac1c519a78c0836b1518fb615a2e47735a",
+      "producer.py": "97c82bff9fdef665e64d9d73f5c5807b7ab32b5d0a5c35f3e92d49be1b3d2330",
+      "runner": "ad6a391a266e0c3de6da4a873fd4ed432de0b75335f40691744aa22a6560c472",
+      "source-code.zip": "df211330cddc10fd7415ff6bf46fd2e8cfd0d7def4c1c9953f53a34d9d4b6ba9",
+      "source.toml": "28fe94c6e5d6ffd156e067f99d5b5f5c1c5da927eab7da0ba836a56a753cc14c"
+    },
+    "captured_before_primary_execution": true,
+    "confirmation_config_sha256": "80eba85d916ed38a49c27f331df1b37aeb22748ec94f257ec0dfefc697bbba7a",
+    "confirmation_gate": "Run the unchanged protocol on seed 23003 if the primary reference is verified and at least one live C effect or norm-comparison distinction is observed; otherwise retain the blocked capability diagnosis.",
+    "confirmation_seed": 23003,
+    "confirmation_seed_absent_from_prior_manifests": 214,
+    "constant_learning_factor": 1.0,
+    "git_heads_before": {
+      "NERVA": "036b0367d9dbac27ea903f30fdbe67f298354d0f",
+      "NERVA_Modell": "a9c2d447e985dca3d8fd268018095a2fd14c1276"
+    },
+    "previous_diagnostic_seed": 7,
+    "primary_seed": 17027,
+    "protocol": "NERVA-Multilevel-Study/1",
+    "reference_recipe": {
+      "dose": 1.0,
+      "method": "sensory_and_recurrent",
+      "search_new_doses": false,
+      "swap_control": true
+    }
+  },
+  "protocol": "NERVA-Multilevel-Study-Results/1",
+  "qualification": "Additional model seed, same images; artificial Sensor+Core reference; no independently learned memory claim."
+}

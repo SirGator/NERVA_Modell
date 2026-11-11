@@ -11,6 +11,16 @@ bereit. Neuronale Mechanismen stammen aus NERVA und dem laufenden Modell.
 
 ## Voraussetzungen und erster Lauf
 
+Die [mehrstufige kausale Lerndiagnose](MULTILEVEL_DIAGNOSIS.md) kombiniert eine
+reine Lernfaktor-Kontrolle, lokale Regeln auf derselben Spikehistorie und einen
+Vergleich der Gewichtsrichtungen bei gleicher Stärke.
+[Ergebnisse auf Haupt- und neuem Modellseed](MULTILEVEL_RESULTS_20261111.md).
+
+```bash
+./NERVA_Modell/research/run.sh run NERVA_Modell/research/config/multilevel_smoke.toml
+```
+
+
 [Learning History & Causal Trace](LEARNING_HISTORY.md) verbindet die nativen
 Lern-, Chemie- und Elektroereignisse für ausgewählte Neuronen und Synapsen,
 mit netzweiten Statistiken und geprüftem Gewichts-Reset beim Abruf.
