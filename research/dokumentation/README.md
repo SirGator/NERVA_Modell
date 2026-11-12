@@ -9,6 +9,10 @@ behalten ihren damaligen Stand.
 
 ## Neuromodulation und kausale Diagnose
 
+[MLD-02](../MLD02.md): vorregistrierter Kausalatlas mit fünf Seeds, lokalen
+Historien und aktivem Homöostase-/Konkurrenzvergleich.
+[Ergebnisse und Historien vom 12.11.2026](../MLD02_RESULTS_20261112.md).
+
 [Richtung × Stärke](../DIRECTION_STRENGTH.md): normkontrollierter Vierfeldervergleich
 und rekurrente Kontrast-/Relaiskontrollen.
 [Pilot vom 10.11.2026](../DIRECTION_STRENGTH_RESULTS_20261110.md).

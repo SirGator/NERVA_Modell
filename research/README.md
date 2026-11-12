@@ -16,9 +16,12 @@ bereit. Neuronale Mechanismen stammen aus NERVA und dem laufenden Modell.
 gemeinsamen entwickelten Struktur. Zwei bekannte und drei neue Seeds werden
 vor Ausführung registriert und mit archivierten Programmen ausgeführt:
 
+[Vollständige Ergebnisse und Historien: MLD-02 vom 12.11.2026](MLD02_RESULTS_20261112.md).
+
 ```bash
 ./NERVA_Modell/research/run.sh mld02 plan NERVA_Modell/research/config/mld02_20261112.toml
 ./NERVA_Modell/research/run.sh mld02 run NERVA_Modell/research/config/mld02_20261112.toml
+./NERVA_Modell/research/run.sh mld02 report NERVA_Modell/research/config/mld02_20261112.toml
 ```
 
 
