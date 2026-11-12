@@ -11,6 +11,17 @@ bereit. Neuronale Mechanismen stammen aus NERVA und dem laufenden Modell.
 
 ## Voraussetzungen und erster Lauf
 
+[MLD-02](MLD02.md) prüft lokale Information, Synapsenauswahl, Vorzeichen,
+Änderungsstärke, neue Cue-Fragmente und aktive Homöostase/Konkurrenz auf einer
+gemeinsamen entwickelten Struktur. Zwei bekannte und drei neue Seeds werden
+vor Ausführung registriert und mit archivierten Programmen ausgeführt:
+
+```bash
+./NERVA_Modell/research/run.sh mld02 plan NERVA_Modell/research/config/mld02_20261112.toml
+./NERVA_Modell/research/run.sh mld02 run NERVA_Modell/research/config/mld02_20261112.toml
+```
+
+
 Die [mehrstufige kausale Lerndiagnose](MULTILEVEL_DIAGNOSIS.md) kombiniert eine
 reine Lernfaktor-Kontrolle, lokale Regeln auf derselben Spikehistorie und einen
 Vergleich der Gewichtsrichtungen bei gleicher Stärke.

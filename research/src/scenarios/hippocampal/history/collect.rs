@@ -208,7 +208,7 @@ impl History {
                         let id = self.row(time.0,phase,mechanism,Some(post),Some(synapse.0),json!({"tag_before":tag_before,"tag_after":tag_after,
                             "tag_anchor_before_us":tag_anchor_before.map(|t|t.0),"held_learning_signal":held_signal,
                             "weight_before":old_weight.get(),"weight_after":new_weight.get(),"actual_delta":delta,"residual_before":residual_before,"residual_after":residual_after,
-                            "requested_delta":delayed.map(|d|d.unrounded_delta),"tag_integral_seconds":delayed.map(|d|d.tag_integral_seconds),
+                            "requested_delta":delayed.map(|d|d.unrounded_delta),"unfiltered_requested_delta":delayed.map(|d|d.unfiltered_delta),"tag_integral_seconds":delayed.map(|d|d.tag_integral_seconds),
                             "apply_weight":delayed.map(|d|d.apply_weight),"clipped_delta":delayed.map(|d|d.clipped_delta),"rounding_error":delayed.map(|d|d.rounding_error)}))?;
                         if delta != 0. {
                             self.edges.get_mut(&synapse.0).unwrap().last_update = id;

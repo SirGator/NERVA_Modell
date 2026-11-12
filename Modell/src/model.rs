@@ -85,6 +85,10 @@ pub enum LearningRule {
     ThreeFactorAccumulated,
     /// Diagnostic: learning signal fixed at +1; all cellular chemistry stays native.
     ThreeFactorConstantPositive,
+    /// MLD-02 diagnostic presets; live defaults remain unchanged.
+    ThreeFactorGain64,
+    ThreeFactorPotentiatingOnly,
+    ThreeFactorDepressingOnly,
 }
 
 pub struct Model {
@@ -274,7 +278,10 @@ impl Model {
             LearningRule::PairStdp => false,
             LearningRule::ThreeFactor
             | LearningRule::ThreeFactorAccumulated
-            | LearningRule::ThreeFactorConstantPositive => true,
+            | LearningRule::ThreeFactorConstantPositive
+            | LearningRule::ThreeFactorGain64
+            | LearningRule::ThreeFactorPotentiatingOnly
+            | LearningRule::ThreeFactorDepressingOnly => true,
         };
         let rule = if three_factor {
             rule.with_three_factor(nerva::learning::ThreeFactorConfig::default())?
@@ -283,7 +290,11 @@ impl Model {
         };
         let rule = if matches!(
             learning_rule,
-            LearningRule::ThreeFactorAccumulated | LearningRule::ThreeFactorConstantPositive
+            LearningRule::ThreeFactorAccumulated
+                | LearningRule::ThreeFactorConstantPositive
+                | LearningRule::ThreeFactorGain64
+                | LearningRule::ThreeFactorPotentiatingOnly
+                | LearningRule::ThreeFactorDepressingOnly
         ) {
             rule.with_weight_update_mode(nerva::learning::WeightUpdateMode::Accumulated)
         } else {
@@ -293,6 +304,16 @@ impl Model {
             rule.with_learning_signal_override(1.)?
         } else {
             rule
+        };
+        let rule = match learning_rule {
+            LearningRule::ThreeFactorGain64 => rule.with_learning_signal_gain(64.)?,
+            LearningRule::ThreeFactorPotentiatingOnly => {
+                rule.with_contribution_filter(nerva::learning::WeightContribution::PotentiatingOnly)
+            }
+            LearningRule::ThreeFactorDepressingOnly => {
+                rule.with_contribution_filter(nerva::learning::WeightContribution::DepressingOnly)
+            }
+            _ => rule,
         };
         let mut simulation = if config.kind == ModelKind::Recurrent {
             Simulation::with_utility_rule(
@@ -669,10 +690,31 @@ impl Model {
         }
     }
 
+    /// Capture fixed recurrent competition pools at an explicitly frozen,
+    /// developed checkpoint. Cellular homeostasis may then run on the fixed graph.
+    pub fn install_checkpoint_competition(&mut self) -> Result<()> {
+        if self.config.learning || self.config.development || self.config.homeostasis {
+            return Err("competition capture requires fully frozen plasticity".into());
+        }
+        self.simulation
+            .install_checkpoint_competition(&self.processing)?;
+        self.config.synaptic_competition = true;
+        Ok(())
+    }
+    pub fn take_competition_events(&mut self) -> Vec<nerva::learning::CompetitionEvent> {
+        self.simulation.drain_competition_events()
+    }
+    pub fn competition_pools(&self) -> &[nerva::learning::CompetitionPool] {
+        self.simulation.competition_pools()
+    }
+
     /// Resume existing rules after a frozen evaluation, preserving learned state.
     pub fn set_plasticity(&mut self, settings: PlasticitySettings) -> Result<()> {
         if self.config.kind == ModelKind::Direct && (settings.development || settings.homeostasis) {
             return Err("direct control supports weight learning only".into());
+        }
+        if self.config.synaptic_competition && settings.development {
+            return Err("fixed competition pools require development to remain frozen".into());
         }
         self.simulation
             .set_homeostasis_enabled(settings.homeostasis)?;

@@ -162,3 +162,11 @@ anderen Rezeptorwirkungen erhalten bleiben. `enable_learning_replay_audit()`
 ergänzt genaue Integrationsgrenzen für die lokale Nachrechnung. Beides wird im
 [mehrstufigen Diagnoseprotokoll](../research/MULTILEVEL_DIAGNOSIS.md) verwendet;
 die Live-Standards bleiben unverändert.
+
+Für [MLD-02](../research/MLD02.md) ergänzen `ThreeFactorGain64`,
+`ThreeFactorPotentiatingOnly` und `ThreeFactorDepressingOnly` ausdrückliche
+Diagnosevarianten. Nach einer gemeinsamen Entwicklungsphase erlaubt
+`install_checkpoint_competition()` bei vollständig eingefrorener Plastizität
+die Erfassung fester Pools. Danach kann zelluläre Homöostase auf dem festen
+Graphen laufen; erneute Entwicklung wird abgewiesen. Die bisherigen
+Konstruktor-Schutzregeln bleiben bestehen.

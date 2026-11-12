@@ -65,7 +65,7 @@ pub(super) fn build(
     )
     .map_err(fail)
 }
-fn schedule(c: &Config, seed: u64, unpaired: bool) -> Vec<usize> {
+pub(super) fn schedule(c: &Config, seed: u64, unpaired: bool) -> Vec<usize> {
     let mut images = Vec::new();
     for repetition in 0..c.training_repetitions {
         let order = if (seed ^ repetition as u64) & 1 == 0 {
@@ -92,6 +92,8 @@ struct Audit {
     requested_mass: f64,
     actual_mass: f64,
     motor_signal_samples: usize,
+    blocked_positive: f64,
+    blocked_negative: f64,
     track_mass: bool,
     mass: BTreeMap<u64, MassLedger>,
 }
@@ -152,6 +154,8 @@ impl Audit {
         }
         self.changed += changes;
         for (id, summary) in &log.delayed {
+            self.blocked_positive += summary.positive_blocked;
+            self.blocked_negative += summary.negative_blocked;
             self.requested += summary.nonzero_requested;
             self.rounded += summary.nonzero_requested_without_weight_change;
             self.zero_signal += summary.zero_signal_integrations;
@@ -181,7 +185,7 @@ impl Audit {
             "weight_events":self.changed,"requested_updates":self.requested,
             "requests_without_change":self.rounded,"zero_factor_integrations":self.zero_signal,
             "requested_absolute_mass":self.requested_mass,"actual_absolute_mass":self.actual_mass,
-            "nonzero_motor_factor_samples":self.motor_signal_samples,
+            "nonzero_motor_factor_samples":self.motor_signal_samples,"blocked_positive":self.blocked_positive,"blocked_negative":self.blocked_negative,
             "storage":"Streaming aggregates; full raw audit traces are not retained."});
         if self.track_mass {
             let rows:Vec<_>=self.mass.iter().map(|(id,m)|json!({"synapse_id":id,
@@ -229,6 +233,7 @@ pub(super) fn train_observed(
         Observers {
             history,
             tape: None,
+            frame: None,
         },
     )
 }
@@ -236,6 +241,7 @@ pub(super) fn train_observed(
 pub(super) struct Observers<'a> {
     pub history: Option<&'a mut super::history::History>,
     pub tape: Option<&'a mut super::multilevel::tape::Tape>,
+    pub frame: Option<fn(usize) -> nerva_qemu::Result<nerva_qemu::capture::Frame>>,
 }
 pub(super) fn train_recorded(
     c: &Config,
@@ -291,7 +297,12 @@ pub(super) fn train_recorded(
     let mut arrivals = 0;
     let mut core = 0;
     for (index, image) in schedule(c, seed, unpaired).into_iter().enumerate() {
-        let step = model.step(&frame(image).map_err(fail)?).map_err(fail)?;
+        let stimulus = match observers.frame {
+            Some(make) => make(image),
+            None => frame(image),
+        }
+        .map_err(fail)?;
+        let step = model.step(&stimulus).map_err(fail)?;
         sensory += step.sensory_spikes;
         core += step.core_counts.iter().sum::<usize>();
         if audited {

@@ -57,21 +57,35 @@ impl Tape {
             })
             .collect();
         candidates.sort_by(|a, b| b.1.total_cmp(&a.1).then(a.0.cmp(&b.0)));
-        let mut config = super::super::history::HistoryScenario.default_config();
+        let initial = super::super::association::build(c, seed, group, Some(rule))?;
+        self.history_for_initial(
+            &initial,
+            model,
+            &candidates.iter().take(8).map(|e| e.0).collect::<Vec<_>>(),
+            250000,
+        )
+    }
+    pub fn history_for_initial(
+        &self,
+        initial: &Model,
+        model: &Model,
+        selected: &[u64],
+        max_rows: usize,
+    ) -> Result<Value> {
         use crate::scenario::Scenario;
+        let mut config = super::super::history::HistoryScenario.default_config();
         super::super::history::HistoryScenario.set_parameter(
             &mut config,
             "history.synapses",
-            &json!(candidates.iter().take(8).map(|e| e.0).collect::<Vec<_>>()),
+            &json!(selected),
         )?;
         super::super::history::HistoryScenario.set_parameter(
             &mut config,
             "history.max_rows",
-            &json!(250000),
+            &json!(max_rows),
         )?;
         let mut history = super::super::history::History::new(&config);
-        let initial = super::super::association::build(c, seed, group, Some(rule))?;
-        history.initialize(&initial)?;
+        history.initialize(initial)?;
         for (input, log) in &self.frames {
             history.add("training", input, Some(log), model)?;
         }
@@ -79,13 +93,24 @@ impl Tape {
         Ok(history.finish())
     }
     pub fn replay(&self, reference: &Model) -> Result<ReplayResult> {
+        self.replay_variants(reference, false)
+    }
+    pub fn replay_mld02(&self, reference: &Model) -> Result<ReplayResult> {
+        self.replay_variants(reference, true)
+    }
+    fn replay_variants(&self, reference: &Model, extended: bool) -> Result<ReplayResult> {
         let initial = self
             .initial
             .as_ref()
             .ok_or_else(|| error("missing tape initial state"))?;
-        let mut original = Local::new(initial.clone(), "original");
-        let mut constant = Local::new(initial.clone(), "constant");
-        let mut pair = Local::new(initial.clone(), "pair");
+        let mut kinds = vec!["original", "constant", "pair"];
+        if extended {
+            kinds.extend(["gain64", "positive", "negative"]);
+        }
+        let mut locals = kinds
+            .iter()
+            .map(|&name| (name, Local::new(initial.clone(), name)))
+            .collect::<BTreeMap<_, _>>();
         let mut clocks = Vec::new();
         let mut chemicals = Vec::new();
         let mut arrivals = Vec::new();
@@ -145,7 +170,7 @@ impl Tape {
             }
             for time in times {
                 clocks.push(time);
-                for local in [&mut original, &mut constant, &mut pair] {
+                for local in locals.values_mut() {
                     local.clock(SimTime(time));
                     for &(id, response) in chemical_by_time.get(&time).into_iter().flatten() {
                         local
@@ -178,6 +203,9 @@ impl Tape {
                 }
             }
         }
+        let original = &locals["original"];
+        let constant = &locals["constant"];
+        let pair = &locals["pair"];
         for s in original.network.synapses() {
             let native = reference.network().synapse(s.id()).unwrap();
             require(
@@ -188,11 +216,16 @@ impl Tape {
                 "fixed-history original rule does not reproduce native local state",
             )?;
         }
-        let json = json!({"verified_original_local_state":true,"scope":"Frozen recorded history; local hooks only, no network stepping. Other rules may generate different spike histories when trained live.",
+        let mut json = json!({"verified_original_local_state":true,"scope":"Frozen recorded history; local hooks only, no network stepping. Other rules may generate different spike histories when trained live.",
             "clock_times_us":clocks,"chemical_fields":["time_us","neuron_id","dopamine","acetylcholine","noradrenaline","native_signal","threshold_shift","intrinsic_drive","transmission_gain"],
             "chemical_samples":chemicals,"pre_arrivals":arrivals,"post_spikes":spikes,
             "phase_order":"At each exact batch: delayed integration under old held chemistry, chemical refresh, arrivals, post-spike hooks. Order within each activity phase is native.",
             "original":original.json(initial),"constant_positive":constant.json(initial),"immediate_pair":pair.json(initial)});
+        if extended {
+            for key in ["gain64", "positive", "negative"] {
+                json[key] = locals[key].json(initial);
+            }
+        }
         Ok(ReplayResult {
             json,
             constant: constant.weights(),
@@ -217,6 +250,8 @@ struct Ledger {
     positive_integral: f64,
     negative_integral: f64,
     changes: usize,
+    blocked_positive: f64,
+    blocked_negative: f64,
 }
 struct Local {
     network: Network,
@@ -238,6 +273,16 @@ impl Local {
             rule.with_three_factor(ThreeFactorConfig::default())
                 .unwrap()
                 .with_weight_update_mode(WeightUpdateMode::Accumulated)
+        };
+        let rule = match kind {
+            "gain64" => rule.with_learning_signal_gain(64.).unwrap(),
+            "positive" => {
+                rule.with_contribution_filter(nerva::learning::WeightContribution::PotentiatingOnly)
+            }
+            "negative" => {
+                rule.with_contribution_filter(nerva::learning::WeightContribution::DepressingOnly)
+            }
+            _ => rule,
         };
         let rule = if kind == "constant" {
             rule.with_learning_signal_override(1.).unwrap()
@@ -274,6 +319,8 @@ impl Local {
                 .unwrap();
             if update.tag_integral_seconds != 0. {
                 let row = self.ledger.entry(id).or_default();
+                row.blocked_positive += (update.unfiltered_delta - update.unrounded_delta).max(0.);
+                row.blocked_negative += (update.unfiltered_delta - update.unrounded_delta).min(0.);
                 row.requested_positive += update.unrounded_delta.max(0.);
                 row.requested_negative += update.unrounded_delta.min(0.);
                 row.positive_integral += update.tag_integral_seconds.max(0.);
@@ -330,8 +377,8 @@ impl Local {
         let edges=self.network.synapses().map(|s| {
             let empty=Ledger::default();let l=self.ledger.get(&s.id()).unwrap_or(&empty);
             json!({"synapse_id":s.id().0,"source_id":s.pre().0,"target_id":s.post().0,"initial_weight":initial.synapse(s.id()).unwrap().weight().get(),
-                "weight":s.weight().get(),"residual":s.learning_weight_residual(),"eligibility":s.learning_eligibility(),
-                "positive_actual":l.positive,"negative_actual":l.negative,"weight_changes":l.changes,
+                "plastic":s.is_plastic(),"enabled":s.is_enabled(),"pre_excitatory":self.network.neuron(s.pre()).unwrap().polarity()==Polarity::Excitatory,"weight":s.weight().get(),"residual":s.learning_weight_residual(),"eligibility":s.learning_eligibility(),
+                "positive_blocked":l.blocked_positive,"negative_blocked":l.blocked_negative,"positive_actual":l.positive,"negative_actual":l.negative,"weight_changes":l.changes,
                 "positive_requested":if self.rule.needs_time_updates(){Some(l.requested_positive)}else{None},"negative_requested":if self.rule.needs_time_updates(){Some(l.requested_negative)}else{None},
                 "positive_tag_integral":l.positive_integral,"negative_tag_integral":l.negative_integral})
         }).collect::<Vec<_>>();

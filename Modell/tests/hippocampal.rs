@@ -291,3 +291,35 @@ fn constant_learning_factor_preserves_all_frozen_chemistry_and_electrical_events
         );
     }
 }
+
+#[test]
+fn checkpoint_competition_is_explicit_and_keeps_the_developed_graph_fixed() {
+    use nerva_vm::model::PlasticitySettings;
+    let mut c = config(true);
+    c.processing_neurons = 16;
+    let mut model = build(c);
+    assert!(model.install_checkpoint_competition().is_err());
+    model.freeze().unwrap();
+    let before = model.network().clone();
+    model.install_checkpoint_competition().unwrap();
+    assert_eq!(model.network(), &before);
+    assert_eq!(model.competition_pools().len(), 16);
+    model
+        .set_plasticity(PlasticitySettings {
+            learning: true,
+            development: false,
+            homeostasis: true,
+        })
+        .unwrap();
+    assert!(
+        model
+            .set_plasticity(PlasticitySettings {
+                learning: true,
+                development: true,
+                homeostasis: true
+            })
+            .is_err()
+    );
+    assert!(!model.plasticity().development);
+    model.step(&white()).unwrap();
+}

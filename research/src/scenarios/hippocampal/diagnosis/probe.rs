@@ -60,6 +60,14 @@ pub(in crate::scenarios::hippocampal) struct Probe {
     pub details: Value,
 }
 pub(in crate::scenarios::hippocampal) fn run(model: &mut Model, c: &Config) -> Result<Probe> {
+    run_images(model, c, &[4, 0, 1, 2, 3], frame)
+}
+pub(in crate::scenarios::hippocampal) fn run_images(
+    model: &mut Model,
+    c: &Config,
+    images: &[usize],
+    make: fn(usize) -> nerva_qemu::Result<nerva_qemu::capture::Frame>,
+) -> Result<Probe> {
     model.freeze().map_err(fail)?;
     let parameters = model.network().clone();
     model.enable_audit(AuditOptions {
@@ -71,14 +79,14 @@ pub(in crate::scenarios::hippocampal) fn run(model: &mut Model, c: &Config) -> R
     let mut frames = Vec::new();
     let mut total = 0usize;
     // Black first: cue-free activation control. Fixed targets precede the two cues.
-    for image in [4, 0, 1, 2, 3] {
+    for &image in images {
         model.set_dynamics_auditing(false);
         let mut remaining = c.rest_us;
         let mut resting = 0;
         while remaining > 0 {
             let duration = remaining.min(50_000);
             let step = model
-                .step_for(&frame(4).map_err(fail)?, duration)
+                .step_for(&make(4).map_err(fail)?, duration)
                 .map_err(fail)?;
             resting += step.core_counts.iter().sum::<usize>();
             let audit = model
@@ -95,7 +103,7 @@ pub(in crate::scenarios::hippocampal) fn run(model: &mut Model, c: &Config) -> R
             .neurons()
             .map(|n| (n.id().0, (n.membrane_potential(), n.last_update().0)))
             .collect();
-        let step = model.step(&frame(image).map_err(fail)?).map_err(fail)?;
+        let step = model.step(&make(image).map_err(fail)?).map_err(fail)?;
         let audit = model
             .take_audit()
             .ok_or_else(|| error("missing electrical audit"))?;

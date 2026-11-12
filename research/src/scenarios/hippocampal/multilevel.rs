@@ -50,6 +50,7 @@ fn train(c: &Config, seed: u64, arm: &str, record: bool) -> Result<(Training, ta
         Observers {
             history: None,
             tape: record.then_some(&mut tape),
+            frame: None,
         },
     )?;
     Ok((t, tape))

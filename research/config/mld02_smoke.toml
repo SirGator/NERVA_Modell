@@ -1,0 +1,13 @@
+[experiment]
+name = "mld02_smoke"
+scenario = "hippocampal_mld02"
+seeds = [7]
+interventions = ["atlas", "interaction"]
+verify_replay = true
+max_runs = 2
+[base]
+processing_neurons = 16
+training_repetitions = 1
+rest_us = 100000
+[measurements]
+metrics = ["reference_verified", "recurrent_reference_verified", "novel_core_memory_candidate", "native_training_passes", "matched_observations", "interaction_a", "interaction_b", "offline_verified"]
