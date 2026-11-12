@@ -9,6 +9,10 @@ behalten ihren damaligen Stand.
 
 ## Neuromodulation und kausale Diagnose
 
+[MLD-03](../MLD03.md): Gewichtseffekte unter veränderter Erregbarkeit und
+populationsspezifische Homöostase auf identischer entwickelter Struktur.
+[Ergebnisse und elektrische Zeitreihen vom 12.11.2026](../MLD03_RESULTS_20261112.md).
+
 [MLD-02](../MLD02.md): vorregistrierter Kausalatlas mit fünf Seeds, lokalen
 Historien und aktivem Homöostase-/Konkurrenzvergleich.
 [Ergebnisse und Historien vom 12.11.2026](../MLD02_RESULTS_20261112.md).

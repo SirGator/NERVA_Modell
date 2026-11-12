@@ -1,0 +1,199 @@
+{
+  "derived_export": true,
+  "source_record_sha256": "43665132cabc8c7d3ae66b8248fbd5fc0ececb468b2b8569951c5da91ad1b812",
+  "job": {
+    "effective_config": {
+      "dynamics": [
+        [
+          "native",
+          1.0,
+          1.0
+        ],
+        [
+          "threshold_09999",
+          0.9998999834060669,
+          1.0
+        ],
+        [
+          "threshold_099",
+          0.9900000095367432,
+          1.0
+        ],
+        [
+          "threshold_090",
+          0.8999999761581421,
+          1.0
+        ],
+        [
+          "tau_half",
+          1.0,
+          0.5
+        ],
+        [
+          "tau_double",
+          1.0,
+          2.0
+        ]
+      ],
+      "epsilon": 1e-09,
+      "population_arms": [
+        "off",
+        "sensor",
+        "core",
+        "both",
+        "all_bridge"
+      ],
+      "probes": [
+        4,
+        0,
+        1,
+        2,
+        3,
+        5,
+        6,
+        7,
+        8
+      ],
+      "processing_neurons": 256,
+      "protocol": "NERVA-MLD-03/1",
+      "rest_us": 11000000,
+      "section": "excitability",
+      "seed": 23003,
+      "training_passes_per_execution": 34,
+      "training_repetitions": 8,
+      "weight_arms": [
+        "reset",
+        "B",
+        "B_core",
+        "G",
+        "D"
+      ]
+    },
+    "id": "v00000-s23003-i000",
+    "intervention": "excitability",
+    "parameters": {},
+    "seed": 23003,
+    "variant": "v00000"
+  },
+  "section": "excitability",
+  "arm": "B",
+  "condition": "native",
+  "weight_reset": false,
+  "image": 2,
+  "neuron": 88,
+  "interval_us": [
+    46550001,
+    46600000
+  ],
+  "spike_columns": [
+    "neuron_id",
+    "time_us"
+  ],
+  "spikes": [],
+  "matching_spikes": 0,
+  "spikes_truncated": false,
+  "boundary_columns": [
+    "time_us",
+    "neuron_id",
+    "potential_before",
+    "potential_after",
+    "threshold",
+    "summed_input",
+    "spiked",
+    "refractory",
+    "refractory_until_us"
+  ],
+  "boundaries": [
+    [
+      46559336,
+      88,
+      -0.0,
+      0.3902082145214081,
+      0.9306250810623169,
+      0.3902082145214081,
+      false,
+      false,
+      35543869
+    ],
+    [
+      46567669,
+      88,
+      0.20017963647842407,
+      0.5903878211975098,
+      0.9306250810623169,
+      0.3902082145214081,
+      false,
+      false,
+      35543869
+    ],
+    [
+      46576002,
+      88,
+      0.3028732240200043,
+      0.6930814385414124,
+      0.9306250810623169,
+      0.3902082145214081,
+      false,
+      false,
+      35543869
+    ],
+    [
+      46584336,
+      88,
+      0.3555273115634918,
+      0.7457355260848999,
+      0.9306250810623169,
+      0.3902082145214081,
+      false,
+      false,
+      35543869
+    ],
+    [
+      46589336,
+      88,
+      0.4996339678764343,
+      0.4996339678764343,
+      0.9306250810623169,
+      -0.0,
+      false,
+      false,
+      35543869
+    ],
+    [
+      46592669,
+      88,
+      0.38256770372390747,
+      0.7727758884429932,
+      0.9306250810623169,
+      0.3902082145214081,
+      false,
+      false,
+      35543869
+    ],
+    [
+      46594336,
+      88,
+      0.6761831641197205,
+      0.6761831641197205,
+      0.9306250810623169,
+      -0.0,
+      false,
+      false,
+      35543869
+    ],
+    [
+      46599336,
+      88,
+      0.45303472876548767,
+      0.45303472876548767,
+      0.9306250810623169,
+      -0.0,
+      false,
+      false,
+      35543869
+    ]
+  ],
+  "matching_boundaries": 8,
+  "boundaries_truncated": false,
+  "scope": "Probe frame only; no complete rest or training timeline in this export."
+}

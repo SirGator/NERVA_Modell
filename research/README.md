@@ -15,6 +15,7 @@ bereit. Neuronale Mechanismen stammen aus NERVA und dem laufenden Modell.
 und Integrationszeit. Ein zweiter Abschnitt vergleicht Sensor-/Core-Homöostase
 auf genau derselben entwickelten Struktur, mit vollständigen Probe-Spikezeiten.
 Die fünf MLD-02-Seeds dienen als gepaarter Folgeversuch.
+[Ergebnisse, Populationseffekte und Probe-Timelines vom 12.11.2026](MLD03_RESULTS_20261112.md).
 
 ```bash
 ./NERVA_Modell/research/run.sh mld03 plan NERVA_Modell/research/config/mld03_20261112.toml
