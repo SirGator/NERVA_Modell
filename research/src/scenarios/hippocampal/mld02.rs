@@ -6,9 +6,9 @@ use crate::{
 };
 use nerva_vm::model::LearningRule;
 use serde_json::{Value, json};
-mod atlas;
+pub(super) mod atlas;
 pub(super) mod images;
-mod interaction;
+pub(super) mod interaction;
 pub struct Mld02Scenario;
 pub const CASES: [&str; 8] = ["F", "B", "G", "C", "P", "L_plus", "L_minus", "D"];
 pub(super) const METRICS: [&str; 8] = [

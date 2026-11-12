@@ -1,0 +1,13 @@
+[experiment]
+name = "mld03_smoke"
+scenario = "hippocampal_mld03"
+seeds = [7]
+interventions = ["excitability", "population"]
+verify_replay = true
+max_runs = 2
+[base]
+processing_neurons = 16
+training_repetitions = 1
+rest_us = 100000
+[measurements]
+metrics = ["native_training_passes", "spike_effects", "functional_candidates", "population_interaction_a"]

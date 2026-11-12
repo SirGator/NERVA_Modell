@@ -84,6 +84,7 @@ fn scope_name(c: &Config) -> &'static str {
     }
     match c.homeostasis_scope {
         HomeostasisScope::All => "all",
+        HomeostasisScope::Sensor => "sensor",
         HomeostasisScope::Core => "core",
         HomeostasisScope::CoreSensor => "core_sensor",
     }
@@ -222,6 +223,7 @@ fn observe(
     } else {
         match model.config().homeostasis_scope {
             HomeostasisScope::All => [true; 4],
+            HomeostasisScope::Sensor => [true, false, false, false],
             HomeostasisScope::Core => [false, true, false, false],
             HomeostasisScope::CoreSensor => [true, true, false, false],
         }

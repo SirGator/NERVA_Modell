@@ -68,6 +68,15 @@ pub(in crate::scenarios::hippocampal) fn run_images(
     images: &[usize],
     make: fn(usize) -> nerva_qemu::Result<nerva_qemu::capture::Frame>,
 ) -> Result<Probe> {
+    run_images_timed(model, c, images, make, false)
+}
+pub(in crate::scenarios::hippocampal) fn run_images_timed(
+    model: &mut Model,
+    c: &Config,
+    images: &[usize],
+    make: fn(usize) -> nerva_qemu::Result<nerva_qemu::capture::Frame>,
+    timed: bool,
+) -> Result<Probe> {
     model.freeze().map_err(fail)?;
     let parameters = model.network().clone();
     model.enable_audit(AuditOptions {
@@ -116,10 +125,15 @@ pub(in crate::scenarios::hippocampal) fn run_images(
         let mut sources = BTreeMap::<u64, usize>::new();
         let mut pending = BTreeMap::<(u64, u64), Vec<SynapseId>>::new();
         let mut examples = Vec::new();
+        let mut spike_times = Vec::new();
+        let mut boundaries = Vec::new();
         for event in &audit.raw_events {
             match *event {
                 ObservationEvent::SpikeEmitted(s) => {
                     *sources.entry(s.neuron_id.0).or_default() += 1;
+                    if timed {
+                        spike_times.push((s.neuron_id.0, s.time.0));
+                    }
                 }
                 ObservationEvent::NeuronAdvanced {
                     target,
@@ -177,6 +191,19 @@ pub(in crate::scenarios::hippocampal) fn run_images(
                     let refractory = time < refractory_until;
                     let candidate = potential_before + summed_input; // same f32 addition as the native cell
                     let gap = f64::from(threshold) - f64::from(candidate);
+                    if timed {
+                        boundaries.push(json!([
+                            time.0,
+                            target.0,
+                            potential_before,
+                            potential_after,
+                            threshold,
+                            summed_input,
+                            spiked,
+                            refractory,
+                            refractory_until.0
+                        ]));
+                    }
                     if spiked != (!refractory && candidate >= threshold)
                         || (!spiked
                             && potential_after
@@ -267,6 +294,22 @@ pub(in crate::scenarios::hippocampal) fn run_images(
             "neurons":node_rows,
             "synapses":edges.iter().map(|(&id,e)|e.json(id)).collect::<Vec<_>>(),
             "boundary_examples":examples,"examples_truncated":nodes.values().map(|n|n.batches).sum::<usize>()>128}));
+        if timed {
+            let frame = frames.last_mut().unwrap();
+            frame["spike_times"] = json!(spike_times);
+            frame["integration_boundaries"] = json!(boundaries);
+            frame["boundary_columns"] = json!([
+                "time_us",
+                "neuron_id",
+                "potential_before",
+                "potential_after",
+                "threshold",
+                "summed_input",
+                "spiked",
+                "refractory",
+                "refractory_until_us"
+            ]);
+        }
         counts.push(step.core_counts);
         source_counts.push(sources);
     }

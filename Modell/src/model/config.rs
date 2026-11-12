@@ -12,6 +12,7 @@ pub enum ModelKind {
 pub enum HomeostasisScope {
     #[default]
     All,
+    Sensor,
     Core,
     CoreSensor,
 }

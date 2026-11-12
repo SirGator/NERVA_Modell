@@ -15,7 +15,12 @@ use nerva::core::{NeuronRole, SynapseId};
 use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 
-pub(super) fn train(c: &Config, seed: u64, case: &str, record: bool) -> Result<(Training, Tape)> {
+pub(in crate::scenarios::hippocampal) fn train(
+    c: &Config,
+    seed: u64,
+    case: &str,
+    record: bool,
+) -> Result<(Training, Tape)> {
     let group = if case == "F" {
         "frozen_on"
     } else if case == "P" {
@@ -42,7 +47,9 @@ pub(super) fn train(c: &Config, seed: u64, case: &str, record: bool) -> Result<(
     )?;
     Ok((t, tape))
 }
-pub(super) fn get_weights(model: &nerva_vm::model::Model) -> Vec<(SynapseId, f32)> {
+pub(in crate::scenarios::hippocampal) fn get_weights(
+    model: &nerva_vm::model::Model,
+) -> Vec<(SynapseId, f32)> {
     model
         .network()
         .synapses()

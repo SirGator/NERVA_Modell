@@ -1,0 +1,11 @@
+[study]
+name = "mld03_20261112"
+seeds = [17027, 23003, 31013, 31019, 31033]
+workers = 2
+max_native_training_passes = 560
+max_wall_seconds = 7200
+
+[model]
+processing_neurons = 256
+training_repetitions = 8
+rest_us = 11000000

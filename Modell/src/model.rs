@@ -353,10 +353,13 @@ impl Model {
                 let population = simulation
                     .network()
                     .neuron_ids()
-                    .filter(|id| {
-                        processing.binary_search(id).is_ok()
-                            || (config.homeostasis_scope == HomeostasisScope::CoreSensor
-                                && id.0 < count)
+                    .filter(|id| match config.homeostasis_scope {
+                        HomeostasisScope::Sensor => id.0 < count,
+                        HomeostasisScope::Core => processing.binary_search(id).is_ok(),
+                        HomeostasisScope::CoreSensor => {
+                            processing.binary_search(id).is_ok() || id.0 < count
+                        }
+                        HomeostasisScope::All => true,
                     })
                     .collect();
                 simulation.set_homeostasis_population(Some(population))?;
@@ -630,6 +633,78 @@ impl Model {
     }
     pub fn processing_ids(&self) -> &[NeuronId] {
         &self.processing
+    }
+
+    /// Frozen causal probe: change Core excitability/integration at the current
+    /// runtime boundary. Inputs, weights, topology and external queues persist;
+    /// intrinsic spike predictions are refreshed through the native mutation API.
+    pub fn diagnostic_core_dynamics(&mut self, threshold_scale: f32, tau_scale: f32) -> Result<()> {
+        if self.config.learning || self.config.development || self.config.homeostasis {
+            return Err("core dynamics intervention requires frozen rules".into());
+        }
+        if !threshold_scale.is_finite()
+            || !tau_scale.is_finite()
+            || !(0.25..=2.0).contains(&threshold_scale)
+            || !(0.5..=2.0).contains(&tau_scale)
+        {
+            return Err("diagnostic dynamics scales outside supported bounds".into());
+        }
+        if threshold_scale == 1. && tau_scale == 1. {
+            return Ok(());
+        }
+        let now = self.simulation.current_time();
+        let mut changes = Vec::new();
+        for &id in &self.processing {
+            let neuron = self.network().neuron(id).unwrap();
+            let threshold = neuron.params().resting_potential
+                + threshold_scale * (neuron.base_threshold() - neuron.params().resting_potential);
+            let tau = neuron.params().membrane_tau_us * tau_scale;
+            let mut check = neuron.clone();
+            check.set_membrane_tau_us(now, tau)?;
+            check.set_threshold(threshold)?;
+            changes.push((id, threshold, tau));
+        }
+        for (id, threshold, tau) in changes {
+            self.simulation.update_neuron(id, |neuron| {
+                neuron.set_membrane_tau_us(now, tau)?;
+                neuron.set_threshold(threshold)
+            })?;
+        }
+        Ok(())
+    }
+
+    /// Select an existing homeostasis population at a fully frozen checkpoint.
+    /// The native controller handles clock cancellation and fresh time anchors.
+    pub fn set_checkpoint_homeostasis_scope(&mut self, scope: HomeostasisScope) -> Result<()> {
+        if self.config.learning || self.config.development || self.config.homeostasis {
+            return Err("homeostasis population selection requires fully frozen rules".into());
+        }
+        let population = if scope == HomeostasisScope::All {
+            None
+        } else {
+            Some(
+                self.network()
+                    .neurons()
+                    .filter(|n| match scope {
+                        HomeostasisScope::Sensor => {
+                            n.role() == Some(NeuronRole::Sensory)
+                                && !self.action_copies.contains(&n.id())
+                        }
+                        HomeostasisScope::Core => self.processing.contains(&n.id()),
+                        HomeostasisScope::CoreSensor => {
+                            self.processing.contains(&n.id())
+                                || (n.role() == Some(NeuronRole::Sensory)
+                                    && !self.action_copies.contains(&n.id()))
+                        }
+                        HomeostasisScope::All => true,
+                    })
+                    .map(Neuron::id)
+                    .collect(),
+            )
+        };
+        self.simulation.set_homeostasis_population(population)?;
+        self.config.homeostasis_scope = scope;
+        Ok(())
     }
 
     /// Isolated bench stimulus, never used by autonomous runs or training.

@@ -9,7 +9,10 @@ use nerva_vm::model::{
 use serde_json::{Value, json};
 use std::collections::BTreeMap;
 
-fn checkpoint(c: &Config, seed: u64) -> Result<(Model, Value)> {
+pub(in crate::scenarios::hippocampal) fn checkpoint(
+    c: &Config,
+    seed: u64,
+) -> Result<(Model, Value)> {
     let mut cfg = super::super::model_config(c, seed, "smooth");
     cfg.development = true;
     cfg.homeostasis = true;
@@ -53,7 +56,7 @@ struct EdgeLedger {
     changes: usize,
     normalizations: usize,
 }
-fn training(
+pub(in crate::scenarios::hippocampal) fn training(
     model: &mut Model,
     c: &Config,
     seed: u64,

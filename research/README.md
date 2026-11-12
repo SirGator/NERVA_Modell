@@ -11,6 +11,16 @@ bereit. Neuronale Mechanismen stammen aus NERVA und dem laufenden Modell.
 
 ## Voraussetzungen und erster Lauf
 
+[MLD-03](MLD03.md) trennt Gewichtswirkung von künstlich veränderter Core-Schwelle
+und Integrationszeit. Ein zweiter Abschnitt vergleicht Sensor-/Core-Homöostase
+auf genau derselben entwickelten Struktur, mit vollständigen Probe-Spikezeiten.
+Die fünf MLD-02-Seeds dienen als gepaarter Folgeversuch.
+
+```bash
+./NERVA_Modell/research/run.sh mld03 plan NERVA_Modell/research/config/mld03_20261112.toml
+./NERVA_Modell/research/run.sh mld03 run NERVA_Modell/research/config/mld03_20261112.toml
+```
+
 [MLD-02](MLD02.md) prüft lokale Information, Synapsenauswahl, Vorzeichen,
 Änderungsstärke, neue Cue-Fragmente und aktive Homöostase/Konkurrenz auf einer
 gemeinsamen entwickelten Struktur. Zwei bekannte und drei neue Seeds werden
