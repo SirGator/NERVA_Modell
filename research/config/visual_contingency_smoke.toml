@@ -1,0 +1,15 @@
+[experiment]
+name = "visual_contingency_smoke"
+scenario = "hippocampal_contingency"
+seeds = [7]
+interventions = ["immediate", "gap"]
+verify_replay = true
+max_runs = 2
+
+[base]
+processing_neurons = 16
+training_repetitions = 4
+rest_us = 100000
+
+[measurements]
+metrics = ["templates_available", "original_core", "fragments_core", "original_all", "fragments_all", "core_spike_effects"]

@@ -14,6 +14,7 @@ use std::collections::BTreeMap;
 pub mod association;
 pub mod causal;
 pub mod chain;
+pub mod contingency;
 pub mod diagnosis;
 pub mod factorial;
 pub mod history;

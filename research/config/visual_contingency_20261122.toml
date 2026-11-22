@@ -1,0 +1,15 @@
+[experiment]
+name = "visual_contingency_20261122"
+scenario = "hippocampal_contingency"
+seeds = [33207, 33211, 33223, 33247, 33287]
+interventions = ["immediate", "gap"]
+verify_replay = true
+max_runs = 10
+
+[base]
+processing_neurons = 256
+training_repetitions = 8
+rest_us = 11000000
+
+[measurements]
+metrics = ["templates_available", "original_core", "fragments_core", "original_all", "fragments_all", "core_spike_effects"]

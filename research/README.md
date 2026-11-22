@@ -11,6 +11,11 @@ bereit. Neuronale Mechanismen stammen aus NERVA und dem laufenden Modell.
 
 ## Voraussetzungen und erster Lauf
 
+[Visuelle Kontingenz](VISUAL_CONTINGENCY.md) testet auf entwickelter Struktur,
+ob unverstärkte rekurrente Gewichte den Abruf einer zeitlich folgenden,
+räumlich getrennten Seheingabe tragen. Zwei gegensätzliche Zuordnungen und
+eine balancierte Belichtung dienen als Kontrollen.
+
 [MLD-03](MLD03.md) trennt Gewichtswirkung von künstlich veränderter Core-Schwelle
 und Integrationszeit. Ein zweiter Abschnitt vergleicht Sensor-/Core-Homöostase
 auf genau derselben entwickelten Struktur, mit vollständigen Probe-Spikezeiten.
