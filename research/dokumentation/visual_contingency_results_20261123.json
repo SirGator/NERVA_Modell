@@ -1,0 +1,1218 @@
+{
+  "protocol": "NERVA-Visual-Contingency-Description/1",
+  "scope": "Post-hoc delivery counts, weight differences and probe details. No new candidate criteria.",
+  "records": [
+    {
+      "job_id": "v00000-s33207-i000",
+      "seed": 33207,
+      "gap_frames": 0,
+      "training_core_spikes": {
+        "forward": 1164,
+        "reverse": 1157,
+        "balanced": 1165
+      },
+      "templates": [
+        [
+          86,
+          93,
+          100,
+          104,
+          106,
+          107,
+          108,
+          148
+        ],
+        [
+          82,
+          90,
+          97,
+          98,
+          102,
+          103,
+          105,
+          111
+        ]
+      ],
+      "gates": {
+        "core": {
+          "original": false,
+          "fragments": false
+        },
+        "all": {
+          "original": false,
+          "fragments": false
+        }
+      },
+      "core_spike_effects": 0,
+      "all_spike_effects": 0,
+      "training_core_weight_changes": {
+        "forward": {
+          "changed_edges": 58,
+          "l1": 4.0397047996520996e-05,
+          "linf": 6.988644599914551e-06,
+          "changed_edges_with_original_cue_arrivals": 22
+        },
+        "reverse": {
+          "changed_edges": 57,
+          "l1": 3.11732292175293e-05,
+          "linf": 3.874301910400391e-06,
+          "changed_edges_with_original_cue_arrivals": 22
+        },
+        "balanced": {
+          "changed_edges": 58,
+          "l1": 3.167986869812012e-05,
+          "linf": 5.3942203521728516e-06,
+          "changed_edges_with_original_cue_arrivals": 22
+        }
+      },
+      "record_sha256": "6aed986e1f0d3846021e63499be8b80d2a738ee2489f31abde8e6bb99b8f6912",
+      "training_root_spike_total_per_arm": 1536,
+      "matched_reset_across_gaps": true,
+      "cue_to_target_contacts": {
+        "forward": {
+          "cue0": {
+            "correct": {
+              "arrived": 1,
+              "changed": 1
+            },
+            "other": {
+              "arrived": 2,
+              "changed": 2
+            }
+          },
+          "cue1": {
+            "correct": {
+              "arrived": 8,
+              "changed": 5
+            },
+            "other": {
+              "arrived": 1,
+              "changed": 0
+            }
+          }
+        },
+        "reverse": {
+          "cue0": {
+            "correct": {
+              "arrived": 2,
+              "changed": 2
+            },
+            "other": {
+              "arrived": 1,
+              "changed": 1
+            }
+          },
+          "cue1": {
+            "correct": {
+              "arrived": 1,
+              "changed": 0
+            },
+            "other": {
+              "arrived": 8,
+              "changed": 5
+            }
+          }
+        }
+      },
+      "changed_probe_sequences": {
+        "balanced_all": [],
+        "balanced_core": [],
+        "forward_all": [],
+        "forward_core": [],
+        "reverse_all": [],
+        "reverse_core": []
+      },
+      "forward_minus_reverse_core_l1": 3.032386302947998e-05
+    },
+    {
+      "job_id": "v00000-s33207-i001",
+      "seed": 33207,
+      "gap_frames": 2,
+      "training_core_spikes": {
+        "forward": 1154,
+        "reverse": 1152,
+        "balanced": 1155
+      },
+      "templates": [
+        [
+          86,
+          93,
+          100,
+          104,
+          106,
+          107,
+          108,
+          148
+        ],
+        [
+          82,
+          90,
+          97,
+          98,
+          102,
+          103,
+          105,
+          111
+        ]
+      ],
+      "gates": {
+        "core": {
+          "original": false,
+          "fragments": false
+        },
+        "all": {
+          "original": false,
+          "fragments": false
+        }
+      },
+      "core_spike_effects": 0,
+      "all_spike_effects": 0,
+      "training_core_weight_changes": {
+        "forward": {
+          "changed_edges": 56,
+          "l1": 3.1813979148864746e-05,
+          "linf": 8.374452590942383e-06,
+          "changed_edges_with_original_cue_arrivals": 22
+        },
+        "reverse": {
+          "changed_edges": 55,
+          "l1": 3.063678741455078e-05,
+          "linf": 4.038214683532715e-06,
+          "changed_edges_with_original_cue_arrivals": 22
+        },
+        "balanced": {
+          "changed_edges": 57,
+          "l1": 2.880394458770752e-05,
+          "linf": 6.22868537902832e-06,
+          "changed_edges_with_original_cue_arrivals": 22
+        }
+      },
+      "record_sha256": "bb1e0cdbff136777deeed63253a504da993eb0cec00d866140b72e675457f843",
+      "training_root_spike_total_per_arm": 1536,
+      "matched_reset_across_gaps": true,
+      "cue_to_target_contacts": {
+        "forward": {
+          "cue0": {
+            "correct": {
+              "arrived": 1,
+              "changed": 1
+            },
+            "other": {
+              "arrived": 2,
+              "changed": 2
+            }
+          },
+          "cue1": {
+            "correct": {
+              "arrived": 8,
+              "changed": 5
+            },
+            "other": {
+              "arrived": 1,
+              "changed": 0
+            }
+          }
+        },
+        "reverse": {
+          "cue0": {
+            "correct": {
+              "arrived": 2,
+              "changed": 2
+            },
+            "other": {
+              "arrived": 1,
+              "changed": 1
+            }
+          },
+          "cue1": {
+            "correct": {
+              "arrived": 1,
+              "changed": 0
+            },
+            "other": {
+              "arrived": 8,
+              "changed": 5
+            }
+          }
+        }
+      },
+      "changed_probe_sequences": {
+        "balanced_all": [],
+        "balanced_core": [],
+        "forward_all": [],
+        "forward_core": [],
+        "reverse_all": [],
+        "reverse_core": []
+      },
+      "forward_minus_reverse_core_l1": 1.315772533416748e-05
+    },
+    {
+      "job_id": "v00000-s33211-i000",
+      "seed": 33211,
+      "gap_frames": 0,
+      "training_core_spikes": {
+        "forward": 1156,
+        "reverse": 1210,
+        "balanced": 1188
+      },
+      "templates": [
+        [
+          85,
+          86,
+          106,
+          108
+        ],
+        [
+          96,
+          104,
+          105,
+          111,
+          152,
+          153,
+          160,
+          161
+        ]
+      ],
+      "gates": {
+        "core": {
+          "original": false,
+          "fragments": false
+        },
+        "all": {
+          "original": false,
+          "fragments": false
+        }
+      },
+      "core_spike_effects": 0,
+      "all_spike_effects": 0,
+      "training_core_weight_changes": {
+        "forward": {
+          "changed_edges": 97,
+          "l1": 0.0002024918794631958,
+          "linf": 1.971423625946045e-05,
+          "changed_edges_with_original_cue_arrivals": 22
+        },
+        "reverse": {
+          "changed_edges": 97,
+          "l1": 0.00022044777870178223,
+          "linf": 2.0101666450500488e-05,
+          "changed_edges_with_original_cue_arrivals": 21
+        },
+        "balanced": {
+          "changed_edges": 98,
+          "l1": 0.00023278594017028809,
+          "linf": 2.263486385345459e-05,
+          "changed_edges_with_original_cue_arrivals": 22
+        }
+      },
+      "record_sha256": "589ea0279e414690488b6df00ddb4231b4173ac2f6ee6227f2ff2ed242066d4a",
+      "training_root_spike_total_per_arm": 1536,
+      "matched_reset_across_gaps": true,
+      "cue_to_target_contacts": {
+        "forward": {
+          "cue0": {
+            "correct": {
+              "arrived": 2,
+              "changed": 1
+            },
+            "other": {
+              "arrived": 1,
+              "changed": 1
+            }
+          },
+          "cue1": {
+            "correct": {
+              "arrived": 5,
+              "changed": 4
+            },
+            "other": {
+              "arrived": 0,
+              "changed": 0
+            }
+          }
+        },
+        "reverse": {
+          "cue0": {
+            "correct": {
+              "arrived": 1,
+              "changed": 0
+            },
+            "other": {
+              "arrived": 2,
+              "changed": 1
+            }
+          },
+          "cue1": {
+            "correct": {
+              "arrived": 0,
+              "changed": 0
+            },
+            "other": {
+              "arrived": 5,
+              "changed": 3
+            }
+          }
+        }
+      },
+      "changed_probe_sequences": {
+        "balanced_all": [],
+        "balanced_core": [],
+        "forward_all": [],
+        "forward_core": [],
+        "reverse_all": [],
+        "reverse_core": []
+      },
+      "forward_minus_reverse_core_l1": 5.6609511375427246e-05
+    },
+    {
+      "job_id": "v00000-s33211-i001",
+      "seed": 33211,
+      "gap_frames": 2,
+      "training_core_spikes": {
+        "forward": 1161,
+        "reverse": 1172,
+        "balanced": 1169
+      },
+      "templates": [
+        [
+          85,
+          86,
+          106,
+          108
+        ],
+        [
+          96,
+          104,
+          105,
+          111,
+          152,
+          153,
+          160,
+          161
+        ]
+      ],
+      "gates": {
+        "core": {
+          "original": false,
+          "fragments": false
+        },
+        "all": {
+          "original": false,
+          "fragments": false
+        }
+      },
+      "core_spike_effects": 0,
+      "all_spike_effects": 0,
+      "training_core_weight_changes": {
+        "forward": {
+          "changed_edges": 97,
+          "l1": 0.00018115341663360596,
+          "linf": 1.7687678337097168e-05,
+          "changed_edges_with_original_cue_arrivals": 22
+        },
+        "reverse": {
+          "changed_edges": 96,
+          "l1": 0.00018377602100372314,
+          "linf": 1.9744038581848145e-05,
+          "changed_edges_with_original_cue_arrivals": 22
+        },
+        "balanced": {
+          "changed_edges": 96,
+          "l1": 0.00016689300537109375,
+          "linf": 1.6868114471435547e-05,
+          "changed_edges_with_original_cue_arrivals": 21
+        }
+      },
+      "record_sha256": "6651a00607e150e709c052b987e9b13e4b97c27bb9ce6e7d939bebfa24e2c04c",
+      "training_root_spike_total_per_arm": 1536,
+      "matched_reset_across_gaps": true,
+      "cue_to_target_contacts": {
+        "forward": {
+          "cue0": {
+            "correct": {
+              "arrived": 2,
+              "changed": 1
+            },
+            "other": {
+              "arrived": 1,
+              "changed": 1
+            }
+          },
+          "cue1": {
+            "correct": {
+              "arrived": 5,
+              "changed": 4
+            },
+            "other": {
+              "arrived": 0,
+              "changed": 0
+            }
+          }
+        },
+        "reverse": {
+          "cue0": {
+            "correct": {
+              "arrived": 1,
+              "changed": 1
+            },
+            "other": {
+              "arrived": 2,
+              "changed": 1
+            }
+          },
+          "cue1": {
+            "correct": {
+              "arrived": 0,
+              "changed": 0
+            },
+            "other": {
+              "arrived": 5,
+              "changed": 4
+            }
+          }
+        }
+      },
+      "changed_probe_sequences": {
+        "balanced_all": [],
+        "balanced_core": [],
+        "forward_all": [],
+        "forward_core": [],
+        "reverse_all": [],
+        "reverse_core": []
+      },
+      "forward_minus_reverse_core_l1": 4.410743713378906e-05
+    },
+    {
+      "job_id": "v00000-s33223-i000",
+      "seed": 33223,
+      "gap_frames": 0,
+      "training_core_spikes": {
+        "forward": 1142,
+        "reverse": 1139,
+        "balanced": 1142
+      },
+      "templates": [
+        [
+          79,
+          86,
+          94,
+          95,
+          100,
+          106,
+          107,
+          112,
+          148,
+          149
+        ],
+        [
+          91,
+          97,
+          104,
+          105
+        ]
+      ],
+      "gates": {
+        "core": {
+          "original": false,
+          "fragments": false
+        },
+        "all": {
+          "original": false,
+          "fragments": false
+        }
+      },
+      "core_spike_effects": 0,
+      "all_spike_effects": 0,
+      "training_core_weight_changes": {
+        "forward": {
+          "changed_edges": 86,
+          "l1": 0.00010024011135101318,
+          "linf": 1.284480094909668e-05,
+          "changed_edges_with_original_cue_arrivals": 21
+        },
+        "reverse": {
+          "changed_edges": 88,
+          "l1": 7.264316082000732e-05,
+          "linf": 1.093745231628418e-05,
+          "changed_edges_with_original_cue_arrivals": 22
+        },
+        "balanced": {
+          "changed_edges": 87,
+          "l1": 7.766485214233398e-05,
+          "linf": 1.2889504432678223e-05,
+          "changed_edges_with_original_cue_arrivals": 22
+        }
+      },
+      "record_sha256": "0b8a6b4671e75d36dd90e9bca9df233ef6615fd743a3876909527e4f971b5f10",
+      "training_root_spike_total_per_arm": 1536,
+      "matched_reset_across_gaps": true,
+      "cue_to_target_contacts": {
+        "forward": {
+          "cue0": {
+            "correct": {
+              "arrived": 2,
+              "changed": 1
+            },
+            "other": {
+              "arrived": 0,
+              "changed": 0
+            }
+          },
+          "cue1": {
+            "correct": {
+              "arrived": 5,
+              "changed": 4
+            },
+            "other": {
+              "arrived": 1,
+              "changed": 0
+            }
+          }
+        },
+        "reverse": {
+          "cue0": {
+            "correct": {
+              "arrived": 0,
+              "changed": 0
+            },
+            "other": {
+              "arrived": 2,
+              "changed": 1
+            }
+          },
+          "cue1": {
+            "correct": {
+              "arrived": 1,
+              "changed": 1
+            },
+            "other": {
+              "arrived": 5,
+              "changed": 4
+            }
+          }
+        }
+      },
+      "changed_probe_sequences": {
+        "balanced_all": [],
+        "balanced_core": [],
+        "forward_all": [],
+        "forward_core": [],
+        "reverse_all": [],
+        "reverse_core": []
+      },
+      "forward_minus_reverse_core_l1": 5.6177377700805664e-05
+    },
+    {
+      "job_id": "v00000-s33223-i001",
+      "seed": 33223,
+      "gap_frames": 2,
+      "training_core_spikes": {
+        "forward": 1120,
+        "reverse": 1150,
+        "balanced": 1134
+      },
+      "templates": [
+        [
+          79,
+          86,
+          94,
+          95,
+          100,
+          106,
+          107,
+          112,
+          148,
+          149
+        ],
+        [
+          91,
+          97,
+          104,
+          105
+        ]
+      ],
+      "gates": {
+        "core": {
+          "original": false,
+          "fragments": false
+        },
+        "all": {
+          "original": false,
+          "fragments": false
+        }
+      },
+      "core_spike_effects": 0,
+      "all_spike_effects": 0,
+      "training_core_weight_changes": {
+        "forward": {
+          "changed_edges": 85,
+          "l1": 9.362399578094482e-05,
+          "linf": 9.074807167053223e-06,
+          "changed_edges_with_original_cue_arrivals": 21
+        },
+        "reverse": {
+          "changed_edges": 85,
+          "l1": 9.256601333618164e-05,
+          "linf": 9.372830390930176e-06,
+          "changed_edges_with_original_cue_arrivals": 21
+        },
+        "balanced": {
+          "changed_edges": 85,
+          "l1": 8.578598499298096e-05,
+          "linf": 1.0505318641662598e-05,
+          "changed_edges_with_original_cue_arrivals": 21
+        }
+      },
+      "record_sha256": "e358643161a0da9ac84547a72ff4eb7b81ce2dad33ce7dcdc9a82f3b257cf1cc",
+      "training_root_spike_total_per_arm": 1536,
+      "matched_reset_across_gaps": true,
+      "cue_to_target_contacts": {
+        "forward": {
+          "cue0": {
+            "correct": {
+              "arrived": 2,
+              "changed": 1
+            },
+            "other": {
+              "arrived": 0,
+              "changed": 0
+            }
+          },
+          "cue1": {
+            "correct": {
+              "arrived": 5,
+              "changed": 4
+            },
+            "other": {
+              "arrived": 1,
+              "changed": 0
+            }
+          }
+        },
+        "reverse": {
+          "cue0": {
+            "correct": {
+              "arrived": 0,
+              "changed": 0
+            },
+            "other": {
+              "arrived": 2,
+              "changed": 1
+            }
+          },
+          "cue1": {
+            "correct": {
+              "arrived": 1,
+              "changed": 0
+            },
+            "other": {
+              "arrived": 5,
+              "changed": 4
+            }
+          }
+        }
+      },
+      "changed_probe_sequences": {
+        "balanced_all": [],
+        "balanced_core": [],
+        "forward_all": [],
+        "forward_core": [],
+        "reverse_all": [],
+        "reverse_core": []
+      },
+      "forward_minus_reverse_core_l1": 2.5078654289245605e-05
+    },
+    {
+      "job_id": "v00000-s33247-i000",
+      "seed": 33247,
+      "gap_frames": 0,
+      "training_core_spikes": {
+        "forward": 1224,
+        "reverse": 1248,
+        "balanced": 1236
+      },
+      "templates": [
+        [
+          73,
+          81,
+          90,
+          92,
+          93,
+          94,
+          99,
+          100,
+          102,
+          106,
+          108
+        ],
+        [
+          77,
+          91,
+          95,
+          98,
+          103,
+          104,
+          105,
+          109,
+          111,
+          112,
+          147
+        ]
+      ],
+      "gates": {
+        "core": {
+          "original": false,
+          "fragments": false
+        },
+        "all": {
+          "original": false,
+          "fragments": false
+        }
+      },
+      "core_spike_effects": 0,
+      "all_spike_effects": 0,
+      "training_core_weight_changes": {
+        "forward": {
+          "changed_edges": 46,
+          "l1": 2.2992491722106934e-05,
+          "linf": 7.033348083496094e-06,
+          "changed_edges_with_original_cue_arrivals": 8
+        },
+        "reverse": {
+          "changed_edges": 47,
+          "l1": 3.693997859954834e-05,
+          "linf": 1.887977123260498e-05,
+          "changed_edges_with_original_cue_arrivals": 8
+        },
+        "balanced": {
+          "changed_edges": 44,
+          "l1": 2.5585293769836426e-05,
+          "linf": 1.1876225471496582e-05,
+          "changed_edges_with_original_cue_arrivals": 7
+        }
+      },
+      "record_sha256": "ae0d0b63fe501b82a019794fdeab859065a8de1c124ed29b16f7c9eeca600c1c",
+      "training_root_spike_total_per_arm": 1536,
+      "matched_reset_across_gaps": true,
+      "cue_to_target_contacts": {
+        "forward": {
+          "cue0": {
+            "correct": {
+              "arrived": 5,
+              "changed": 2
+            },
+            "other": {
+              "arrived": 2,
+              "changed": 1
+            }
+          },
+          "cue1": {
+            "correct": {
+              "arrived": 8,
+              "changed": 4
+            },
+            "other": {
+              "arrived": 2,
+              "changed": 1
+            }
+          }
+        },
+        "reverse": {
+          "cue0": {
+            "correct": {
+              "arrived": 2,
+              "changed": 1
+            },
+            "other": {
+              "arrived": 5,
+              "changed": 2
+            }
+          },
+          "cue1": {
+            "correct": {
+              "arrived": 2,
+              "changed": 1
+            },
+            "other": {
+              "arrived": 8,
+              "changed": 4
+            }
+          }
+        }
+      },
+      "changed_probe_sequences": {
+        "balanced_all": [],
+        "balanced_core": [],
+        "forward_all": [],
+        "forward_core": [],
+        "reverse_all": [],
+        "reverse_core": []
+      },
+      "forward_minus_reverse_core_l1": 3.275275230407715e-05
+    },
+    {
+      "job_id": "v00000-s33247-i001",
+      "seed": 33247,
+      "gap_frames": 2,
+      "training_core_spikes": {
+        "forward": 1236,
+        "reverse": 1232,
+        "balanced": 1232
+      },
+      "templates": [
+        [
+          73,
+          81,
+          90,
+          92,
+          93,
+          94,
+          99,
+          100,
+          102,
+          106,
+          108
+        ],
+        [
+          77,
+          91,
+          95,
+          98,
+          103,
+          104,
+          105,
+          109,
+          111,
+          112,
+          147
+        ]
+      ],
+      "gates": {
+        "core": {
+          "original": false,
+          "fragments": false
+        },
+        "all": {
+          "original": false,
+          "fragments": false
+        }
+      },
+      "core_spike_effects": 0,
+      "all_spike_effects": 0,
+      "training_core_weight_changes": {
+        "forward": {
+          "changed_edges": 42,
+          "l1": 4.3585896492004395e-05,
+          "linf": 1.9341707229614258e-05,
+          "changed_edges_with_original_cue_arrivals": 7
+        },
+        "reverse": {
+          "changed_edges": 43,
+          "l1": 3.604590892791748e-05,
+          "linf": 1.755356788635254e-05,
+          "changed_edges_with_original_cue_arrivals": 7
+        },
+        "balanced": {
+          "changed_edges": 43,
+          "l1": 3.851950168609619e-05,
+          "linf": 1.7762184143066406e-05,
+          "changed_edges_with_original_cue_arrivals": 7
+        }
+      },
+      "record_sha256": "d38a75949ca9b75e27169ea1e5237dae77eed3783ecceb08630023751d21fafe",
+      "training_root_spike_total_per_arm": 1536,
+      "matched_reset_across_gaps": true,
+      "cue_to_target_contacts": {
+        "forward": {
+          "cue0": {
+            "correct": {
+              "arrived": 5,
+              "changed": 1
+            },
+            "other": {
+              "arrived": 2,
+              "changed": 1
+            }
+          },
+          "cue1": {
+            "correct": {
+              "arrived": 8,
+              "changed": 4
+            },
+            "other": {
+              "arrived": 2,
+              "changed": 0
+            }
+          }
+        },
+        "reverse": {
+          "cue0": {
+            "correct": {
+              "arrived": 2,
+              "changed": 1
+            },
+            "other": {
+              "arrived": 5,
+              "changed": 1
+            }
+          },
+          "cue1": {
+            "correct": {
+              "arrived": 2,
+              "changed": 0
+            },
+            "other": {
+              "arrived": 8,
+              "changed": 4
+            }
+          }
+        }
+      },
+      "changed_probe_sequences": {
+        "balanced_all": [],
+        "balanced_core": [],
+        "forward_all": [],
+        "forward_core": [],
+        "reverse_all": [],
+        "reverse_core": []
+      },
+      "forward_minus_reverse_core_l1": 1.093745231628418e-05
+    },
+    {
+      "job_id": "v00000-s33287-i000",
+      "seed": 33287,
+      "gap_frames": 0,
+      "training_core_spikes": {
+        "forward": 1141,
+        "reverse": 1157,
+        "balanced": 1150
+      },
+      "templates": [
+        [
+          86,
+          92,
+          102,
+          110,
+          155
+        ],
+        [
+          82,
+          97,
+          98,
+          101,
+          103,
+          109,
+          112
+        ]
+      ],
+      "gates": {
+        "core": {
+          "original": false,
+          "fragments": false
+        },
+        "all": {
+          "original": false,
+          "fragments": false
+        }
+      },
+      "core_spike_effects": 0,
+      "all_spike_effects": 0,
+      "training_core_weight_changes": {
+        "forward": {
+          "changed_edges": 33,
+          "l1": 7.240474224090576e-05,
+          "linf": 1.3574957847595215e-05,
+          "changed_edges_with_original_cue_arrivals": 15
+        },
+        "reverse": {
+          "changed_edges": 33,
+          "l1": 6.19739294052124e-05,
+          "linf": 1.3574957847595215e-05,
+          "changed_edges_with_original_cue_arrivals": 15
+        },
+        "balanced": {
+          "changed_edges": 33,
+          "l1": 6.549060344696045e-05,
+          "linf": 1.3574957847595215e-05,
+          "changed_edges_with_original_cue_arrivals": 15
+        }
+      },
+      "record_sha256": "7b459536bc24e276c1605f478d06772b87dec4a971603b7acecb90e5b15b8bb3",
+      "training_root_spike_total_per_arm": 1536,
+      "matched_reset_across_gaps": true,
+      "cue_to_target_contacts": {
+        "forward": {
+          "cue0": {
+            "correct": {
+              "arrived": 0,
+              "changed": 0
+            },
+            "other": {
+              "arrived": 0,
+              "changed": 0
+            }
+          },
+          "cue1": {
+            "correct": {
+              "arrived": 6,
+              "changed": 2
+            },
+            "other": {
+              "arrived": 2,
+              "changed": 0
+            }
+          }
+        },
+        "reverse": {
+          "cue0": {
+            "correct": {
+              "arrived": 0,
+              "changed": 0
+            },
+            "other": {
+              "arrived": 0,
+              "changed": 0
+            }
+          },
+          "cue1": {
+            "correct": {
+              "arrived": 2,
+              "changed": 0
+            },
+            "other": {
+              "arrived": 6,
+              "changed": 2
+            }
+          }
+        }
+      },
+      "changed_probe_sequences": {
+        "balanced_all": [],
+        "balanced_core": [],
+        "forward_all": [],
+        "forward_core": [],
+        "reverse_all": [],
+        "reverse_core": []
+      },
+      "forward_minus_reverse_core_l1": 2.5540590286254883e-05
+    },
+    {
+      "job_id": "v00000-s33287-i001",
+      "seed": 33287,
+      "gap_frames": 2,
+      "training_core_spikes": {
+        "forward": 1151,
+        "reverse": 1147,
+        "balanced": 1150
+      },
+      "templates": [
+        [
+          86,
+          92,
+          102,
+          110,
+          155
+        ],
+        [
+          82,
+          97,
+          98,
+          101,
+          103,
+          109,
+          112
+        ]
+      ],
+      "gates": {
+        "core": {
+          "original": false,
+          "fragments": false
+        },
+        "all": {
+          "original": false,
+          "fragments": false
+        }
+      },
+      "core_spike_effects": 0,
+      "all_spike_effects": 0,
+      "training_core_weight_changes": {
+        "forward": {
+          "changed_edges": 32,
+          "l1": 6.386637687683105e-05,
+          "linf": 1.3574957847595215e-05,
+          "changed_edges_with_original_cue_arrivals": 14
+        },
+        "reverse": {
+          "changed_edges": 33,
+          "l1": 5.163252353668213e-05,
+          "linf": 8.612871170043945e-06,
+          "changed_edges_with_original_cue_arrivals": 15
+        },
+        "balanced": {
+          "changed_edges": 33,
+          "l1": 5.424022674560547e-05,
+          "linf": 1.0877847671508789e-05,
+          "changed_edges_with_original_cue_arrivals": 15
+        }
+      },
+      "record_sha256": "61f5dcc33f86ff523a062c63538d52edca95db96c43a979c1ec945801eb61784",
+      "training_root_spike_total_per_arm": 1536,
+      "matched_reset_across_gaps": true,
+      "cue_to_target_contacts": {
+        "forward": {
+          "cue0": {
+            "correct": {
+              "arrived": 0,
+              "changed": 0
+            },
+            "other": {
+              "arrived": 0,
+              "changed": 0
+            }
+          },
+          "cue1": {
+            "correct": {
+              "arrived": 6,
+              "changed": 1
+            },
+            "other": {
+              "arrived": 2,
+              "changed": 0
+            }
+          }
+        },
+        "reverse": {
+          "cue0": {
+            "correct": {
+              "arrived": 0,
+              "changed": 0
+            },
+            "other": {
+              "arrived": 0,
+              "changed": 0
+            }
+          },
+          "cue1": {
+            "correct": {
+              "arrived": 2,
+              "changed": 0
+            },
+            "other": {
+              "arrived": 6,
+              "changed": 2
+            }
+          }
+        }
+      },
+      "changed_probe_sequences": {
+        "balanced_all": [],
+        "balanced_core": [],
+        "forward_all": [],
+        "forward_core": [],
+        "reverse_all": [],
+        "reverse_core": []
+      },
+      "forward_minus_reverse_core_l1": 3.3482909202575684e-05
+    }
+  ]
+}
