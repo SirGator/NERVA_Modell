@@ -5,11 +5,20 @@ import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from contingency_consolidation_analysis import RULES, archive_training, publish, replay_edge
+from contingency_consolidation_analysis import (
+    RULES, archive_training, publish, recency_relay_source, replay_edge,
+)
 from contingency_electrical_analysis import f32
 
 
 class ContingencyConsolidationTest(unittest.TestCase):
+    def test_reactivated_edge_id_resolves_to_its_archived_source_cell(self):
+        focus = {1394: (153, 105, 1000)}
+        self.assertEqual(recency_relay_source(34123, focus), 153)
+        self.assertIsNone(recency_relay_source(34127, focus))
+        with self.assertRaisesRegex(ValueError, 'differs from archived focus'):
+            recency_relay_source(34123, {1394: (1394, 105, 1000)})
+
     def test_publication_preserves_signed_subulp_mass_and_clips_at_bounds(self):
         weight, carry, clipped = publish(.5, 0., 1e-10, True)
         self.assertEqual((weight, carry, clipped), (.5, 1e-10, 0.))

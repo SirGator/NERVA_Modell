@@ -30,11 +30,20 @@ OBSERVATIONS = {'arrivals', 'tag_events', 'quiet_integrations'}
 RULES = {'eligibility_tau_us': 500_000., 'learning_rate': 1.,
          'max_abs_eligibility': 10., 'weight_update_mode': 'accumulated'}
 COMPARISON_FIELDS = ('net_tag_integral', 'net_requested', 'net_actual', 'residual')
-RECENCY_RELAY = 1394
+RECENCY_SEED = 34123
+RECENCY_EDGE = 1394
 
 
 def bounded(value, low, high):
     return min(high, max(low, value))
+
+
+def recency_relay_source(seed, focus):
+    if seed != RECENCY_SEED:
+        return None
+    require(focus.get(RECENCY_EDGE) == (153, 105, 1000),
+            'reactivated relay edge differs from archived focus')
+    return focus[RECENCY_EDGE][0]
 
 
 def publish(weight, residual, request, accumulated):
@@ -288,7 +297,8 @@ def analyze_record(raw, source, exploration, checksum):
 
     mappings, roots, relay = {}, {}, {}
     checkpoints = []
-    relay_terminals = [edge for edge, (pre, _, _) in focus.items() if pre == RECENCY_RELAY]
+    relay_source = recency_relay_source(seed, focus)
+    relay_terminals = [edge for edge, (pre, _, _) in focus.items() if pre == relay_source]
     for mapping in CONTROLS:
         raw_mapping = raw['mappings'][mapping]
         trial = raw_mapping['training']
@@ -309,10 +319,10 @@ def analyze_record(raw, source, exploration, checksum):
         if relay_terminals:
             relay[mapping] = {
                 'terminal_edges': relay_terminals,
-                'core_spike_times_us': training_spikes(trial['frames']).get(RECENCY_RELAY, []),
+                'core_spike_times_us': training_spikes(trial['frames']).get(relay_source, []),
                 'recorded_exploratory_inputs': [
                     {'synapse_id': edge, **info, 'deliveries': deliveries.get(edge, [])}
-                    for edge, info in expansion.items() if info['target'] == RECENCY_RELAY
+                    for edge, info in expansion.items() if info['target'] == relay_source
                 ],
             }
         raw_history = raw_mapping['history']

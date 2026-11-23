@@ -24,6 +24,7 @@ eine balancierte Belichtung dienen als Kontrollen.
 [Strukturplastizität und Abruf aus dem trainierten Zustand](CONTINGENCY_STRUCTURAL_RESULTS_20261123.md).
 [Kandidatenscores und Nutzungszeitgeber an den Wartungszeitpunkten](CONTINGENCY_STRUCTURAL_DECISIONS_RESULTS_20261123.md).
 [Explorative Synapsenbildung und Kantenerhalt im Gegenversuch](CONTINGENCY_STRUCTURAL_EXPLORATION_RESULTS_20261123.md).
+[Gewichtskonsolidierung nach Rekrutierung stiller Relais](CONTINGENCY_CONSOLIDATION_RESULTS_20261123.md).
 
 [MLD-03](MLD03.md) trennt Gewichtswirkung von künstlich veränderter Core-Schwelle
 und Integrationszeit. Ein zweiter Abschnitt vergleicht Sensor-/Core-Homöostase
