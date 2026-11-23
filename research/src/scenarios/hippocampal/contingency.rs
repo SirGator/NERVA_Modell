@@ -25,6 +25,7 @@ pub struct ContingencyScenario;
 pub mod capacity;
 mod chemical;
 mod electrical;
+pub mod live_rate;
 pub use chemical::replay_chemical;
 pub use electrical::replay_electrical;
 const PROTOCOL: &str = "NERVA-Visual-Contingency/1";

@@ -654,6 +654,16 @@ impl Model {
         Ok(self.simulation.clear_synaptic_learning_eligibility()?)
     }
 
+    /// Select local rate compensation on an otherwise identical frozen branch.
+    /// The existing learned weights, eligibility and nearest-pair state are retained.
+    pub fn diagnostic_pair_rate_correction(&mut self, tau_us: Option<f32>) -> Result<()> {
+        if self.config.learning || self.config.development || self.config.homeostasis {
+            return Err("pair-rate configuration requires frozen rules".into());
+        }
+        self.simulation.configure_pair_rate_correction(tau_us)?;
+        Ok(())
+    }
+
     pub fn processing_ids(&self) -> &[NeuronId] {
         &self.processing
     }
