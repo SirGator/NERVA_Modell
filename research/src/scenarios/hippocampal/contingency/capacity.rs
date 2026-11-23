@@ -21,7 +21,7 @@ pub use eligibility::replay_eligibility;
 pub use homeostasis::replay_homeostasis;
 use routes::{Edge, Routes, routes};
 pub use structural::{
-    replay_grown_dose, replay_structural, replay_structural_consolidation,
+    replay_grown_dose, replay_grown_residual, replay_structural, replay_structural_consolidation,
     replay_structural_decisions, replay_structural_exploration,
 };
 

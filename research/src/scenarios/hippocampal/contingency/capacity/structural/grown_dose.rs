@@ -20,6 +20,9 @@ const MARGIN: f64 = 0.90;
 const REFERENCE_NAMES: [&str; 2] = ["reference_forward", "reference_reverse"];
 type Directions = BTreeMap<&'static str, Vec<f64>>;
 
+mod residual;
+pub use residual::replay_grown_residual;
+
 fn mixed(state: &mut u64) -> u64 {
     *state = state.wrapping_add(0x9e37_79b9_7f4a_7c15);
     let value = (*state ^ (*state >> 30)).wrapping_mul(0xbf58_476d_1ce4_e5b9);
@@ -188,23 +191,34 @@ impl Carrier<'_> {
     }
 }
 
-fn run(source: &Value, archive: &Value, checksum: &str) -> Result<Value> {
-    let (config, seed) = recorded_config(source)?;
-    let (assay, development, _) = build(&config, seed)?;
-    let details = &source["details"];
+fn verify_checkpoint(
+    assay: &Assay<'_>,
+    details: &Value,
+    development: &Value,
+    archive: &Value,
+    checksum: &str,
+) -> Result<()> {
     if archive["protocol"] != CONSOLIDATION
         || archive["replay_verified"] != true
         || archive["archived_record_checksum"] != checksum
-        || archive["seed"] != seed
+        || archive["seed"] != assay.seed
         || archive["checkpoint_time_us"] != development["checkpoint_time_us"]
         || archive["core_ids"] != json!(assay.core)
-        || details["development"] != development
+        || details["development"] != *development
         || details["topology"] != json!(assay.topology())
     {
         return Err(error(
             "grown dose inputs differ from archived consolidation",
         ));
     }
+    Ok(())
+}
+
+fn make_carrier<'a>(
+    assay: &'a Assay<'a>,
+    archive: &Value,
+    targets: &Targets,
+) -> Result<Carrier<'a>> {
     let mut focus = BTreeSet::new();
     let mut quiet = BTreeSet::new();
     for mapping in MAPPINGS {
@@ -217,7 +231,7 @@ fn run(source: &Value, archive: &Value, checksum: &str) -> Result<Value> {
         );
     }
     let (parent, training) = train(
-        &assay,
+        assay,
         "balanced",
         STRUCTURE,
         Some((&focus, &quiet)),
@@ -229,15 +243,44 @@ fn run(source: &Value, archive: &Value, checksum: &str) -> Result<Value> {
             "grown carrier differs from archived balanced training",
         ));
     }
+    Ok(Carrier {
+        assay,
+        parent,
+        targets: targets.iter().flatten().copied().collect(),
+    })
+}
+
+fn plan_at(tier: &str, base: &Weights, direction: &[f64], dose: f64) -> Result<(Weights, Value)> {
+    if tier == "ray" {
+        let normalized = plan(base, direction, dose);
+        if normalized.details["faithful"] != true {
+            return Err(error("published ray is not direction-faithful"));
+        }
+        Ok((normalized.weights.unwrap(), normalized.details))
+    } else {
+        bounded_plan(base, direction, dose)
+    }
+}
+
+fn run(source: &Value, archive: &Value, checksum: &str) -> Result<Value> {
+    let (config, seed) = recorded_config(source)?;
+    let (assay, development, _) = build(&config, seed)?;
+    let details = &source["details"];
+    verify_checkpoint(&assay, details, &development, archive, checksum)?;
     let targets: Targets =
         serde_json::from_value(details["target_groups"].clone()).map_err(fail)?;
-    let grown = json!(topology(&parent));
+    let carrier = make_carrier(&assay, archive, &targets)?;
+    let grown = json!(topology(&carrier.parent));
     let support: Vec<_> = assay.edges.iter().filter(|edge| edge.eligible).collect();
     let base: Weights = support
         .iter()
         .map(|edge| {
             let id = SynapseId(edge.id);
-            let synapse = parent.network().synapse(id).expect("initial edge retained");
+            let synapse = carrier
+                .parent
+                .network()
+                .synapse(id)
+                .expect("initial edge retained");
             (id, synapse.weight().get())
         })
         .collect();
@@ -345,11 +388,6 @@ fn run(source: &Value, archive: &Value, checksum: &str) -> Result<Value> {
     {
         return Err(error("invalid common grown-dose bounds"));
     }
-    let carrier = Carrier {
-        assay: &assay,
-        parent,
-        targets: targets.iter().flatten().copied().collect(),
-    };
     let baseline = carrier.observe(&base, None)?;
     let reference_full = full_reference
         .into_iter()
@@ -366,15 +404,7 @@ fn run(source: &Value, archive: &Value, checksum: &str) -> Result<Value> {
     for (tier, dose) in [("ray", common_ray), ("bounded", common_bounded)] {
         let mut arms = BTreeMap::new();
         for (&name, direction) in available() {
-            let (weights, evidence) = if tier == "ray" {
-                let normalized = plan(&base, direction, dose);
-                if normalized.details["faithful"] != true {
-                    return Err(error("published ray is not direction-faithful"));
-                }
-                (normalized.weights.unwrap(), normalized.details)
-            } else {
-                bounded_plan(&base, direction, dose)?
-            };
+            let (weights, evidence) = plan_at(tier, &base, direction, dose)?;
             let mut data = carrier.observe(&weights, Some(&baseline))?;
             data["plan"] = evidence;
             arms.insert(name, data);
