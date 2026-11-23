@@ -1,0 +1,328 @@
+{
+  "protocol": "NERVA-Contingency-B-Factor/1",
+  "cohort_size": 4,
+  "source_commits": {
+    "library": "9d602201f9fb9ea39d5ba71e0e9f6a8801654c5c",
+    "model": "ea82ac8f7eeb8990641eb910357ceef0426a52f6"
+  },
+  "conditions": {
+    "intact": {
+      "eligible_cases": 16,
+      "passed_cases": 1,
+      "frozen_probe_pairs": 36,
+      "different_core_spike_sequences": 0,
+      "correct_pool_delta_histogram": {
+        "0": 16
+      }
+    },
+    "restore_old": {
+      "eligible_cases": 16,
+      "passed_cases": 1,
+      "frozen_probe_pairs": 36,
+      "different_core_spike_sequences": 0,
+      "correct_pool_delta_histogram": {
+        "0": 16
+      }
+    },
+    "block_new": {
+      "eligible_cases": 16,
+      "passed_cases": 0,
+      "frozen_probe_pairs": 36,
+      "different_core_spike_sequences": 24,
+      "correct_pool_delta_histogram": {
+        "-2": 2,
+        "-1": 2,
+        "0": 12
+      }
+    },
+    "restore_and_block": {
+      "eligible_cases": 16,
+      "passed_cases": 0,
+      "frozen_probe_pairs": 36,
+      "different_core_spike_sequences": 24,
+      "correct_pool_delta_histogram": {
+        "-2": 2,
+        "-1": 2,
+        "0": 12
+      }
+    },
+    "block_terminal": {
+      "eligible_cases": 16,
+      "passed_cases": 0,
+      "frozen_probe_pairs": 36,
+      "different_core_spike_sequences": 9,
+      "correct_pool_delta_histogram": {
+        "-2": 2,
+        "-1": 2,
+        "0": 12
+      }
+    },
+    "block_nonterminal": {
+      "eligible_cases": 16,
+      "passed_cases": 1,
+      "frozen_probe_pairs": 36,
+      "different_core_spike_sequences": 24,
+      "correct_pool_delta_histogram": {
+        "0": 16
+      }
+    }
+  },
+  "records": [
+    {
+      "job_id": "v00000-s34211-i000",
+      "seed": 34211,
+      "archived_record_checksum": "4a31d708ab9f1270",
+      "input_sha256": "81a253e0a4468ec4b6721a787ed8f7c0edf603453861022e3850aeb300dbaf37",
+      "raw_sha256": "b11c54b2c248b5ee2307d8e27e8f9928faab6de60e01fcfec598395bc25e1e66",
+      "target_sizes": [
+        2,
+        6
+      ]
+    },
+    {
+      "job_id": "v00000-s34223-i000",
+      "seed": 34223,
+      "archived_record_checksum": "c6053f57fc83be99",
+      "input_sha256": "28542c39c152d4535b6c9bf5ce2ba0b725c0b77d57369bc5daedd8800ce9b665",
+      "raw_sha256": "adb4e1f65cfac2e3968cfc572664c8d9d2779eaa1030d260cc5ef5691c88b1b0",
+      "target_sizes": [
+        3,
+        7
+      ]
+    },
+    {
+      "job_id": "v00000-s34237-i000",
+      "seed": 34237,
+      "archived_record_checksum": "1f65da2dbc6b8434",
+      "input_sha256": "2a3834e5691e531570fd9186f98ebe6e6299f67c61998935395bcc2e5acfdc76",
+      "raw_sha256": "adfd8530f6274df998181111ae1518bc933c7b00246dd0f34d67de0ae6ff926c",
+      "target_sizes": [
+        7,
+        2
+      ]
+    },
+    {
+      "job_id": "v00000-s34253-i000",
+      "seed": 34253,
+      "archived_record_checksum": "7827727196a3eeee",
+      "input_sha256": "ec9679671f7ec83b2e2541434846238baa55a11c0f08b1188edec3bbdb0ca2bd",
+      "raw_sha256": "a8eb683512eb8b8ac14cc34bf046f92b6f256aed20a1d4f14e1e106c5c401111",
+      "target_sizes": [
+        4,
+        12
+      ]
+    }
+  ],
+  "observed_reference": {
+    "seed": 34223,
+    "mapping": "reverse",
+    "cue": "cue_b0",
+    "gates": {
+      "intact": {
+        "correct": 2,
+        "wrong": 0,
+        "reset": 0,
+        "opposite": 1,
+        "balanced": 0,
+        "before_b": 0,
+        "quiet": true,
+        "eligible": true,
+        "passed": true
+      },
+      "restore_old": {
+        "correct": 2,
+        "wrong": 0,
+        "reset": 0,
+        "opposite": 1,
+        "balanced": 0,
+        "before_b": 0,
+        "quiet": true,
+        "eligible": true,
+        "passed": true
+      },
+      "block_new": {
+        "correct": 0,
+        "wrong": 0,
+        "reset": 0,
+        "opposite": 0,
+        "balanced": 0,
+        "before_b": 0,
+        "quiet": true,
+        "eligible": true,
+        "passed": false
+      },
+      "restore_and_block": {
+        "correct": 0,
+        "wrong": 0,
+        "reset": 0,
+        "opposite": 0,
+        "balanced": 0,
+        "before_b": 0,
+        "quiet": true,
+        "eligible": true,
+        "passed": false
+      },
+      "block_terminal": {
+        "correct": 0,
+        "wrong": 0,
+        "reset": 0,
+        "opposite": 0,
+        "balanced": 0,
+        "before_b": 0,
+        "quiet": true,
+        "eligible": true,
+        "passed": false
+      },
+      "block_nonterminal": {
+        "correct": 2,
+        "wrong": 0,
+        "reset": 0,
+        "opposite": 1,
+        "balanced": 0,
+        "before_b": 0,
+        "quiet": true,
+        "eligible": true,
+        "passed": true
+      }
+    },
+    "correct_pool_contrasts": {
+      "restore_with_new": 0,
+      "restore_without_new": 0,
+      "block_with_b_weights": 2,
+      "block_with_a_weights": 2,
+      "interaction": 0,
+      "block_terminal": 2,
+      "block_nonterminal": 0
+    },
+    "replay": {
+      "intact": {
+        "target_events_since_probe_us": [
+          [
+            94,
+            27001
+          ],
+          [
+            94,
+            52001
+          ]
+        ],
+        "all_core_events": 26,
+        "blank_core_events": 0,
+        "block_count": 0,
+        "restore_count": 0,
+        "arrived_b_born_edges": [
+          1669,
+          1671,
+          1672,
+          1673,
+          1678,
+          1680,
+          1701,
+          1705
+        ],
+        "arrived_b_born_terminal_edges": [
+          1672,
+          1673,
+          1678,
+          1680
+        ]
+      },
+      "restore_old": {
+        "target_events_since_probe_us": [
+          [
+            94,
+            27001
+          ],
+          [
+            94,
+            52001
+          ]
+        ],
+        "all_core_events": 26,
+        "blank_core_events": 0,
+        "block_count": 0,
+        "restore_count": 393,
+        "arrived_b_born_edges": [
+          1669,
+          1671,
+          1672,
+          1673,
+          1678,
+          1680,
+          1701,
+          1705
+        ],
+        "arrived_b_born_terminal_edges": [
+          1672,
+          1673,
+          1678,
+          1680
+        ]
+      },
+      "block_new": {
+        "target_events_since_probe_us": [],
+        "all_core_events": 25,
+        "blank_core_events": 0,
+        "block_count": 51,
+        "restore_count": 0,
+        "arrived_b_born_edges": [],
+        "arrived_b_born_terminal_edges": []
+      },
+      "restore_and_block": {
+        "target_events_since_probe_us": [],
+        "all_core_events": 25,
+        "blank_core_events": 0,
+        "block_count": 51,
+        "restore_count": 393,
+        "arrived_b_born_edges": [],
+        "arrived_b_born_terminal_edges": []
+      },
+      "block_terminal": {
+        "target_events_since_probe_us": [],
+        "all_core_events": 24,
+        "blank_core_events": 0,
+        "block_count": 16,
+        "restore_count": 0,
+        "arrived_b_born_edges": [
+          1669,
+          1671,
+          1701,
+          1705
+        ],
+        "arrived_b_born_terminal_edges": []
+      },
+      "block_nonterminal": {
+        "target_events_since_probe_us": [
+          [
+            94,
+            27001
+          ],
+          [
+            94,
+            52001
+          ]
+        ],
+        "all_core_events": 27,
+        "blank_core_events": 0,
+        "block_count": 35,
+        "restore_count": 0,
+        "arrived_b_born_edges": [
+          1672,
+          1673,
+          1678,
+          1680
+        ],
+        "arrived_b_born_terminal_edges": [
+          1672,
+          1673,
+          1678,
+          1680
+        ]
+      }
+    }
+  },
+  "local_archive": {
+    "path": "research/results/archives/visual_contingency_b_factor_20261123.zip",
+    "sha256": "e8449cfd122a06ccc3b195724e209d835181920a17a3953f06160c9534a0776a"
+  }
+}
