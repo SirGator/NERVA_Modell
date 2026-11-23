@@ -15,6 +15,9 @@ use nerva_vm::model::{
 use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 
+mod b_factor;
+pub use b_factor::replay_b_factor;
+
 pub struct LiveRateScenario;
 const PROTOCOL: &str = "NERVA-Contingency-Live-Rate/1";
 const RATE_TAU_US: f32 = 2_000_000.;

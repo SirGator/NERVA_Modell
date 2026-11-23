@@ -194,10 +194,18 @@ fn probe(
     c: &Config,
     stimulus: &Frame,
     blank: &Frame,
-    mut trace: Option<&mut electrical::Trace<'_>>,
+    trace: Option<&mut electrical::Trace<'_>>,
 ) -> Result<Response> {
     let before = model.network().clone();
-    let mut remaining = c.rest_us;
+    let rest_core_spikes = wait_probe_rest(model, c.rest_us, blank)?;
+    let response = observe_probe(model, stimulus, blank, rest_core_spikes, trace)?;
+    if !learned_parameters_equal(&before, model.network()) {
+        return Err(error("contingency probe changed learned parameters"));
+    }
+    Ok(response)
+}
+
+fn wait_probe_rest(model: &mut Model, mut remaining: u64, blank: &Frame) -> Result<usize> {
     let mut rest_core_spikes = 0;
     while remaining != 0 {
         let duration = remaining.min(WINDOW_US);
@@ -205,6 +213,16 @@ fn probe(
         rest_core_spikes += step.core_events.len();
         remaining -= duration;
     }
+    Ok(rest_core_spikes)
+}
+
+fn observe_probe(
+    model: &mut Model,
+    stimulus: &Frame,
+    blank: &Frame,
+    rest_core_spikes: usize,
+    mut trace: Option<&mut electrical::Trace<'_>>,
+) -> Result<Response> {
     let mut response = Response {
         start_us: model.next_observation_us(),
         rest_core_spikes,
@@ -233,9 +251,6 @@ fn probe(
         }
     }
     model.set_dynamics_auditing(false);
-    if !learned_parameters_equal(&before, model.network()) {
-        return Err(error("contingency probe changed learned parameters"));
-    }
     Ok(response)
 }
 
