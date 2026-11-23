@@ -5,6 +5,7 @@ use super::{
     causal::verify_only_weights,
     fail,
     mld02::{atlas::get_weights, interaction::checkpoint},
+    multilevel::tape::Tape,
 };
 use crate::{
     Result, error,
@@ -21,7 +22,9 @@ use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 
 pub struct ContingencyScenario;
+mod chemical;
 mod electrical;
+pub use chemical::replay_chemical;
 pub use electrical::replay_electrical;
 const PROTOCOL: &str = "NERVA-Visual-Contingency/1";
 const CUES: [&str; 2] = ["cue0", "cue1"];
@@ -112,7 +115,16 @@ fn observe(model: &mut Model, frame: &Frame) -> Result<(Step, Spikes, InputAudit
     Ok((step, root, audit))
 }
 
-fn train(model: &mut Model, order: &[&str], frames: &BTreeMap<&str, Frame>) -> Result<Value> {
+fn train(
+    model: &mut Model,
+    order: &[&str],
+    frames: &BTreeMap<&str, Frame>,
+    mut tape: Option<&mut Tape>,
+) -> Result<Value> {
+    if let Some(tape) = &mut tape {
+        tape.initialize_from_checkpoint(model);
+        model.enable_learning_replay_audit(100_000).map_err(fail)?;
+    }
     model
         .set_plasticity(PlasticitySettings {
             learning: true,
@@ -121,16 +133,28 @@ fn train(model: &mut Model, order: &[&str], frames: &BTreeMap<&str, Frame>) -> R
         })
         .map_err(fail)?;
     model.enable_audit(AuditOptions {
-        raw_events: false,
+        raw_events: tape.is_some(),
         input_spikes: true,
     });
     let mut rows = Vec::with_capacity(order.len());
     for &stimulus in order {
-        let (step, root_spikes, _) = observe(model, &frames[stimulus])?;
+        let (step, root_spikes, audit) = observe(model, &frames[stimulus])?;
+        if let Some(tape) = &mut tape {
+            tape.add(&audit, &model.take_learning_audit().map_err(fail)?)?;
+        }
         rows.push(
             json!({"stimulus":stimulus,"start_us":step.start_us,"root_spikes":root_spikes,
             "core_spikes":step.core_events,"weight_changes":step.weight_changes}),
         );
+    }
+    if tape.is_some() {
+        let pending = model.disable_learning_audit().map_err(fail)?;
+        if !pending.events.is_empty()
+            || !pending.boundaries.is_empty()
+            || !pending.delayed.is_empty()
+        {
+            return Err(error("undrained contingency training audit"));
+        }
     }
     model.freeze().map_err(fail)?;
     Ok(json!(rows))
@@ -283,7 +307,7 @@ fn run(c: &Config, seed: u64, gap: usize) -> Result<TrialMetrics> {
         if !reference.same_replay_state(&model) {
             return Err(error("contingency training checkpoints differ"));
         }
-        let rows = train(&mut model, &schedule(c, seed, mapping, gap), &frames)?;
+        let rows = train(&mut model, &schedule(c, seed, mapping, gap), &frames, None)?;
         let learned = get_weights(&model);
         if !initial.iter().map(|x| x.0).eq(learned.iter().map(|x| x.0)) {
             return Err(error("contingency training topology differs"));

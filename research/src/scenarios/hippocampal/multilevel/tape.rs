@@ -14,12 +14,18 @@ const LIMIT: usize = 2_000_000;
 #[derive(Default)]
 pub(in crate::scenarios::hippocampal) struct Tape {
     initial: Option<Network>,
+    initial_rule: Option<PairStdp>,
     pub frames: Vec<(InputAudit, LearningAuditLog)>,
     rows: usize,
 }
 impl Tape {
     pub fn initialize(&mut self, model: &Model) {
         self.initial = Some(model.network().clone());
+        self.initial_rule = None;
+    }
+    pub fn initialize_from_checkpoint(&mut self, model: &Model) {
+        self.initialize(model);
+        self.initial_rule = Some(model.diagnostic_learning_rule().clone());
     }
     pub fn add(&mut self, input: &InputAudit, log: &LearningAuditLog) -> Result<()> {
         self.rows +=
@@ -99,18 +105,60 @@ impl Tape {
         self.replay_variants(reference, true)
     }
     fn replay_variants(&self, reference: &Model, extended: bool) -> Result<ReplayResult> {
-        let initial = self
-            .initial
-            .as_ref()
-            .ok_or_else(|| error("missing tape initial state"))?;
         let mut kinds = vec!["original", "constant", "pair"];
         if extended {
             kinds.extend(["gain64", "positive", "negative"]);
         }
+        let (locals, json) = self.replay_locals(reference, &kinds)?;
+        Ok(ReplayResult {
+            json,
+            constant: locals["constant"].weights(),
+            pair: locals["pair"].weights(),
+        })
+    }
+    pub fn replay_checkpoint_chemistry(
+        &self,
+        reference: &Model,
+    ) -> Result<(Value, Vec<(SynapseId, f32)>)> {
+        require(
+            self.initial_rule.is_some(),
+            "missing checkpoint learning rule",
+        )?;
+        let (locals, json) = self.replay_locals(reference, &["original", "constant"])?;
+        Ok((json, locals["constant"].weights()))
+    }
+    fn replay_locals(
+        &self,
+        reference: &Model,
+        kinds: &[&'static str],
+    ) -> Result<(BTreeMap<&'static str, Local>, Value)> {
+        let initial = self
+            .initial
+            .as_ref()
+            .ok_or_else(|| error("missing tape initial state"))?;
         let mut locals = kinds
             .iter()
-            .map(|&name| (name, Local::new(initial.clone(), name)))
-            .collect::<BTreeMap<_, _>>();
+            .map(|&name| {
+                let local = if let Some(rule) = &self.initial_rule {
+                    let rule = match name {
+                        "original" => rule.clone(),
+                        "constant" => rule
+                            .clone()
+                            .with_learning_signal_override(1.)
+                            .map_err(super::super::fail)?,
+                        _ => return Err(error("unsupported checkpoint replay intervention")),
+                    };
+                    Local {
+                        network: initial.clone(),
+                        rule,
+                        ledger: BTreeMap::new(),
+                    }
+                } else {
+                    Local::new(initial.clone(), name)
+                };
+                Ok((name, local))
+            })
+            .collect::<Result<BTreeMap<_, _>>>()?;
         let mut clocks = Vec::new();
         let mut chemicals = Vec::new();
         let mut arrivals = Vec::new();
@@ -204,8 +252,6 @@ impl Tape {
             }
         }
         let original = &locals["original"];
-        let constant = &locals["constant"];
-        let pair = &locals["pair"];
         for s in original.network.synapses() {
             let native = reference.network().synapse(s.id()).unwrap();
             require(
@@ -215,22 +261,46 @@ impl Tape {
                     && s.pre_trace() == native.pre_trace(),
                 "fixed-history original rule does not reproduce native local state",
             )?;
+            if self.initial_rule.is_some() {
+                let constant = locals["constant"].network.synapse(s.id()).unwrap();
+                require(
+                    s.pre_trace_updated_at() == native.pre_trace_updated_at()
+                        && s.learning_eligibility_updated_at()
+                            == native.learning_eligibility_updated_at(),
+                    "fixed-history original rule does not reproduce native local clocks",
+                )?;
+                require(
+                    s.pre_trace() == constant.pre_trace()
+                        && s.pre_trace_updated_at() == constant.pre_trace_updated_at()
+                        && s.learning_eligibility() == constant.learning_eligibility()
+                        && s.learning_eligibility_updated_at()
+                            == constant.learning_eligibility_updated_at(),
+                    "learning-factor override changed the pairing state",
+                )?;
+            }
+        }
+        if self.initial_rule.is_some() {
+            require(
+                &original.rule == reference.diagnostic_learning_rule(),
+                "fixed-history original rule does not reproduce native rule-owned state",
+            )?;
         }
         let mut json = json!({"verified_original_local_state":true,"scope":"Frozen recorded history; local hooks only, no network stepping. Other rules may generate different spike histories when trained live.",
             "clock_times_us":clocks,"chemical_fields":["time_us","neuron_id","dopamine","acetylcholine","noradrenaline","native_signal","threshold_shift","intrinsic_drive","transmission_gain"],
             "chemical_samples":chemicals,"pre_arrivals":arrivals,"post_spikes":spikes,
-            "phase_order":"At each exact batch: delayed integration under old held chemistry, chemical refresh, arrivals, post-spike hooks. Order within each activity phase is native.",
-            "original":original.json(initial),"constant_positive":constant.json(initial),"immediate_pair":pair.json(initial)});
-        if extended {
-            for key in ["gain64", "positive", "negative"] {
-                json[key] = locals[key].json(initial);
-            }
+            "phase_order":"At each exact batch: delayed integration under old held chemistry, chemical refresh, arrivals, post-spike hooks. Order within each activity phase is native."});
+        if self.initial_rule.is_some() {
+            json["verified_checkpoint_rule_and_local_clocks"] = json!(true);
         }
-        Ok(ReplayResult {
-            json,
-            constant: constant.weights(),
-            pair: pair.weights(),
-        })
+        for (name, local) in &locals {
+            let key = match *name {
+                "constant" => "constant_positive",
+                "pair" => "immediate_pair",
+                key => key,
+            };
+            json[key] = local.json(initial);
+        }
+        Ok((locals, json))
     }
 }
 fn require(ok: bool, message: &str) -> Result<()> {

@@ -765,6 +765,12 @@ impl Model {
         }
     }
 
+    /// Borrows the installed learning rule for diagnostics.
+    /// Clone it to capture the current rule state for offline replay.
+    pub fn diagnostic_learning_rule(&self) -> &PairStdp {
+        self.simulation.plasticity_rule()
+    }
+
     /// Capture fixed recurrent competition pools at an explicitly frozen,
     /// developed checkpoint. Cellular homeostasis may then run on the fixed graph.
     pub fn install_checkpoint_competition(&mut self) -> Result<()> {

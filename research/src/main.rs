@@ -9,7 +9,7 @@ use nerva_research::{
             association::AssociationScenario,
             causal::CausalScenario,
             chain::ChainScenario,
-            contingency::{ContingencyScenario, replay_electrical},
+            contingency::{ContingencyScenario, replay_chemical, replay_electrical},
             diagnosis::DiagnosisScenario,
             factorial::FactorialScenario,
             history::{HistoryScenario, PARAMETERS as HISTORY_PARAMETERS},
@@ -42,16 +42,31 @@ fn execute() -> Result<()> {
     let mode = args
         .next()
         .ok_or_else(|| error("mode required: plan/run/report/list"))?;
-    if mode == "contingency-electrical" {
+    if matches!(
+        mode.as_str(),
+        "contingency-electrical" | "contingency-chemical"
+    ) {
         let path = args
             .next()
             .ok_or_else(|| error("archived contingency record required"))?;
+        let electrical = if mode == "contingency-chemical" {
+            let path = args
+                .next()
+                .ok_or_else(|| error("archived electrical replay required"))?;
+            let source = fs::read(path).map_err(|e| error(e.to_string()))?;
+            Some(serde_json::from_slice(&source).map_err(|e| error(e.to_string()))?)
+        } else {
+            None
+        };
         if args.next().is_some() {
-            return Err(error("contingency-electrical accepts one archived record"));
+            return Err(error("unexpected contingency replay argument"));
         }
         let source = fs::read(&path).map_err(|e| error(e.to_string()))?;
         let envelope = serde_json::from_slice(&source).map_err(|e| error(e.to_string()))?;
-        let output = replay_electrical(&envelope)?;
+        let output = match electrical {
+            Some(observations) => replay_chemical(&envelope, &observations)?,
+            None => replay_electrical(&envelope)?,
+        };
         println!(
             "{}",
             serde_json::to_string(&output).map_err(|e| error(e.to_string()))?
