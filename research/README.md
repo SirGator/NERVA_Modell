@@ -27,6 +27,7 @@ eine balancierte Belichtung dienen als Kontrollen.
 [Gewichtskonsolidierung nach Rekrutierung stiller Relais](CONTINGENCY_CONSOLIDATION_RESULTS_20261123.md).
 [Normgleicher Abrufvergleich auf gewachsenen Graphen](CONTINGENCY_GROWN_DOSE_RESULTS_20261123.md).
 [Abruf nach Abzug des balancierten Gewichtsmusters](CONTINGENCY_GROWN_RESIDUAL_RESULTS_20261123.md).
+[Lokale Ratenkorrektur und Abruf nach zwei aufeinanderfolgenden Lernphasen](CONTINGENCY_LIVE_RATE_RESULTS_20261123.md).
 
 [MLD-03](MLD03.md) trennt Gewichtswirkung von künstlich veränderter Core-Schwelle
 und Integrationszeit. Ein zweiter Abschnitt vergleicht Sensor-/Core-Homöostase
