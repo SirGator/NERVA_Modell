@@ -631,6 +631,16 @@ impl Model {
         }
         Ok(self.simulation.disable_synapses_and_cancel_arrivals(ids)?)
     }
+
+    /// Clears inherited signed learning tags on a frozen diagnostic branch.
+    /// Returns the number of tags that were nonzero.
+    pub fn diagnostic_clear_learning_eligibility(&mut self) -> Result<usize> {
+        if self.config.learning || self.config.development || self.config.homeostasis {
+            return Err("learning eligibility reset requires frozen rules".into());
+        }
+        Ok(self.simulation.clear_synaptic_learning_eligibility()?)
+    }
+
     pub fn processing_ids(&self) -> &[NeuronId] {
         &self.processing
     }

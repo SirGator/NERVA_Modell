@@ -13,7 +13,9 @@ use nerva_qemu::capture::Frame;
 use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 
+mod eligibility;
 mod routes;
+pub use eligibility::replay_eligibility;
 use routes::{Edge, Routes, routes};
 
 pub struct CapacityScenario;
@@ -43,6 +45,36 @@ struct Assay<'a> {
     initial: Weights,
 }
 impl Assay<'_> {
+    fn topology(&self) -> Vec<(u64, u64, u64, f32, bool)> {
+        self.edges
+            .iter()
+            .map(|e| (e.id, e.pre, e.post, e.initial, e.eligible))
+            .collect()
+    }
+
+    fn core_weights(&self, weights: &Weights) -> Result<Weights> {
+        if !self
+            .initial
+            .iter()
+            .map(|x| x.0)
+            .eq(weights.iter().map(|x| x.0))
+        {
+            return Err(error("capacity training topology differs"));
+        }
+        Ok(self
+            .edges
+            .iter()
+            .zip(weights)
+            .map(|(edge, &value)| {
+                if self.core.contains(&edge.pre) && self.core.contains(&edge.post) {
+                    value
+                } else {
+                    (value.0, edge.initial)
+                }
+            })
+            .collect())
+    }
+
     fn response(&self, weights: &Weights, name: &str) -> Result<Response> {
         let (mut branch, _) = checkpoint(self.c, self.seed)?;
         verify_only_weights(&self.reference, &mut branch, weights)?;
@@ -115,28 +147,8 @@ impl Assay<'_> {
             None,
         )?;
         let final_weights = get_weights(&branch);
-        if !self
-            .initial
-            .iter()
-            .map(|x| x.0)
-            .eq(final_weights.iter().map(|x| x.0))
-        {
-            return Err(error("capacity training topology differs"));
-        }
         let raw = json!({"frames":history,"weights":serialized(&final_weights)});
-        let recurrent = self
-            .edges
-            .iter()
-            .zip(final_weights)
-            .map(|(edge, value)| {
-                if self.core.contains(&edge.pre) && self.core.contains(&edge.post) {
-                    value
-                } else {
-                    (value.0, edge.initial)
-                }
-            })
-            .collect();
-        Ok((recurrent, raw))
+        Ok((self.core_weights(&final_weights)?, raw))
     }
 
     fn normalize(
@@ -209,7 +221,7 @@ fn reference_weights(edges: &[Edge], routes: &[BTreeSet<u64>; 2], strength: f32)
         .collect()
 }
 
-fn run(c: &Config, seed: u64) -> Result<TrialMetrics> {
+fn build(c: &Config, seed: u64) -> Result<(Assay<'_>, Value, BTreeSet<u64>)> {
     let (reference, development) = checkpoint(c, seed)?;
     let core = reference
         .processing_ids()
@@ -248,6 +260,11 @@ fn run(c: &Config, seed: u64) -> Result<TrialMetrics> {
         core,
         initial,
     };
+    Ok((assay, development, excitatory))
+}
+
+fn run(c: &Config, seed: u64) -> Result<TrialMetrics> {
+    let (assay, development, excitatory) = build(c, seed)?;
     let reset = assay.observe(
         &assay.initial,
         &["blank", CUES[0], CUES[1], OUTCOMES[0], OUTCOMES[1]],
@@ -360,11 +377,6 @@ fn run(c: &Config, seed: u64) -> Result<TrialMetrics> {
         .iter()
         .map(|Routes { direct, via_relay }| json!({"direct":direct,"via_relay":via_relay}))
         .collect::<Vec<_>>();
-    let topology = assay
-        .edges
-        .iter()
-        .map(|e| (e.id, e.pre, e.post, e.initial, e.eligible))
-        .collect::<Vec<_>>();
     Ok(TrialMetrics {
         values: METRICS
             .into_iter()
@@ -375,8 +387,8 @@ fn run(c: &Config, seed: u64) -> Result<TrialMetrics> {
                 f64::from(native_at_reference == 4),
             ])
             .collect(),
-        details: json!({"protocol":PROTOCOL,"seed":seed,"development":development,"stimuli":patterns,
-            "topology":topology,"core_ids":assay.core,"excitatory_core":excitatory,"quiet_relays":quiet,
+        details: json!({"protocol":PROTOCOL,"seed":seed,"development":development,"stimuli":stimuli(),
+            "topology":assay.topology(),"core_ids":assay.core,"excitatory_core":excitatory,"quiet_relays":quiet,
             "reset":json_responses(&reset),"target_groups":targets,"routes":routes,"references":rows,"followup":followup}),
     })
 }

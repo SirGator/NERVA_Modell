@@ -10,7 +10,9 @@ use nerva_research::{
             causal::CausalScenario,
             chain::ChainScenario,
             contingency::{
-                ContingencyScenario, capacity::CapacityScenario, replay_chemical, replay_electrical,
+                ContingencyScenario,
+                capacity::{CapacityScenario, replay_eligibility},
+                replay_chemical, replay_electrical,
             },
             diagnosis::DiagnosisScenario,
             factorial::FactorialScenario,
@@ -46,7 +48,7 @@ fn execute() -> Result<()> {
         .ok_or_else(|| error("mode required: plan/run/report/list"))?;
     if matches!(
         mode.as_str(),
-        "contingency-electrical" | "contingency-chemical"
+        "contingency-electrical" | "contingency-chemical" | "contingency-eligibility"
     ) {
         let path = args
             .next()
@@ -67,6 +69,7 @@ fn execute() -> Result<()> {
         let envelope = serde_json::from_slice(&source).map_err(|e| error(e.to_string()))?;
         let output = match electrical {
             Some(observations) => replay_chemical(&envelope, &observations)?,
+            None if mode == "contingency-eligibility" => replay_eligibility(&envelope)?,
             None => replay_electrical(&envelope)?,
         };
         println!(
