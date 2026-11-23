@@ -1,0 +1,981 @@
+{
+  "protocol": "NERVA-Contingency-A-Source/1",
+  "cohort_size": 2,
+  "source_commits": {
+    "model": "3da3de3a666d2e73f87f60158fa834209ccf2f0e",
+    "library": "c13d9f733d474fe1516f3c170a0440b7c294c535"
+  },
+  "dose_window": "Relative time 0 through fixed focal-cue reference first spike, inclusive; positive arrivals only. All probes and interventions share their carrier reference latency.",
+  "records": [
+    {
+      "job_id": "v00000-s34313-i000",
+      "seed": 34313,
+      "target_cell": 72,
+      "active_edges": [
+        1422,
+        1537,
+        1632
+      ],
+      "silent_edges": [
+        1564,
+        1624
+      ],
+      "archived_record_checksum": "5f41e010cc07b0d4",
+      "growth_input_sha256": "dbd3e93c4334c21820088b62a37aa4082563eff0df8f052db775c62452dd69df",
+      "transfer_input_sha256": "e5581de022cb9430056c5b9c8cc9676d5ea77b3a9bf9e7e6a6ff6cc181075a8d",
+      "plans_sha256": "6553f5a0b400e66559629f4bc28b1c2d471566aaf203d9046dd1f30fc4b794d4",
+      "raw_sha256": "21bff6a70e7974efcefb112ce6b2fb91da9e8a674d50e5e5bd4df43f86733291",
+      "source_edits": {
+        "native_initial": {
+          "cycle": [
+            1632,
+            1602,
+            1515,
+            1438
+          ],
+          "single_replacements": [
+            [
+              1422,
+              121
+            ],
+            [
+              1537,
+              121
+            ],
+            [
+              1632,
+              129
+            ]
+          ],
+          "group_replacements": [
+            [
+              1537,
+              121
+            ],
+            [
+              1632,
+              129
+            ]
+          ]
+        },
+        "sham_initial": {
+          "cycle": [
+            1632,
+            1602,
+            1515,
+            1438
+          ],
+          "single_replacements": [
+            [
+              1422,
+              121
+            ],
+            [
+              1537,
+              121
+            ],
+            [
+              1632,
+              129
+            ]
+          ],
+          "group_replacements": [
+            [
+              1537,
+              121
+            ],
+            [
+              1632,
+              129
+            ]
+          ]
+        }
+      },
+      "cue1_summary": {
+        "native": {
+          "intact": {
+            "target_relative_spikes_us": [
+              35335
+            ],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 0,
+            "excitatory_dose_delta": 0.0
+          },
+          "block_active": {
+            "target_relative_spikes_us": [],
+            "same_target_events": false,
+            "target_spike_count_delta": -1,
+            "first_spike_latency_delta_us": null,
+            "excitatory_dose_delta": -1.1765760034322739
+          },
+          "block_silent": {
+            "target_relative_spikes_us": [
+              35335
+            ],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 0,
+            "excitatory_dose_delta": 0.0
+          },
+          "reset_all_weights": {
+            "target_relative_spikes_us": [
+              35335
+            ],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 0,
+            "excitatory_dose_delta": -5.379319190979004e-06
+          },
+          "block_1422": {
+            "target_relative_spikes_us": [
+              35335
+            ],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 0,
+            "excitatory_dose_delta": -0.48269763588905334
+          },
+          "block_1537": {
+            "target_relative_spikes_us": [
+              35335
+            ],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 0,
+            "excitatory_dose_delta": -0.23970255255699158
+          },
+          "block_1632": {
+            "target_relative_spikes_us": [
+              35335
+            ],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 0,
+            "excitatory_dose_delta": -0.45417581498622894
+          }
+        },
+        "native_initial": {
+          "intact": {
+            "target_relative_spikes_us": [
+              26001,
+              52001
+            ],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 0,
+            "excitatory_dose_delta": 0.0
+          },
+          "cycle_terminal": {
+            "target_relative_spikes_us": [
+              27001,
+              53001
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 1000,
+            "excitatory_dose_delta": -0.4523807317018509
+          },
+          "cycle_collateral": {
+            "target_relative_spikes_us": [
+              26001,
+              52001
+            ],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 0,
+            "excitatory_dose_delta": 0.0
+          },
+          "cycle_full": {
+            "target_relative_spikes_us": [
+              27001,
+              53001
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 1000,
+            "excitatory_dose_delta": -0.4523807317018509
+          },
+          "replace_group": {
+            "target_relative_spikes_us": [
+              35335
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": -1,
+            "first_spike_latency_delta_us": 9334,
+            "excitatory_dose_delta": -0.4523807317018509
+          },
+          "block_group": {
+            "target_relative_spikes_us": [
+              35335
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": -1,
+            "first_spike_latency_delta_us": 9334,
+            "excitatory_dose_delta": -0.4523807317018509
+          },
+          "block_active": {
+            "target_relative_spikes_us": [],
+            "same_target_events": false,
+            "target_spike_count_delta": -2,
+            "first_spike_latency_delta_us": null,
+            "excitatory_dose_delta": -0.6936964839696884
+          },
+          "replace_1422": {
+            "target_relative_spikes_us": [
+              27001,
+              53001
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 1000,
+            "excitatory_dose_delta": -0.24131575226783752
+          },
+          "replace_1537": {
+            "target_relative_spikes_us": [
+              26001,
+              52001
+            ],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 0,
+            "excitatory_dose_delta": 0.0
+          },
+          "replace_1632": {
+            "target_relative_spikes_us": [
+              27001,
+              53001
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 1000,
+            "excitatory_dose_delta": -0.4523807317018509
+          }
+        },
+        "sham_initial": {
+          "intact": {
+            "target_relative_spikes_us": [
+              26001,
+              52001
+            ],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 0,
+            "excitatory_dose_delta": 0.0
+          },
+          "cycle_terminal": {
+            "target_relative_spikes_us": [
+              27001,
+              53001
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 1000,
+            "excitatory_dose_delta": -0.23119980096817017
+          },
+          "cycle_collateral": {
+            "target_relative_spikes_us": [
+              26001,
+              52001
+            ],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 0,
+            "excitatory_dose_delta": 0.0
+          },
+          "cycle_full": {
+            "target_relative_spikes_us": [
+              27001,
+              53001
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 1000,
+            "excitatory_dose_delta": -0.23119980096817017
+          },
+          "replace_group": {
+            "target_relative_spikes_us": [
+              35335
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": -1,
+            "first_spike_latency_delta_us": 9334,
+            "excitatory_dose_delta": -0.23119980096817017
+          },
+          "block_group": {
+            "target_relative_spikes_us": [
+              35335
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": -1,
+            "first_spike_latency_delta_us": 9334,
+            "excitatory_dose_delta": -0.23119980096817017
+          },
+          "block_active": {
+            "target_relative_spikes_us": [],
+            "same_target_events": false,
+            "target_spike_count_delta": -2,
+            "first_spike_latency_delta_us": null,
+            "excitatory_dose_delta": -0.47261448204517365
+          },
+          "replace_1422": {
+            "target_relative_spikes_us": [
+              27001,
+              53001
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 1000,
+            "excitatory_dose_delta": -0.24141468107700348
+          },
+          "replace_1537": {
+            "target_relative_spikes_us": [
+              26001,
+              52001
+            ],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 0,
+            "excitatory_dose_delta": 0.0
+          },
+          "replace_1632": {
+            "target_relative_spikes_us": [
+              27001,
+              53001
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 1000,
+            "excitatory_dose_delta": -0.23119980096817017
+          }
+        }
+      },
+      "electrical": {
+        "native_initial": {
+          "reference_us": 26001,
+          "target_quiet_in_blank_and_cue0": true,
+          "replace_group_nonzero_arrivals_on_edited_slots": [],
+          "replace_group_and_block_group_same_target_trace": true,
+          "at_first_rotated_target_spike": {
+            "intact": {
+              "at_us": 27001,
+              "potential_before": -0.00397106260061264,
+              "signed_input": 0.23970170319080353,
+              "threshold": 1.2944822311401367,
+              "potential_after": -0.00397106260061264,
+              "spiked": false,
+              "arrivals": [
+                [
+                  27001,
+                  1537,
+                  0.23970170319080353
+                ]
+              ]
+            },
+            "cycle_terminal": {
+              "at_us": 27001,
+              "potential_before": 1.0204665660858154,
+              "signed_input": 0.23970170319080353,
+              "threshold": 1.2321962118148804,
+              "potential_after": 0.0,
+              "spiked": true,
+              "arrivals": [
+                [
+                  27001,
+                  1537,
+                  0.23970170319080353
+                ]
+              ]
+            },
+            "cycle_collateral": {
+              "at_us": 27001,
+              "potential_before": -0.00397106260061264,
+              "signed_input": 0.23970170319080353,
+              "threshold": 1.2944822311401367,
+              "potential_after": -0.00397106260061264,
+              "spiked": false,
+              "arrivals": [
+                [
+                  27001,
+                  1537,
+                  0.23970170319080353
+                ]
+              ]
+            },
+            "cycle_full": {
+              "at_us": 27001,
+              "potential_before": 1.0204665660858154,
+              "signed_input": 0.23970170319080353,
+              "threshold": 1.2321962118148804,
+              "potential_after": 0.0,
+              "spiked": true,
+              "arrivals": [
+                [
+                  27001,
+                  1537,
+                  0.23970170319080353
+                ]
+              ]
+            }
+          }
+        },
+        "sham_initial": {
+          "reference_us": 26001,
+          "target_quiet_in_blank_and_cue0": true,
+          "replace_group_nonzero_arrivals_on_edited_slots": [],
+          "replace_group_and_block_group_same_target_trace": true,
+          "at_first_rotated_target_spike": {
+            "intact": {
+              "at_us": 27001,
+              "potential_before": -0.0039785574190318584,
+              "signed_input": 0.23970240354537964,
+              "threshold": 1.294506311416626,
+              "potential_after": -0.0039785574190318584,
+              "spiked": false,
+              "arrivals": [
+                [
+                  27001,
+                  1537,
+                  0.23970240354537964
+                ]
+              ]
+            },
+            "cycle_terminal": {
+              "at_us": 27001,
+              "potential_before": 1.0204757452011108,
+              "signed_input": 0.23970240354537964,
+              "threshold": 1.2322202920913696,
+              "potential_after": 0.0,
+              "spiked": true,
+              "arrivals": [
+                [
+                  27001,
+                  1537,
+                  0.23970240354537964
+                ]
+              ]
+            },
+            "cycle_collateral": {
+              "at_us": 27001,
+              "potential_before": -0.0039785574190318584,
+              "signed_input": 0.23970240354537964,
+              "threshold": 1.294506311416626,
+              "potential_after": -0.0039785574190318584,
+              "spiked": false,
+              "arrivals": [
+                [
+                  27001,
+                  1537,
+                  0.23970240354537964
+                ]
+              ]
+            },
+            "cycle_full": {
+              "at_us": 27001,
+              "potential_before": 1.0204757452011108,
+              "signed_input": 0.23970240354537964,
+              "threshold": 1.2322202920913696,
+              "potential_after": 0.0,
+              "spiked": true,
+              "arrivals": [
+                [
+                  27001,
+                  1537,
+                  0.23970240354537964
+                ]
+              ]
+            }
+          }
+        },
+        "native": {
+          "reference_us": 35335,
+          "target_quiet_in_blank_and_cue0": true
+        }
+      }
+    },
+    {
+      "job_id": "v00000-s34327-i000",
+      "seed": 34327,
+      "target_cell": 73,
+      "active_edges": [
+        1440,
+        1542,
+        1632
+      ],
+      "silent_edges": [
+        1561,
+        1583
+      ],
+      "archived_record_checksum": "08cec1d58a4639ec",
+      "growth_input_sha256": "2143351a039d0dbe0034369240aa76e7bc1b209378d8342e5e520c10e228b314",
+      "transfer_input_sha256": "7a134d138e8b9dbe9567a3a8d9306b417f6e460c4b5072d547aedb4588a02e51",
+      "plans_sha256": "7d8d01800a510f76a6101e565ea5002b39732c99f74157a622c05ea21035cb39",
+      "raw_sha256": "7fc00e9377d4f34b9c1ce18b5846bc52c84d62889f16a11791be8150717481e3",
+      "source_edits": {
+        "native_initial": {
+          "cycle": [
+            1632,
+            1545,
+            1445,
+            1649,
+            1433
+          ],
+          "single_replacements": [
+            [
+              1440,
+              75
+            ],
+            [
+              1542,
+              80
+            ],
+            [
+              1632,
+              129
+            ]
+          ],
+          "group_replacements": [
+            [
+              1440,
+              75
+            ],
+            [
+              1542,
+              80
+            ],
+            [
+              1632,
+              129
+            ]
+          ]
+        },
+        "sham_initial": {
+          "cycle": [
+            1632,
+            1445,
+            1486,
+            1439,
+            1467
+          ],
+          "single_replacements": [
+            [
+              1440,
+              75
+            ],
+            [
+              1542,
+              80
+            ],
+            [
+              1632,
+              129
+            ]
+          ],
+          "group_replacements": [
+            [
+              1440,
+              75
+            ],
+            [
+              1542,
+              80
+            ],
+            [
+              1632,
+              129
+            ]
+          ]
+        }
+      },
+      "cue1_summary": {
+        "native": {
+          "intact": {
+            "target_relative_spikes_us": [
+              52001
+            ],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 0,
+            "excitatory_dose_delta": 0.0
+          },
+          "block_active": {
+            "target_relative_spikes_us": [],
+            "same_target_events": false,
+            "target_spike_count_delta": -1,
+            "first_spike_latency_delta_us": null,
+            "excitatory_dose_delta": -1.3935837745666504
+          },
+          "block_silent": {
+            "target_relative_spikes_us": [
+              52001
+            ],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 0,
+            "excitatory_dose_delta": 0.0
+          },
+          "reset_all_weights": {
+            "target_relative_spikes_us": [
+              52001
+            ],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 0,
+            "excitatory_dose_delta": -1.2636184692382812e-05
+          },
+          "block_1440": {
+            "target_relative_spikes_us": [
+              35335
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": -16666,
+            "excitatory_dose_delta": 0.0
+          },
+          "block_1542": {
+            "target_relative_spikes_us": [],
+            "same_target_events": false,
+            "target_spike_count_delta": -1,
+            "first_spike_latency_delta_us": null,
+            "excitatory_dose_delta": -0.7110066115856171
+          },
+          "block_1632": {
+            "target_relative_spikes_us": [],
+            "same_target_events": false,
+            "target_spike_count_delta": -1,
+            "first_spike_latency_delta_us": null,
+            "excitatory_dose_delta": -0.6825771629810333
+          }
+        },
+        "native_initial": {
+          "intact": {
+            "target_relative_spikes_us": [],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": null,
+            "excitatory_dose_delta": 0.0
+          },
+          "cycle_terminal": {
+            "target_relative_spikes_us": [
+              43668
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": 1,
+            "first_spike_latency_delta_us": null,
+            "excitatory_dose_delta": -0.4464288055896759
+          },
+          "cycle_collateral": {
+            "target_relative_spikes_us": [
+              52001
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": 1,
+            "first_spike_latency_delta_us": null,
+            "excitatory_dose_delta": 0.0
+          },
+          "cycle_full": {
+            "target_relative_spikes_us": [
+              43668
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": 1,
+            "first_spike_latency_delta_us": null,
+            "excitatory_dose_delta": -0.4464288055896759
+          },
+          "replace_group": {
+            "target_relative_spikes_us": [],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": null,
+            "excitatory_dose_delta": -1.3973266035318375
+          },
+          "block_group": {
+            "target_relative_spikes_us": [],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": null,
+            "excitatory_dose_delta": -1.3973266035318375
+          },
+          "block_active": {
+            "target_relative_spikes_us": [],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": null,
+            "excitatory_dose_delta": -1.3973266035318375
+          },
+          "replace_1440": {
+            "target_relative_spikes_us": [
+              35335
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": 1,
+            "first_spike_latency_delta_us": null,
+            "excitatory_dose_delta": 0.0
+          },
+          "replace_1542": {
+            "target_relative_spikes_us": [],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": null,
+            "excitatory_dose_delta": -0.7147531807422638
+          },
+          "replace_1632": {
+            "target_relative_spikes_us": [],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": null,
+            "excitatory_dose_delta": -0.6825734227895737
+          }
+        },
+        "sham_initial": {
+          "intact": {
+            "target_relative_spikes_us": [
+              52001
+            ],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 0,
+            "excitatory_dose_delta": 0.0
+          },
+          "cycle_terminal": {
+            "target_relative_spikes_us": [
+              43668
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": -8333,
+            "excitatory_dose_delta": -0.4464288055896759
+          },
+          "cycle_collateral": {
+            "target_relative_spikes_us": [
+              52001
+            ],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 0,
+            "excitatory_dose_delta": 0.0
+          },
+          "cycle_full": {
+            "target_relative_spikes_us": [
+              43668
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": -8333,
+            "excitatory_dose_delta": -0.4464288055896759
+          },
+          "replace_group": {
+            "target_relative_spikes_us": [],
+            "same_target_events": false,
+            "target_spike_count_delta": -1,
+            "first_spike_latency_delta_us": null,
+            "excitatory_dose_delta": -1.3973266035318375
+          },
+          "block_group": {
+            "target_relative_spikes_us": [],
+            "same_target_events": false,
+            "target_spike_count_delta": -1,
+            "first_spike_latency_delta_us": null,
+            "excitatory_dose_delta": -1.3973266035318375
+          },
+          "block_active": {
+            "target_relative_spikes_us": [],
+            "same_target_events": false,
+            "target_spike_count_delta": -1,
+            "first_spike_latency_delta_us": null,
+            "excitatory_dose_delta": -1.3973266035318375
+          },
+          "replace_1440": {
+            "target_relative_spikes_us": [
+              35335
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": -16666,
+            "excitatory_dose_delta": 0.0
+          },
+          "replace_1542": {
+            "target_relative_spikes_us": [],
+            "same_target_events": false,
+            "target_spike_count_delta": -1,
+            "first_spike_latency_delta_us": null,
+            "excitatory_dose_delta": -0.7147531807422638
+          },
+          "replace_1632": {
+            "target_relative_spikes_us": [],
+            "same_target_events": false,
+            "target_spike_count_delta": -1,
+            "first_spike_latency_delta_us": null,
+            "excitatory_dose_delta": -0.6825734227895737
+          }
+        }
+      },
+      "electrical": {
+        "native_initial": {
+          "reference_us": 52001,
+          "target_quiet_in_blank_and_cue0": true,
+          "replace_group_nonzero_arrivals_on_edited_slots": [],
+          "replace_group_and_block_group_same_target_trace": true,
+          "at_first_rotated_target_spike": {
+            "intact": {
+              "at_us": 43668,
+              "potential_before": 1.077646017074585,
+              "signed_input": 0.23566487431526184,
+              "threshold": 1.3140310049057007,
+              "potential_after": 1.3133108615875244,
+              "spiked": false,
+              "arrivals": [
+                [
+                  43668,
+                  1542,
+                  0.23566487431526184
+                ]
+              ]
+            },
+            "cycle_terminal": {
+              "at_us": 43668,
+              "potential_before": 0.8873345851898193,
+              "signed_input": 0.4718095064163208,
+              "threshold": 1.3140310049057007,
+              "potential_after": 0.0,
+              "spiked": true,
+              "arrivals": [
+                [
+                  43668,
+                  1542,
+                  0.23566487431526184
+                ],
+                [
+                  43668,
+                  1632,
+                  0.23614461719989777
+                ]
+              ]
+            },
+            "cycle_collateral": {
+              "at_us": 43668,
+              "potential_before": 1.077646017074585,
+              "signed_input": 0.23566487431526184,
+              "threshold": 1.3140310049057007,
+              "potential_after": 1.3133108615875244,
+              "spiked": false,
+              "arrivals": [
+                [
+                  43668,
+                  1542,
+                  0.23566487431526184
+                ]
+              ]
+            },
+            "cycle_full": {
+              "at_us": 43668,
+              "potential_before": 0.8873345851898193,
+              "signed_input": 0.4718095064163208,
+              "threshold": 1.3140310049057007,
+              "potential_after": 0.0,
+              "spiked": true,
+              "arrivals": [
+                [
+                  43668,
+                  1542,
+                  0.23566487431526184
+                ],
+                [
+                  43668,
+                  1632,
+                  0.23614461719989777
+                ]
+              ]
+            }
+          }
+        },
+        "sham_initial": {
+          "reference_us": 52001,
+          "target_quiet_in_blank_and_cue0": true,
+          "replace_group_nonzero_arrivals_on_edited_slots": [],
+          "replace_group_and_block_group_same_target_trace": true,
+          "at_first_rotated_target_spike": {
+            "intact": {
+              "at_us": 43668,
+              "potential_before": 1.077646017074585,
+              "signed_input": 0.23566487431526184,
+              "threshold": 1.3140310049057007,
+              "potential_after": 1.3133108615875244,
+              "spiked": false,
+              "arrivals": [
+                [
+                  43668,
+                  1542,
+                  0.23566487431526184
+                ]
+              ]
+            },
+            "cycle_terminal": {
+              "at_us": 43668,
+              "potential_before": 0.8873345851898193,
+              "signed_input": 0.4718095064163208,
+              "threshold": 1.3140310049057007,
+              "potential_after": 0.0,
+              "spiked": true,
+              "arrivals": [
+                [
+                  43668,
+                  1542,
+                  0.23566487431526184
+                ],
+                [
+                  43668,
+                  1632,
+                  0.23614461719989777
+                ]
+              ]
+            },
+            "cycle_collateral": {
+              "at_us": 43668,
+              "potential_before": 1.077646017074585,
+              "signed_input": 0.23566487431526184,
+              "threshold": 1.3140310049057007,
+              "potential_after": 1.3133108615875244,
+              "spiked": false,
+              "arrivals": [
+                [
+                  43668,
+                  1542,
+                  0.23566487431526184
+                ]
+              ]
+            },
+            "cycle_full": {
+              "at_us": 43668,
+              "potential_before": 0.8873345851898193,
+              "signed_input": 0.4718095064163208,
+              "threshold": 1.3140310049057007,
+              "potential_after": 0.0,
+              "spiked": true,
+              "arrivals": [
+                [
+                  43668,
+                  1542,
+                  0.23566487431526184
+                ],
+                [
+                  43668,
+                  1632,
+                  0.23614461719989777
+                ]
+              ]
+            }
+          }
+        },
+        "native": {
+          "reference_us": 52001,
+          "target_quiet_in_blank_and_cue0": true
+        }
+      }
+    }
+  ],
+  "local_archive": {
+    "path": "research/results/archives/visual_contingency_a_source_20261123.zip",
+    "sha256": "6906f18e288534423897ffd2d09d87ddab75fd30a46973f20581108934f63014"
+  }
+}

@@ -31,6 +31,7 @@ eine balancierte Belichtung dienen als Kontrollen.
 [Kausale Prüfung neuer Kanten und älterer Gewichte beim B-Abruf](CONTINGENCY_B_FACTOR_RESULTS_20261123.md).
 [A-Erhalt und B-Erwerb bei gekreuzten Bildungsregeln](CONTINGENCY_LIVE_GROWTH_RESULTS_20261123.md).
 [A-Abruf nach Blockade und Transfer neu gebildeter Kanten](CONTINGENCY_A_TRANSFER_RESULTS_20261123.md).
+[A-Abruf nach gezieltem Quellentausch und Einzelblockaden](CONTINGENCY_A_SOURCE_RESULTS_20261123.md).
 
 [MLD-03](MLD03.md) trennt Gewichtswirkung von künstlich veränderter Core-Schwelle
 und Integrationszeit. Ein zweiter Abschnitt vergleicht Sensor-/Core-Homöostase
