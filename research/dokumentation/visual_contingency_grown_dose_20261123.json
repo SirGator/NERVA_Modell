@@ -1,0 +1,4861 @@
+{
+  "protocol": "NERVA-Contingency-Grown-Dose/1",
+  "cohort_size": 4,
+  "preregistration_sha256": "e7914bb0982cbd85f2126650e191a0008d3868476ed5742133fa48ed5fcf71ef",
+  "reference_full_complete": 1,
+  "totals": {
+    "ray": {
+      "learned_passed_cases": 0,
+      "learned_available_cases": 16,
+      "learned_complete_seeds": 0,
+      "reference_passed_cases": 0,
+      "reference_available_cases": 14,
+      "reference_complete_seeds": 0,
+      "both_incomplete": 4
+    },
+    "bounded": {
+      "learned_passed_cases": 1,
+      "learned_available_cases": 16,
+      "learned_complete_seeds": 0,
+      "reference_passed_cases": 6,
+      "reference_available_cases": 14,
+      "reference_complete_seeds": 1,
+      "reference_passes_learned_incomplete": 1,
+      "both_incomplete": 3
+    }
+  },
+  "records": [
+    {
+      "job_id": "v00000-s34123-i000",
+      "seed": 34123,
+      "archived_record_checksum": "9986c63f3e81a0de",
+      "reference_choice": "relay_full",
+      "support_size": 69,
+      "unavailable_directions": [],
+      "target_sizes": [
+        12,
+        5
+      ],
+      "carrier_edge_count": 858,
+      "carrier_added_edges": 255,
+      "probe_start_us": 16000001,
+      "direction_norms": {
+        "forward": 0.00016039578622679745,
+        "reverse": 0.0001374827363975816,
+        "balanced": 0.0001457087149111345,
+        "shuffle_forward": 0.00016039578622679745,
+        "reference_forward": 5.822956658249477,
+        "shuffle_reverse": 0.0001374827363975816,
+        "reference_reverse": 4.949758010321249
+      },
+      "direction_nonzero_counts": {
+        "forward": 38,
+        "reverse": 25,
+        "balanced": 41,
+        "shuffle_forward": 38,
+        "reference_forward": 11,
+        "shuffle_reverse": 25,
+        "reference_reverse": 8
+      },
+      "ray_limits": {
+        "forward": 0.41357718087636813,
+        "reverse": 0.3970456917510973,
+        "balanced": 0.39623763781250326,
+        "shuffle_forward": 0.4137492167012018,
+        "reference_forward": 5.822956658249476,
+        "shuffle_reverse": 0.3972108509674068,
+        "reference_reverse": 4.949758010321249
+      },
+      "saturation_limits": {
+        "forward": 6.233116661878537,
+        "reverse": 5.074274074437959,
+        "balanced": 6.94914143029384,
+        "shuffle_forward": 6.2425661090587266,
+        "reference_forward": 5.822956658249477,
+        "shuffle_reverse": 5.0688813106613235,
+        "reference_reverse": 4.949758010321249
+      },
+      "raw_sha256": "945530336ff3431714271922aa1ea64a5782f325eecf1435c3ab5f1507b2cda8",
+      "capacity_sha256": "a7d46c5fa1ff7b4641684a2a0c5dc149cc5a97f0f34fe404abe64576e0f32c8d",
+      "consolidation_sha256": "c481f579c686899d26e7c93e17ab0e0cbfc4209038d9c5cf3b7be75b6ea3dfb4",
+      "reference_full": {
+        "passed_cases": 4,
+        "available_cases": 4,
+        "complete": true,
+        "checks": {
+          "forward": {
+            "cue0": {
+              "correct": 6,
+              "correct_group": 0,
+              "wrong": 0,
+              "baseline": 0,
+              "opposite": 0,
+              "rest": 0,
+              "baseline_rest": 0,
+              "blank": 0,
+              "baseline_blank": 0,
+              "available": true,
+              "passed": true
+            },
+            "cue1": {
+              "correct": 17,
+              "correct_group": 1,
+              "wrong": 1,
+              "baseline": 4,
+              "opposite": 3,
+              "rest": 0,
+              "baseline_rest": 0,
+              "blank": 0,
+              "baseline_blank": 0,
+              "available": true,
+              "passed": true
+            }
+          },
+          "reverse": {
+            "cue0": {
+              "correct": 2,
+              "correct_group": 1,
+              "wrong": 0,
+              "baseline": 0,
+              "opposite": 0,
+              "rest": 0,
+              "baseline_rest": 0,
+              "blank": 0,
+              "baseline_blank": 0,
+              "available": true,
+              "passed": true
+            },
+            "cue1": {
+              "correct": 6,
+              "correct_group": 0,
+              "wrong": 3,
+              "baseline": 0,
+              "opposite": 1,
+              "rest": 0,
+              "baseline_rest": 0,
+              "blank": 0,
+              "baseline_blank": 0,
+              "available": true,
+              "passed": true
+            }
+          }
+        },
+        "norms": {
+          "forward": 5.822956658249477,
+          "reverse": 4.949758010321249
+        }
+      },
+      "tiers": {
+        "ray": {
+          "requested_norm": 0.35661387403125294,
+          "learned": {
+            "passed_cases": 0,
+            "available_cases": 4,
+            "complete": false,
+            "checks": {
+              "forward": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 3,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 4,
+                  "opposite": 3,
+                  "balanced": 3,
+                  "shuffle_{mapping}": 3,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              },
+              "reverse": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 3,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              }
+            }
+          },
+          "reference": {
+            "passed_cases": 0,
+            "available_cases": 4,
+            "complete": false,
+            "checks": {
+              "forward": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 4,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 4,
+                  "opposite": 4,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              },
+              "reverse": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 4,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              }
+            }
+          },
+          "outcome": "both_incomplete",
+          "arms": {
+            "forward": {
+              "plan": {
+                "requested_norm": 0.35661387403125294,
+                "ray_limit": 0.41357718087636813,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.35661387403125294,
+                "normalization_iterations": 0,
+                "actual_norm": 0.35661387230546615,
+                "relative_norm_error": 4.8393708627836325e-09,
+                "direction_cosine": 0.9999999999999959,
+                "rounding_l2": 3.21465604956834e-08
+              },
+              "changed_coordinates": 38,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 37,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 49,
+                  "added": 8,
+                  "removed": 11,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 703,
+              "largest_absolute_aligned_margin_change": 0.7901599779725075,
+              "core_spike_changes_vs_controls": {
+                "reverse": {
+                  "cue0": {
+                    "matching": 37,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 53,
+                    "added": 4,
+                    "removed": 4,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "balanced": {
+                  "cue0": {
+                    "matching": 37,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 53,
+                    "added": 4,
+                    "removed": 5,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "shuffle_forward": {
+                  "cue0": {
+                    "matching": 37,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 52,
+                    "added": 5,
+                    "removed": 5,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "reference_forward": {
+                  "cue0": {
+                    "matching": 37,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 49,
+                    "added": 8,
+                    "removed": 12,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                }
+              }
+            },
+            "reverse": {
+              "plan": {
+                "requested_norm": 0.35661387403125294,
+                "ray_limit": 0.3970456917510973,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.35661387403125294,
+                "normalization_iterations": 0,
+                "actual_norm": 0.3566138773261167,
+                "relative_norm_error": 9.239303377242943e-09,
+                "direction_cosine": 0.9999999999999971,
+                "rounding_l2": 2.7994003089189324e-08
+              },
+              "changed_coordinates": 25,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 37,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 47,
+                  "added": 10,
+                  "removed": 13,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 703,
+              "largest_absolute_aligned_margin_change": 0.7901599779725075,
+              "core_spike_changes_vs_controls": {
+                "forward": {
+                  "cue0": {
+                    "matching": 37,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 53,
+                    "added": 4,
+                    "removed": 4,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "balanced": {
+                  "cue0": {
+                    "matching": 37,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 52,
+                    "added": 5,
+                    "removed": 6,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "shuffle_reverse": {
+                  "cue0": {
+                    "matching": 37,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 43,
+                    "added": 14,
+                    "removed": 11,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "reference_reverse": {
+                  "cue0": {
+                    "matching": 37,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 47,
+                    "added": 10,
+                    "removed": 14,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                }
+              }
+            },
+            "balanced": {
+              "plan": {
+                "requested_norm": 0.35661387403125294,
+                "ray_limit": 0.39623763781250326,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.35661387403125294,
+                "normalization_iterations": 0,
+                "actual_norm": 0.3566138732645789,
+                "relative_norm_error": 2.1498716494292196e-09,
+                "direction_cosine": 0.9999999999999941,
+                "rounding_l2": 3.87477264280392e-08
+              },
+              "changed_coordinates": 41,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 37,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 52,
+                  "added": 6,
+                  "removed": 8,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 710,
+              "largest_absolute_aligned_margin_change": 0.7904585972428322
+            },
+            "shuffle_forward": {
+              "plan": {
+                "requested_norm": 0.35661387403125294,
+                "ray_limit": 0.4137492167012018,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.35661387403125294,
+                "normalization_iterations": 0,
+                "actual_norm": 0.3566138749886907,
+                "relative_norm_error": 2.6848022747347306e-09,
+                "direction_cosine": 0.9999999999999967,
+                "rounding_l2": 2.887216436812795e-08
+              },
+              "changed_coordinates": 38,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 37,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 47,
+                  "added": 10,
+                  "removed": 13,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 703,
+              "largest_absolute_aligned_margin_change": 0.7901599779725075
+            },
+            "reference_forward": {
+              "plan": {
+                "requested_norm": 0.35661387403125294,
+                "ray_limit": 5.822956658249476,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.35661387403125294,
+                "normalization_iterations": 0,
+                "actual_norm": 0.35661388999190247,
+                "relative_norm_error": 4.475610930058904e-08,
+                "direction_cosine": 0.9999999999999977,
+                "rounding_l2": 2.924913048465423e-08
+              },
+              "changed_coordinates": 11,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 37,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 60,
+                  "added": 1,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 714,
+              "largest_absolute_aligned_margin_change": 0.3252420425415039
+            },
+            "shuffle_reverse": {
+              "plan": {
+                "requested_norm": 0.35661387403125294,
+                "ray_limit": 0.3972108509674068,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.35661387403125294,
+                "normalization_iterations": 0,
+                "actual_norm": 0.35661387409758616,
+                "relative_norm_error": 1.8600851376699922e-10,
+                "direction_cosine": 0.9999999999999981,
+                "rounding_l2": 2.230299251635001e-08
+              },
+              "changed_coordinates": 25,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 37,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 44,
+                  "added": 10,
+                  "removed": 16,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 707,
+              "largest_absolute_aligned_margin_change": 0.9779720604419708
+            },
+            "reference_reverse": {
+              "plan": {
+                "requested_norm": 0.35661387403125294,
+                "ray_limit": 4.949758010321249,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.35661387403125294,
+                "normalization_iterations": 0,
+                "actual_norm": 0.35661387873205513,
+                "relative_norm_error": 1.3181770352367612e-08,
+                "direction_cosine": 0.9999999999999987,
+                "rounding_l2": 1.9717425905427128e-08
+              },
+              "changed_coordinates": 8,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 37,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 60,
+                  "added": 1,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 714,
+              "largest_absolute_aligned_margin_change": 0.47097157686948776
+            }
+          }
+        },
+        "bounded": {
+          "requested_norm": 4.4547822092891245,
+          "learned": {
+            "passed_cases": 0,
+            "available_cases": 4,
+            "complete": false,
+            "checks": {
+              "forward": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 3,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 4,
+                  "opposite": 2,
+                  "balanced": 2,
+                  "shuffle_{mapping}": 3,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              },
+              "reverse": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 3,
+                  "correct_group": 0,
+                  "wrong": 2,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 3,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              }
+            }
+          },
+          "reference": {
+            "passed_cases": 4,
+            "available_cases": 4,
+            "complete": true,
+            "checks": {
+              "forward": {
+                "cue0": {
+                  "correct": 6,
+                  "correct_group": 0,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": true
+                },
+                "cue1": {
+                  "correct": 16,
+                  "correct_group": 1,
+                  "wrong": 1,
+                  "baseline": 4,
+                  "opposite": 3,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": true
+                }
+              },
+              "reverse": {
+                "cue0": {
+                  "correct": 2,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": true
+                },
+                "cue1": {
+                  "correct": 6,
+                  "correct_group": 0,
+                  "wrong": 3,
+                  "baseline": 0,
+                  "opposite": 1,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": true
+                }
+              }
+            }
+          },
+          "outcome": "reference_passes_learned_incomplete",
+          "arms": {
+            "forward": {
+              "plan": {
+                "scale": 222891.57419546734,
+                "actual_norm": 4.454782211791715,
+                "relative_norm_error": 5.617760908500454e-10,
+                "direction_cosine": 0.3173837550641941,
+                "clipped_coordinates": 24
+              },
+              "changed_coordinates": 38,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 37,
+                  "added": 3,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 36,
+                  "added": 40,
+                  "removed": 24,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 702,
+              "largest_absolute_aligned_margin_change": 0.9096806943416595,
+              "core_spike_changes_vs_controls": {
+                "reverse": {
+                  "cue0": {
+                    "matching": 40,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 53,
+                    "added": 23,
+                    "removed": 18,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "balanced": {
+                  "cue0": {
+                    "matching": 40,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 53,
+                    "added": 23,
+                    "removed": 16,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "shuffle_forward": {
+                  "cue0": {
+                    "matching": 40,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 66,
+                    "added": 10,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "reference_forward": {
+                  "cue0": {
+                    "matching": 36,
+                    "added": 4,
+                    "removed": 8,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 34,
+                    "added": 42,
+                    "removed": 48,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                }
+              }
+            },
+            "reverse": {
+              "plan": {
+                "scale": 2693535.415318517,
+                "actual_norm": 4.454782212670147,
+                "relative_norm_error": 7.589647291787713e-10,
+                "direction_cosine": 0.24538373244479653,
+                "clipped_coordinates": 22
+              },
+              "changed_coordinates": 25,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 37,
+                  "added": 3,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 47,
+                  "added": 24,
+                  "removed": 13,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 701,
+              "largest_absolute_aligned_margin_change": 0.9151890859939158,
+              "core_spike_changes_vs_controls": {
+                "forward": {
+                  "cue0": {
+                    "matching": 40,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 53,
+                    "added": 18,
+                    "removed": 23,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "balanced": {
+                  "cue0": {
+                    "matching": 40,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 68,
+                    "added": 3,
+                    "removed": 1,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "shuffle_reverse": {
+                  "cue0": {
+                    "matching": 37,
+                    "added": 3,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 67,
+                    "added": 4,
+                    "removed": 2,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "reference_reverse": {
+                  "cue0": {
+                    "matching": 37,
+                    "added": 3,
+                    "removed": 4,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 48,
+                    "added": 23,
+                    "removed": 28,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                }
+              }
+            },
+            "balanced": {
+              "plan": {
+                "scale": 231043.14911313885,
+                "actual_norm": 4.454782222354205,
+                "relative_norm_error": 2.932821394888434e-09,
+                "direction_cosine": 0.3046153434110557,
+                "clipped_coordinates": 23
+              },
+              "changed_coordinates": 41,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 37,
+                  "added": 3,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 47,
+                  "added": 22,
+                  "removed": 13,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 703,
+              "largest_absolute_aligned_margin_change": 0.7910275831818581
+            },
+            "shuffle_forward": {
+              "plan": {
+                "scale": 225292.32331173203,
+                "actual_norm": 4.454782204290727,
+                "relative_norm_error": 1.1220295441675294e-09,
+                "direction_cosine": 0.32121003728259306,
+                "clipped_coordinates": 24
+              },
+              "changed_coordinates": 38,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 37,
+                  "added": 3,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 36,
+                  "added": 30,
+                  "removed": 24,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 702,
+              "largest_absolute_aligned_margin_change": 0.9113989770412445
+            },
+            "reference_forward": {
+              "plan": {
+                "scale": 0.7650378495454788,
+                "actual_norm": 4.454782213367175,
+                "relative_norm_error": 9.154321343579735e-10,
+                "direction_cosine": 0.9999999999999996,
+                "clipped_coordinates": 0
+              },
+              "changed_coordinates": 11,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 36,
+                  "added": 8,
+                  "removed": 1,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 49,
+                  "added": 33,
+                  "removed": 11,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 694,
+              "largest_absolute_aligned_margin_change": 1.799277424812317
+            },
+            "shuffle_reverse": {
+              "plan": {
+                "scale": 2364890.401860437,
+                "actual_norm": 4.454782212814035,
+                "relative_norm_error": 7.912643033816682e-10,
+                "direction_cosine": 0.24538218174451212,
+                "clipped_coordinates": 22
+              },
+              "changed_coordinates": 25,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 37,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 47,
+                  "added": 22,
+                  "removed": 13,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 701,
+              "largest_absolute_aligned_margin_change": 1.0160681307315826
+            },
+            "reference_reverse": {
+              "plan": {
+                "scale": 0.9000000022351742,
+                "actual_norm": 4.454782218245306,
+                "relative_norm_error": 2.0104645195613734e-09,
+                "direction_cosine": 0.9999999999999999,
+                "clipped_coordinates": 0
+              },
+              "changed_coordinates": 8,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 37,
+                  "added": 4,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 49,
+                  "added": 27,
+                  "removed": 11,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 704,
+              "largest_absolute_aligned_margin_change": 3.8628047108650208
+            }
+          }
+        }
+      },
+      "descriptive_direction_cosines": {
+        "forward": {
+          "reverse": 0.83329467130164,
+          "balanced": 0.9818516905012142,
+          "shuffle_forward": 0.45063523337910333,
+          "reference_forward": 0.002965452063156802
+        },
+        "reverse": {
+          "forward": 0.83329467130164,
+          "balanced": 0.9174072981898205,
+          "shuffle_reverse": 0.5787799962081556,
+          "reference_reverse": 0.000613119970359108
+        }
+      }
+    },
+    {
+      "job_id": "v00000-s34127-i000",
+      "seed": 34127,
+      "archived_record_checksum": "83d139fa0f9bfc0a",
+      "reference_choice": "direct_full",
+      "support_size": 56,
+      "unavailable_directions": [
+        "reference_reverse"
+      ],
+      "target_sizes": [
+        5,
+        5
+      ],
+      "carrier_edge_count": 847,
+      "carrier_added_edges": 267,
+      "probe_start_us": 16000001,
+      "direction_norms": {
+        "forward": 2.2722184562283463e-05,
+        "reverse": 1.8324054316289394e-05,
+        "balanced": 1.8600290523488074e-05,
+        "shuffle_forward": 2.2722184562283463e-05,
+        "reference_forward": 1.75,
+        "shuffle_reverse": 1.8324054316289394e-05,
+        "reference_reverse": 0.0
+      },
+      "direction_nonzero_counts": {
+        "forward": 34,
+        "reverse": 37,
+        "balanced": 39,
+        "shuffle_forward": 34,
+        "reference_forward": 1,
+        "shuffle_reverse": 37,
+        "reference_reverse": 0
+      },
+      "ray_limits": {
+        "forward": 0.3343848901346646,
+        "reverse": 0.3155184829980842,
+        "balanced": 0.43704175233596465,
+        "shuffle_forward": 0.3343848901346646,
+        "reference_forward": 1.75,
+        "shuffle_reverse": 0.25364984231862875,
+        "reference_reverse": null
+      },
+      "saturation_limits": {
+        "forward": 6.425675805675022,
+        "reverse": 7.516217111271587,
+        "balanced": 7.112092253097052,
+        "shuffle_forward": 6.438329538294068,
+        "reference_forward": 1.75,
+        "shuffle_reverse": 7.547863413230865,
+        "reference_reverse": 0.0
+      },
+      "raw_sha256": "052be23c54d0e385edfa1bed3cc6219fc458d07145daa1f82312cd30b5b981d6",
+      "capacity_sha256": "0ff0039a8aa01e3e1e5475e875f67d6df2b766afccc49d85c6d04a9bf0ab3449",
+      "consolidation_sha256": "8990f01ed12b57a7337ac7c6720c4d105b856632132a02babe9eea6665b9622b",
+      "reference_full": {
+        "passed_cases": 1,
+        "available_cases": 4,
+        "complete": false,
+        "checks": {
+          "forward": {
+            "cue0": {
+              "correct": 5,
+              "correct_group": 0,
+              "wrong": 0,
+              "baseline": 1,
+              "opposite": 1,
+              "rest": 0,
+              "baseline_rest": 0,
+              "blank": 0,
+              "baseline_blank": 0,
+              "available": true,
+              "passed": true
+            },
+            "cue1": {
+              "correct": 1,
+              "correct_group": 1,
+              "wrong": 0,
+              "baseline": 1,
+              "opposite": 1,
+              "rest": 0,
+              "baseline_rest": 0,
+              "blank": 0,
+              "baseline_blank": 0,
+              "available": true,
+              "passed": false
+            }
+          },
+          "reverse": {
+            "cue0": {
+              "correct": 0,
+              "correct_group": 1,
+              "wrong": 1,
+              "baseline": 0,
+              "opposite": 0,
+              "rest": 0,
+              "baseline_rest": 0,
+              "blank": 0,
+              "baseline_blank": 0,
+              "available": true,
+              "passed": false
+            },
+            "cue1": {
+              "correct": 0,
+              "correct_group": 0,
+              "wrong": 1,
+              "baseline": 0,
+              "opposite": 0,
+              "rest": 0,
+              "baseline_rest": 0,
+              "blank": 0,
+              "baseline_blank": 0,
+              "available": true,
+              "passed": false
+            }
+          }
+        },
+        "norms": {
+          "forward": 1.75,
+          "reverse": 0.0
+        }
+      },
+      "tiers": {
+        "ray": {
+          "requested_norm": 0.22828485808676588,
+          "learned": {
+            "passed_cases": 0,
+            "available_cases": 4,
+            "complete": false,
+            "checks": {
+              "forward": {
+                "cue0": {
+                  "correct": 1,
+                  "correct_group": 0,
+                  "wrong": 0,
+                  "baseline": 1,
+                  "opposite": 1,
+                  "balanced": 1,
+                  "shuffle_{mapping}": 1,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 1,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 1,
+                  "opposite": 1,
+                  "balanced": 1,
+                  "shuffle_{mapping}": 1,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              },
+              "reverse": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 1,
+                  "wrong": 1,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 1,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              }
+            }
+          },
+          "reference": {
+            "passed_cases": 0,
+            "available_cases": 2,
+            "complete": false,
+            "checks": {
+              "forward": {
+                "cue0": {
+                  "correct": 1,
+                  "correct_group": 0,
+                  "wrong": 0,
+                  "baseline": 1,
+                  "opposite": 1,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 1,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 1,
+                  "opposite": 1,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              },
+              "reverse": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 1,
+                  "wrong": 1,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": false,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 1,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": false,
+                  "passed": false
+                }
+              }
+            }
+          },
+          "outcome": "both_incomplete",
+          "arms": {
+            "forward": {
+              "plan": {
+                "requested_norm": 0.22828485808676588,
+                "ray_limit": 0.3343848901346646,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.22828485808676588,
+                "normalization_iterations": 0,
+                "actual_norm": 0.2282848531951866,
+                "relative_norm_error": 2.1427524022027478e-08,
+                "direction_cosine": 0.9999999999999893,
+                "rounding_l2": 3.3788744747243576e-08
+              },
+              "changed_coordinates": 34,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 43,
+                  "added": 11,
+                  "removed": 10,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 58,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 756,
+              "largest_absolute_aligned_margin_change": 0.2336324155330658,
+              "core_spike_changes_vs_controls": {
+                "reverse": {
+                  "cue0": {
+                    "matching": 45,
+                    "added": 9,
+                    "removed": 9,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 58,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "balanced": {
+                  "cue0": {
+                    "matching": 45,
+                    "added": 9,
+                    "removed": 9,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 58,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "shuffle_forward": {
+                  "cue0": {
+                    "matching": 43,
+                    "added": 11,
+                    "removed": 10,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 58,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "reference_forward": {
+                  "cue0": {
+                    "matching": 43,
+                    "added": 11,
+                    "removed": 10,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 58,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                }
+              }
+            },
+            "reverse": {
+              "plan": {
+                "requested_norm": 0.22828485808676588,
+                "ray_limit": 0.3155184829980842,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.22828485808676588,
+                "normalization_iterations": 0,
+                "actual_norm": 0.22828486122026928,
+                "relative_norm_error": 1.372628665545193e-08,
+                "direction_cosine": 0.9999999999999855,
+                "rounding_l2": 3.9085580247022086e-08
+              },
+              "changed_coordinates": 37,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 42,
+                  "added": 12,
+                  "removed": 11,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 58,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 754,
+              "largest_absolute_aligned_margin_change": 0.4428708851337433,
+              "core_spike_changes_vs_controls": {
+                "forward": {
+                  "cue0": {
+                    "matching": 45,
+                    "added": 9,
+                    "removed": 9,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 58,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "balanced": {
+                  "cue0": {
+                    "matching": 54,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 58,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "shuffle_reverse": {
+                  "cue0": {
+                    "matching": 42,
+                    "added": 12,
+                    "removed": 11,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 58,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                }
+              }
+            },
+            "balanced": {
+              "plan": {
+                "requested_norm": 0.22828485808676588,
+                "ray_limit": 0.43704175233596465,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.22828485808676588,
+                "normalization_iterations": 0,
+                "actual_norm": 0.22828485898230272,
+                "relative_norm_error": 3.922891980812365e-09,
+                "direction_cosine": 0.9999999999999827,
+                "rounding_l2": 4.259410678396975e-08
+              },
+              "changed_coordinates": 39,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 42,
+                  "added": 12,
+                  "removed": 11,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 58,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 754,
+              "largest_absolute_aligned_margin_change": 0.4428708851337433
+            },
+            "shuffle_forward": {
+              "plan": {
+                "requested_norm": 0.22828485808676588,
+                "ray_limit": 0.3343848901346646,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.22828485808676588,
+                "normalization_iterations": 0,
+                "actual_norm": 0.22828485212025015,
+                "relative_norm_error": 2.613627454722636e-08,
+                "direction_cosine": 0.9999999999999889,
+                "rounding_l2": 3.464813771432357e-08
+              },
+              "changed_coordinates": 34,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 53,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 58,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 758,
+              "largest_absolute_aligned_margin_change": 0.003930330276489258
+            },
+            "reference_forward": {
+              "plan": {
+                "requested_norm": 0.22828485808676588,
+                "ray_limit": 1.75,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.22828485808676588,
+                "normalization_iterations": 0,
+                "actual_norm": 0.22828486561775208,
+                "relative_norm_error": 3.29894249618044e-08,
+                "direction_cosine": 1.0,
+                "rounding_l2": 7.530986168013953e-09
+              },
+              "changed_coordinates": 1,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 53,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 58,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 758,
+              "largest_absolute_aligned_margin_change": 0.33296144008636475
+            },
+            "shuffle_reverse": {
+              "plan": {
+                "requested_norm": 0.22828485808676588,
+                "ray_limit": 0.25364984231862875,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.22828485808676588,
+                "normalization_iterations": 0,
+                "actual_norm": 0.2282848580817955,
+                "relative_norm_error": 2.1772732787344347e-11,
+                "direction_cosine": 0.9999999999999882,
+                "rounding_l2": 3.515212260514269e-08
+              },
+              "changed_coordinates": 37,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 53,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 58,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 758,
+              "largest_absolute_aligned_margin_change": 0.0024368762969970703
+            }
+          }
+        },
+        "bounded": {
+          "requested_norm": 1.575,
+          "learned": {
+            "passed_cases": 0,
+            "available_cases": 4,
+            "complete": false,
+            "checks": {
+              "forward": {
+                "cue0": {
+                  "correct": 1,
+                  "correct_group": 0,
+                  "wrong": 0,
+                  "baseline": 1,
+                  "opposite": 1,
+                  "balanced": 1,
+                  "shuffle_{mapping}": 1,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 1,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 1,
+                  "opposite": 1,
+                  "balanced": 1,
+                  "shuffle_{mapping}": 1,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              },
+              "reverse": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 1,
+                  "wrong": 1,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 1,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              }
+            }
+          },
+          "reference": {
+            "passed_cases": 1,
+            "available_cases": 2,
+            "complete": false,
+            "checks": {
+              "forward": {
+                "cue0": {
+                  "correct": 5,
+                  "correct_group": 0,
+                  "wrong": 0,
+                  "baseline": 1,
+                  "opposite": 1,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": true
+                },
+                "cue1": {
+                  "correct": 1,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 1,
+                  "opposite": 1,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              },
+              "reverse": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 1,
+                  "wrong": 1,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": false,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 1,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": false,
+                  "passed": false
+                }
+              }
+            }
+          },
+          "outcome": "both_incomplete",
+          "arms": {
+            "forward": {
+              "plan": {
+                "scale": 205716.25681780872,
+                "actual_norm": 1.5749999879473129,
+                "relative_norm_error": 7.652499727369681e-09,
+                "direction_cosine": 0.6097726144723866,
+                "clipped_coordinates": 8
+              },
+              "changed_coordinates": 34,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 38,
+                  "added": 19,
+                  "removed": 15,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 57,
+                  "added": 4,
+                  "removed": 1,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 754,
+              "largest_absolute_aligned_margin_change": 0.4428708851337433,
+              "core_spike_changes_vs_controls": {
+                "reverse": {
+                  "cue0": {
+                    "matching": 57,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 61,
+                    "added": 0,
+                    "removed": 3,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "balanced": {
+                  "cue0": {
+                    "matching": 57,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 61,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "shuffle_forward": {
+                  "cue0": {
+                    "matching": 38,
+                    "added": 19,
+                    "removed": 15,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 57,
+                    "added": 4,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "reference_forward": {
+                  "cue0": {
+                    "matching": 37,
+                    "added": 20,
+                    "removed": 20,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 57,
+                    "added": 4,
+                    "removed": 1,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                }
+              }
+            },
+            "reverse": {
+              "plan": {
+                "scale": 271028.228004255,
+                "actual_norm": 1.5750000077642805,
+                "relative_norm_error": 4.929701937666799e-09,
+                "direction_cosine": 0.5322149213960914,
+                "clipped_coordinates": 7
+              },
+              "changed_coordinates": 37,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 38,
+                  "added": 19,
+                  "removed": 15,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 58,
+                  "added": 6,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 754,
+              "largest_absolute_aligned_margin_change": 0.4428708851337433,
+              "core_spike_changes_vs_controls": {
+                "forward": {
+                  "cue0": {
+                    "matching": 57,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 61,
+                    "added": 3,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "balanced": {
+                  "cue0": {
+                    "matching": 57,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 61,
+                    "added": 3,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "shuffle_reverse": {
+                  "cue0": {
+                    "matching": 38,
+                    "added": 19,
+                    "removed": 15,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 60,
+                    "added": 4,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                }
+              }
+            },
+            "balanced": {
+              "plan": {
+                "scale": 237888.32130431005,
+                "actual_norm": 1.5749999998906272,
+                "relative_norm_error": 6.944300513811276e-11,
+                "direction_cosine": 0.6520596304062419,
+                "clipped_coordinates": 10
+              },
+              "changed_coordinates": 39,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 38,
+                  "added": 19,
+                  "removed": 15,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 57,
+                  "added": 4,
+                  "removed": 1,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 754,
+              "largest_absolute_aligned_margin_change": 0.4428708851337433
+            },
+            "shuffle_forward": {
+              "plan": {
+                "scale": 208649.42227970337,
+                "actual_norm": 1.5750000025089652,
+                "relative_norm_error": 1.5929938144601751e-09,
+                "direction_cosine": 0.5935892706033284,
+                "clipped_coordinates": 8
+              },
+              "changed_coordinates": 34,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 53,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 57,
+                  "added": 0,
+                  "removed": 1,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 758,
+              "largest_absolute_aligned_margin_change": 0.08162558078765869
+            },
+            "reference_forward": {
+              "plan": {
+                "scale": 0.9000000357627869,
+                "actual_norm": 1.5750000476837158,
+                "relative_norm_error": 3.027537515220408e-08,
+                "direction_cosine": 1.0,
+                "clipped_coordinates": 0
+              },
+              "changed_coordinates": 1,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 52,
+                  "added": 5,
+                  "removed": 1,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 58,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 754,
+              "largest_absolute_aligned_margin_change": 1.4540161192417145
+            },
+            "shuffle_reverse": {
+              "plan": {
+                "scale": 274773.8911959826,
+                "actual_norm": 1.5750000251312666,
+                "relative_norm_error": 1.5956359760819412e-08,
+                "direction_cosine": 0.5014467387556497,
+                "clipped_coordinates": 7
+              },
+              "changed_coordinates": 37,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 53,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 58,
+                  "added": 2,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 758,
+              "largest_absolute_aligned_margin_change": 0.05374711751937866
+            }
+          }
+        }
+      },
+      "descriptive_direction_cosines": {
+        "forward": {
+          "reverse": 0.4365403536588719,
+          "balanced": 0.9577981578642943,
+          "shuffle_forward": 0.6693705224243268,
+          "reference_forward": 0.011804362417444557
+        },
+        "reverse": {
+          "forward": 0.4365403536588719,
+          "balanced": 0.6441808711083391,
+          "shuffle_reverse": 0.11029124878155878,
+          "reference_reverse": null
+        }
+      }
+    },
+    {
+      "job_id": "v00000-s34141-i000",
+      "seed": 34141,
+      "archived_record_checksum": "cdd71c7ffaa9b5f7",
+      "reference_choice": "direct_half",
+      "support_size": 66,
+      "unavailable_directions": [],
+      "target_sizes": [
+        5,
+        8
+      ],
+      "carrier_edge_count": 838,
+      "carrier_added_edges": 263,
+      "probe_start_us": 16000001,
+      "direction_norms": {
+        "forward": 4.27086048835167e-05,
+        "reverse": 3.293924180183508e-05,
+        "balanced": 3.9757459757931276e-05,
+        "shuffle_forward": 4.27086048835167e-05,
+        "reference_forward": 1.246670565790045,
+        "shuffle_reverse": 3.293924180183508e-05,
+        "reference_reverse": 1.7500115037018433
+      },
+      "direction_nonzero_counts": {
+        "forward": 41,
+        "reverse": 39,
+        "balanced": 44,
+        "shuffle_forward": 41,
+        "reference_forward": 2,
+        "shuffle_reverse": 39,
+        "reference_reverse": 4
+      },
+      "ray_limits": {
+        "forward": 0.7193476784725065,
+        "reverse": 0.5615772862452076,
+        "balanced": 0.5620229154763492,
+        "shuffle_forward": 0.7193837406579553,
+        "reference_forward": 2.493340713187846,
+        "shuffle_reverse": 0.5987099399290029,
+        "reference_reverse": 3.500007063162567
+      },
+      "saturation_limits": {
+        "forward": 6.438142235054814,
+        "reverse": 5.951523406737985,
+        "balanced": 6.444609937081971,
+        "shuffle_forward": 6.441521984379575,
+        "reference_forward": 2.493340940213762,
+        "shuffle_reverse": 5.974098410724522,
+        "reference_reverse": 3.5000143647313937
+      },
+      "raw_sha256": "fabaa98d091647458362db9219e32b3b74110de9d486b71a1fa497d95a48bd3f",
+      "capacity_sha256": "617c533de4c5696636462a65b5b39ad7a8d41e24334cc47248b424391314f377",
+      "consolidation_sha256": "0bfd2951030b4cab077d3d6671afe2a502a615dd9f54394039c0d1ccde9ccc5b",
+      "reference_full": {
+        "passed_cases": 0,
+        "available_cases": 4,
+        "complete": false,
+        "checks": {
+          "forward": {
+            "cue0": {
+              "correct": 0,
+              "correct_group": 0,
+              "wrong": 0,
+              "baseline": 0,
+              "opposite": 0,
+              "rest": 0,
+              "baseline_rest": 0,
+              "blank": 0,
+              "baseline_blank": 0,
+              "available": true,
+              "passed": false
+            },
+            "cue1": {
+              "correct": 3,
+              "correct_group": 1,
+              "wrong": 0,
+              "baseline": 3,
+              "opposite": 3,
+              "rest": 0,
+              "baseline_rest": 0,
+              "blank": 0,
+              "baseline_blank": 0,
+              "available": true,
+              "passed": false
+            }
+          },
+          "reverse": {
+            "cue0": {
+              "correct": 0,
+              "correct_group": 1,
+              "wrong": 0,
+              "baseline": 0,
+              "opposite": 0,
+              "rest": 0,
+              "baseline_rest": 0,
+              "blank": 0,
+              "baseline_blank": 0,
+              "available": true,
+              "passed": false
+            },
+            "cue1": {
+              "correct": 0,
+              "correct_group": 0,
+              "wrong": 3,
+              "baseline": 0,
+              "opposite": 0,
+              "rest": 0,
+              "baseline_rest": 0,
+              "blank": 0,
+              "baseline_blank": 0,
+              "available": true,
+              "passed": false
+            }
+          }
+        },
+        "norms": {
+          "forward": 1.246670565790045,
+          "reverse": 1.7500115037018433
+        }
+      },
+      "tiers": {
+        "ray": {
+          "requested_norm": 0.5054195576206869,
+          "learned": {
+            "passed_cases": 0,
+            "available_cases": 4,
+            "complete": false,
+            "checks": {
+              "forward": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 3,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 3,
+                  "opposite": 3,
+                  "balanced": 3,
+                  "shuffle_{mapping}": 3,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              },
+              "reverse": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 3,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              }
+            }
+          },
+          "reference": {
+            "passed_cases": 0,
+            "available_cases": 4,
+            "complete": false,
+            "checks": {
+              "forward": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 3,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 3,
+                  "opposite": 3,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              },
+              "reverse": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 3,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              }
+            }
+          },
+          "outcome": "both_incomplete",
+          "arms": {
+            "forward": {
+              "plan": {
+                "requested_norm": 0.5054195576206869,
+                "ray_limit": 0.7193476784725065,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.5054195576206869,
+                "normalization_iterations": 0,
+                "actual_norm": 0.505419554736319,
+                "relative_norm_error": 5.706878200854739e-09,
+                "direction_cosine": 0.9999999999999969,
+                "rounding_l2": 3.984727952404588e-08
+              },
+              "changed_coordinates": 41,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 44,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 57,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 940,
+              "largest_absolute_aligned_margin_change": 0.0044022053480148315,
+              "core_spike_changes_vs_controls": {
+                "reverse": {
+                  "cue0": {
+                    "matching": 44,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 57,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "balanced": {
+                  "cue0": {
+                    "matching": 44,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 57,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "shuffle_forward": {
+                  "cue0": {
+                    "matching": 44,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 57,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "reference_forward": {
+                  "cue0": {
+                    "matching": 44,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 57,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                }
+              }
+            },
+            "reverse": {
+              "plan": {
+                "requested_norm": 0.5054195576206869,
+                "ray_limit": 0.5615772862452076,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.5054195576206869,
+                "normalization_iterations": 0,
+                "actual_norm": 0.5054195638225496,
+                "relative_norm_error": 1.2270721614465005e-08,
+                "direction_cosine": 0.999999999999998,
+                "rounding_l2": 3.413215483988241e-08
+              },
+              "changed_coordinates": 39,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 44,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 57,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 940,
+              "largest_absolute_aligned_margin_change": 0.0,
+              "core_spike_changes_vs_controls": {
+                "forward": {
+                  "cue0": {
+                    "matching": 44,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 57,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "balanced": {
+                  "cue0": {
+                    "matching": 44,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 57,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "shuffle_reverse": {
+                  "cue0": {
+                    "matching": 44,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 57,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "reference_reverse": {
+                  "cue0": {
+                    "matching": 44,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 57,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                }
+              }
+            },
+            "balanced": {
+              "plan": {
+                "requested_norm": 0.5054195576206869,
+                "ray_limit": 0.5620229154763492,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.5054195576206869,
+                "normalization_iterations": 0,
+                "actual_norm": 0.5054195605674449,
+                "relative_norm_error": 5.830320383000485e-09,
+                "direction_cosine": 0.9999999999999973,
+                "rounding_l2": 3.6102866525859685e-08
+              },
+              "changed_coordinates": 44,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 44,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 57,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 940,
+              "largest_absolute_aligned_margin_change": 0.004183322191238403
+            },
+            "shuffle_forward": {
+              "plan": {
+                "requested_norm": 0.5054195576206869,
+                "ray_limit": 0.7193837406579553,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.5054195576206869,
+                "normalization_iterations": 0,
+                "actual_norm": 0.5054195591425222,
+                "relative_norm_error": 3.011033707498897e-09,
+                "direction_cosine": 0.9999999999999974,
+                "rounding_l2": 3.543747181431663e-08
+              },
+              "changed_coordinates": 41,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 44,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 57,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 940,
+              "largest_absolute_aligned_margin_change": 0.0044022053480148315
+            },
+            "reference_forward": {
+              "plan": {
+                "requested_norm": 0.5054195576206869,
+                "ray_limit": 2.493340713187846,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.5054195576206869,
+                "normalization_iterations": 0,
+                "actual_norm": 0.5054195725472223,
+                "relative_norm_error": 2.9532959530382287e-08,
+                "direction_cosine": 0.9999999999999994,
+                "rounding_l2": 2.1396905978083333e-08
+              },
+              "changed_coordinates": 2,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 44,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 57,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 940,
+              "largest_absolute_aligned_margin_change": 0.3456679582595825
+            },
+            "shuffle_reverse": {
+              "plan": {
+                "requested_norm": 0.5054195576206869,
+                "ray_limit": 0.5987099399290029,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.5054195576206869,
+                "normalization_iterations": 0,
+                "actual_norm": 0.50541956151543,
+                "relative_norm_error": 7.70596037465157e-09,
+                "direction_cosine": 0.9999999999999982,
+                "rounding_l2": 3.1531857378197225e-08
+              },
+              "changed_coordinates": 39,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 44,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 57,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 940,
+              "largest_absolute_aligned_margin_change": 0.0
+            },
+            "reference_reverse": {
+              "plan": {
+                "requested_norm": 0.5054195576206869,
+                "ray_limit": 3.500007063162567,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.5054195576206869,
+                "normalization_iterations": 0,
+                "actual_norm": 0.5054195523277879,
+                "relative_norm_error": 1.0472287682902706e-08,
+                "direction_cosine": 0.9999999999999997,
+                "rounding_l2": 1.532765544967836e-08
+              },
+              "changed_coordinates": 4,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 44,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 57,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 940,
+              "largest_absolute_aligned_margin_change": 0.0
+            }
+          }
+        },
+        "bounded": {
+          "requested_norm": 1.1220035092110405,
+          "learned": {
+            "passed_cases": 0,
+            "available_cases": 4,
+            "complete": false,
+            "checks": {
+              "forward": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 3,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 3,
+                  "opposite": 3,
+                  "balanced": 3,
+                  "shuffle_{mapping}": 3,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              },
+              "reverse": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 3,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              }
+            }
+          },
+          "reference": {
+            "passed_cases": 0,
+            "available_cases": 4,
+            "complete": false,
+            "checks": {
+              "forward": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 3,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 3,
+                  "opposite": 3,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              },
+              "reverse": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 3,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              }
+            }
+          },
+          "outcome": "both_incomplete",
+          "arms": {
+            "forward": {
+              "plan": {
+                "scale": 29911.03206907266,
+                "actual_norm": 1.1220035038296425,
+                "relative_norm_error": 4.796239895604812e-09,
+                "direction_cosine": 0.9755360629676789,
+                "clipped_coordinates": 5
+              },
+              "changed_coordinates": 41,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 44,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 57,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 940,
+              "largest_absolute_aligned_margin_change": 0.011126667261123657,
+              "core_spike_changes_vs_controls": {
+                "reverse": {
+                  "cue0": {
+                    "matching": 44,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 57,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "balanced": {
+                  "cue0": {
+                    "matching": 44,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 57,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "shuffle_forward": {
+                  "cue0": {
+                    "matching": 44,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 57,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "reference_forward": {
+                  "cue0": {
+                    "matching": 44,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 57,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                }
+              }
+            },
+            "reverse": {
+              "plan": {
+                "scale": 39663.467664721,
+                "actual_norm": 1.1220035091354867,
+                "relative_norm_error": 6.733827909623743e-11,
+                "direction_cosine": 0.9566477451476726,
+                "clipped_coordinates": 4
+              },
+              "changed_coordinates": 39,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 44,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 57,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 940,
+              "largest_absolute_aligned_margin_change": 0.0,
+              "core_spike_changes_vs_controls": {
+                "forward": {
+                  "cue0": {
+                    "matching": 44,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 57,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "balanced": {
+                  "cue0": {
+                    "matching": 44,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 57,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "shuffle_reverse": {
+                  "cue0": {
+                    "matching": 44,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 57,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "reference_reverse": {
+                  "cue0": {
+                    "matching": 44,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 57,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                }
+              }
+            },
+            "balanced": {
+              "plan": {
+                "scale": 33180.15364855282,
+                "actual_norm": 1.122003505845844,
+                "relative_norm_error": 2.999274546136142e-09,
+                "direction_cosine": 0.9656958605258051,
+                "clipped_coordinates": 7
+              },
+              "changed_coordinates": 44,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 44,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 57,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 940,
+              "largest_absolute_aligned_margin_change": 0.010918617248535156
+            },
+            "shuffle_forward": {
+              "plan": {
+                "scale": 29186.424274292174,
+                "actual_norm": 1.1220035089009428,
+                "relative_norm_error": 2.763785698796375e-10,
+                "direction_cosine": 0.9810511120895041,
+                "clipped_coordinates": 5
+              },
+              "changed_coordinates": 41,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 44,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 57,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 940,
+              "largest_absolute_aligned_margin_change": 0.010857120156288147
+            },
+            "reference_forward": {
+              "plan": {
+                "scale": 0.8999999914850549,
+                "actual_norm": 1.1220035368390218,
+                "relative_norm_error": 2.462379218007045e-08,
+                "direction_cosine": 0.9999999999999996,
+                "clipped_coordinates": 0
+              },
+              "changed_coordinates": 2,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 44,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 57,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 940,
+              "largest_absolute_aligned_margin_change": 0.7673639357089996
+            },
+            "shuffle_reverse": {
+              "plan": {
+                "scale": 38645.17813638436,
+                "actual_norm": 1.122003503454558,
+                "relative_norm_error": 5.130538876795935e-09,
+                "direction_cosine": 0.9676583832594821,
+                "clipped_coordinates": 4
+              },
+              "changed_coordinates": 39,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 44,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 57,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 940,
+              "largest_absolute_aligned_margin_change": 0.0
+            },
+            "reference_reverse": {
+              "plan": {
+                "scale": 0.6411406385310755,
+                "actual_norm": 1.1220034956966694,
+                "relative_norm_error": 1.204485642580106e-08,
+                "direction_cosine": 0.9999999999999997,
+                "clipped_coordinates": 0
+              },
+              "changed_coordinates": 4,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 44,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 57,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 940,
+              "largest_absolute_aligned_margin_change": 0.0
+            }
+          }
+        }
+      },
+      "descriptive_direction_cosines": {
+        "forward": {
+          "reverse": 0.5927372760389021,
+          "balanced": 0.8976451374297729,
+          "shuffle_forward": 0.4337571113560385,
+          "reference_forward": 0.009400278389714575
+        },
+        "reverse": {
+          "forward": 0.5927372760389021,
+          "balanced": 0.7179963531042064,
+          "shuffle_reverse": 0.13111943675242413,
+          "reference_reverse": -0.08233333878451357
+        }
+      }
+    },
+    {
+      "job_id": "v00000-s34157-i000",
+      "seed": 34157,
+      "archived_record_checksum": "d8ec002180f4b98d",
+      "reference_choice": "direct_half",
+      "support_size": 68,
+      "unavailable_directions": [],
+      "target_sizes": [
+        4,
+        10
+      ],
+      "carrier_edge_count": 859,
+      "carrier_added_edges": 268,
+      "probe_start_us": 16000001,
+      "direction_norms": {
+        "forward": 6.672476428501873e-06,
+        "reverse": 4.428904870786043e-06,
+        "balanced": 5.885826634483344e-06,
+        "shuffle_forward": 6.672476428501873e-06,
+        "reference_forward": 1.5172526589403252,
+        "shuffle_reverse": 4.428904870786043e-06,
+        "reference_reverse": 1.2441340646884789
+      },
+      "direction_nonzero_counts": {
+        "forward": 31,
+        "reverse": 27,
+        "balanced": 33,
+        "shuffle_forward": 31,
+        "reference_forward": 3,
+        "shuffle_reverse": 27,
+        "reference_reverse": 2
+      },
+      "ray_limits": {
+        "forward": 0.5042507956761367,
+        "reverse": 0.4221785876292123,
+        "balanced": 0.3827368500956949,
+        "shuffle_forward": 0.4571784882384646,
+        "reference_forward": 3.0345055762672826,
+        "shuffle_reverse": 0.38276780148689715,
+        "reference_reverse": 2.488268066791927
+      },
+      "saturation_limits": {
+        "forward": 5.671915173987535,
+        "reverse": 5.926168561519963,
+        "balanced": 6.417184516768338,
+        "shuffle_forward": 5.678410943817919,
+        "reference_forward": 3.0345072890733173,
+        "shuffle_reverse": 5.929473773365485,
+        "reference_reverse": 2.4882682434473224
+      },
+      "raw_sha256": "e833704e301a3c9c5791d750318851eba90c51d8af69b1950c0d4261b49b13de",
+      "capacity_sha256": "7502ca4550d7bf74dddc33936fccd7dcacfbff40a432621e6ad96525319444f2",
+      "consolidation_sha256": "4b9db2e43f00cb7d1f166f96b27468a736f0f91936047d91561deb27570ad69a",
+      "reference_full": {
+        "passed_cases": 1,
+        "available_cases": 4,
+        "complete": false,
+        "checks": {
+          "forward": {
+            "cue0": {
+              "correct": 3,
+              "correct_group": 0,
+              "wrong": 0,
+              "baseline": 0,
+              "opposite": 0,
+              "rest": 0,
+              "baseline_rest": 0,
+              "blank": 0,
+              "baseline_blank": 0,
+              "available": true,
+              "passed": true
+            },
+            "cue1": {
+              "correct": 0,
+              "correct_group": 1,
+              "wrong": 0,
+              "baseline": 0,
+              "opposite": 0,
+              "rest": 0,
+              "baseline_rest": 0,
+              "blank": 0,
+              "baseline_blank": 0,
+              "available": true,
+              "passed": false
+            }
+          },
+          "reverse": {
+            "cue0": {
+              "correct": 0,
+              "correct_group": 1,
+              "wrong": 0,
+              "baseline": 0,
+              "opposite": 0,
+              "rest": 0,
+              "baseline_rest": 0,
+              "blank": 0,
+              "baseline_blank": 0,
+              "available": true,
+              "passed": false
+            },
+            "cue1": {
+              "correct": 0,
+              "correct_group": 0,
+              "wrong": 0,
+              "baseline": 0,
+              "opposite": 0,
+              "rest": 0,
+              "baseline_rest": 0,
+              "blank": 0,
+              "baseline_blank": 0,
+              "available": true,
+              "passed": false
+            }
+          }
+        },
+        "norms": {
+          "forward": 1.5172526589403252,
+          "reverse": 1.2441340646884789
+        }
+      },
+      "tiers": {
+        "ray": {
+          "requested_norm": 0.34446316508612546,
+          "learned": {
+            "passed_cases": 0,
+            "available_cases": 4,
+            "complete": false,
+            "checks": {
+              "forward": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 0,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              },
+              "reverse": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              }
+            }
+          },
+          "reference": {
+            "passed_cases": 0,
+            "available_cases": 4,
+            "complete": false,
+            "checks": {
+              "forward": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 0,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              },
+              "reverse": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              }
+            }
+          },
+          "outcome": "both_incomplete",
+          "arms": {
+            "forward": {
+              "plan": {
+                "requested_norm": 0.34446316508612546,
+                "ray_limit": 0.5042507956761367,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.34446316508612546,
+                "normalization_iterations": 0,
+                "actual_norm": 0.34446316875140676,
+                "relative_norm_error": 1.0640560942922792e-08,
+                "direction_cosine": 0.999999999999995,
+                "rounding_l2": 3.4361279084859915e-08
+              },
+              "changed_coordinates": 31,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 45,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 37,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 1044,
+              "largest_absolute_aligned_margin_change": 0.3181866407394409,
+              "core_spike_changes_vs_controls": {
+                "reverse": {
+                  "cue0": {
+                    "matching": 28,
+                    "added": 17,
+                    "removed": 18,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 37,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "balanced": {
+                  "cue0": {
+                    "matching": 45,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 37,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "shuffle_forward": {
+                  "cue0": {
+                    "matching": 44,
+                    "added": 1,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 37,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "reference_forward": {
+                  "cue0": {
+                    "matching": 45,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 37,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                }
+              }
+            },
+            "reverse": {
+              "plan": {
+                "requested_norm": 0.34446316508612546,
+                "ray_limit": 0.4221785876292123,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.34446316508612546,
+                "normalization_iterations": 0,
+                "actual_norm": 0.344463169836718,
+                "relative_norm_error": 1.3791293270150278e-08,
+                "direction_cosine": 0.9999999999999963,
+                "rounding_l2": 2.972326996697909e-08
+              },
+              "changed_coordinates": 27,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 28,
+                  "added": 18,
+                  "removed": 17,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 37,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 1044,
+              "largest_absolute_aligned_margin_change": 0.005235143005847931,
+              "core_spike_changes_vs_controls": {
+                "forward": {
+                  "cue0": {
+                    "matching": 28,
+                    "added": 18,
+                    "removed": 17,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 37,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "balanced": {
+                  "cue0": {
+                    "matching": 28,
+                    "added": 18,
+                    "removed": 17,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 37,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "shuffle_reverse": {
+                  "cue0": {
+                    "matching": 46,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 37,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "reference_reverse": {
+                  "cue0": {
+                    "matching": 28,
+                    "added": 18,
+                    "removed": 17,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 37,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                }
+              }
+            },
+            "balanced": {
+              "plan": {
+                "requested_norm": 0.34446316508612546,
+                "ray_limit": 0.3827368500956949,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.34446316508612546,
+                "normalization_iterations": 0,
+                "actual_norm": 0.34446316210806527,
+                "relative_norm_error": 8.645511303356125e-09,
+                "direction_cosine": 0.999999999999995,
+                "rounding_l2": 3.493011539949807e-08
+              },
+              "changed_coordinates": 33,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 45,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 37,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 1044,
+              "largest_absolute_aligned_margin_change": 0.2503809928894043
+            },
+            "shuffle_forward": {
+              "plan": {
+                "requested_norm": 0.34446316508612546,
+                "ray_limit": 0.4571784882384646,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.34446316508612546,
+                "normalization_iterations": 0,
+                "actual_norm": 0.34446316161334234,
+                "relative_norm_error": 1.0081725620105617e-08,
+                "direction_cosine": 0.9999999999999944,
+                "rounding_l2": 3.5939784012480455e-08
+              },
+              "changed_coordinates": 31,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 44,
+                  "added": 0,
+                  "removed": 1,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 37,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 1043,
+              "largest_absolute_aligned_margin_change": 0.28869009017944336
+            },
+            "reference_forward": {
+              "plan": {
+                "requested_norm": 0.34446316508612546,
+                "ray_limit": 3.0345055762672826,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.34446316508612546,
+                "normalization_iterations": 0,
+                "actual_norm": 0.3444631681329902,
+                "relative_norm_error": 8.845255659571564e-09,
+                "direction_cosine": 0.9999999999999996,
+                "rounding_l2": 1.1170349832942823e-08
+              },
+              "changed_coordinates": 3,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 45,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 37,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 1044,
+              "largest_absolute_aligned_margin_change": 0.5348931550979614
+            },
+            "shuffle_reverse": {
+              "plan": {
+                "requested_norm": 0.34446316508612546,
+                "ray_limit": 0.38276780148689715,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.34446316508612546,
+                "normalization_iterations": 0,
+                "actual_norm": 0.3444631615142531,
+                "relative_norm_error": 1.036938841502597e-08,
+                "direction_cosine": 0.9999999999999969,
+                "rounding_l2": 2.7649536980746922e-08
+              },
+              "changed_coordinates": 27,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 28,
+                  "added": 18,
+                  "removed": 17,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 37,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 1044,
+              "largest_absolute_aligned_margin_change": 0.0030298084020614624
+            },
+            "reference_reverse": {
+              "plan": {
+                "requested_norm": 0.34446316508612546,
+                "ray_limit": 2.488268066791927,
+                "feasible": true,
+                "faithful": true,
+                "reason": null,
+                "ray_norm": 0.34446316508612546,
+                "normalization_iterations": 0,
+                "actual_norm": 0.3444631620581916,
+                "relative_norm_error": 8.790297933137995e-09,
+                "direction_cosine": 0.9999999999999992,
+                "rounding_l2": 1.3975869759301768e-08
+              },
+              "changed_coordinates": 2,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 45,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 37,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 1044,
+              "largest_absolute_aligned_margin_change": 0.06302255392074585
+            }
+          }
+        },
+        "bounded": {
+          "requested_norm": 1.119720658219631,
+          "learned": {
+            "passed_cases": 1,
+            "available_cases": 4,
+            "complete": false,
+            "checks": {
+              "forward": {
+                "cue0": {
+                  "correct": 2,
+                  "correct_group": 0,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 1,
+                  "shuffle_{mapping}": 1,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": true
+                },
+                "cue1": {
+                  "correct": 0,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              },
+              "reverse": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "balanced": 0,
+                  "shuffle_{mapping}": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              }
+            }
+          },
+          "reference": {
+            "passed_cases": 1,
+            "available_cases": 4,
+            "complete": false,
+            "checks": {
+              "forward": {
+                "cue0": {
+                  "correct": 2,
+                  "correct_group": 0,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": true
+                },
+                "cue1": {
+                  "correct": 0,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              },
+              "reverse": {
+                "cue0": {
+                  "correct": 0,
+                  "correct_group": 1,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                },
+                "cue1": {
+                  "correct": 0,
+                  "correct_group": 0,
+                  "wrong": 0,
+                  "baseline": 0,
+                  "opposite": 0,
+                  "rest": 0,
+                  "baseline_rest": 0,
+                  "blank": 0,
+                  "baseline_blank": 0,
+                  "available": true,
+                  "passed": false
+                }
+              }
+            }
+          },
+          "outcome": "both_incomplete",
+          "arms": {
+            "forward": {
+              "plan": {
+                "scale": 226132.33087223605,
+                "actual_norm": 1.1197206581148345,
+                "relative_norm_error": 9.359174992471378e-11,
+                "direction_cosine": 0.9223024338710385,
+                "clipped_coordinates": 5
+              },
+              "changed_coordinates": 31,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 27,
+                  "added": 24,
+                  "removed": 18,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 33,
+                  "added": 3,
+                  "removed": 4,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 1041,
+              "largest_absolute_aligned_margin_change": 0.9327471852302551,
+              "core_spike_changes_vs_controls": {
+                "reverse": {
+                  "cue0": {
+                    "matching": 39,
+                    "added": 12,
+                    "removed": 7,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 33,
+                    "added": 3,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "balanced": {
+                  "cue0": {
+                    "matching": 39,
+                    "added": 12,
+                    "removed": 8,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 33,
+                    "added": 3,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "shuffle_forward": {
+                  "cue0": {
+                    "matching": 37,
+                    "added": 14,
+                    "removed": 9,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 36,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "reference_forward": {
+                  "cue0": {
+                    "matching": 35,
+                    "added": 16,
+                    "removed": 14,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 33,
+                    "added": 3,
+                    "removed": 4,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                }
+              }
+            },
+            "reverse": {
+              "plan": {
+                "scale": 388092.83499833464,
+                "actual_norm": 1.1197206400307587,
+                "relative_norm_error": 1.6244116132635996e-08,
+                "direction_cosine": 0.8579568624603242,
+                "clipped_coordinates": 4
+              },
+              "changed_coordinates": 27,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 28,
+                  "added": 18,
+                  "removed": 17,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 33,
+                  "added": 0,
+                  "removed": 4,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 1044,
+              "largest_absolute_aligned_margin_change": 0.026122599840164185,
+              "core_spike_changes_vs_controls": {
+                "forward": {
+                  "cue0": {
+                    "matching": 39,
+                    "added": 7,
+                    "removed": 12,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 33,
+                    "added": 0,
+                    "removed": 3,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "balanced": {
+                  "cue0": {
+                    "matching": 46,
+                    "added": 0,
+                    "removed": 1,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 33,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "shuffle_reverse": {
+                  "cue0": {
+                    "matching": 46,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 33,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                },
+                "reference_reverse": {
+                  "cue0": {
+                    "matching": 28,
+                    "added": 18,
+                    "removed": 17,
+                    "rest_change": 0
+                  },
+                  "cue1": {
+                    "matching": 33,
+                    "added": 0,
+                    "removed": 4,
+                    "rest_change": 0
+                  },
+                  "blank": {
+                    "matching": 0,
+                    "added": 0,
+                    "removed": 0,
+                    "rest_change": 0
+                  }
+                }
+              }
+            },
+            "balanced": {
+              "plan": {
+                "scale": 278078.60328187194,
+                "actual_norm": 1.1197206523127257,
+                "relative_norm_error": 5.275338421137636e-09,
+                "direction_cosine": 0.8659305867550565,
+                "clipped_coordinates": 6
+              },
+              "changed_coordinates": 33,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 28,
+                  "added": 19,
+                  "removed": 17,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 33,
+                  "added": 0,
+                  "removed": 4,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 1043,
+              "largest_absolute_aligned_margin_change": 1.0849360227584839
+            },
+            "shuffle_forward": {
+              "plan": {
+                "scale": 226132.20056854325,
+                "actual_norm": 1.1197206581084365,
+                "relative_norm_error": 9.930566901635825e-11,
+                "direction_cosine": 0.9166241868861131,
+                "clipped_coordinates": 5
+              },
+              "changed_coordinates": 31,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 26,
+                  "added": 20,
+                  "removed": 19,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 33,
+                  "added": 3,
+                  "removed": 4,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 539,
+              "largest_absolute_aligned_margin_change": 1.0266411304473877
+            },
+            "reference_forward": {
+              "plan": {
+                "scale": 0.7379922195171923,
+                "actual_norm": 1.1197206581433223,
+                "relative_norm_error": 6.81497983865795e-11,
+                "direction_cosine": 0.9999999999999999,
+                "clipped_coordinates": 0
+              },
+              "changed_coordinates": 3,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 40,
+                  "added": 9,
+                  "removed": 5,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 37,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 1041,
+              "largest_absolute_aligned_margin_change": 1.163613736629486
+            },
+            "shuffle_reverse": {
+              "plan": {
+                "scale": 390181.31214498775,
+                "actual_norm": 1.1197206751027182,
+                "relative_norm_error": 1.5077945580977682e-08,
+                "direction_cosine": 0.8484972108170045,
+                "clipped_coordinates": 4
+              },
+              "changed_coordinates": 27,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 28,
+                  "added": 18,
+                  "removed": 17,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 33,
+                  "added": 0,
+                  "removed": 4,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 1044,
+              "largest_absolute_aligned_margin_change": 0.015199586749076843
+            },
+            "reference_reverse": {
+              "plan": {
+                "scale": 0.8999999796663891,
+                "actual_norm": 1.119720630470719,
+                "relative_norm_error": 2.4781995271174337e-08,
+                "direction_cosine": 0.9999999999999981,
+                "clipped_coordinates": 0
+              },
+              "changed_coordinates": 2,
+              "core_spike_changes_vs_baseline": {
+                "cue0": {
+                  "matching": 45,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "cue1": {
+                  "matching": 37,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                },
+                "blank": {
+                  "matching": 0,
+                  "added": 0,
+                  "removed": 0,
+                  "rest_change": 0
+                }
+              },
+              "aligned_nonrefractory_target_batches": 1044,
+              "largest_absolute_aligned_margin_change": 0.20486268401145935
+            }
+          }
+        }
+      },
+      "descriptive_direction_cosines": {
+        "forward": {
+          "reverse": 0.6772895562242067,
+          "balanced": 0.9636170956124224,
+          "shuffle_forward": 0.45791460732435946,
+          "reference_forward": 0.408957013682877
+        },
+        "reverse": {
+          "forward": 0.6772895562242067,
+          "balanced": 0.8015244971050439,
+          "shuffle_reverse": 0.31861352290607775,
+          "reference_reverse": 0.04017524108405443
+        }
+      }
+    }
+  ]
+}
