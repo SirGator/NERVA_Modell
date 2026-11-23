@@ -1,0 +1,2883 @@
+{
+  "protocol": "NERVA-Contingency-Core-Homeostasis/1",
+  "cohort_size": 4,
+  "preregistration_sha256": "2b5a2f45dfe8a06f65e51931f916dc9287ba53bbe3237a3637945d6d5f624a19",
+  "totals": {
+    "all_focus": {
+      "off_keep": {
+        "source_spikes": 277,
+        "nonblank_source_spikes": 272,
+        "target_spikes": 456,
+        "task_arrivals": 277,
+        "new_tag_events": 294,
+        "edges_with_new_tags": 15
+      },
+      "off_clear": {
+        "source_spikes": 277,
+        "nonblank_source_spikes": 272,
+        "target_spikes": 456,
+        "task_arrivals": 277,
+        "new_tag_events": 294,
+        "edges_with_new_tags": 15
+      },
+      "core_keep": {
+        "source_spikes": 259,
+        "nonblank_source_spikes": 254,
+        "target_spikes": 452,
+        "task_arrivals": 259,
+        "new_tag_events": 289,
+        "edges_with_new_tags": 15
+      },
+      "core_clear": {
+        "source_spikes": 259,
+        "nonblank_source_spikes": 254,
+        "target_spikes": 452,
+        "task_arrivals": 259,
+        "new_tag_events": 289,
+        "edges_with_new_tags": 15
+      }
+    },
+    "previously_silent": {
+      "off_keep": {
+        "source_spikes": 0,
+        "nonblank_source_spikes": 0,
+        "target_spikes": 220,
+        "task_arrivals": 0,
+        "new_tag_events": 0,
+        "edges_with_new_tags": 0
+      },
+      "off_clear": {
+        "source_spikes": 0,
+        "nonblank_source_spikes": 0,
+        "target_spikes": 220,
+        "task_arrivals": 0,
+        "new_tag_events": 0,
+        "edges_with_new_tags": 0
+      },
+      "core_keep": {
+        "source_spikes": 0,
+        "nonblank_source_spikes": 0,
+        "target_spikes": 217,
+        "task_arrivals": 0,
+        "new_tag_events": 0,
+        "edges_with_new_tags": 0
+      },
+      "core_clear": {
+        "source_spikes": 0,
+        "nonblank_source_spikes": 0,
+        "target_spikes": 217,
+        "task_arrivals": 0,
+        "new_tag_events": 0,
+        "edges_with_new_tags": 0
+      }
+    }
+  },
+  "records": [
+    {
+      "job_id": "v00000-s34123-i000",
+      "seed": 34123,
+      "archived_record_checksum": "9986c63f3e81a0de",
+      "homeostasis_updates": {
+        "off_keep": {
+          "forward": 0,
+          "reverse": 0
+        },
+        "off_clear": {
+          "forward": 0,
+          "reverse": 0
+        },
+        "core_keep": {
+          "forward": 10240,
+          "reverse": 10240
+        },
+        "core_clear": {
+          "forward": 10240,
+          "reverse": 10240
+        }
+      },
+      "effects": {
+        "all_focus": {
+          "focus_edges": 11,
+          "source_spikes": {
+            "counts": {
+              "off_keep": 40,
+              "off_clear": 40,
+              "core_keep": 40,
+              "core_clear": 40
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "nonblank_source_spikes": {
+            "counts": {
+              "off_keep": 40,
+              "off_clear": 40,
+              "core_keep": 40,
+              "core_clear": 40
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "target_spikes": {
+            "counts": {
+              "off_keep": 276,
+              "off_clear": 276,
+              "core_keep": 273,
+              "core_clear": 273
+            },
+            "homeostasis_with_tags": -3,
+            "homeostasis_after_clear": -3,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "task_arrivals": {
+            "counts": {
+              "off_keep": 40,
+              "off_clear": 40,
+              "core_keep": 40,
+              "core_clear": 40
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "new_tag_events": {
+            "counts": {
+              "off_keep": 56,
+              "off_clear": 56,
+              "core_keep": 56,
+              "core_clear": 56
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "edges_with_new_tags": {
+            "counts": {
+              "off_keep": 3,
+              "off_clear": 3,
+              "core_keep": 3,
+              "core_clear": 3
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          }
+        },
+        "previously_silent": {
+          "focus_edges": 8,
+          "source_spikes": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "nonblank_source_spikes": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "target_spikes": {
+            "counts": {
+              "off_keep": 220,
+              "off_clear": 220,
+              "core_keep": 217,
+              "core_clear": 217
+            },
+            "homeostasis_with_tags": -3,
+            "homeostasis_after_clear": -3,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "task_arrivals": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "new_tag_events": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "edges_with_new_tags": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          }
+        },
+        "recall_passed_cases": {
+          "counts": {
+            "off_keep": 0,
+            "off_clear": 0,
+            "core_keep": 0,
+            "core_clear": 0
+          },
+          "homeostasis_with_tags": 0,
+          "homeostasis_after_clear": 0,
+          "retention_without_homeostasis": 0,
+          "retention_with_homeostasis": 0,
+          "interaction": 0
+        }
+      },
+      "capacity_sha256": "a7d46c5fa1ff7b4641684a2a0c5dc149cc5a97f0f34fe404abe64576e0f32c8d",
+      "eligibility_sha256": "ef17ed878ff2efe6fb225a7216316186a2b27237fbb4594b4417ff2932f78c07",
+      "diagnostic_sha256": "cfbd0a122429dc3fdf4fb1720af7a50ceeed1af937af4bd8543cc1749e8bc9f3",
+      "recall": {
+        "off_keep": 0,
+        "off_clear": 0,
+        "core_keep": 0,
+        "core_clear": 0
+      },
+      "focus_edges": [
+        {
+          "mapping": "forward",
+          "id": 317,
+          "pre": 79,
+          "post": 78,
+          "delay_us": 1063,
+          "previously_silent": false,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue0": 16
+              },
+              "target_spikes": 24,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 24
+            },
+            "off_clear": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue0": 16
+              },
+              "target_spikes": 24,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 24
+            },
+            "core_keep": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue0": 16
+              },
+              "target_spikes": 24,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 24
+            },
+            "core_clear": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue0": 16
+              },
+              "target_spikes": 24,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 24
+            }
+          }
+        },
+        {
+          "mapping": "forward",
+          "id": 1331,
+          "pre": 103,
+          "post": 101,
+          "delay_us": 1000,
+          "previously_silent": true,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 32,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "off_clear": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 32,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "core_keep": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 32,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "core_clear": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 32,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            }
+          }
+        },
+        {
+          "mapping": "forward",
+          "id": 1334,
+          "pre": 103,
+          "post": 105,
+          "delay_us": 1000,
+          "previously_silent": true,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 48,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "off_clear": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 48,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "core_keep": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 48,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "core_clear": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 48,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            }
+          }
+        },
+        {
+          "mapping": "forward",
+          "id": 1368,
+          "pre": 93,
+          "post": 85,
+          "delay_us": 1000,
+          "previously_silent": true,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 24,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "off_clear": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 24,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "core_keep": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 24,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "core_clear": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 24,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            }
+          }
+        },
+        {
+          "mapping": "forward",
+          "id": 1379,
+          "pre": 93,
+          "post": 107,
+          "delay_us": 1000,
+          "previously_silent": true,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 20,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "off_clear": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 20,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "core_keep": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 17,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "core_clear": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 17,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            }
+          }
+        },
+        {
+          "mapping": "forward",
+          "id": 1388,
+          "pre": 79,
+          "post": 85,
+          "delay_us": 1000,
+          "previously_silent": false,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue0": 16
+              },
+              "target_spikes": 24,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 24
+            },
+            "off_clear": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue0": 16
+              },
+              "target_spikes": 24,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 24
+            },
+            "core_keep": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue0": 16
+              },
+              "target_spikes": 24,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 24
+            },
+            "core_clear": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue0": 16
+              },
+              "target_spikes": 24,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 24
+            }
+          }
+        },
+        {
+          "mapping": "forward",
+          "id": 1394,
+          "pre": 153,
+          "post": 105,
+          "delay_us": 1000,
+          "previously_silent": true,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 48,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "off_clear": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 48,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "core_keep": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 48,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "core_clear": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 48,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            }
+          }
+        },
+        {
+          "mapping": "reverse",
+          "id": 1333,
+          "pre": 103,
+          "post": 104,
+          "delay_us": 1000,
+          "previously_silent": true,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 8,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "off_clear": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 8,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "core_keep": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 8,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "core_clear": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 8,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            }
+          }
+        },
+        {
+          "mapping": "reverse",
+          "id": 1374,
+          "pre": 93,
+          "post": 101,
+          "delay_us": 1000,
+          "previously_silent": true,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 32,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "off_clear": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 32,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "core_keep": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 32,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "core_clear": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 32,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            }
+          }
+        },
+        {
+          "mapping": "reverse",
+          "id": 1376,
+          "pre": 96,
+          "post": 104,
+          "delay_us": 1000,
+          "previously_silent": false,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 8,
+              "nonblank_source_spikes": 8,
+              "source_spikes_by_stimulus": {
+                "cue1": 8
+              },
+              "target_spikes": 8,
+              "native_arrivals": 8,
+              "task_arrivals": 8,
+              "new_tag_events": 8
+            },
+            "off_clear": {
+              "source_spikes": 8,
+              "nonblank_source_spikes": 8,
+              "source_spikes_by_stimulus": {
+                "cue1": 8
+              },
+              "target_spikes": 8,
+              "native_arrivals": 8,
+              "task_arrivals": 8,
+              "new_tag_events": 8
+            },
+            "core_keep": {
+              "source_spikes": 8,
+              "nonblank_source_spikes": 8,
+              "source_spikes_by_stimulus": {
+                "cue1": 8
+              },
+              "target_spikes": 8,
+              "native_arrivals": 8,
+              "task_arrivals": 8,
+              "new_tag_events": 8
+            },
+            "core_clear": {
+              "source_spikes": 8,
+              "nonblank_source_spikes": 8,
+              "source_spikes_by_stimulus": {
+                "cue1": 8
+              },
+              "target_spikes": 8,
+              "native_arrivals": 8,
+              "task_arrivals": 8,
+              "new_tag_events": 8
+            }
+          }
+        },
+        {
+          "mapping": "reverse",
+          "id": 1402,
+          "pre": 153,
+          "post": 104,
+          "delay_us": 1000,
+          "previously_silent": true,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 8,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "off_clear": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 8,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "core_keep": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 8,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            },
+            "core_clear": {
+              "source_spikes": 0,
+              "nonblank_source_spikes": 0,
+              "source_spikes_by_stimulus": {},
+              "target_spikes": 8,
+              "native_arrivals": 0,
+              "task_arrivals": 0,
+              "new_tag_events": 0
+            }
+          }
+        }
+      ],
+      "descriptive": {
+        "off_keep": {
+          "forward": {
+            "core_spikes": 1282,
+            "homeostasis_events": 0,
+            "core_cells_updated": 0,
+            "max_abs_core_current_change": 0.0,
+            "recurrent_changed_edges": 67,
+            "recurrent_l1": 0.0005602985620498657,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": [
+              {
+                "edge": 1331,
+                "source": 103,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.0,
+                "source_updates": 0,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1334,
+                "source": 103,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.0,
+                "source_updates": 0,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1368,
+                "source": 93,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.0,
+                "source_updates": 0,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1379,
+                "source": 93,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.0,
+                "source_updates": 0,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1394,
+                "source": 153,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.0,
+                "source_updates": 0,
+                "source_intrinsic_updates": 0
+              }
+            ]
+          },
+          "reverse": {
+            "core_spikes": 1285,
+            "homeostasis_events": 0,
+            "core_cells_updated": 0,
+            "max_abs_core_current_change": 0.0,
+            "recurrent_changed_edges": 66,
+            "recurrent_l1": 0.0005636215209960938,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": [
+              {
+                "edge": 1333,
+                "source": 103,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.0,
+                "source_updates": 0,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1374,
+                "source": 93,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.0,
+                "source_updates": 0,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1402,
+                "source": 153,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.0,
+                "source_updates": 0,
+                "source_intrinsic_updates": 0
+              }
+            ]
+          }
+        },
+        "off_clear": {
+          "forward": {
+            "core_spikes": 1282,
+            "homeostasis_events": 0,
+            "core_cells_updated": 0,
+            "max_abs_core_current_change": 0.0,
+            "recurrent_changed_edges": 24,
+            "recurrent_l1": 0.0004930794239044189,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": [
+              {
+                "edge": 1331,
+                "source": 103,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.0,
+                "source_updates": 0,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1334,
+                "source": 103,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.0,
+                "source_updates": 0,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1368,
+                "source": 93,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.0,
+                "source_updates": 0,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1379,
+                "source": 93,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.0,
+                "source_updates": 0,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1394,
+                "source": 153,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.0,
+                "source_updates": 0,
+                "source_intrinsic_updates": 0
+              }
+            ]
+          },
+          "reverse": {
+            "core_spikes": 1285,
+            "homeostasis_events": 0,
+            "core_cells_updated": 0,
+            "max_abs_core_current_change": 0.0,
+            "recurrent_changed_edges": 23,
+            "recurrent_l1": 0.0005019605159759521,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": [
+              {
+                "edge": 1333,
+                "source": 103,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.0,
+                "source_updates": 0,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1374,
+                "source": 93,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.0,
+                "source_updates": 0,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1402,
+                "source": 153,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.0,
+                "source_updates": 0,
+                "source_intrinsic_updates": 0
+              }
+            ]
+          }
+        },
+        "core_keep": {
+          "forward": {
+            "core_spikes": 1206,
+            "homeostasis_events": 10240,
+            "core_cells_updated": 256,
+            "max_abs_core_current_change": 10.0,
+            "recurrent_changed_edges": 67,
+            "recurrent_l1": 0.0005476474761962891,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": [
+              {
+                "edge": 1331,
+                "source": 103,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.347164511680603,
+                "source_updates": 40,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1334,
+                "source": 103,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.347164511680603,
+                "source_updates": 40,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1368,
+                "source": 93,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.3463824987411499,
+                "source_updates": 40,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1379,
+                "source": 93,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.3463824987411499,
+                "source_updates": 40,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1394,
+                "source": 153,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.3564643859863281,
+                "source_updates": 40,
+                "source_intrinsic_updates": 0
+              }
+            ]
+          },
+          "reverse": {
+            "core_spikes": 1183,
+            "homeostasis_events": 10240,
+            "core_cells_updated": 256,
+            "max_abs_core_current_change": 10.0,
+            "recurrent_changed_edges": 66,
+            "recurrent_l1": 0.00044220685958862305,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": [
+              {
+                "edge": 1333,
+                "source": 103,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.350563108921051,
+                "source_updates": 40,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1374,
+                "source": 93,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.34779465198516846,
+                "source_updates": 40,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1402,
+                "source": 153,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.35608792304992676,
+                "source_updates": 40,
+                "source_intrinsic_updates": 0
+              }
+            ]
+          }
+        },
+        "core_clear": {
+          "forward": {
+            "core_spikes": 1206,
+            "homeostasis_events": 10240,
+            "core_cells_updated": 256,
+            "max_abs_core_current_change": 10.0,
+            "recurrent_changed_edges": 24,
+            "recurrent_l1": 0.0004732757806777954,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": [
+              {
+                "edge": 1331,
+                "source": 103,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.34716397523880005,
+                "source_updates": 40,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1334,
+                "source": 103,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.34716397523880005,
+                "source_updates": 40,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1368,
+                "source": 93,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.3463824987411499,
+                "source_updates": 40,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1379,
+                "source": 93,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.3463824987411499,
+                "source_updates": 40,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1394,
+                "source": 153,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.3564642667770386,
+                "source_updates": 40,
+                "source_intrinsic_updates": 0
+              }
+            ]
+          },
+          "reverse": {
+            "core_spikes": 1183,
+            "homeostasis_events": 10240,
+            "core_cells_updated": 256,
+            "max_abs_core_current_change": 10.0,
+            "recurrent_changed_edges": 23,
+            "recurrent_l1": 0.00038017332553863525,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": [
+              {
+                "edge": 1333,
+                "source": 103,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.3505627512931824,
+                "source_updates": 40,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1374,
+                "source": 93,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.34779465198516846,
+                "source_updates": 40,
+                "source_intrinsic_updates": 0
+              },
+              {
+                "edge": 1402,
+                "source": 153,
+                "intrinsic_current_change": 0.0,
+                "structural_drive_change": 0.35608792304992676,
+                "source_updates": 40,
+                "source_intrinsic_updates": 0
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "job_id": "v00000-s34127-i000",
+      "seed": 34127,
+      "archived_record_checksum": "83d139fa0f9bfc0a",
+      "homeostasis_updates": {
+        "off_keep": {
+          "forward": 0,
+          "reverse": 0
+        },
+        "off_clear": {
+          "forward": 0,
+          "reverse": 0
+        },
+        "core_keep": {
+          "forward": 10240,
+          "reverse": 10240
+        },
+        "core_clear": {
+          "forward": 10240,
+          "reverse": 10240
+        }
+      },
+      "effects": {
+        "all_focus": {
+          "focus_edges": 1,
+          "source_spikes": {
+            "counts": {
+              "off_keep": 24,
+              "off_clear": 24,
+              "core_keep": 19,
+              "core_clear": 19
+            },
+            "homeostasis_with_tags": -5,
+            "homeostasis_after_clear": -5,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "nonblank_source_spikes": {
+            "counts": {
+              "off_keep": 24,
+              "off_clear": 24,
+              "core_keep": 18,
+              "core_clear": 18
+            },
+            "homeostasis_with_tags": -6,
+            "homeostasis_after_clear": -6,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "target_spikes": {
+            "counts": {
+              "off_keep": 24,
+              "off_clear": 24,
+              "core_keep": 24,
+              "core_clear": 24
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "task_arrivals": {
+            "counts": {
+              "off_keep": 24,
+              "off_clear": 24,
+              "core_keep": 19,
+              "core_clear": 19
+            },
+            "homeostasis_with_tags": -5,
+            "homeostasis_after_clear": -5,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "new_tag_events": {
+            "counts": {
+              "off_keep": 40,
+              "off_clear": 40,
+              "core_keep": 35,
+              "core_clear": 35
+            },
+            "homeostasis_with_tags": -5,
+            "homeostasis_after_clear": -5,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "edges_with_new_tags": {
+            "counts": {
+              "off_keep": 1,
+              "off_clear": 1,
+              "core_keep": 1,
+              "core_clear": 1
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          }
+        },
+        "previously_silent": {
+          "focus_edges": 0,
+          "source_spikes": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "nonblank_source_spikes": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "target_spikes": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "task_arrivals": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "new_tag_events": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "edges_with_new_tags": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          }
+        },
+        "recall_passed_cases": {
+          "counts": {
+            "off_keep": 0,
+            "off_clear": 0,
+            "core_keep": 0,
+            "core_clear": 0
+          },
+          "homeostasis_with_tags": 0,
+          "homeostasis_after_clear": 0,
+          "retention_without_homeostasis": 0,
+          "retention_with_homeostasis": 0,
+          "interaction": 0
+        }
+      },
+      "capacity_sha256": "0ff0039a8aa01e3e1e5475e875f67d6df2b766afccc49d85c6d04a9bf0ab3449",
+      "eligibility_sha256": "d320d66b1878f49cd65490d8a4b850a0c63ae6eaba3a165e1dc39934b02433f7",
+      "diagnostic_sha256": "91b54c90b7111796ce092d5cdeff4a85a0ba08b838abea4a0afaa78d4d18a74f",
+      "recall": {
+        "off_keep": 0,
+        "off_clear": 0,
+        "core_keep": 0,
+        "core_clear": 0
+      },
+      "focus_edges": [
+        {
+          "mapping": "forward",
+          "id": 1346,
+          "pre": 71,
+          "post": 85,
+          "delay_us": 1000,
+          "previously_silent": false,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 24,
+              "nonblank_source_spikes": 24,
+              "source_spikes_by_stimulus": {
+                "cue0": 8,
+                "outcome0": 16
+              },
+              "target_spikes": 24,
+              "native_arrivals": 24,
+              "task_arrivals": 24,
+              "new_tag_events": 40
+            },
+            "off_clear": {
+              "source_spikes": 24,
+              "nonblank_source_spikes": 24,
+              "source_spikes_by_stimulus": {
+                "cue0": 8,
+                "outcome0": 16
+              },
+              "target_spikes": 24,
+              "native_arrivals": 24,
+              "task_arrivals": 24,
+              "new_tag_events": 40
+            },
+            "core_keep": {
+              "source_spikes": 19,
+              "nonblank_source_spikes": 18,
+              "source_spikes_by_stimulus": {
+                "blank": 1,
+                "cue0": 3,
+                "outcome0": 15
+              },
+              "target_spikes": 24,
+              "native_arrivals": 19,
+              "task_arrivals": 19,
+              "new_tag_events": 35
+            },
+            "core_clear": {
+              "source_spikes": 19,
+              "nonblank_source_spikes": 18,
+              "source_spikes_by_stimulus": {
+                "blank": 1,
+                "cue0": 3,
+                "outcome0": 15
+              },
+              "target_spikes": 24,
+              "native_arrivals": 19,
+              "task_arrivals": 19,
+              "new_tag_events": 35
+            }
+          }
+        }
+      ],
+      "descriptive": {
+        "off_keep": {
+          "forward": {
+            "core_spikes": 1100,
+            "homeostasis_events": 0,
+            "core_cells_updated": 0,
+            "max_abs_core_current_change": 0.0,
+            "recurrent_changed_edges": 48,
+            "recurrent_l1": 4.272162914276123e-05,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          },
+          "reverse": {
+            "core_spikes": 1114,
+            "homeostasis_events": 0,
+            "core_cells_updated": 0,
+            "max_abs_core_current_change": 0.0,
+            "recurrent_changed_edges": 48,
+            "recurrent_l1": 4.337728023529053e-05,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          }
+        },
+        "off_clear": {
+          "forward": {
+            "core_spikes": 1100,
+            "homeostasis_events": 0,
+            "core_cells_updated": 0,
+            "max_abs_core_current_change": 0.0,
+            "recurrent_changed_edges": 18,
+            "recurrent_l1": 3.789365291595459e-05,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          },
+          "reverse": {
+            "core_spikes": 1114,
+            "homeostasis_events": 0,
+            "core_cells_updated": 0,
+            "max_abs_core_current_change": 0.0,
+            "recurrent_changed_edges": 17,
+            "recurrent_l1": 3.7416815757751465e-05,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          }
+        },
+        "core_keep": {
+          "forward": {
+            "core_spikes": 991,
+            "homeostasis_events": 10240,
+            "core_cells_updated": 256,
+            "max_abs_core_current_change": 10.0,
+            "recurrent_changed_edges": 47,
+            "recurrent_l1": 3.6850571632385254e-05,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          },
+          "reverse": {
+            "core_spikes": 994,
+            "homeostasis_events": 10240,
+            "core_cells_updated": 256,
+            "max_abs_core_current_change": 10.0,
+            "recurrent_changed_edges": 47,
+            "recurrent_l1": 3.446638584136963e-05,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          }
+        },
+        "core_clear": {
+          "forward": {
+            "core_spikes": 991,
+            "homeostasis_events": 10240,
+            "core_cells_updated": 256,
+            "max_abs_core_current_change": 10.0,
+            "recurrent_changed_edges": 18,
+            "recurrent_l1": 2.8699636459350586e-05,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          },
+          "reverse": {
+            "core_spikes": 994,
+            "homeostasis_events": 10240,
+            "core_cells_updated": 256,
+            "max_abs_core_current_change": 10.0,
+            "recurrent_changed_edges": 17,
+            "recurrent_l1": 2.7641654014587402e-05,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          }
+        }
+      }
+    },
+    {
+      "job_id": "v00000-s34141-i000",
+      "seed": 34141,
+      "archived_record_checksum": "cdd71c7ffaa9b5f7",
+      "homeostasis_updates": {
+        "off_keep": {
+          "forward": 0,
+          "reverse": 0
+        },
+        "off_clear": {
+          "forward": 0,
+          "reverse": 0
+        },
+        "core_keep": {
+          "forward": 10240,
+          "reverse": 10240
+        },
+        "core_clear": {
+          "forward": 10240,
+          "reverse": 10240
+        }
+      },
+      "effects": {
+        "all_focus": {
+          "focus_edges": 6,
+          "source_spikes": {
+            "counts": {
+              "off_keep": 101,
+              "off_clear": 101,
+              "core_keep": 96,
+              "core_clear": 96
+            },
+            "homeostasis_with_tags": -5,
+            "homeostasis_after_clear": -5,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "nonblank_source_spikes": {
+            "counts": {
+              "off_keep": 96,
+              "off_clear": 96,
+              "core_keep": 95,
+              "core_clear": 95
+            },
+            "homeostasis_with_tags": -1,
+            "homeostasis_after_clear": -1,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "target_spikes": {
+            "counts": {
+              "off_keep": 56,
+              "off_clear": 56,
+              "core_keep": 57,
+              "core_clear": 57
+            },
+            "homeostasis_with_tags": 1,
+            "homeostasis_after_clear": 1,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "task_arrivals": {
+            "counts": {
+              "off_keep": 101,
+              "off_clear": 101,
+              "core_keep": 96,
+              "core_clear": 96
+            },
+            "homeostasis_with_tags": -5,
+            "homeostasis_after_clear": -5,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "new_tag_events": {
+            "counts": {
+              "off_keep": 82,
+              "off_clear": 82,
+              "core_keep": 87,
+              "core_clear": 87
+            },
+            "homeostasis_with_tags": 5,
+            "homeostasis_after_clear": 5,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "edges_with_new_tags": {
+            "counts": {
+              "off_keep": 6,
+              "off_clear": 6,
+              "core_keep": 6,
+              "core_clear": 6
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          }
+        },
+        "previously_silent": {
+          "focus_edges": 0,
+          "source_spikes": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "nonblank_source_spikes": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "target_spikes": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "task_arrivals": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "new_tag_events": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "edges_with_new_tags": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          }
+        },
+        "recall_passed_cases": {
+          "counts": {
+            "off_keep": 0,
+            "off_clear": 0,
+            "core_keep": 0,
+            "core_clear": 0
+          },
+          "homeostasis_with_tags": 0,
+          "homeostasis_after_clear": 0,
+          "retention_without_homeostasis": 0,
+          "retention_with_homeostasis": 0,
+          "interaction": 0
+        }
+      },
+      "capacity_sha256": "617c533de4c5696636462a65b5b39ad7a8d41e24334cc47248b424391314f377",
+      "eligibility_sha256": "02ba275d48ebfff626ecedef830f949884577c7baf1a5f7bc7ca3c057cdd57f1",
+      "diagnostic_sha256": "f21a741da35746ee331c1870c228e4ca438d52b5eb2619924541c6450c0f22e3",
+      "recall": {
+        "off_keep": 0,
+        "off_clear": 0,
+        "core_keep": 0,
+        "core_clear": 0
+      },
+      "focus_edges": [
+        {
+          "mapping": "forward",
+          "id": 363,
+          "pre": 90,
+          "post": 97,
+          "delay_us": 1771,
+          "previously_silent": false,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 21,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "blank": 5,
+                "cue1": 8,
+                "outcome1": 8
+              },
+              "target_spikes": 8,
+              "native_arrivals": 21,
+              "task_arrivals": 21,
+              "new_tag_events": 13
+            },
+            "off_clear": {
+              "source_spikes": 21,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "blank": 5,
+                "cue1": 8,
+                "outcome1": 8
+              },
+              "target_spikes": 8,
+              "native_arrivals": 21,
+              "task_arrivals": 21,
+              "new_tag_events": 13
+            },
+            "core_keep": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 15,
+              "source_spikes_by_stimulus": {
+                "blank": 1,
+                "cue1": 6,
+                "outcome1": 9
+              },
+              "target_spikes": 8,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 9
+            },
+            "core_clear": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 15,
+              "source_spikes_by_stimulus": {
+                "blank": 1,
+                "cue1": 6,
+                "outcome1": 9
+              },
+              "target_spikes": 8,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 9
+            }
+          }
+        },
+        {
+          "mapping": "forward",
+          "id": 1345,
+          "pre": 96,
+          "post": 97,
+          "delay_us": 1000,
+          "previously_silent": false,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue1": 4,
+                "outcome0": 8,
+                "outcome1": 4
+              },
+              "target_spikes": 8,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 8
+            },
+            "off_clear": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue1": 4,
+                "outcome0": 8,
+                "outcome1": 4
+              },
+              "target_spikes": 8,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 8
+            },
+            "core_keep": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue1": 3,
+                "outcome0": 8,
+                "outcome1": 5
+              },
+              "target_spikes": 8,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 8
+            },
+            "core_clear": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue1": 3,
+                "outcome0": 8,
+                "outcome1": 5
+              },
+              "target_spikes": 8,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 8
+            }
+          }
+        },
+        {
+          "mapping": "reverse",
+          "id": 1343,
+          "pre": 96,
+          "post": 95,
+          "delay_us": 1000,
+          "previously_silent": false,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue1": 7,
+                "outcome0": 9
+              },
+              "target_spikes": 16,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 24
+            },
+            "off_clear": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue1": 7,
+                "outcome0": 9
+              },
+              "target_spikes": 16,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 24
+            },
+            "core_keep": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue1": 6,
+                "outcome0": 10
+              },
+              "target_spikes": 17,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 25
+            },
+            "core_clear": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue1": 6,
+                "outcome0": 10
+              },
+              "target_spikes": 17,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 25
+            }
+          }
+        },
+        {
+          "mapping": "reverse",
+          "id": 1346,
+          "pre": 96,
+          "post": 102,
+          "delay_us": 1000,
+          "previously_silent": false,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue1": 7,
+                "outcome0": 9
+              },
+              "target_spikes": 8,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 9
+            },
+            "off_clear": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue1": 7,
+                "outcome0": 9
+              },
+              "target_spikes": 8,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 9
+            },
+            "core_keep": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue1": 6,
+                "outcome0": 10
+              },
+              "target_spikes": 8,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 13
+            },
+            "core_clear": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue1": 6,
+                "outcome0": 10
+              },
+              "target_spikes": 8,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 13
+            }
+          }
+        },
+        {
+          "mapping": "reverse",
+          "id": 1350,
+          "pre": 96,
+          "post": 110,
+          "delay_us": 1000,
+          "previously_silent": false,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue1": 7,
+                "outcome0": 9
+              },
+              "target_spikes": 8,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 16
+            },
+            "off_clear": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue1": 7,
+                "outcome0": 9
+              },
+              "target_spikes": 8,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 16
+            },
+            "core_keep": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue1": 6,
+                "outcome0": 10
+              },
+              "target_spikes": 8,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 16
+            },
+            "core_clear": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue1": 6,
+                "outcome0": 10
+              },
+              "target_spikes": 8,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 16
+            }
+          }
+        },
+        {
+          "mapping": "reverse",
+          "id": 1360,
+          "pre": 96,
+          "post": 103,
+          "delay_us": 1000,
+          "previously_silent": false,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue1": 7,
+                "outcome0": 9
+              },
+              "target_spikes": 8,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 12
+            },
+            "off_clear": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue1": 7,
+                "outcome0": 9
+              },
+              "target_spikes": 8,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 12
+            },
+            "core_keep": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue1": 6,
+                "outcome0": 10
+              },
+              "target_spikes": 8,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 16
+            },
+            "core_clear": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue1": 6,
+                "outcome0": 10
+              },
+              "target_spikes": 8,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 16
+            }
+          }
+        }
+      ],
+      "descriptive": {
+        "off_keep": {
+          "forward": {
+            "core_spikes": 1062,
+            "homeostasis_events": 0,
+            "core_cells_updated": 0,
+            "max_abs_core_current_change": 0.0,
+            "recurrent_changed_edges": 64,
+            "recurrent_l1": 0.0002746284008026123,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          },
+          "reverse": {
+            "core_spikes": 1068,
+            "homeostasis_events": 0,
+            "core_cells_updated": 0,
+            "max_abs_core_current_change": 0.0,
+            "recurrent_changed_edges": 64,
+            "recurrent_l1": 0.0002485215663909912,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          }
+        },
+        "off_clear": {
+          "forward": {
+            "core_spikes": 1062,
+            "homeostasis_events": 0,
+            "core_cells_updated": 0,
+            "max_abs_core_current_change": 0.0,
+            "recurrent_changed_edges": 41,
+            "recurrent_l1": 0.00019310414791107178,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          },
+          "reverse": {
+            "core_spikes": 1068,
+            "homeostasis_events": 0,
+            "core_cells_updated": 0,
+            "max_abs_core_current_change": 0.0,
+            "recurrent_changed_edges": 41,
+            "recurrent_l1": 0.00015319883823394775,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          }
+        },
+        "core_keep": {
+          "forward": {
+            "core_spikes": 1012,
+            "homeostasis_events": 10240,
+            "core_cells_updated": 256,
+            "max_abs_core_current_change": 10.0,
+            "recurrent_changed_edges": 62,
+            "recurrent_l1": 0.0002986043691635132,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          },
+          "reverse": {
+            "core_spikes": 1010,
+            "homeostasis_events": 10240,
+            "core_cells_updated": 256,
+            "max_abs_core_current_change": 10.0,
+            "recurrent_changed_edges": 64,
+            "recurrent_l1": 0.00026120245456695557,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          }
+        },
+        "core_clear": {
+          "forward": {
+            "core_spikes": 1012,
+            "homeostasis_events": 10240,
+            "core_cells_updated": 256,
+            "max_abs_core_current_change": 10.0,
+            "recurrent_changed_edges": 41,
+            "recurrent_l1": 0.0002056807279586792,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          },
+          "reverse": {
+            "core_spikes": 1010,
+            "homeostasis_events": 10240,
+            "core_cells_updated": 256,
+            "max_abs_core_current_change": 10.0,
+            "recurrent_changed_edges": 41,
+            "recurrent_l1": 0.0001493394374847412,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          }
+        }
+      }
+    },
+    {
+      "job_id": "v00000-s34157-i000",
+      "seed": 34157,
+      "archived_record_checksum": "d8ec002180f4b98d",
+      "homeostasis_updates": {
+        "off_keep": {
+          "forward": 0,
+          "reverse": 0
+        },
+        "off_clear": {
+          "forward": 0,
+          "reverse": 0
+        },
+        "core_keep": {
+          "forward": 10240,
+          "reverse": 10240
+        },
+        "core_clear": {
+          "forward": 10240,
+          "reverse": 10240
+        }
+      },
+      "effects": {
+        "all_focus": {
+          "focus_edges": 5,
+          "source_spikes": {
+            "counts": {
+              "off_keep": 112,
+              "off_clear": 112,
+              "core_keep": 104,
+              "core_clear": 104
+            },
+            "homeostasis_with_tags": -8,
+            "homeostasis_after_clear": -8,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "nonblank_source_spikes": {
+            "counts": {
+              "off_keep": 112,
+              "off_clear": 112,
+              "core_keep": 101,
+              "core_clear": 101
+            },
+            "homeostasis_with_tags": -11,
+            "homeostasis_after_clear": -11,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "target_spikes": {
+            "counts": {
+              "off_keep": 100,
+              "off_clear": 100,
+              "core_keep": 98,
+              "core_clear": 98
+            },
+            "homeostasis_with_tags": -2,
+            "homeostasis_after_clear": -2,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "task_arrivals": {
+            "counts": {
+              "off_keep": 112,
+              "off_clear": 112,
+              "core_keep": 104,
+              "core_clear": 104
+            },
+            "homeostasis_with_tags": -8,
+            "homeostasis_after_clear": -8,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "new_tag_events": {
+            "counts": {
+              "off_keep": 116,
+              "off_clear": 116,
+              "core_keep": 111,
+              "core_clear": 111
+            },
+            "homeostasis_with_tags": -5,
+            "homeostasis_after_clear": -5,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "edges_with_new_tags": {
+            "counts": {
+              "off_keep": 5,
+              "off_clear": 5,
+              "core_keep": 5,
+              "core_clear": 5
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          }
+        },
+        "previously_silent": {
+          "focus_edges": 0,
+          "source_spikes": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "nonblank_source_spikes": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "target_spikes": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "task_arrivals": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "new_tag_events": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          },
+          "edges_with_new_tags": {
+            "counts": {
+              "off_keep": 0,
+              "off_clear": 0,
+              "core_keep": 0,
+              "core_clear": 0
+            },
+            "homeostasis_with_tags": 0,
+            "homeostasis_after_clear": 0,
+            "retention_without_homeostasis": 0,
+            "retention_with_homeostasis": 0,
+            "interaction": 0
+          }
+        },
+        "recall_passed_cases": {
+          "counts": {
+            "off_keep": 0,
+            "off_clear": 0,
+            "core_keep": 0,
+            "core_clear": 0
+          },
+          "homeostasis_with_tags": 0,
+          "homeostasis_after_clear": 0,
+          "retention_without_homeostasis": 0,
+          "retention_with_homeostasis": 0,
+          "interaction": 0
+        }
+      },
+      "capacity_sha256": "7502ca4550d7bf74dddc33936fccd7dcacfbff40a432621e6ad96525319444f2",
+      "eligibility_sha256": "f445ff075546ffb0a10bafdb78e224d7081da9a63f13f6d6e88e2f5568d1390f",
+      "diagnostic_sha256": "794c7c0ca66bcfbd15fb701602c32df345cb88c18574c2c245986c68e6ff8f39",
+      "recall": {
+        "off_keep": 0,
+        "off_clear": 0,
+        "core_keep": 0,
+        "core_clear": 0
+      },
+      "focus_edges": [
+        {
+          "mapping": "forward",
+          "id": 318,
+          "pre": 79,
+          "post": 80,
+          "delay_us": 1623,
+          "previously_silent": false,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue0": 12,
+                "outcome0": 4
+              },
+              "target_spikes": 16,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 16
+            },
+            "off_clear": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue0": 12,
+                "outcome0": 4
+              },
+              "target_spikes": 16,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 16
+            },
+            "core_keep": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue0": 11,
+                "outcome0": 5
+              },
+              "target_spikes": 16,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 16
+            },
+            "core_clear": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue0": 11,
+                "outcome0": 5
+              },
+              "target_spikes": 16,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 16
+            }
+          }
+        },
+        {
+          "mapping": "forward",
+          "id": 1324,
+          "pre": 78,
+          "post": 80,
+          "delay_us": 1000,
+          "previously_silent": false,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 24,
+              "nonblank_source_spikes": 24,
+              "source_spikes_by_stimulus": {
+                "cue0": 16,
+                "outcome0": 8
+              },
+              "target_spikes": 16,
+              "native_arrivals": 24,
+              "task_arrivals": 24,
+              "new_tag_events": 16
+            },
+            "off_clear": {
+              "source_spikes": 24,
+              "nonblank_source_spikes": 24,
+              "source_spikes_by_stimulus": {
+                "cue0": 16,
+                "outcome0": 8
+              },
+              "target_spikes": 16,
+              "native_arrivals": 24,
+              "task_arrivals": 24,
+              "new_tag_events": 16
+            },
+            "core_keep": {
+              "source_spikes": 24,
+              "nonblank_source_spikes": 24,
+              "source_spikes_by_stimulus": {
+                "cue0": 16,
+                "outcome0": 8
+              },
+              "target_spikes": 16,
+              "native_arrivals": 24,
+              "task_arrivals": 24,
+              "new_tag_events": 16
+            },
+            "core_clear": {
+              "source_spikes": 24,
+              "nonblank_source_spikes": 24,
+              "source_spikes_by_stimulus": {
+                "cue0": 16,
+                "outcome0": 8
+              },
+              "target_spikes": 16,
+              "native_arrivals": 24,
+              "task_arrivals": 24,
+              "new_tag_events": 16
+            }
+          }
+        },
+        {
+          "mapping": "forward",
+          "id": 1391,
+          "pre": 87,
+          "post": 101,
+          "delay_us": 1000,
+          "previously_silent": false,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue0": 12,
+                "outcome0": 4
+              },
+              "target_spikes": 36,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 36
+            },
+            "off_clear": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue0": 12,
+                "outcome0": 4
+              },
+              "target_spikes": 36,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 36
+            },
+            "core_keep": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue0": 11,
+                "outcome0": 5
+              },
+              "target_spikes": 36,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 36
+            },
+            "core_clear": {
+              "source_spikes": 16,
+              "nonblank_source_spikes": 16,
+              "source_spikes_by_stimulus": {
+                "cue0": 11,
+                "outcome0": 5
+              },
+              "target_spikes": 36,
+              "native_arrivals": 16,
+              "task_arrivals": 16,
+              "new_tag_events": 36
+            }
+          }
+        },
+        {
+          "mapping": "reverse",
+          "id": 331,
+          "pre": 82,
+          "post": 89,
+          "delay_us": 1326,
+          "previously_silent": false,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 32,
+              "nonblank_source_spikes": 32,
+              "source_spikes_by_stimulus": {
+                "cue0": 8,
+                "outcome1": 24
+              },
+              "target_spikes": 16,
+              "native_arrivals": 32,
+              "task_arrivals": 32,
+              "new_tag_events": 32
+            },
+            "off_clear": {
+              "source_spikes": 32,
+              "nonblank_source_spikes": 32,
+              "source_spikes_by_stimulus": {
+                "cue0": 8,
+                "outcome1": 24
+              },
+              "target_spikes": 16,
+              "native_arrivals": 32,
+              "task_arrivals": 32,
+              "new_tag_events": 32
+            },
+            "core_keep": {
+              "source_spikes": 27,
+              "nonblank_source_spikes": 24,
+              "source_spikes_by_stimulus": {
+                "blank": 3,
+                "cue0": 2,
+                "outcome1": 22
+              },
+              "target_spikes": 15,
+              "native_arrivals": 27,
+              "task_arrivals": 27,
+              "new_tag_events": 28
+            },
+            "core_clear": {
+              "source_spikes": 27,
+              "nonblank_source_spikes": 24,
+              "source_spikes_by_stimulus": {
+                "blank": 3,
+                "cue0": 2,
+                "outcome1": 22
+              },
+              "target_spikes": 15,
+              "native_arrivals": 27,
+              "task_arrivals": 27,
+              "new_tag_events": 28
+            }
+          }
+        },
+        {
+          "mapping": "reverse",
+          "id": 350,
+          "pre": 87,
+          "post": 89,
+          "delay_us": 1282,
+          "previously_silent": false,
+          "arms": {
+            "off_keep": {
+              "source_spikes": 24,
+              "nonblank_source_spikes": 24,
+              "source_spikes_by_stimulus": {
+                "cue0": 12,
+                "outcome0": 8,
+                "outcome1": 4
+              },
+              "target_spikes": 16,
+              "native_arrivals": 24,
+              "task_arrivals": 24,
+              "new_tag_events": 16
+            },
+            "off_clear": {
+              "source_spikes": 24,
+              "nonblank_source_spikes": 24,
+              "source_spikes_by_stimulus": {
+                "cue0": 12,
+                "outcome0": 8,
+                "outcome1": 4
+              },
+              "target_spikes": 16,
+              "native_arrivals": 24,
+              "task_arrivals": 24,
+              "new_tag_events": 16
+            },
+            "core_keep": {
+              "source_spikes": 21,
+              "nonblank_source_spikes": 21,
+              "source_spikes_by_stimulus": {
+                "cue0": 9,
+                "outcome0": 5,
+                "outcome1": 7
+              },
+              "target_spikes": 15,
+              "native_arrivals": 21,
+              "task_arrivals": 21,
+              "new_tag_events": 15
+            },
+            "core_clear": {
+              "source_spikes": 21,
+              "nonblank_source_spikes": 21,
+              "source_spikes_by_stimulus": {
+                "cue0": 9,
+                "outcome0": 5,
+                "outcome1": 7
+              },
+              "target_spikes": 15,
+              "native_arrivals": 21,
+              "task_arrivals": 21,
+              "new_tag_events": 15
+            }
+          }
+        }
+      ],
+      "descriptive": {
+        "off_keep": {
+          "forward": {
+            "core_spikes": 1158,
+            "homeostasis_events": 0,
+            "core_cells_updated": 0,
+            "max_abs_core_current_change": 0.0,
+            "recurrent_changed_edges": 45,
+            "recurrent_l1": 1.6555190086364746e-05,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          },
+          "reverse": {
+            "core_spikes": 1198,
+            "homeostasis_events": 0,
+            "core_cells_updated": 0,
+            "max_abs_core_current_change": 0.0,
+            "recurrent_changed_edges": 41,
+            "recurrent_l1": 1.4722347259521484e-05,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          }
+        },
+        "off_clear": {
+          "forward": {
+            "core_spikes": 1158,
+            "homeostasis_events": 0,
+            "core_cells_updated": 0,
+            "max_abs_core_current_change": 0.0,
+            "recurrent_changed_edges": 31,
+            "recurrent_l1": 1.5050172805786133e-05,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          },
+          "reverse": {
+            "core_spikes": 1198,
+            "homeostasis_events": 0,
+            "core_cells_updated": 0,
+            "max_abs_core_current_change": 0.0,
+            "recurrent_changed_edges": 24,
+            "recurrent_l1": 1.4215707778930664e-05,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          }
+        },
+        "core_keep": {
+          "forward": {
+            "core_spikes": 1097,
+            "homeostasis_events": 10240,
+            "core_cells_updated": 256,
+            "max_abs_core_current_change": 10.916868567466736,
+            "recurrent_changed_edges": 43,
+            "recurrent_l1": 1.6823410987854004e-05,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          },
+          "reverse": {
+            "core_spikes": 1113,
+            "homeostasis_events": 10240,
+            "core_cells_updated": 256,
+            "max_abs_core_current_change": 10.916868567466736,
+            "recurrent_changed_edges": 40,
+            "recurrent_l1": 1.1786818504333496e-05,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          }
+        },
+        "core_clear": {
+          "forward": {
+            "core_spikes": 1097,
+            "homeostasis_events": 10240,
+            "core_cells_updated": 256,
+            "max_abs_core_current_change": 10.916868567466736,
+            "recurrent_changed_edges": 29,
+            "recurrent_l1": 1.563131809234619e-05,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          },
+          "reverse": {
+            "core_spikes": 1113,
+            "homeostasis_events": 10240,
+            "core_cells_updated": 256,
+            "max_abs_core_current_change": 10.916868567466736,
+            "recurrent_changed_edges": 25,
+            "recurrent_l1": 1.125037670135498e-05,
+            "unchanged_cue_sequences_vs_corresponding_off": [
+              "cue0",
+              "cue1"
+            ],
+            "silent_focus_sources": []
+          }
+        }
+      }
+    }
+  ]
+}

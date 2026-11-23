@@ -198,6 +198,10 @@ def analyze_record(diagnostic, source, eligibility, checksum):
             if not active:
                 require(trial['frames'] == archive['frames'] and trial['weights'] == archive['weights'],
                         'disabled homeostasis training differs from archived control')
+            if name == 'off_keep':
+                archived = eligibility['mappings'][mapping]['fixed_history']['pre_arrivals']
+                require(sorted(trial['pre_arrivals']) == sorted(archived),
+                        'disabled homeostasis arrivals differ from archived native history')
             require(all(frame['root_spikes'] == reference['root_spikes']
                         for frame, reference in zip(trial['frames'], native['frames'])),
                     'paired training differs in presented inputs')
@@ -209,10 +213,19 @@ def analyze_record(diagnostic, source, eligibility, checksum):
             observed = eligibility['probes']['live_clear'] if cleared else followup['native']
             require(arm['recall'] == observed, 'disabled homeostasis recall differs from archive')
         passed, _, checks = assay.comparison(arm['recall'], ORIGINAL, reset, installed)
+        quiescence = {}
         for mapping in MAPPINGS:
-            require(dict(arm['recall']['arms'][mapping]['weights']) == installed[mapping],
+            observed = arm['recall']['arms'][mapping]
+            require(dict(observed['weights']) == installed[mapping],
                     'recall did not install the exact Core-only weights')
-        recall[name] = {'passed_cases': passed, 'checks': checks}
+            responses = observed['responses']
+            quiescence[mapping] = {
+                'blank_core_spikes': len(responses['blank']['core_spikes']),
+                'reset_blank_core_spikes': len(reset['blank']['core_spikes']),
+                'cue_rest_core_spikes': {cue: responses[cue]['rest_core_spikes'] for cue in ORIGINAL},
+                'reset_cue_rest_core_spikes': {cue: reset[cue]['rest_core_spikes'] for cue in ORIGINAL},
+            }
+        recall[name] = {'passed_cases': passed, 'checks': checks, 'quiescence': quiescence}
 
     edges = [
         {'mapping': mapping, 'id': edge, 'pre': pre, 'post': post, 'delay_us': delay,
