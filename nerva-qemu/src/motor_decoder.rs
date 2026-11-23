@@ -64,7 +64,7 @@ pub fn decode_ad(
     })
 }
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct MotorDecoder {
     window_us: u64,
     minimum_spikes: usize,

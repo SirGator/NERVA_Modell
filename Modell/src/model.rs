@@ -159,6 +159,37 @@ pub struct Step {
 }
 
 impl Model {
+    /// Create an independent exact copy, including scheduler, random streams and diagnostics.
+    /// Rejects opaque runtime implementations that do not support exact forks.
+    pub fn diagnostic_fork(&self) -> Result<Self> {
+        Ok(Self {
+            simulation: self.simulation.diagnostic_fork()?,
+            sensory_root: self.sensory_root.clone(),
+            motor_root: self.motor_root.clone(),
+            mapping: self.mapping.clone(),
+            encoder: self.encoder.clone(),
+            spike_source: self.spike_source.clone(),
+            sensory_gain: self.sensory_gain,
+            decoder: self.decoder.clone(),
+            next_start: self.next_start,
+            pending_motor: self.pending_motor.clone(),
+            config: self.config.clone(),
+            processing: self.processing.clone(),
+            action_copies: self.action_copies.clone(),
+            executed_keys: self.executed_keys.clone(),
+            pruning: self.pruning.clone(),
+            formation: self.formation,
+            core_index: self.core_index.clone(),
+            area_field: self.area_field,
+            next_synapse: self.next_synapse,
+            motor_neurons: self.motor_neurons.clone(),
+            next_development_us: self.next_development_us,
+            audit: self.audit.clone(),
+            development_audit: self.development_audit.clone(),
+            development_policy: self.development_policy.clone(),
+        })
+    }
+
     pub fn new(seed: u64, mode: Encoding, learning_enabled: bool) -> Result<Self> {
         Self::with_keyboard(seed, mode, learning_enabled, KeyboardLayout::Full)
     }

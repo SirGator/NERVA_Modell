@@ -25,6 +25,53 @@ fn model_config() -> ModelConfig {
 }
 
 #[test]
+fn active_checkpoint_forks_replay_exactly_and_advance_independently() {
+    for coding in [
+        SpikeCoding::Poisson,
+        SpikeCoding::Deterministic,
+        SpikeCoding::OnOff,
+    ] {
+        let mut parent = Model::with_sensor(
+            model_config(),
+            SensorConfig {
+                mode: SensorMode::Position7Ch,
+                coding,
+                ..SensorConfig::default()
+            },
+        )
+        .unwrap();
+        parent.enable_audit(AuditOptions::default());
+        parent.enable_learning_audit(100_000).unwrap();
+        parent.set_dynamics_auditing(true);
+        parent.step(&image(1)).unwrap();
+        parent.step(&image(2)).unwrap();
+        let mut fork = parent.diagnostic_fork().unwrap();
+        let untouched = parent.diagnostic_fork().unwrap();
+        assert!(parent.same_replay_state(&fork));
+        assert_eq!(parent.take_audit(), fork.take_audit());
+        assert_eq!(
+            parent.take_learning_audit().unwrap(),
+            fork.take_learning_audit().unwrap()
+        );
+        let step = fork.step(&image(3)).unwrap();
+        assert!(parent.same_replay_state(&untouched));
+        assert!(!parent.same_replay_state(&fork));
+        assert_eq!(parent.step(&image(3)).unwrap(), step);
+        assert!(parent.same_replay_state(&fork));
+        assert_eq!(parent.take_audit(), fork.take_audit());
+        assert_eq!(
+            parent.take_learning_audit().unwrap(),
+            fork.take_learning_audit().unwrap()
+        );
+        assert_eq!(
+            parent.step(&image(4)).unwrap(),
+            fork.step(&image(4)).unwrap()
+        );
+        assert!(parent.same_replay_state(&fork));
+    }
+}
+
+#[test]
 fn diagnostic_sensors_are_current_frame_anchors_and_area_sampling_preserves_all_seven_positions() {
     for resolution in [8, 16, 64] {
         for mode in [SensorMode::Pixels, SensorMode::Position7Ch] {

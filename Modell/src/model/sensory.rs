@@ -113,7 +113,7 @@ impl SensorConfig {
     }
 }
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct SensorEncoder {
     config: SensorConfig,
     pixels: VisionEncoder,
@@ -205,7 +205,7 @@ impl SensorEncoder {
     }
 }
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub(crate) enum SpikeSource {
     Rate(RateSensoryTransducer),
     Poisson(PoissonSensoryTransducer),

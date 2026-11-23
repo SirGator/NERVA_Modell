@@ -1,7 +1,7 @@
 //! Frozen phase-B readout with independent weight and transmission interventions.
 use super::{
     Assay, CUES_B, Config, ContingencyScenario, LiveRateScenario, MAPPINGS, Model, PARAMETERS,
-    checkpoint, fail, frames, patterns, topology,
+    TrainingAudit, checkpoint, fail, frames, patterns, topology,
 };
 use crate::scenarios::hippocampal::contingency::{
     learned_parameters_equal, observe_probe, wait_probe_rest,
@@ -136,7 +136,7 @@ fn verified_training(
     task: usize,
     archive: &Value,
 ) -> Result<()> {
-    if assay.train(model, mapping, task, true)? != archive["frames"]
+    if assay.train(model, mapping, task, TrainingAudit::Standard)? != archive["frames"]
         || topology(model) != archive["end_topology"]
     {
         return Err(error(format!(
@@ -161,8 +161,10 @@ impl Readout<'_> {
         let blank = &self.assay.images["blank"];
         for cue in PROBES {
             let mut fork = self.assay.start_training("native")?;
-            self.assay.train(&mut fork, self.mapping, 0, false)?;
-            self.assay.train(&mut fork, self.mapping, 1, false)?;
+            self.assay
+                .train(&mut fork, self.mapping, 0, TrainingAudit::Off)?;
+            self.assay
+                .train(&mut fork, self.mapping, 1, TrainingAudit::Off)?;
             if !self.parent.same_replay_state(&fork) {
                 return Err(error("B factor probe fork differs before freeze"));
             }

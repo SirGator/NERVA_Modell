@@ -8,7 +8,7 @@ pub enum Encoding {
     Change,
 }
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct VisionEncoder {
     width: usize,
     height: usize,

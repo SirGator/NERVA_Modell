@@ -118,6 +118,7 @@ pub struct InputAudit {
     pub raw_events: Vec<ObservationEvent>,
 }
 
+#[derive(Clone)]
 pub(crate) struct Collector {
     pub last: Option<InputAudit>,
     options: AuditOptions,

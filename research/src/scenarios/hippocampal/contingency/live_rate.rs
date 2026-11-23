@@ -17,6 +17,7 @@ use std::collections::{BTreeMap, BTreeSet};
 
 mod b_factor;
 pub use b_factor::replay_b_factor;
+pub mod growth;
 
 pub struct LiveRateScenario;
 const PROTOCOL: &str = "NERVA-Contingency-Live-Rate/1";
@@ -99,6 +100,13 @@ struct Assay<'a> {
     images: BTreeMap<&'static str, Frame>,
 }
 
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum TrainingAudit {
+    Off,
+    Standard,
+    Formation,
+}
+
 impl Assay<'_> {
     fn restore(&self) -> Result<Model> {
         let branch = checkpoint(self.config, self.seed)?.0;
@@ -134,8 +142,14 @@ impl Assay<'_> {
         Ok(model)
     }
 
-    fn train(&self, model: &mut Model, mapping: &str, task: usize, record: bool) -> Result<Value> {
-        if record {
+    fn train(
+        &self,
+        model: &mut Model,
+        mapping: &str,
+        task: usize,
+        mode: TrainingAudit,
+    ) -> Result<Value> {
+        if mode != TrainingAudit::Off {
             model.enable_audit(AuditOptions {
                 raw_events: false,
                 input_spikes: true,
@@ -150,7 +164,7 @@ impl Assay<'_> {
                     "live rate comparison removed edges under retention policy",
                 ));
             }
-            if record {
+            if mode != TrainingAudit::Off {
                 let audit = model
                     .take_audit()
                     .ok_or_else(|| error("live rate training input missing"))?;
@@ -162,11 +176,29 @@ impl Assay<'_> {
                 if roots.len() != step.sensory_spikes {
                     return Err(error("live rate detectors differ from audited root input"));
                 }
-                rows.push(json!({
+                let mut row = json!({
                     "stimulus":stimulus,"start_us":step.start_us,"end_us":step.end_us,
                     "root_spikes":roots,"core_spikes":step.core_events,"formed":step.formed,"pruned":step.pruned,
                     "weight_changes":step.weight_changes, "homeostasis_changes":step.homeostasis_changes,
-                }));
+                });
+                if mode == TrainingAudit::Formation {
+                    row["exploratory"] = json!(
+                        step.exploratory
+                            .iter()
+                            .map(|decision| {
+                                (
+                                    decision.edge,
+                                    decision.time_us,
+                                    decision.source_last_us,
+                                    decision.target_last_us,
+                                    decision.recent_candidates,
+                                    decision.drive,
+                                )
+                            })
+                            .collect::<Vec<_>>()
+                    );
+                }
+                rows.push(row);
             }
         }
         Ok(json!(rows))
@@ -202,7 +234,7 @@ impl Assay<'_> {
         for name in PROBES {
             let mut fork = self.start_training(policy)?;
             for m in 0..=task {
-                self.train(&mut fork, mapping, m, false)?;
+                self.train(&mut fork, mapping, m, TrainingAudit::Off)?;
             }
             if !parent.same_replay_state(&fork) {
                 return Err(error(
@@ -248,59 +280,68 @@ fn count(probe: &Value, group: &BTreeSet<u64>) -> usize {
         .count()
 }
 
+fn score_mappings(
+    probes: [&Value; 3],
+    reset: &Value,
+    targets: &Templates,
+    task: usize,
+    prior_b: Option<[&Value; 2]>,
+    initial_a: Option<&Value>,
+) -> Value {
+    let mut family = BTreeMap::new();
+    for (flip, mapping) in MAPPINGS[..2].iter().copied().enumerate() {
+        let own = probes[flip];
+        let reverse = probes[1 ^ flip];
+        let balanced = probes[2];
+        let mut rows = BTreeMap::new();
+        for (i, name) in CUES.into_iter().enumerate() {
+            let name = in_task(name, task);
+            let group = &targets[i ^ flip];
+            let correct = count(&own[name], group);
+            let wrong = count(&own[name], &targets[1 ^ i ^ flip]);
+            let reset_count = count(&reset[name], group);
+            let opposite = count(&reverse[name], group);
+            let control = count(&balanced[name], group);
+            let before_b = prior_b.map(|previous| count(&previous[flip][name], group));
+            let eligible = targets.iter().all(|g| !g.is_empty())
+                && initial_a.is_none_or(|hits| hits[mapping][name]["passed"] == true);
+            let quiet = spikes(&own["blank"]).len() <= spikes(&reset["blank"]).len()
+                && own[name]["rest_core_spikes"].as_u64().unwrap()
+                    <= reset[name]["rest_core_spikes"].as_u64().unwrap();
+            let passed = quiet
+                && eligible
+                && correct
+                    > wrong
+                        .max(reset_count)
+                        .max(opposite)
+                        .max(control)
+                        .max(before_b.unwrap_or(0));
+            rows.insert(
+                name,
+                json!({"correct":correct,"wrong":wrong,"reset":reset_count,
+                "opposite":opposite,"balanced":control,"before_b":before_b,"quiet":quiet,
+                "eligible":eligible,"passed":passed}),
+            );
+        }
+        family.insert(mapping, rows);
+    }
+    json!(family)
+}
+
 fn score(branches: &Value, reset: &Value, target_groups: &[Templates; 2]) -> Value {
     let mut all = BTreeMap::new();
     for policy in POLICIES {
-        let mut families: BTreeMap<&str, Value> = BTreeMap::new();
-        for (family, phase, task) in [
-            ("a_acquisition", "a", 0),
-            ("b_acquisition", "b", 1),
-            ("a_retention", "b", 0),
-        ] {
-            let expected = &target_groups[task];
-            let mut by_mapping = BTreeMap::new();
-            for (flip, mapping) in MAPPINGS[..2].iter().copied().enumerate() {
-                let other = MAPPINGS[1 ^ flip];
-                let own = &branches[policy][mapping][phase]["probes"];
-                let reverse = &branches[policy][other][phase]["probes"];
-                let balanced = &branches[policy]["balanced"][phase]["probes"];
-                let mut rows = BTreeMap::new();
-                for (i, name) in CUES.into_iter().enumerate() {
-                    let name = in_task(name, task);
-                    let group = &expected[i ^ flip];
-                    let correct = count(&own[name], group);
-                    let wrong = count(&own[name], &expected[1 ^ i ^ flip]);
-                    let reset_count = count(&reset[name], group);
-                    let opposite = count(&reverse[name], group);
-                    let control = count(&balanced[name], group);
-                    let before_b = (task == 1)
-                        .then(|| count(&branches[policy][mapping]["a"]["probes"][name], group));
-                    let eligible = expected.iter().all(|g| !g.is_empty())
-                        && (family != "a_retention"
-                            || families["a_acquisition"][mapping][name]["passed"] == true);
-                    let quiet = spikes(&own["blank"]).len() <= spikes(&reset["blank"]).len()
-                        && own[name]["rest_core_spikes"].as_u64().unwrap()
-                            <= reset[name]["rest_core_spikes"].as_u64().unwrap();
-                    let passed = quiet
-                        && eligible
-                        && correct
-                            > wrong
-                                .max(reset_count)
-                                .max(opposite)
-                                .max(control)
-                                .max(before_b.unwrap_or(0));
-                    rows.insert(
-                        name,
-                        json!({"correct":correct,"wrong":wrong,"reset":reset_count,
-                        "opposite":opposite,"balanced":control,"before_b":before_b,
-                        "quiet":quiet,"eligible":eligible,"passed":passed}),
-                    );
-                }
-                by_mapping.insert(mapping, rows);
-            }
-            families.insert(family, json!(by_mapping));
-        }
-        all.insert(policy, families);
+        let arms = &branches[policy];
+        let a = MAPPINGS.map(|mapping| &arms[mapping]["a"]["probes"]);
+        let b = MAPPINGS.map(|mapping| &arms[mapping]["b"]["probes"]);
+        let acquired = score_mappings(a, reset, &target_groups[0], 0, None, None);
+        let learned_b = score_mappings(b, reset, &target_groups[1], 1, Some([a[0], a[1]]), None);
+        let retained = score_mappings(b, reset, &target_groups[0], 0, None, Some(&acquired));
+        all.insert(
+            policy,
+            json!({"a_acquisition":acquired,"b_acquisition":learned_b,
+            "a_retention":retained}),
+        );
     }
     json!(all)
 }
@@ -342,7 +383,7 @@ fn run(config: &Config, seed: u64) -> Result<TrialMetrics> {
             let mut parent = assay.start_training(policy)?;
             let mut stages = BTreeMap::new();
             for (task, stage) in TASKS.into_iter().enumerate() {
-                let frames = assay.train(&mut parent, mapping, task, true)?;
+                let frames = assay.train(&mut parent, mapping, task, TrainingAudit::Standard)?;
                 let probes = assay.probe_stage(&parent, policy, mapping, task)?;
                 stages.insert(
                     stage,

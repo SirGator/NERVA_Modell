@@ -3,6 +3,7 @@ use super::{AreaWeights, DevelopmentPlan, Model, Neuron, NeuronId, Result, Synap
 use serde_json::{Value, json};
 use std::collections::BTreeSet;
 
+#[derive(Clone)]
 pub(super) struct Collector {
     pub(super) targets: BTreeSet<NeuronId>,
     edges: BTreeSet<SynapseId>,

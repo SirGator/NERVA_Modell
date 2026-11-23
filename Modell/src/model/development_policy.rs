@@ -37,7 +37,7 @@ pub struct Exploration {
     pub drive: f32,
 }
 
-#[derive(Default, PartialEq, Eq)]
+#[derive(Clone, Default, PartialEq, Eq)]
 pub(super) struct PolicyState {
     pub(super) settings: DevelopmentPolicy,
     pub(super) used: BTreeSet<NeuronId>,
@@ -51,6 +51,29 @@ pub(super) struct Choice {
 }
 
 impl Model {
+    /// Switch formation at a synchronous observation boundary without resetting
+    /// per-target exploration history or touching any plasticity clocks.
+    pub fn diagnostic_switch_exploratory_formation(
+        &mut self,
+        formation: ExploratoryFormation,
+    ) -> Result<()> {
+        if self.config.kind != ModelKind::Recurrent || !self.config.development {
+            return Err("formation switching requires active recurrent development".into());
+        }
+        self.development_policy.settings.formation = formation;
+        Ok(())
+    }
+
+    /// Suspend graph development at a synchronous observation boundary while
+    /// preserving learning, homeostasis and their existing scheduler bookings.
+    pub fn diagnostic_pause_development(&mut self) -> Result<()> {
+        if self.config.kind != ModelKind::Recurrent {
+            return Err("development suspension requires a recurrent model".into());
+        }
+        self.config.development = false;
+        Ok(())
+    }
+
     /// Configure an experimental policy at a frozen checkpoint, starting a
     /// new interval with one exploratory formation available per target.
     pub fn diagnostic_development_policy(&mut self, policy: DevelopmentPolicy) -> Result<()> {
@@ -126,5 +149,54 @@ impl Model {
             target_last: target.last_spike(),
             recent_candidates,
         })
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::model::ModelConfig;
+    use nerva_qemu::capture::Frame;
+
+    #[test]
+    fn live_controls_preserve_history_and_all_other_replay_state() {
+        let config = ModelConfig {
+            processing_neurons: 16,
+            ..ModelConfig::default()
+        };
+        let mut model = Model::from_config(config.clone()).unwrap();
+        let mut native = Model::from_config(config).unwrap();
+        let white = Frame::new(64, 64, vec![255; 64 * 64 * 3]).unwrap();
+        assert_eq!(model.step(&white).unwrap(), native.step(&white).unwrap());
+        let target = model.processing[0];
+        for branch in [&mut model, &mut native] {
+            branch.development_policy.used.insert(target);
+            branch.development_policy.settings.pruning = false;
+        }
+        let plasticity = model.plasticity();
+        model
+            .diagnostic_switch_exploratory_formation(ExploratoryFormation::RecentExcitatory)
+            .unwrap();
+        assert!(model.development_policy.used.contains(&target));
+        assert!(!model.development_policy.settings.pruning);
+        assert_eq!(model.plasticity(), plasticity);
+        model
+            .diagnostic_switch_exploratory_formation(ExploratoryFormation::Off)
+            .unwrap();
+        assert!(model.same_replay_state(&native));
+        model.diagnostic_pause_development().unwrap();
+        model.diagnostic_pause_development().unwrap();
+        assert_eq!(model.plasticity().learning, plasticity.learning);
+        assert_eq!(model.plasticity().homeostasis, plasticity.homeostasis);
+        assert!(!model.plasticity().development);
+        assert!(
+            model
+                .diagnostic_switch_exploratory_formation(ExploratoryFormation::Off)
+                .is_err()
+        );
+        model.config.development = true;
+        assert!(model.same_replay_state(&native));
+        assert_eq!(model.step(&white).unwrap(), native.step(&white).unwrap());
+        assert!(model.same_replay_state(&native));
     }
 }

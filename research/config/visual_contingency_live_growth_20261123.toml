@@ -1,0 +1,15 @@
+[experiment]
+name = "visual_contingency_live_growth_20261123"
+scenario = "hippocampal_contingency_live_growth"
+seeds = [34301, 34307, 34313, 34319, 34327, 34333]
+interventions = ["crossed_b_formation"]
+verify_replay = true
+max_runs = 6
+
+[base]
+processing_neurons = 256
+training_repetitions = 8
+rest_us = 11000000
+
+[measurements]
+metrics = ["a_acquisition", "recent_b_acquisition", "nearest_b_acquisition", "off_b_acquisition", "recent_a_retention", "nearest_a_retention", "off_a_retention", "recent_joint_paths", "nearest_joint_paths", "off_joint_paths"]
