@@ -27,6 +27,8 @@ pub mod audit;
 pub mod config;
 mod development_audit;
 mod development_policy;
+#[cfg(test)]
+mod formed_intervention_tests;
 pub(crate) mod random;
 pub mod sensory;
 mod spatial;
@@ -667,6 +669,93 @@ impl Model {
         })?;
         Ok(())
     }
+
+    /// Native recurrent formation radius, birth weight and propagation delay.
+    pub fn diagnostic_formation_geometry(&self) -> (f32, f32, u64) {
+        (
+            self.formation.candidate_search.radius,
+            self.formation.initial_weight.get(),
+            self.formation.delay_us,
+        )
+    }
+
+    /// Insert an ordered batch of rest-state Core connections into a frozen
+    /// recurrent checkpoint. This counterfactual consumes no structural drive.
+    /// Existing cells, edges, queued arrivals and development state are retained;
+    /// any invalid request leaves the entire checkpoint unchanged.
+    pub fn diagnostic_insert_formed_synapses(
+        &mut self,
+        edges: &[(NeuronId, NeuronId, f32)],
+    ) -> Result<Vec<SynapseId>> {
+        if self.config.kind != ModelKind::Recurrent
+            || self.config.learning
+            || self.config.development
+            || self.config.homeostasis
+        {
+            return Err("formed-synapse insertion requires a fully frozen recurrent model".into());
+        }
+        if self.config.synaptic_competition {
+            return Err("formed-synapse insertion cannot change fixed competition pools".into());
+        }
+        if edges.is_empty() {
+            return Ok(Vec::new());
+        }
+        let next_synapse = self
+            .next_synapse
+            .checked_add(u64::try_from(edges.len())?)
+            .ok_or("synapse ID overflow")?;
+        let mut pairs: std::collections::BTreeSet<_> = self
+            .network()
+            .synapses()
+            .map(|edge| (edge.pre(), edge.post()))
+            .collect();
+        let mut prepared = Vec::with_capacity(edges.len());
+        for (offset, &(pre, post, weight)) in edges.iter().enumerate() {
+            if pre == post || !self.is_core(pre) || !self.is_core(post) {
+                return Err("formed synapses require distinct Core endpoints".into());
+            }
+            let source = self.network().neuron(pre).ok_or("unknown Core source")?;
+            let target = self.network().neuron(post).ok_or("unknown Core target")?;
+            if source.role() != Some(NeuronRole::Processing)
+                || target.role() != Some(NeuronRole::Processing)
+            {
+                return Err("formed synapses require Core endpoints".into());
+            }
+            if source.position().distance_to(target.position())
+                > self.formation.candidate_search.radius
+            {
+                return Err("formed synapse exceeds native formation radius".into());
+            }
+            if !pairs.insert((pre, post)) {
+                return Err("duplicate formed-synapse endpoint pair".into());
+            }
+            if !weight.is_finite() || !(0.0..=2.0).contains(&weight) {
+                return Err("formed-synapse weight must be finite and within 0..=2".into());
+            }
+            let mut edge = Synapse::new(
+                SynapseId(self.next_synapse + offset as u64),
+                pre,
+                post,
+                Weight::new(weight)?,
+                self.formation.delay_us,
+                self.formation.plastic,
+            )?;
+            if self.config.architecture == Architecture::Hippocampal {
+                area::configure_synapse(&mut edge, self.network(), self.area_field)?;
+            }
+            prepared.push(edge);
+        }
+        let mut simulation = self.simulation.diagnostic_fork()?;
+        let mut ids = Vec::with_capacity(prepared.len());
+        for edge in prepared {
+            ids.push(edge.id());
+            simulation.add_synapse(edge)?;
+        }
+        self.simulation = simulation;
+        self.next_synapse = next_synapse;
+        Ok(ids)
+    }
+
     /// Frozen diagnostic branch only. Blocks selected transmissions and queued
     /// arrivals while preserving their weights and all cellular state.
     pub fn diagnostic_block_synapses(&mut self, ids: &[SynapseId]) -> Result<usize> {

@@ -16,7 +16,11 @@ use nerva_research::{
                     replay_homeostasis, replay_structural, replay_structural_consolidation,
                     replay_structural_decisions, replay_structural_exploration,
                 },
-                live_rate::{LiveRateScenario, growth::LiveGrowthScenario, replay_b_factor},
+                live_rate::{
+                    LiveRateScenario,
+                    growth::{LiveGrowthScenario, replay_a_transfer},
+                    replay_b_factor,
+                },
                 replay_chemical, replay_electrical,
             },
             diagnosis::DiagnosisScenario,
@@ -64,6 +68,7 @@ fn execute() -> Result<()> {
             | "contingency-grown-dose"
             | "contingency-grown-residual"
             | "contingency-b-factor"
+            | "contingency-a-transfer"
     ) {
         let path = args
             .next()
@@ -126,6 +131,7 @@ fn execute() -> Result<()> {
             Some(observations) => replay_chemical(&envelope, &observations)?,
             None if mode == "contingency-eligibility" => replay_eligibility(&envelope)?,
             None if mode == "contingency-b-factor" => replay_b_factor(&envelope)?,
+            None if mode == "contingency-a-transfer" => replay_a_transfer(&envelope)?,
             None => replay_electrical(&envelope)?,
         };
         println!(

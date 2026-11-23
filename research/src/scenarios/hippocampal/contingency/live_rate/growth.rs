@@ -12,6 +12,9 @@ use nerva_vm::model::ExploratoryFormation;
 use serde_json::{Value, json};
 use std::collections::BTreeMap;
 
+mod transfer;
+pub use transfer::replay_a_transfer;
+
 pub struct LiveGrowthScenario;
 const PROTOCOL: &str = "NERVA-Contingency-Live-Growth/1";
 const POLICIES: [&str; 3] = ["recent", "nearest", "off"];
