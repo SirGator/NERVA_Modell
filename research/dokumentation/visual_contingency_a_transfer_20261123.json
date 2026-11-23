@@ -1,0 +1,809 @@
+{
+  "protocol": "NERVA-Contingency-A-Transfer/1",
+  "cohort_size": 6,
+  "source_commits": {
+    "library": "c13d9f733d474fe1516f3c170a0440b7c294c535",
+    "model": "8cb2eae67fa755b87546a22b8659f854d33c30a0"
+  },
+  "summary": {
+    "native": {
+      "intact": {
+        "eligible_cases": 24,
+        "passed_cases": 2,
+        "full_seed_passes": 0,
+        "partial_seed_passes": 2,
+        "passed_case_histogram": {
+          "0": 4,
+          "1": 2
+        }
+      },
+      "block_born": {
+        "eligible_cases": 24,
+        "passed_cases": 0,
+        "full_seed_passes": 0,
+        "partial_seed_passes": 0,
+        "passed_case_histogram": {
+          "0": 6
+        }
+      },
+      "block_terminal": {
+        "eligible_cases": 24,
+        "passed_cases": 0,
+        "full_seed_passes": 0,
+        "partial_seed_passes": 0,
+        "passed_case_histogram": {
+          "0": 6
+        }
+      },
+      "block_other": {
+        "eligible_cases": 24,
+        "passed_cases": 1,
+        "full_seed_passes": 0,
+        "partial_seed_passes": 1,
+        "passed_case_histogram": {
+          "0": 5,
+          "1": 1
+        }
+      },
+      "restore_old": {
+        "eligible_cases": 24,
+        "passed_cases": 2,
+        "full_seed_passes": 0,
+        "partial_seed_passes": 2,
+        "passed_case_histogram": {
+          "0": 4,
+          "1": 2
+        }
+      },
+      "reset_born": {
+        "eligible_cases": 24,
+        "passed_cases": 2,
+        "full_seed_passes": 0,
+        "partial_seed_passes": 2,
+        "passed_case_histogram": {
+          "0": 4,
+          "1": 2
+        }
+      }
+    },
+    "transfer": {
+      "native_initial": {
+        "eligible_cases": 24,
+        "passed_cases": 1,
+        "full_seed_passes": 0,
+        "partial_seed_passes": 1,
+        "passed_case_histogram": {
+          "0": 5,
+          "1": 1
+        }
+      },
+      "native_trained": {
+        "eligible_cases": 24,
+        "passed_cases": 1,
+        "full_seed_passes": 0,
+        "partial_seed_passes": 1,
+        "passed_case_histogram": {
+          "0": 5,
+          "1": 1
+        }
+      },
+      "sham_initial": {
+        "eligible_cases": 24,
+        "passed_cases": 2,
+        "full_seed_passes": 0,
+        "partial_seed_passes": 2,
+        "passed_case_histogram": {
+          "0": 4,
+          "1": 2
+        }
+      },
+      "sham_trained": {
+        "eligible_cases": 24,
+        "passed_cases": 2,
+        "full_seed_passes": 0,
+        "partial_seed_passes": 2,
+        "passed_case_histogram": {
+          "0": 4,
+          "1": 2
+        }
+      },
+      "old_only": {
+        "eligible_cases": 24,
+        "passed_cases": 0,
+        "full_seed_passes": 0,
+        "partial_seed_passes": 0,
+        "passed_case_histogram": {
+          "0": 6
+        }
+      },
+      "joint": {
+        "eligible_cases": 24,
+        "passed_cases": 1,
+        "full_seed_passes": 0,
+        "partial_seed_passes": 1,
+        "passed_case_histogram": {
+          "0": 5,
+          "1": 1
+        }
+      },
+      "joint_sham": {
+        "eligible_cases": 24,
+        "passed_cases": 2,
+        "full_seed_passes": 0,
+        "partial_seed_passes": 2,
+        "passed_case_histogram": {
+          "0": 4,
+          "1": 2
+        }
+      }
+    },
+    "geometry_specific": {
+      "native_initial": {
+        "eligible_cases": 24,
+        "passed_cases": 0,
+        "full_seed_passes": 0,
+        "partial_seed_passes": 0
+      },
+      "native_trained": {
+        "eligible_cases": 24,
+        "passed_cases": 0,
+        "full_seed_passes": 0,
+        "partial_seed_passes": 0
+      },
+      "joint": {
+        "eligible_cases": 24,
+        "passed_cases": 0,
+        "full_seed_passes": 0,
+        "partial_seed_passes": 0
+      }
+    },
+    "archived_hit_cases": [
+      {
+        "seed": 34313,
+        "mapping": "reverse",
+        "cue": "cue1",
+        "archived_hit": true,
+        "correct_counts": {
+          "intact": 1,
+          "block_born": 0,
+          "block_terminal": 0,
+          "block_other": 1,
+          "restore_old": 1,
+          "reset_born": 1
+        },
+        "decrements": {
+          "block_born": 1,
+          "block_terminal": 1,
+          "block_other": 0,
+          "restore_old": 0,
+          "reset_born": 0
+        }
+      },
+      {
+        "seed": 34327,
+        "mapping": "reverse",
+        "cue": "cue1",
+        "archived_hit": true,
+        "correct_counts": {
+          "intact": 1,
+          "block_born": 0,
+          "block_terminal": 0,
+          "block_other": 0,
+          "restore_old": 1,
+          "reset_born": 1
+        },
+        "decrements": {
+          "block_born": 1,
+          "block_terminal": 1,
+          "block_other": 1,
+          "restore_old": 0,
+          "reset_born": 0
+        }
+      }
+    ]
+  },
+  "sham_coverage": {
+    "born": 4355,
+    "different_sources": 316,
+    "terminal": 373,
+    "terminal_different_sources": 18,
+    "fraction_of_changed_sources_range": [
+      0.034482758620689655,
+      0.09954751131221719
+    ]
+  },
+  "changed_core_probe_sequences": {
+    "native": {
+      "intact": 0,
+      "block_born": 36,
+      "block_terminal": 11,
+      "block_other": 36,
+      "restore_old": 0,
+      "reset_born": 0
+    },
+    "transfer": {
+      "native_initial": 36,
+      "native_trained": 36,
+      "sham_initial": 36,
+      "sham_trained": 36,
+      "old_only": 0,
+      "joint": 36,
+      "joint_sham": 36
+    }
+  },
+  "records": [
+    {
+      "job_id": "v00000-s34301-i000",
+      "seed": 34301,
+      "archived_record_checksum": "308d989f2cb068cf",
+      "input_sha256": "dd91cad619d20db291bfb587f012973758023baa7291afbfe6c31457e38bbf07",
+      "raw_sha256": "1b45b911f30f4de58d22eec005fe33d9ae4e55fa1926a81da771c71fc90ba605",
+      "target_sizes": [
+        6,
+        3
+      ],
+      "sham_geometry": {
+        "balanced": {
+          "born": 241,
+          "terminal": 22,
+          "swaps": 8,
+          "different_sources": 16,
+          "terminal_different_sources": 1
+        },
+        "forward": {
+          "born": 241,
+          "terminal": 22,
+          "swaps": 8,
+          "different_sources": 16,
+          "terminal_different_sources": 1
+        },
+        "reverse": {
+          "born": 233,
+          "terminal": 21,
+          "swaps": 7,
+          "different_sources": 14,
+          "terminal_different_sources": 1
+        }
+      }
+    },
+    {
+      "job_id": "v00000-s34307-i000",
+      "seed": 34307,
+      "archived_record_checksum": "567c5783284448ea",
+      "input_sha256": "d97e988754d6b03074681bf01065fc06806a18c8f7062b6cbf56fce6584c5494",
+      "raw_sha256": "e4ac9bf1e85b8f62dddc67f4aa9272880de17643410f6b306a7c36d9cada6ba1",
+      "target_sizes": [
+        2,
+        6
+      ],
+      "sham_geometry": {
+        "balanced": {
+          "born": 221,
+          "terminal": 7,
+          "swaps": 11,
+          "different_sources": 22,
+          "terminal_different_sources": 0
+        },
+        "forward": {
+          "born": 221,
+          "terminal": 7,
+          "swaps": 11,
+          "different_sources": 22,
+          "terminal_different_sources": 0
+        },
+        "reverse": {
+          "born": 220,
+          "terminal": 8,
+          "swaps": 10,
+          "different_sources": 20,
+          "terminal_different_sources": 0
+        }
+      }
+    },
+    {
+      "job_id": "v00000-s34313-i000",
+      "seed": 34313,
+      "archived_record_checksum": "5f41e010cc07b0d4",
+      "input_sha256": "dbd3e93c4334c21820088b62a37aa4082563eff0df8f052db775c62452dd69df",
+      "raw_sha256": "e5581de022cb9430056c5b9c8cc9676d5ea77b3a9bf9e7e6a6ff6cc181075a8d",
+      "target_sizes": [
+        8,
+        6
+      ],
+      "sham_geometry": {
+        "balanced": {
+          "born": 225,
+          "terminal": 29,
+          "swaps": 9,
+          "different_sources": 18,
+          "terminal_different_sources": 0
+        },
+        "forward": {
+          "born": 224,
+          "terminal": 29,
+          "swaps": 9,
+          "different_sources": 18,
+          "terminal_different_sources": 0
+        },
+        "reverse": {
+          "born": 232,
+          "terminal": 29,
+          "swaps": 7,
+          "different_sources": 14,
+          "terminal_different_sources": 0
+        }
+      },
+      "archived_cases": [
+        {
+          "mapping": "reverse",
+          "cue": "cue1",
+          "published_target_events": {
+            "native": {
+              "block_born": [],
+              "block_other": [
+                [
+                  72,
+                  35335
+                ]
+              ],
+              "block_terminal": [],
+              "intact": [
+                [
+                  72,
+                  35335
+                ]
+              ],
+              "reset_born": [
+                [
+                  72,
+                  35335
+                ]
+              ],
+              "restore_old": [
+                [
+                  72,
+                  35335
+                ]
+              ]
+            },
+            "transfer": {
+              "joint": [
+                [
+                  72,
+                  26001
+                ],
+                [
+                  72,
+                  52001
+                ]
+              ],
+              "joint_sham": [
+                [
+                  72,
+                  26001
+                ],
+                [
+                  72,
+                  52001
+                ]
+              ],
+              "native_initial": [
+                [
+                  72,
+                  26001
+                ],
+                [
+                  72,
+                  52001
+                ]
+              ],
+              "native_trained": [
+                [
+                  72,
+                  26001
+                ],
+                [
+                  72,
+                  52001
+                ]
+              ],
+              "old_only": [],
+              "sham_initial": [
+                [
+                  72,
+                  26001
+                ],
+                [
+                  72,
+                  52001
+                ]
+              ],
+              "sham_trained": [
+                [
+                  72,
+                  26001
+                ],
+                [
+                  72,
+                  52001
+                ]
+              ]
+            }
+          },
+          "core_probe_spike_counts": {
+            "native": {
+              "block_born": 37,
+              "block_other": 38,
+              "block_terminal": 49,
+              "intact": 50,
+              "reset_born": 50,
+              "restore_old": 50
+            },
+            "transfer": {
+              "joint": 62,
+              "joint_sham": 60,
+              "native_initial": 62,
+              "native_trained": 62,
+              "old_only": 43,
+              "sham_initial": 60,
+              "sham_trained": 60
+            }
+          },
+          "new_incoming_edges_to_fired_cells": [
+            1422,
+            1537,
+            1564,
+            1624,
+            1632
+          ],
+          "new_edges_with_arrivals_to_fired_cells": [
+            1422,
+            1537,
+            1632
+          ],
+          "changed_sources_into_fired_cells": []
+        }
+      ],
+      "source_control_feasibility": [
+        {
+          "mapping": "reverse",
+          "cue": "cue1",
+          "fired": [
+            72
+          ],
+          "incoming": [
+            {
+              "edge": 1422,
+              "arrived": true,
+              "single_within_radius": 9,
+              "single_length_matched": 1,
+              "pair_within_radius": 1,
+              "pair_length_matched": 0,
+              "minimal_pair_maximum_change": 0.13616735959328707,
+              "length_matched_replacements_from_born_edges": 0,
+              "valid_shortest_free_endpoint_cycle": null
+            },
+            {
+              "edge": 1537,
+              "arrived": true,
+              "single_within_radius": 9,
+              "single_length_matched": 1,
+              "pair_within_radius": 1,
+              "pair_length_matched": 0,
+              "minimal_pair_maximum_change": 0.08861994282750477,
+              "length_matched_replacements_from_born_edges": 0,
+              "valid_shortest_free_endpoint_cycle": null
+            },
+            {
+              "edge": 1564,
+              "arrived": false,
+              "single_within_radius": 2,
+              "single_length_matched": 1,
+              "pair_within_radius": 0,
+              "pair_length_matched": 0,
+              "minimal_pair_maximum_change": null,
+              "length_matched_replacements_from_born_edges": 0,
+              "valid_shortest_free_endpoint_cycle": null
+            },
+            {
+              "edge": 1624,
+              "arrived": false,
+              "single_within_radius": 9,
+              "single_length_matched": 3,
+              "pair_within_radius": 0,
+              "pair_length_matched": 0,
+              "minimal_pair_maximum_change": null,
+              "length_matched_replacements_from_born_edges": 3,
+              "valid_shortest_free_endpoint_cycle": [
+                1624,
+                1602,
+                1477
+              ]
+            },
+            {
+              "edge": 1632,
+              "arrived": true,
+              "single_within_radius": 9,
+              "single_length_matched": 2,
+              "pair_within_radius": 2,
+              "pair_length_matched": 0,
+              "minimal_pair_maximum_change": 0.06534382531337934,
+              "length_matched_replacements_from_born_edges": 3,
+              "valid_shortest_free_endpoint_cycle": [
+                1632,
+                1602,
+                1515,
+                1438
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "job_id": "v00000-s34319-i000",
+      "seed": 34319,
+      "archived_record_checksum": "9188f965917372d1",
+      "input_sha256": "dd5704c53bca8cbb89df8c202c49cd094c0fb7eea067c64eae2accaffa80919c",
+      "raw_sha256": "0690535f55efd7829e61262dfa090eddbfc183a80b593610f59709ea97f59b72",
+      "target_sizes": [
+        6,
+        3
+      ],
+      "sham_geometry": {
+        "balanced": {
+          "born": 302,
+          "terminal": 32,
+          "swaps": 15,
+          "different_sources": 30,
+          "terminal_different_sources": 6
+        },
+        "forward": {
+          "born": 302,
+          "terminal": 32,
+          "swaps": 15,
+          "different_sources": 30,
+          "terminal_different_sources": 6
+        },
+        "reverse": {
+          "born": 295,
+          "terminal": 30,
+          "swaps": 12,
+          "different_sources": 24,
+          "terminal_different_sources": 2
+        }
+      }
+    },
+    {
+      "job_id": "v00000-s34327-i000",
+      "seed": 34327,
+      "archived_record_checksum": "08cec1d58a4639ec",
+      "input_sha256": "2143351a039d0dbe0034369240aa76e7bc1b209378d8342e5e520c10e228b314",
+      "raw_sha256": "7a134d138e8b9dbe9567a3a8d9306b417f6e460c4b5072d547aedb4588a02e51",
+      "target_sizes": [
+        7,
+        1
+      ],
+      "sham_geometry": {
+        "balanced": {
+          "born": 229,
+          "terminal": 23,
+          "swaps": 5,
+          "different_sources": 10,
+          "terminal_different_sources": 0
+        },
+        "forward": {
+          "born": 229,
+          "terminal": 23,
+          "swaps": 5,
+          "different_sources": 10,
+          "terminal_different_sources": 0
+        },
+        "reverse": {
+          "born": 229,
+          "terminal": 23,
+          "swaps": 9,
+          "different_sources": 18,
+          "terminal_different_sources": 0
+        }
+      },
+      "archived_cases": [
+        {
+          "mapping": "reverse",
+          "cue": "cue1",
+          "published_target_events": {
+            "native": {
+              "block_born": [],
+              "block_other": [],
+              "block_terminal": [],
+              "intact": [
+                [
+                  73,
+                  52001
+                ]
+              ],
+              "reset_born": [
+                [
+                  73,
+                  52001
+                ]
+              ],
+              "restore_old": [
+                [
+                  73,
+                  52001
+                ]
+              ]
+            },
+            "transfer": {
+              "joint": [],
+              "joint_sham": [
+                [
+                  73,
+                  52001
+                ]
+              ],
+              "native_initial": [],
+              "native_trained": [],
+              "old_only": [],
+              "sham_initial": [
+                [
+                  73,
+                  52001
+                ]
+              ],
+              "sham_trained": [
+                [
+                  73,
+                  52001
+                ]
+              ]
+            }
+          },
+          "core_probe_spike_counts": {
+            "native": {
+              "block_born": 42,
+              "block_other": 42,
+              "block_terminal": 49,
+              "intact": 50,
+              "reset_born": 50,
+              "restore_old": 50
+            },
+            "transfer": {
+              "joint": 54,
+              "joint_sham": 54,
+              "native_initial": 54,
+              "native_trained": 54,
+              "old_only": 51,
+              "sham_initial": 54,
+              "sham_trained": 54
+            }
+          },
+          "new_incoming_edges_to_fired_cells": [
+            1440,
+            1542,
+            1561,
+            1583,
+            1632
+          ],
+          "new_edges_with_arrivals_to_fired_cells": [
+            1440,
+            1542,
+            1632
+          ],
+          "changed_sources_into_fired_cells": []
+        }
+      ],
+      "source_control_feasibility": [
+        {
+          "mapping": "reverse",
+          "cue": "cue1",
+          "fired": [
+            73
+          ],
+          "incoming": [
+            {
+              "edge": 1440,
+              "arrived": true,
+              "single_within_radius": 4,
+              "single_length_matched": 2,
+              "pair_within_radius": 0,
+              "pair_length_matched": 0,
+              "minimal_pair_maximum_change": null,
+              "length_matched_replacements_from_born_edges": 2,
+              "valid_shortest_free_endpoint_cycle": null
+            },
+            {
+              "edge": 1542,
+              "arrived": true,
+              "single_within_radius": 13,
+              "single_length_matched": 2,
+              "pair_within_radius": 0,
+              "pair_length_matched": 0,
+              "minimal_pair_maximum_change": null,
+              "length_matched_replacements_from_born_edges": 0,
+              "valid_shortest_free_endpoint_cycle": null
+            },
+            {
+              "edge": 1561,
+              "arrived": false,
+              "single_within_radius": 4,
+              "single_length_matched": 1,
+              "pair_within_radius": 0,
+              "pair_length_matched": 0,
+              "minimal_pair_maximum_change": null,
+              "length_matched_replacements_from_born_edges": 2,
+              "valid_shortest_free_endpoint_cycle": null
+            },
+            {
+              "edge": 1583,
+              "arrived": false,
+              "single_within_radius": 13,
+              "single_length_matched": 1,
+              "pair_within_radius": 0,
+              "pair_length_matched": 0,
+              "minimal_pair_maximum_change": null,
+              "length_matched_replacements_from_born_edges": 0,
+              "valid_shortest_free_endpoint_cycle": null
+            },
+            {
+              "edge": 1632,
+              "arrived": true,
+              "single_within_radius": 13,
+              "single_length_matched": 6,
+              "pair_within_radius": 0,
+              "pair_length_matched": 0,
+              "minimal_pair_maximum_change": null,
+              "length_matched_replacements_from_born_edges": 9,
+              "valid_shortest_free_endpoint_cycle": [
+                1632,
+                1545,
+                1445,
+                1649,
+                1433
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "job_id": "v00000-s34333-i000",
+      "seed": 34333,
+      "archived_record_checksum": "e21e060a807c42de",
+      "input_sha256": "b9fb932ec9b86934b355c4794f4d44f0aea36e2900de242c54cd378adaee0d40",
+      "raw_sha256": "fb176ff942ee9fdbcb85493b015dffb0cb12e00c06d81b1724c35cc390eb679b",
+      "target_sizes": [
+        4,
+        3
+      ],
+      "sham_geometry": {
+        "balanced": {
+          "born": 232,
+          "terminal": 12,
+          "swaps": 4,
+          "different_sources": 8,
+          "terminal_different_sources": 0
+        },
+        "forward": {
+          "born": 232,
+          "terminal": 12,
+          "swaps": 4,
+          "different_sources": 8,
+          "terminal_different_sources": 0
+        },
+        "reverse": {
+          "born": 247,
+          "terminal": 12,
+          "swaps": 9,
+          "different_sources": 18,
+          "terminal_different_sources": 1
+        }
+      }
+    }
+  ],
+  "local_archive": {
+    "path": "research/results/archives/visual_contingency_a_transfer_20261123.zip",
+    "sha256": "8e2b8406858f358f68f7bdce68f92a93befc5d06419e05c65fdfd9845f4ea223"
+  }
+}
