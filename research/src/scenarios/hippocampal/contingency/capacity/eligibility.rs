@@ -9,13 +9,13 @@ use nerva::core::SynapseId;
 use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 
-fn u64_field(row: &Value, name: &str) -> Result<u64> {
+pub(super) fn u64_field(row: &Value, name: &str) -> Result<u64> {
     row[name]
         .as_u64()
         .ok_or_else(|| error(format!("invalid capacity field {name}")))
 }
 
-fn recorded_focus(
+pub(super) fn recorded_focus(
     assay: &Assay<'_>,
     followup: &Value,
     mapping: &str,
@@ -192,8 +192,7 @@ fn run(source: &Value, checksum: &str) -> Result<Value> {
     )
 }
 
-/// Reconstruct the fixed-history and live contrasts on one checked capacity record.
-pub fn replay_eligibility(envelope: &Value) -> Result<Value> {
+pub(super) fn checked_capacity(envelope: &Value) -> Result<(&Value, String)> {
     let source = &envelope["record"];
     let checksum = fingerprint(&serde_json::to_vec(source).map_err(fail)?);
     if source["details"]["protocol"] != PROTOCOL
@@ -205,6 +204,12 @@ pub fn replay_eligibility(envelope: &Value) -> Result<Value> {
             "intact replay-verified capacity record with a followup required",
         ));
     }
+    Ok((source, checksum))
+}
+
+/// Reconstruct the fixed-history and live contrasts on one checked capacity record.
+pub fn replay_eligibility(envelope: &Value) -> Result<Value> {
+    let (source, checksum) = checked_capacity(envelope)?;
     let mut output = run(source, &checksum)?;
     if output != run(source, &checksum)? {
         return Err(error("inherited eligibility diagnostic replay differs"));

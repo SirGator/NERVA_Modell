@@ -14,8 +14,10 @@ use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 
 mod eligibility;
+mod homeostasis;
 mod routes;
 pub use eligibility::replay_eligibility;
+pub use homeostasis::replay_homeostasis;
 use routes::{Edge, Routes, routes};
 
 pub struct CapacityScenario;

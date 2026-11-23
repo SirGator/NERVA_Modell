@@ -91,7 +91,11 @@ fn schedule(c: &Config, seed: u64, mapping: &str, gap: usize) -> Vec<&'static st
     frames
 }
 
-fn observe(model: &mut Model, frame: &Frame) -> Result<(Step, Spikes, InputAudit)> {
+fn observe(
+    model: &mut Model,
+    frame: &Frame,
+    homeostasis: bool,
+) -> Result<(Step, Spikes, InputAudit)> {
     let step = model.step(frame).map_err(fail)?;
     let audit = model
         .take_audit()
@@ -99,7 +103,7 @@ fn observe(model: &mut Model, frame: &Frame) -> Result<(Step, Spikes, InputAudit
     if audit.raw_events.len() > 200_000
         || !step.formed.is_empty()
         || !step.pruned.is_empty()
-        || step.homeostasis_changes != 0
+        || (!homeostasis && step.homeostasis_changes != 0)
     {
         return Err(error(
             "contingency observation exceeded its budget or changed maintenance state",
@@ -120,7 +124,16 @@ fn train(
     model: &mut Model,
     order: &[&str],
     frames: &BTreeMap<&str, Frame>,
+    tape: Option<&mut Tape>,
+) -> Result<Value> {
+    train_with_homeostasis(model, order, frames, tape, false)
+}
+fn train_with_homeostasis(
+    model: &mut Model,
+    order: &[&str],
+    frames: &BTreeMap<&str, Frame>,
     mut tape: Option<&mut Tape>,
+    homeostasis: bool,
 ) -> Result<Value> {
     if let Some(tape) = &mut tape {
         tape.initialize_from_checkpoint(model);
@@ -130,7 +143,7 @@ fn train(
         .set_plasticity(PlasticitySettings {
             learning: true,
             development: false,
-            homeostasis: false,
+            homeostasis,
         })
         .map_err(fail)?;
     model.enable_audit(AuditOptions {
@@ -139,7 +152,7 @@ fn train(
     });
     let mut rows = Vec::with_capacity(order.len());
     for &stimulus in order {
-        let (step, root_spikes, audit) = observe(model, &frames[stimulus])?;
+        let (step, root_spikes, audit) = observe(model, &frames[stimulus], homeostasis)?;
         if let Some(tape) = &mut tape {
             tape.add(&audit, &model.take_learning_audit().map_err(fail)?)?;
         }
@@ -201,7 +214,7 @@ fn probe(
     model.enable_audit(AUDIT);
     model.set_dynamics_auditing(trace.is_some());
     for frame in [stimulus, blank, blank, blank] {
-        let (step, root, audit) = observe(model, frame)?;
+        let (step, root, audit) = observe(model, frame, false)?;
         response.root_spikes.extend(root);
         response.core_spikes.extend(step.core_events);
         response

@@ -11,7 +11,7 @@ use nerva_research::{
             chain::ChainScenario,
             contingency::{
                 ContingencyScenario,
-                capacity::{CapacityScenario, replay_eligibility},
+                capacity::{CapacityScenario, replay_eligibility, replay_homeostasis},
                 replay_chemical, replay_electrical,
             },
             diagnosis::DiagnosisScenario,
@@ -48,15 +48,21 @@ fn execute() -> Result<()> {
         .ok_or_else(|| error("mode required: plan/run/report/list"))?;
     if matches!(
         mode.as_str(),
-        "contingency-electrical" | "contingency-chemical" | "contingency-eligibility"
+        "contingency-electrical"
+            | "contingency-chemical"
+            | "contingency-eligibility"
+            | "contingency-homeostasis"
     ) {
         let path = args
             .next()
             .ok_or_else(|| error("archived contingency record required"))?;
-        let electrical = if mode == "contingency-chemical" {
+        let auxiliary = if matches!(
+            mode.as_str(),
+            "contingency-chemical" | "contingency-homeostasis"
+        ) {
             let path = args
                 .next()
-                .ok_or_else(|| error("archived electrical replay required"))?;
+                .ok_or_else(|| error("archived replay control required"))?;
             let source = fs::read(path).map_err(|e| error(e.to_string()))?;
             Some(serde_json::from_slice(&source).map_err(|e| error(e.to_string()))?)
         } else {
@@ -67,7 +73,10 @@ fn execute() -> Result<()> {
         }
         let source = fs::read(&path).map_err(|e| error(e.to_string()))?;
         let envelope = serde_json::from_slice(&source).map_err(|e| error(e.to_string()))?;
-        let output = match electrical {
+        let output = match auxiliary {
+            Some(observations) if mode == "contingency-homeostasis" => {
+                replay_homeostasis(&envelope, &observations)?
+            }
             Some(observations) => replay_chemical(&envelope, &observations)?,
             None if mode == "contingency-eligibility" => replay_eligibility(&envelope)?,
             None => replay_electrical(&envelope)?,
