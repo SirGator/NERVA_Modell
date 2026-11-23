@@ -10,8 +10,8 @@ use nerva_vm::model::{DevelopmentPolicy, ExploratoryFormation};
 use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 
-const PROTOCOL: &str = "NERVA-Contingency-Consolidation/1";
-const STRUCTURE: Structure = Structure::Experimental(DevelopmentPolicy {
+pub(super) const PROTOCOL: &str = "NERVA-Contingency-Consolidation/1";
+pub(super) const STRUCTURE: Structure = Structure::Experimental(DevelopmentPolicy {
     formation: ExploratoryFormation::RecentExcitatory,
     pruning: false,
 });

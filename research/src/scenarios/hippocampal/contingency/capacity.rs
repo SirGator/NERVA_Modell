@@ -21,8 +21,8 @@ pub use eligibility::replay_eligibility;
 pub use homeostasis::replay_homeostasis;
 use routes::{Edge, Routes, routes};
 pub use structural::{
-    replay_structural, replay_structural_consolidation, replay_structural_decisions,
-    replay_structural_exploration,
+    replay_grown_dose, replay_structural, replay_structural_consolidation,
+    replay_structural_decisions, replay_structural_exploration,
 };
 
 pub struct CapacityScenario;

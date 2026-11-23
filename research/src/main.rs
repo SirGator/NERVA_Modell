@@ -12,9 +12,9 @@ use nerva_research::{
             contingency::{
                 ContingencyScenario,
                 capacity::{
-                    CapacityScenario, replay_eligibility, replay_homeostasis, replay_structural,
-                    replay_structural_consolidation, replay_structural_decisions,
-                    replay_structural_exploration,
+                    CapacityScenario, replay_eligibility, replay_grown_dose, replay_homeostasis,
+                    replay_structural, replay_structural_consolidation,
+                    replay_structural_decisions, replay_structural_exploration,
                 },
                 replay_chemical, replay_electrical,
             },
@@ -60,6 +60,7 @@ fn execute() -> Result<()> {
             | "contingency-structural-decisions"
             | "contingency-structural-exploration"
             | "contingency-structural-consolidation"
+            | "contingency-grown-dose"
     ) {
         let path = args
             .next()
@@ -72,6 +73,7 @@ fn execute() -> Result<()> {
                 | "contingency-structural-decisions"
                 | "contingency-structural-exploration"
                 | "contingency-structural-consolidation"
+                | "contingency-grown-dose"
         ) {
             let path = args
                 .next()
@@ -87,6 +89,9 @@ fn execute() -> Result<()> {
         let source = fs::read(&path).map_err(|e| error(e.to_string()))?;
         let envelope = serde_json::from_slice(&source).map_err(|e| error(e.to_string()))?;
         let output = match auxiliary {
+            Some(observations) if mode == "contingency-grown-dose" => {
+                replay_grown_dose(&envelope, &observations)?
+            }
             Some(observations) if mode == "contingency-structural-consolidation" => {
                 replay_structural_consolidation(&envelope, &observations)?
             }

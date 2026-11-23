@@ -19,8 +19,10 @@ use std::collections::{BTreeMap, BTreeSet};
 
 mod consolidation;
 mod exploration;
+mod grown_dose;
 pub use consolidation::replay_structural_consolidation;
 pub use exploration::replay_structural_exploration;
+pub use grown_dose::replay_grown_dose;
 
 const PROTOCOL: &str = "NERVA-Contingency-Structural/1";
 const DECISION_PROTOCOL: &str = "NERVA-Contingency-Structural-Decisions/1";

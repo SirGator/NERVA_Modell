@@ -19,12 +19,17 @@ pub(super) struct Trace<'a> {
     arrivals: Vec<Arrival>,
 }
 impl<'a> Trace<'a> {
-    fn new(targets: &'a BTreeSet<u64>) -> Self {
+    pub(super) fn new(targets: &'a BTreeSet<u64>) -> Self {
         Self {
             targets,
             boundaries: Vec::new(),
             arrivals: Vec::new(),
         }
+    }
+
+    pub(super) fn attach(self, response: &mut Value) {
+        response["boundaries"] = json!(self.boundaries);
+        response["arrivals"] = json!(self.arrivals);
     }
 
     pub(super) fn record(&mut self, events: &[ObservationEvent]) {
@@ -170,8 +175,7 @@ impl Archive {
         )?
         .json();
         if cue != "blank" {
-            response["boundaries"] = json!(trace.boundaries);
-            response["arrivals"] = json!(trace.arrivals);
+            trace.attach(&mut response);
         }
         Ok(response)
     }
