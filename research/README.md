@@ -17,6 +17,7 @@ räumlich getrennten Seheingabe tragen. Zwei gegensätzliche Zuordnungen und
 eine balancierte Belichtung dienen als Kontrollen.
 [Ergebnisse auf fünf neuen Seeds](VISUAL_CONTINGENCY_RESULTS_20261123.md).
 [Elektrische Pfaddiagnose der zehn Records](CONTINGENCY_ELECTRICAL_RESULTS_20261123.md).
+[Modulationsvergleich auf identischer Trainingshistorie](CONTINGENCY_CHEMICAL_RESULTS_20261123.md).
 
 [MLD-03](MLD03.md) trennt Gewichtswirkung von künstlich veränderter Core-Schwelle
 und Integrationszeit. Ein zweiter Abschnitt vergleicht Sensor-/Core-Homöostase
