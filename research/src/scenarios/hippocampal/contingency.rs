@@ -22,6 +22,7 @@ use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 
 pub struct ContingencyScenario;
+pub mod capacity;
 mod chemical;
 mod electrical;
 pub use chemical::replay_chemical;

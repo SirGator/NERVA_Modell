@@ -1,0 +1,15 @@
+[experiment]
+name = "visual_contingency_capacity_smoke"
+scenario = "hippocampal_contingency_capacity"
+seeds = [7]
+interventions = ["fixed_routes"]
+verify_replay = true
+max_runs = 1
+
+[base]
+processing_neurons = 16
+training_repetitions = 4
+rest_us = 100000
+
+[measurements]
+metrics = ["best_reference_cases", "full_reference", "full_native_at_reference"]

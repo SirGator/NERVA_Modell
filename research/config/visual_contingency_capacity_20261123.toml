@@ -1,0 +1,15 @@
+[experiment]
+name = "visual_contingency_capacity_20261123"
+scenario = "hippocampal_contingency_capacity"
+seeds = [34123, 34127, 34141, 34147, 34157]
+interventions = ["fixed_routes"]
+verify_replay = true
+max_runs = 5
+
+[base]
+processing_neurons = 256
+training_repetitions = 8
+rest_us = 11000000
+
+[measurements]
+metrics = ["best_reference_cases", "full_reference", "full_native_at_reference"]
