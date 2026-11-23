@@ -17,6 +17,7 @@ type CheckpointReplay = (Value, BTreeMap<&'static str, Weights>);
 pub(in crate::scenarios::hippocampal) struct Tape {
     initial: Option<Network>,
     initial_rule: Option<PairStdp>,
+    retained_targets: Option<BTreeSet<NeuronId>>,
     pub frames: Vec<(InputAudit, LearningAuditLog)>,
     rows: usize,
 }
@@ -24,18 +25,72 @@ impl Tape {
     pub fn initialize(&mut self, model: &Model) {
         self.initial = Some(model.network().clone());
         self.initial_rule = None;
+        self.retained_targets = None;
     }
     pub fn initialize_from_checkpoint(&mut self, model: &Model) {
         self.initialize(model);
         self.initial_rule = Some(model.diagnostic_learning_rule().clone());
     }
+    /// Restrict local replay to retained edges. Other transmissions can affect
+    /// the recorded network history, but they cannot change these pair hooks.
+    pub fn initialize_retained(
+        &mut self,
+        model: &Model,
+        edges: &BTreeSet<SynapseId>,
+    ) -> Result<()> {
+        self.initialize_from_checkpoint(model);
+        let local = self.initial.as_mut().unwrap();
+        let excluded: Vec<_> = local
+            .synapse_ids()
+            .filter(|id| !edges.contains(id))
+            .collect();
+        for id in excluded {
+            local.remove_synapse(id).map_err(super::super::fail)?;
+        }
+        require(
+            local.synapse_count() == edges.len(),
+            "unknown retained learning edge",
+        )?;
+        self.retained_targets = Some(local.synapses().map(|edge| edge.post()).collect());
+        Ok(())
+    }
+
     pub fn add(&mut self, input: &InputAudit, log: &LearningAuditLog) -> Result<()> {
+        let (input, log) = if let Some(targets) = &self.retained_targets {
+            let network = self.initial.as_ref().unwrap();
+            let input = InputAudit {
+                raw_events: input
+                    .raw_events
+                    .iter()
+                    .filter(|event| match event {
+                        ObservationEvent::SynapticArrival { synapse_id, .. } => {
+                            network.synapse(*synapse_id).is_some()
+                        }
+                        ObservationEvent::SpikeEmitted(spike) => targets.contains(&spike.neuron_id),
+                        _ => false,
+                    })
+                    .cloned()
+                    .collect(),
+                ..InputAudit::default()
+            };
+            let filtered = LearningAuditLog {
+                events: log.events.iter().filter(|event| {
+                    matches!(event, LearningAuditEvent::ChemicalSample { neuron, .. } if targets.contains(neuron))
+                }).cloned().collect(),
+                boundaries: log.boundaries.clone(),
+                dropped_events: log.dropped_events,
+                ..LearningAuditLog::default()
+            };
+            (input, filtered)
+        } else {
+            (input.clone(), log.clone())
+        };
         self.rows +=
             input.raw_events.len() + log.events.len() + log.delayed.len() + log.boundaries.len();
         if !log.is_complete() || self.rows > LIMIT {
             return Err(error("incomplete or over-budget plasticity tape"));
         }
-        self.frames.push((input.clone(), log.clone()));
+        self.frames.push((input, log));
         Ok(())
     }
     pub fn history(
@@ -129,6 +184,37 @@ impl Tape {
         let (locals, json) = self.replay_locals(reference, &["original", "constant"], None)?;
         Ok((json, locals["constant"].weights()))
     }
+    pub fn replay_retained(&self, reference: &Model) -> Result<Value> {
+        require(
+            self.retained_targets.is_some(),
+            "retained local graph not initialized",
+        )?;
+        let initial = self.initial.as_ref().unwrap();
+        let edges = initial.synapse_ids().collect();
+        let (_, mut history) = self.replay_locals(
+            reference,
+            &["original", "direct_f32", "constant", "constant_direct_f32"],
+            Some(&edges),
+        )?;
+        history["initial_local"] = json!(
+            initial
+                .synapses()
+                .map(|edge| (
+                    edge.id().0,
+                    edge.weight().get(),
+                    edge.learning_eligibility(),
+                    edge.learning_eligibility_updated_at().map(|time| time.0),
+                    edge.learning_weight_residual(),
+                    initial
+                        .neuron(edge.post())
+                        .unwrap()
+                        .modulation()
+                        .learning_signal,
+                ))
+                .collect::<Vec<_>>()
+        );
+        Ok(history)
+    }
     pub fn replay_inherited_eligibility(
         &self,
         reference: &Model,
@@ -209,11 +295,18 @@ impl Tape {
                     };
                     match name {
                         "original" | "clear_eligibility" | "clear_pairing" | "clear_both" => {}
-                        "constant" => {
-                            local.rule = local
-                                .rule
-                                .with_learning_signal_override(1.)
-                                .map_err(super::super::fail)?
+                        "direct_f32" | "constant" | "constant_direct_f32" => {
+                            if matches!(name, "constant" | "constant_direct_f32") {
+                                local.rule = local
+                                    .rule
+                                    .with_learning_signal_override(1.)
+                                    .map_err(super::super::fail)?;
+                            }
+                            if matches!(name, "direct_f32" | "constant_direct_f32") {
+                                local.rule = local
+                                    .rule
+                                    .with_weight_update_mode(WeightUpdateMode::DirectF32);
+                            }
                         }
                         _ => return Err(error("unsupported checkpoint replay intervention")),
                     }
@@ -343,7 +436,10 @@ impl Tape {
         }
         let original = &locals["original"];
         for s in original.network.synapses() {
-            let native = reference.network().synapse(s.id()).unwrap();
+            let native = reference
+                .network()
+                .synapse(s.id())
+                .ok_or_else(|| error("local replay edge was removed during training"))?;
             require(
                 s.weight() == native.weight()
                     && s.learning_weight_residual() == native.learning_weight_residual()
@@ -358,20 +454,23 @@ impl Tape {
                             == native.learning_eligibility_updated_at(),
                     "fixed-history original rule does not reproduce native local clocks",
                 )?;
-                if let Some(constant) = locals.get("constant") {
-                    let constant = constant.network.synapse(s.id()).unwrap();
+                for comparison in ["constant", "direct_f32", "constant_direct_f32"]
+                    .iter()
+                    .filter_map(|name| locals.get(name))
+                {
+                    let alternative = comparison.network.synapse(s.id()).unwrap();
                     require(
-                        s.pre_trace() == constant.pre_trace()
-                            && s.pre_trace_updated_at() == constant.pre_trace_updated_at()
-                            && s.learning_eligibility() == constant.learning_eligibility()
+                        s.pre_trace() == alternative.pre_trace()
+                            && s.pre_trace_updated_at() == alternative.pre_trace_updated_at()
+                            && s.learning_eligibility() == alternative.learning_eligibility()
                             && s.learning_eligibility_updated_at()
-                                == constant.learning_eligibility_updated_at(),
-                        "learning-factor override changed the pairing state",
+                                == alternative.learning_eligibility_updated_at(),
+                        "local replay intervention changed the pairing state",
                     )?;
                 }
             }
         }
-        if self.initial_rule.is_some() {
+        if self.initial_rule.is_some() && self.retained_targets.is_none() {
             require(
                 &original.rule == reference.diagnostic_learning_rule(),
                 "fixed-history original rule does not reproduce native rule-owned state",
@@ -381,7 +480,9 @@ impl Tape {
             "clock_times_us":clocks,"chemical_fields":["time_us","neuron_id","dopamine","acetylcholine","noradrenaline","native_signal","threshold_shift","intrinsic_drive","transmission_gain"],
             "chemical_samples":chemicals,"pre_arrivals":arrivals,"post_spikes":spikes,
             "phase_order":"At each exact batch: delayed integration under old held chemistry, chemical refresh, arrivals, post-spike hooks. Order within each activity phase is native."});
-        if self.initial_rule.is_some() {
+        if self.retained_targets.is_some() {
+            json["verified_retained_local_clocks"] = json!(true);
+        } else if self.initial_rule.is_some() {
             json["verified_checkpoint_rule_and_local_clocks"] = json!(true);
         }
         for (name, local) in &locals {
@@ -390,7 +491,7 @@ impl Tape {
                 "pair" => "immediate_pair",
                 key => key,
             };
-            json[key] = local.json(initial, focus);
+            json[key] = local.json(initial, focus, self.retained_targets.is_some());
         }
         Ok((locals, json))
     }
@@ -414,6 +515,12 @@ struct Ledger {
     changes: usize,
     blocked_positive: f64,
     blocked_negative: f64,
+    missed_positive: f64,
+    missed_negative: f64,
+    missed: usize,
+    max_abs_requested: f64,
+    clipped_positive: f64,
+    clipped_negative: f64,
 }
 struct Local {
     network: Network,
@@ -485,6 +592,14 @@ impl Local {
                 row.blocked_negative += (update.unfiltered_delta - update.unrounded_delta).min(0.);
                 row.requested_positive += update.unrounded_delta.max(0.);
                 row.requested_negative += update.unrounded_delta.min(0.);
+                row.max_abs_requested = row.max_abs_requested.max(update.unrounded_delta.abs());
+                row.clipped_positive += update.clipped_delta.max(0.);
+                row.clipped_negative += update.clipped_delta.min(0.);
+                if update.unrounded_delta != 0. && update.next_weight == s.weight() {
+                    row.missed += 1;
+                    row.missed_positive += update.unrounded_delta.max(0.);
+                    row.missed_negative += update.unrounded_delta.min(0.);
+                }
                 row.positive_integral += update.tag_integral_seconds.max(0.);
                 row.negative_integral += update.tag_integral_seconds.min(0.);
             }
@@ -535,14 +650,28 @@ impl Local {
             .map(|s| (s.id(), s.weight().get()))
             .collect()
     }
-    fn json(&self, initial: &Network, focus: Option<&BTreeSet<SynapseId>>) -> Value {
+    fn json(
+        &self,
+        initial: &Network,
+        focus: Option<&BTreeSet<SynapseId>>,
+        retained: bool,
+    ) -> Value {
         let edges=self.network.synapses().filter(|s| focus.is_none_or(|ids| ids.contains(&s.id()))).map(|s| {
             let empty=Ledger::default();let l=self.ledger.get(&s.id()).unwrap_or(&empty);
-            json!({"synapse_id":s.id().0,"source_id":s.pre().0,"target_id":s.post().0,"initial_weight":initial.synapse(s.id()).unwrap().weight().get(),
+            let mut row = json!({"synapse_id":s.id().0,"source_id":s.pre().0,"target_id":s.post().0,"initial_weight":initial.synapse(s.id()).unwrap().weight().get(),
                 "plastic":s.is_plastic(),"enabled":s.is_enabled(),"pre_excitatory":self.network.neuron(s.pre()).unwrap().polarity()==Polarity::Excitatory,"weight":s.weight().get(),"residual":s.learning_weight_residual(),"eligibility":s.learning_eligibility(),
                 "positive_blocked":l.blocked_positive,"negative_blocked":l.blocked_negative,"positive_actual":l.positive,"negative_actual":l.negative,"weight_changes":l.changes,
                 "positive_requested":if self.rule.needs_time_updates(){Some(l.requested_positive)}else{None},"negative_requested":if self.rule.needs_time_updates(){Some(l.requested_negative)}else{None},
-                "positive_tag_integral":l.positive_integral,"negative_tag_integral":l.negative_integral})
+                "positive_tag_integral":l.positive_integral,"negative_tag_integral":l.negative_integral});
+            if retained {
+                row["positive_requested_without_change"] = json!(l.missed_positive);
+                row["negative_requested_without_change"] = json!(l.missed_negative);
+                row["nonzero_requested_without_change"] = json!(l.missed);
+                row["max_abs_requested"] = json!(l.max_abs_requested);
+                row["positive_clipped"] = json!(l.clipped_positive);
+                row["negative_clipped"] = json!(l.clipped_negative);
+            }
+            row
         }).collect::<Vec<_>>();
         json!({"synapses":edges})
     }

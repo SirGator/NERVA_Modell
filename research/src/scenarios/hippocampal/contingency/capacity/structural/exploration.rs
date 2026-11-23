@@ -9,7 +9,7 @@ use nerva_vm::model::{DevelopmentPolicy, ExploratoryFormation};
 use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 
-const PROTOCOL: &str = "NERVA-Contingency-Structural-Exploration/1";
+pub(super) const PROTOCOL: &str = "NERVA-Contingency-Structural-Exploration/1";
 const ARMS: [(&str, bool, ExploratoryFormation); 6] = [
     ("native_prune", true, ExploratoryFormation::Off),
     ("native_retain", false, ExploratoryFormation::Off),

@@ -1,5 +1,5 @@
 //! Let the existing developmental rule respond to Core homeostatic demand during training.
-use super::super::{Model, fail, probe};
+use super::super::{Model, Tape, fail, probe};
 use super::{
     Assay, CUES, CapacityScenario, Config, MAPPINGS, Scenario, build, checkpoint,
     eligibility::{checked_capacity, recorded_focus, u64_field},
@@ -17,7 +17,9 @@ use nerva_vm::model::{
 use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 
+mod consolidation;
 mod exploration;
+pub use consolidation::replay_structural_consolidation;
 pub use exploration::replay_structural_exploration;
 
 const PROTOCOL: &str = "NERVA-Contingency-Structural/1";
@@ -75,12 +77,17 @@ impl TrainingTrace {
         focus: &BTreeSet<SynapseId>,
         quiet: &BTreeSet<u64>,
         core: &BTreeSet<u64>,
+        tape: Option<&mut Tape>,
     ) -> Result<Vec<(u64, u64)>> {
         let audit = model
             .take_audit()
             .ok_or_else(|| error("missing structural training audit"))?;
         if audit.raw_events.len() > 200_000 {
             return Err(error("structural training exceeded frame event budget"));
+        }
+        let log = model.take_learning_audit().map_err(fail)?;
+        if let Some(tape) = tape {
+            tape.add(&audit, &log)?;
         }
         for event in audit.raw_events {
             match event {
@@ -128,7 +135,6 @@ impl TrainingTrace {
                 _ => {}
             }
         }
-        let log = model.take_learning_audit().map_err(fail)?;
         for event in log.events {
             if let LearningAuditEvent::Trace {
                 time,
@@ -165,6 +171,7 @@ fn train(
     structure: Structure,
     diagnostics: Option<(&BTreeSet<SynapseId>, &BTreeSet<u64>)>,
     decision_targets: Option<BTreeSet<NeuronId>>,
+    mut tape: Option<&mut Tape>,
 ) -> Result<(Model, Value)> {
     let mut model = checkpoint(assay.c, assay.seed)?.0;
     if !assay.reference.same_replay_state(&model) {
@@ -181,6 +188,10 @@ fn train(
     if let Structure::Experimental(policy) = structure {
         model.diagnostic_development_policy(policy).map_err(fail)?;
     }
+    if let Some(capture) = &mut tape {
+        let (focus, _) = diagnostics.ok_or_else(|| error("retained tape needs an audited arm"))?;
+        capture.initialize_retained(&model, focus)?;
+    }
     let development = !matches!(structure, Structure::Frozen);
     model
         .set_plasticity(PlasticitySettings {
@@ -195,7 +206,11 @@ fn train(
             raw_events: true,
             input_spikes: true,
         });
-        model.enable_learning_audit(100_000).map_err(fail)?;
+        if tape.is_some() {
+            model.enable_learning_replay_audit(100_000).map_err(fail)?;
+        } else {
+            model.enable_learning_audit(100_000).map_err(fail)?;
+        }
         model.set_dynamics_auditing(!quiet.is_empty());
         if let Some(targets) = decision_targets {
             model
@@ -224,7 +239,7 @@ fn train(
                     row.drive,
                 ));
             }
-            let roots = trace.record(&mut model, focus, quiet, &assay.core)?;
+            let roots = trace.record(&mut model, focus, quiet, &assay.core, tape.as_deref_mut())?;
             frames.push(json!({"stimulus":name,"start_us":step.start_us,"end_us":step.end_us,
                 "root_spikes":roots,"core_spikes":step.core_events,"weight_changes":step.weight_changes,
                 "formed":step.formed,"pruned":step.pruned}));
@@ -272,7 +287,7 @@ fn response(
     name: &str,
     blocked: &[SynapseId],
 ) -> Result<(Value, usize)> {
-    let (mut branch, _) = train(assay, mapping, structure, None, None)?;
+    let (mut branch, _) = train(assay, mapping, structure, None, None, None)?;
     if !trained.same_replay_state(&branch) {
         return Err(error(
             "structural recall training fork differs from its observed parent",
@@ -310,7 +325,7 @@ fn observed_arm(
     focus: &BTreeSet<SynapseId>,
     quiet: &BTreeSet<u64>,
 ) -> Result<(Model, Value)> {
-    let (parent, training) = train(assay, mapping, structure, Some((focus, quiet)), None)?;
+    let (parent, training) = train(assay, mapping, structure, Some((focus, quiet)), None, None)?;
     let probes = PROBES
         .into_iter()
         .map(|name| {
@@ -629,6 +644,7 @@ fn decisions(source: &Value, structural: &Value, checksum: &str) -> Result<Value
             Structure::Native,
             Some((&focus, &quiet)),
             Some(observed),
+            None,
         )?;
         let decision_rows = replay
             .as_object_mut()
