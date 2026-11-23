@@ -8,7 +8,7 @@ use super::{
 use crate::{Result, error};
 use nerva::{
     config::LearningConfig,
-    core::SynapseId,
+    core::{NeuronId, Polarity, SynapseId},
     runtime::{LearningAuditEvent, LearningPhase, ObservationEvent},
 };
 use nerva_vm::model::{HomeostasisScope, PlasticitySettings, audit::AuditOptions};
@@ -16,6 +16,8 @@ use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 
 const PROTOCOL: &str = "NERVA-Contingency-Structural/1";
+const DECISION_PROTOCOL: &str = "NERVA-Contingency-Structural-Decisions/1";
+const COMPARISON_SIZE: usize = 12;
 const PROBES: [&str; 3] = ["blank", "cue0", "cue1"];
 type Targets = [BTreeSet<u64>; 2];
 type Endpoints = Vec<(u64, u64, u64, f32, u64, bool)>;
@@ -136,6 +138,7 @@ fn train(
     mapping: &str,
     development: bool,
     diagnostics: Option<(&BTreeSet<SynapseId>, &BTreeSet<u64>)>,
+    decision_targets: Option<BTreeSet<NeuronId>>,
 ) -> Result<(Model, Value)> {
     let mut model = checkpoint(assay.c, assay.seed)?.0;
     if !assay.reference.same_replay_state(&model) {
@@ -156,16 +159,23 @@ fn train(
             homeostasis: true,
         })
         .map_err(fail)?;
-    if let Some((_, quiet)) = diagnostics {
+    let observe_decisions = decision_targets.is_some();
+    if let Some((focus, quiet)) = diagnostics {
         model.enable_audit(AuditOptions {
             raw_events: true,
             input_spikes: true,
         });
         model.enable_learning_audit(100_000).map_err(fail)?;
         model.set_dynamics_auditing(!quiet.is_empty());
+        if let Some(targets) = decision_targets {
+            model
+                .enable_development_audit(targets, focus.clone())
+                .map_err(fail)?;
+        }
     }
     let mut trace = TrainingTrace::default();
     let mut frames = Vec::new();
+    let mut decisions = Vec::new();
     for name in schedule(assay.c, assay.seed, mapping, 0) {
         let step = model.step(&assay.frames[name]).map_err(fail)?;
         if !development && (!step.formed.is_empty() || !step.pruned.is_empty()) {
@@ -176,6 +186,9 @@ fn train(
             frames.push(json!({"stimulus":name,"start_us":step.start_us,"end_us":step.end_us,
                 "root_spikes":roots,"core_spikes":step.core_events,"weight_changes":step.weight_changes,
                 "formed":step.formed,"pruned":step.pruned}));
+        }
+        if let Some(decision) = model.take_development_audit() {
+            decisions.push(decision);
         }
     }
     if diagnostics.is_some() {
@@ -192,13 +205,16 @@ fn train(
         model.set_dynamics_auditing(false);
     }
     model.freeze().map_err(fail)?;
-    let observed = if diagnostics.is_some() {
+    let mut observed = if diagnostics.is_some() {
         json!({"frames":frames,"removed_tags":removed,"end_topology":topology(&model),
             "homeostasis_changes":trace.homeostatic_changes,"arrivals":trace.arrivals,
             "quiet_integrations":trace.integrals,"tag_events":trace.tags})
     } else {
         Value::Null
     };
+    if observe_decisions {
+        observed["development_decisions"] = json!(decisions);
+    }
     Ok((model, observed))
 }
 
@@ -210,7 +226,7 @@ fn response(
     name: &str,
     blocked: &[SynapseId],
 ) -> Result<(Value, usize)> {
-    let (mut branch, _) = train(assay, mapping, growth, None)?;
+    let (mut branch, _) = train(assay, mapping, growth, None, None)?;
     if !trained.same_replay_state(&branch) {
         return Err(error(
             "structural recall training fork differs from its observed parent",
@@ -238,7 +254,7 @@ fn arm(
     focus: &BTreeSet<SynapseId>,
     quiet: &BTreeSet<u64>,
 ) -> Result<(Model, Value)> {
-    let (parent, training) = train(assay, mapping, growth, Some((focus, quiet)))?;
+    let (parent, training) = train(assay, mapping, growth, Some((focus, quiet)), None)?;
     let probes = PROBES
         .into_iter()
         .map(|name| {
@@ -328,7 +344,7 @@ fn archived_frames(training: &Value) -> Value {
     )
 }
 
-fn run(source: &Value, homeostasis: &Value, checksum: &str) -> Result<Value> {
+fn recorded_config(source: &Value) -> Result<(Config, u64)> {
     let cfgrow = &source["job"]["effective_config"];
     let cfg = Config {
         processing_neurons: usize::try_from(u64_field(cfgrow, "processing_neurons")?)
@@ -339,6 +355,35 @@ fn run(source: &Value, homeostasis: &Value, checksum: &str) -> Result<Value> {
     };
     CapacityScenario.validate(&cfg)?;
     let seed = u64_field(&source["job"], "seed")?;
+    Ok((cfg, seed))
+}
+
+fn recorded_relays(
+    assay: &Assay<'_>,
+    followup: &Value,
+    mapping: &str,
+    focus: &BTreeSet<SynapseId>,
+) -> BTreeSet<u64> {
+    let active = active_cells(&followup["training"][mapping]["frames"]);
+    focus
+        .iter()
+        .map(|&id| assay.reference.network().synapse(id).unwrap().pre().0)
+        .filter(|id| !active.contains(id))
+        .collect()
+}
+
+fn active_cells(frames: &Value) -> BTreeSet<u64> {
+    frames
+        .as_array()
+        .unwrap()
+        .iter()
+        .flat_map(|frame| frame["core_spikes"].as_array().unwrap())
+        .map(|row| row[0].as_u64().unwrap())
+        .collect()
+}
+
+fn run(source: &Value, homeostasis: &Value, checksum: &str) -> Result<Value> {
+    let (cfg, seed) = recorded_config(source)?;
     let (assay, development, _) = build(&cfg, seed)?;
     let details = &source["details"];
     if homeostasis["protocol"] != "NERVA-Contingency-Core-Homeostasis/1"
@@ -368,19 +413,7 @@ fn run(source: &Value, homeostasis: &Value, checksum: &str) -> Result<Value> {
         .collect::<BTreeSet<_>>();
     for mapping in MAPPINGS {
         let focus = recorded_focus(&assay, &details["followup"], mapping)?;
-        let old = details["followup"]["training"][mapping]["frames"]
-            .as_array()
-            .unwrap();
-        let active = old
-            .iter()
-            .flat_map(|frame| frame["core_spikes"].as_array().unwrap())
-            .map(|row| row[0].as_u64().unwrap())
-            .collect::<BTreeSet<_>>();
-        let quiet = focus
-            .iter()
-            .map(|&id| assay.reference.network().synapse(id).unwrap().pre().0)
-            .filter(|id| !active.contains(id))
-            .collect::<BTreeSet<_>>();
+        let quiet = recorded_relays(&assay, &details["followup"], mapping, &focus);
         let (_, a) = arm(&assay, mapping, false, &focus, &quiet)?;
         let upstream = &homeostasis["arms"]["core_clear"]["training"][mapping];
         let weights = json!(
@@ -472,6 +505,111 @@ pub fn replay_structural(capacity: &Value, homeostasis: &Value) -> Result<Value>
     }
     output["replay_verified"] = json!(true);
     Ok(output)
+}
+
+fn comparison(group: impl Iterator<Item = u64>) -> Vec<u64> {
+    let cells: Vec<_> = group.collect();
+    let count = COMPARISON_SIZE.min(cells.len());
+    (0..count)
+        .map(|index| cells[index * cells.len() / count])
+        .collect()
+}
+
+fn decisions(source: &Value, structural: &Value, checksum: &str) -> Result<Value> {
+    let (cfg, seed) = recorded_config(source)?;
+    let (assay, development, _) = build(&cfg, seed)?;
+    let details = &source["details"];
+    if structural["protocol"] != PROTOCOL
+        || structural["replay_verified"] != true
+        || structural["archived_record_checksum"] != checksum
+        || structural["seed"] != seed
+        || structural["checkpoint_time_us"] != development["checkpoint_time_us"]
+        || structural["initial_topology"] != json!(topology(&assay.reference))
+        || structural["core_ids"] != json!(assay.core)
+        || details["development"] != development
+    {
+        return Err(error(
+            "structural decision replay inputs differ from archived checkpoint",
+        ));
+    }
+
+    let geometry: Vec<_> = assay
+        .core
+        .iter()
+        .map(|&id| {
+            let cell = assay.reference.network().neuron(NeuronId(id)).unwrap();
+            let point = cell.position();
+            (
+                id,
+                point.x,
+                point.y,
+                point.z,
+                cell.polarity() == Polarity::Excitatory,
+            )
+        })
+        .collect();
+    let mut mappings = BTreeMap::new();
+    for mapping in MAPPINGS {
+        let focus = recorded_focus(&assay, &details["followup"], mapping)?;
+        let quiet = recorded_relays(&assay, &details["followup"], mapping, &focus);
+        let archived_fixed = &structural["arms"]["frozen"][mapping]["training"]["frames"];
+        if !archived_fixed.is_array() || structural["quiet_sources"][mapping] != json!(quiet) {
+            return Err(error("invalid archived structural training or relay set"));
+        }
+        let active = active_cells(archived_fixed);
+        let quiet_comparison = comparison(assay.core.difference(&active).copied());
+        let active_comparison = comparison(assay.core.intersection(&active).copied());
+        let observed = quiet_comparison
+            .iter()
+            .chain(&active_comparison)
+            .chain(&quiet)
+            .copied()
+            .map(NeuronId)
+            .collect();
+        let (_, mut replay) = train(
+            &assay,
+            mapping,
+            true,
+            Some((&focus, &quiet)),
+            Some(observed),
+        )?;
+        let decision_rows = replay
+            .as_object_mut()
+            .unwrap()
+            .remove("development_decisions")
+            .unwrap();
+        if replay != structural["arms"]["growing"][mapping]["training"] {
+            return Err(error(
+                "decision audit changed archived native structural training",
+            ));
+        }
+        mappings.insert(
+            mapping,
+            json!({
+                "quiet_comparison": quiet_comparison,
+                "active_comparison": active_comparison,
+                "focus_relays": quiet,
+                "focus_edges": focus.iter().map(|edge| edge.0).collect::<Vec<_>>(),
+                "decisions": decision_rows,
+            }),
+        );
+    }
+    Ok(json!({
+        "protocol": DECISION_PROTOCOL, "seed": seed, "archived_record_checksum": checksum,
+        "checkpoint_time_us": development["checkpoint_time_us"], "core_ids": assay.core,
+        "core_geometry": geometry, "rules": assay.reference.development_audit_rules(),
+        "mappings": mappings,
+    }))
+}
+
+pub fn replay_structural_decisions(capacity: &Value, structural: &Value) -> Result<Value> {
+    let (source, checksum) = checked_capacity(capacity)?;
+    let mut result = decisions(source, structural, &checksum)?;
+    if result != decisions(source, structural, &checksum)? {
+        return Err(error("structural decision audit replay differs"));
+    }
+    result["replay_verified"] = json!(true);
+    Ok(result)
 }
 
 #[cfg(test)]

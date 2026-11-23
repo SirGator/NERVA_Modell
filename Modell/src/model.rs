@@ -25,6 +25,7 @@ use nerva_qemu::{
 pub mod area;
 pub mod audit;
 pub mod config;
+mod development_audit;
 pub(crate) mod random;
 pub mod sensory;
 mod spatial;
@@ -114,6 +115,7 @@ pub struct Model {
     motor_neurons: Vec<NeuronId>,
     next_development_us: u64,
     audit: Option<audit::Collector>,
+    development_audit: Option<development_audit::Collector>,
 }
 
 #[derive(Clone, Debug, Default, PartialEq)]
@@ -423,6 +425,7 @@ impl Model {
             motor_neurons,
             next_development_us: 100_000,
             audit: None,
+            development_audit: None,
         })
     }
 
@@ -848,56 +851,62 @@ impl Model {
         self.pruning.observe(&self.simulation)?;
         let mut plan = DevelopmentPlan::default();
         let now = self.simulation.current_time();
+        let mut formation_observations = Vec::new();
         for &target in &self.processing {
-            let demand = nerva::development::IncomingGrowthDrive::from_neuron(
-                self.network().neuron(target).expect("processing neuron"),
-            )?
-            .demand;
-            if demand <= self.formation.growth_threshold {
+            let cell = self.network().neuron(target).expect("processing neuron");
+            let demand = nerva::development::IncomingGrowthDrive::from_neuron(cell)?.demand;
+            let search = demand > self.formation.growth_threshold;
+            let observe = self
+                .development_audit
+                .as_ref()
+                .is_some_and(|audit| audit.targets.contains(&target));
+            if !search && !observe {
                 continue;
             }
-            let nearby = self.core_index.within(
-                self.network()
-                    .neuron(target)
-                    .expect("processing cell")
-                    .position(),
-                self.formation.candidate_search.radius,
-            );
-            let candidates = local_candidates_in(
-                self.network(),
-                target,
-                now,
-                &self.formation.candidate_search,
-                &nearby,
-            )?;
-            let candidates = candidates
-                .into_iter()
-                .filter(|candidate| self.is_core(candidate.source));
-            let chosen = if self.config.architecture == Architecture::Hippocampal {
-                let post = self
-                    .area_field
-                    .at(self.network().neuron(target).unwrap().position())
-                    .expect("validated position");
-                let score = |candidate: &nerva::development::Candidate| {
-                    let pre = self.network().neuron(candidate.source).unwrap();
-                    candidate.score
-                        * area::connection_affinity(
-                            self.area_field
-                                .at(pre.position())
-                                .expect("validated position"),
-                            post,
-                            pre.polarity(),
-                        )
-                        .expect("convex influences")
+            let nearby = self
+                .core_index
+                .within(cell.position(), self.formation.candidate_search.radius);
+            let post = (self.config.architecture == Architecture::Hippocampal).then(|| {
+                self.area_field
+                    .at(cell.position())
+                    .expect("validated position")
+            });
+            let (eligible, chosen) = if search {
+                let mut candidates = local_candidates_in(
+                    self.network(),
+                    target,
+                    now,
+                    &self.formation.candidate_search,
+                    &nearby,
+                )?;
+                candidates.retain(|candidate| self.is_core(candidate.source));
+                let eligible = candidates.len();
+                let chosen = if let Some(post) = post {
+                    let score = |candidate: &nerva::development::Candidate| {
+                        candidate.score * self.development_affinity(candidate.source, post)
+                    };
+                    candidates.into_iter().max_by(|a, b| {
+                        score(a)
+                            .total_cmp(&score(b))
+                            .then_with(|| b.source.cmp(&a.source))
+                    })
+                } else {
+                    candidates.into_iter().next()
                 };
-                candidates.max_by(|a, b| {
-                    score(a)
-                        .total_cmp(&score(b))
-                        .then_with(|| b.source.cmp(&a.source))
-                })
+                (Some(eligible), chosen)
             } else {
-                candidates.into_iter().next()
+                (None, None)
             };
+            if observe {
+                formation_observations.push(self.observe_formation(
+                    cell,
+                    demand,
+                    &nearby,
+                    post,
+                    eligible,
+                    chosen.as_ref().map(|candidate| candidate.source),
+                ));
+            }
             if let Some(candidate) = chosen {
                 plan.formations.push(PlannedFormation {
                     target,
@@ -914,6 +923,7 @@ impl Model {
                 .expect("pruning candidate");
             self.is_core(synapse.pre()) && self.is_core(synapse.post())
         });
+        let decision = self.observe_development(formation_observations, &plan)?;
         let created = if plan.is_empty() {
             Vec::new()
         } else {
@@ -941,6 +951,9 @@ impl Model {
                 .0
                 .checked_add(1)
                 .ok_or("synapse ID overflow")?;
+        }
+        if let Some(audit) = &mut self.development_audit {
+            audit.last = decision;
         }
         Ok(TopologyChanges {
             formed: created
@@ -1163,6 +1176,9 @@ impl Model {
         let TopologyChanges { formed, pruned } = if self.config.development && development_due {
             self.develop()?
         } else {
+            if let Some(audit) = &mut self.development_audit {
+                audit.last = None;
+            }
             TopologyChanges::default()
         };
         if let (Some(collector), Some(mut observation)) = (&mut self.audit, observation) {

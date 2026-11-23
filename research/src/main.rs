@@ -13,6 +13,7 @@ use nerva_research::{
                 ContingencyScenario,
                 capacity::{
                     CapacityScenario, replay_eligibility, replay_homeostasis, replay_structural,
+                    replay_structural_decisions,
                 },
                 replay_chemical, replay_electrical,
             },
@@ -55,13 +56,17 @@ fn execute() -> Result<()> {
             | "contingency-eligibility"
             | "contingency-homeostasis"
             | "contingency-structural"
+            | "contingency-structural-decisions"
     ) {
         let path = args
             .next()
             .ok_or_else(|| error("archived contingency record required"))?;
         let auxiliary = if matches!(
             mode.as_str(),
-            "contingency-chemical" | "contingency-homeostasis" | "contingency-structural"
+            "contingency-chemical"
+                | "contingency-homeostasis"
+                | "contingency-structural"
+                | "contingency-structural-decisions"
         ) {
             let path = args
                 .next()
@@ -77,6 +82,9 @@ fn execute() -> Result<()> {
         let source = fs::read(&path).map_err(|e| error(e.to_string()))?;
         let envelope = serde_json::from_slice(&source).map_err(|e| error(e.to_string()))?;
         let output = match auxiliary {
+            Some(observations) if mode == "contingency-structural-decisions" => {
+                replay_structural_decisions(&envelope, &observations)?
+            }
             Some(observations) if mode == "contingency-structural" => {
                 replay_structural(&envelope, &observations)?
             }

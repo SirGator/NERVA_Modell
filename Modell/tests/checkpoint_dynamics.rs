@@ -1,3 +1,5 @@
+use nerva::core::SynapseId;
+use nerva_qemu::capture::Frame;
 use nerva_vm::model::{HomeostasisScope, Model, ModelConfig};
 #[test]
 fn checkpoint_dynamics_reject_live_and_invalid_changes_and_identity_preserves_replay() {
@@ -45,4 +47,45 @@ fn checkpoint_dynamics_reject_live_and_invalid_changes_and_identity_preserves_re
             2. * old.params().membrane_tau_us
         );
     }
+}
+
+#[test]
+fn development_audit_samples_only_maintenance_and_preserves_native_replay() {
+    let config = ModelConfig {
+        processing_neurons: 32,
+        development: true,
+        ..ModelConfig::default()
+    };
+    let mut traced = Model::from_config(config.clone()).unwrap();
+    let mut native = Model::from_config(config).unwrap();
+    let target = traced.processing_ids()[0];
+    let focus = traced
+        .network()
+        .synapses()
+        .find(|edge| {
+            [edge.pre(), edge.post()]
+                .iter()
+                .all(|cell| traced.processing_ids().contains(cell))
+        })
+        .unwrap()
+        .id();
+    assert!(
+        traced
+            .enable_development_audit([target].into(), [SynapseId(u64::MAX)].into())
+            .is_err()
+    );
+    traced
+        .enable_development_audit([target].into(), [focus].into())
+        .unwrap();
+    let white = Frame::new(64, 64, vec![255; 64 * 64 * 3]).unwrap();
+    assert_eq!(traced.step(&white).unwrap(), native.step(&white).unwrap());
+    assert!(traced.take_development_audit().is_none());
+    let observed = traced.step(&white).unwrap();
+    assert_eq!(observed, native.step(&white).unwrap());
+    let audit = traced.take_development_audit().unwrap();
+    assert_eq!(audit["time_us"], observed.end_us);
+    assert_eq!(audit["formation"][0]["target"], target.0);
+    assert_eq!(audit["pruning"][0]["edge"], focus.0);
+    assert!(traced.take_development_audit().is_none());
+    assert!(traced.same_replay_state(&native));
 }
