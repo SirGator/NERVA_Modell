@@ -272,7 +272,8 @@ def analyze_record(diagnostic, source, checksum):
 def analyze_directory(directory):
     directory = Path(directory)
     raw = {path.name: path for path in (directory / 'raw').glob('*.json')}
-    sources = {path.name: path for path in (directory / 'input').glob('*.json')}
+    sources = {path.name: path for path in (directory / 'input').glob('*.json')
+               if path.name != 'manifest.json'}
     require(raw and raw.keys() == sources.keys(), 'native replay and capacity input files differ')
     results = []
     for filename in sorted(raw):

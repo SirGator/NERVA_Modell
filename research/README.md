@@ -19,6 +19,7 @@ eine balancierte Belichtung dienen als Kontrollen.
 [Elektrische Pfaddiagnose der zehn Records](CONTINGENCY_ELECTRICAL_RESULTS_20261123.md).
 [Modulationsvergleich auf identischer Trainingshistorie](CONTINGENCY_CHEMICAL_RESULTS_20261123.md).
 [Rekurrente Abrufkapazität auf fünf neuen Seeds](CONTINGENCY_CAPACITY_RESULTS_20261123.md).
+[Herkunft der Gewichtsänderungen auf stillen Abrufpfaden](CONTINGENCY_ELIGIBILITY_RESULTS_20261123.md).
 
 [MLD-03](MLD03.md) trennt Gewichtswirkung von künstlich veränderter Core-Schwelle
 und Integrationszeit. Ein zweiter Abschnitt vergleicht Sensor-/Core-Homöostase
