@@ -16,9 +16,11 @@ use std::collections::{BTreeMap, BTreeSet};
 mod eligibility;
 mod homeostasis;
 mod routes;
+mod structural;
 pub use eligibility::replay_eligibility;
 pub use homeostasis::replay_homeostasis;
 use routes::{Edge, Routes, routes};
+pub use structural::replay_structural;
 
 pub struct CapacityScenario;
 const PROTOCOL: &str = "NERVA-Contingency-Capacity/1";
