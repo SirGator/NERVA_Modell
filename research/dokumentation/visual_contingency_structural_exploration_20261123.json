@@ -1,0 +1,4213 @@
+{
+  "protocol": "NERVA-Contingency-Structural-Exploration/1",
+  "cohort_size": 4,
+  "preregistration_sha256": "4444ebcf6f92f4026558e34000113a1303def8d1aff4319955c286336c7ef3fb",
+  "totals": {
+    "frozen": {
+      "births": 0,
+      "prunings": 0,
+      "surviving_new_edges": 0,
+      "training_core_spikes": 8606,
+      "baseline_dormant_cells": 1720,
+      "baseline_dormant_cells_firing": 0,
+      "baseline_dormant_in_both_cells_firing": 0,
+      "focus_relays_firing": 0,
+      "focus_relays_with_positive_exploratory_delivery": 0,
+      "focus_terminal_task_arrivals": 259,
+      "focus_terminal_new_tag_events": 289,
+      "focus_terminal_prunings": 0,
+      "exploratory_births": 0,
+      "exploratory_survivors": 0,
+      "exploratory_positive_arrivals": 0,
+      "exploratory_targets_with_positive_arrivals": 0,
+      "dormant_targets_with_positive_arrivals": 0,
+      "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+      "quiet_terminal_pairs": 8,
+      "quiet_terminal_task_arrivals": 0,
+      "quiet_terminal_new_tags": 0,
+      "quiet_terminal_pruned": 0
+    },
+    "native_prune": {
+      "births": 1108,
+      "prunings": 692,
+      "surviving_new_edges": 717,
+      "training_core_spikes": 10047,
+      "baseline_dormant_cells": 1720,
+      "baseline_dormant_cells_firing": 1,
+      "baseline_dormant_in_both_cells_firing": 1,
+      "focus_relays_firing": 0,
+      "focus_relays_with_positive_exploratory_delivery": 0,
+      "focus_terminal_task_arrivals": 241,
+      "focus_terminal_new_tag_events": 311,
+      "focus_terminal_prunings": 11,
+      "exploratory_births": 0,
+      "exploratory_survivors": 0,
+      "exploratory_positive_arrivals": 0,
+      "exploratory_targets_with_positive_arrivals": 0,
+      "dormant_targets_with_positive_arrivals": 0,
+      "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+      "quiet_terminal_pairs": 8,
+      "quiet_terminal_task_arrivals": 0,
+      "quiet_terminal_new_tags": 0,
+      "quiet_terminal_pruned": 8,
+      "preliminary_passes": 0,
+      "passes": 0
+    },
+    "native_retain": {
+      "births": 1087,
+      "prunings": 0,
+      "surviving_new_edges": 1087,
+      "training_core_spikes": 10829,
+      "baseline_dormant_cells": 1720,
+      "baseline_dormant_cells_firing": 4,
+      "baseline_dormant_in_both_cells_firing": 4,
+      "focus_relays_firing": 0,
+      "focus_relays_with_positive_exploratory_delivery": 0,
+      "focus_terminal_task_arrivals": 258,
+      "focus_terminal_new_tag_events": 311,
+      "focus_terminal_prunings": 0,
+      "exploratory_births": 0,
+      "exploratory_survivors": 0,
+      "exploratory_positive_arrivals": 0,
+      "exploratory_targets_with_positive_arrivals": 0,
+      "dormant_targets_with_positive_arrivals": 0,
+      "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+      "quiet_terminal_pairs": 8,
+      "quiet_terminal_task_arrivals": 0,
+      "quiet_terminal_new_tags": 0,
+      "quiet_terminal_pruned": 0,
+      "preliminary_passes": 2,
+      "passes": 1,
+      "balanced_control_runs": 2
+    },
+    "recent_prune": {
+      "births": 2016,
+      "prunings": 1528,
+      "surviving_new_edges": 788,
+      "training_core_spikes": 10164,
+      "baseline_dormant_cells": 1720,
+      "baseline_dormant_cells_firing": 23,
+      "baseline_dormant_in_both_cells_firing": 23,
+      "focus_relays_firing": 0,
+      "focus_relays_with_positive_exploratory_delivery": 3,
+      "focus_terminal_task_arrivals": 244,
+      "focus_terminal_new_tag_events": 292,
+      "focus_terminal_prunings": 11,
+      "exploratory_births": 961,
+      "exploratory_survivors": 110,
+      "exploratory_positive_arrivals": 6208,
+      "exploratory_targets_with_positive_arrivals": 696,
+      "dormant_targets_with_positive_arrivals": 546,
+      "baseline_dormant_targets_first_spiking_at_or_after_delivery": 22,
+      "quiet_terminal_pairs": 8,
+      "quiet_terminal_task_arrivals": 0,
+      "quiet_terminal_new_tags": 0,
+      "quiet_terminal_pruned": 8,
+      "preliminary_passes": 0,
+      "passes": 0
+    },
+    "recent_retain": {
+      "births": 2096,
+      "prunings": 0,
+      "surviving_new_edges": 2096,
+      "training_core_spikes": 11260,
+      "baseline_dormant_cells": 1720,
+      "baseline_dormant_cells_firing": 46,
+      "baseline_dormant_in_both_cells_firing": 46,
+      "focus_relays_firing": 1,
+      "focus_relays_with_positive_exploratory_delivery": 6,
+      "focus_terminal_task_arrivals": 277,
+      "focus_terminal_new_tag_events": 328,
+      "focus_terminal_prunings": 0,
+      "exploratory_births": 992,
+      "exploratory_survivors": 992,
+      "exploratory_positive_arrivals": 28242,
+      "exploratory_targets_with_positive_arrivals": 963,
+      "dormant_targets_with_positive_arrivals": 799,
+      "baseline_dormant_targets_first_spiking_at_or_after_delivery": 44,
+      "quiet_terminal_pairs": 8,
+      "quiet_terminal_task_arrivals": 7,
+      "quiet_terminal_new_tags": 18,
+      "quiet_terminal_pruned": 0,
+      "preliminary_passes": 2,
+      "passes": 1,
+      "balanced_control_runs": 2
+    },
+    "nearest_prune": {
+      "births": 1930,
+      "prunings": 1524,
+      "surviving_new_edges": 704,
+      "training_core_spikes": 9993,
+      "baseline_dormant_cells": 1720,
+      "baseline_dormant_cells_firing": 10,
+      "baseline_dormant_in_both_cells_firing": 10,
+      "focus_relays_firing": 0,
+      "focus_relays_with_positive_exploratory_delivery": 1,
+      "focus_terminal_task_arrivals": 248,
+      "focus_terminal_new_tag_events": 291,
+      "focus_terminal_prunings": 11,
+      "exploratory_births": 927,
+      "exploratory_survivors": 45,
+      "exploratory_positive_arrivals": 1850,
+      "exploratory_targets_with_positive_arrivals": 142,
+      "dormant_targets_with_positive_arrivals": 83,
+      "baseline_dormant_targets_first_spiking_at_or_after_delivery": 9,
+      "quiet_terminal_pairs": 8,
+      "quiet_terminal_task_arrivals": 0,
+      "quiet_terminal_new_tags": 0,
+      "quiet_terminal_pruned": 8,
+      "preliminary_passes": 1,
+      "passes": 0,
+      "balanced_control_runs": 1
+    },
+    "nearest_retain": {
+      "births": 1935,
+      "prunings": 0,
+      "surviving_new_edges": 1935,
+      "training_core_spikes": 10867,
+      "baseline_dormant_cells": 1720,
+      "baseline_dormant_cells_firing": 18,
+      "baseline_dormant_in_both_cells_firing": 18,
+      "focus_relays_firing": 0,
+      "focus_relays_with_positive_exploratory_delivery": 2,
+      "focus_terminal_task_arrivals": 268,
+      "focus_terminal_new_tag_events": 305,
+      "focus_terminal_prunings": 0,
+      "exploratory_births": 928,
+      "exploratory_survivors": 928,
+      "exploratory_positive_arrivals": 4977,
+      "exploratory_targets_with_positive_arrivals": 196,
+      "dormant_targets_with_positive_arrivals": 120,
+      "baseline_dormant_targets_first_spiking_at_or_after_delivery": 13,
+      "quiet_terminal_pairs": 8,
+      "quiet_terminal_task_arrivals": 0,
+      "quiet_terminal_new_tags": 0,
+      "quiet_terminal_pruned": 0,
+      "preliminary_passes": 1,
+      "passes": 1,
+      "balanced_control_runs": 1
+    }
+  },
+  "records": [
+    {
+      "job_id": "v00000-s34123-i000",
+      "seed": 34123,
+      "archived_record_checksum": "9986c63f3e81a0de",
+      "capacity_sha256": "a7d46c5fa1ff7b4641684a2a0c5dc149cc5a97f0f34fe404abe64576e0f32c8d",
+      "structural_sha256": "5e6985fbdc842fd921b45f8c1422af7a2e9bb1915984f245d7d87e411c83adbe",
+      "diagnostic_sha256": "65f712827c9ec6060337b95588ca27d8775be918976425ccb21d1450c65e07bc",
+      "ablations": [],
+      "balanced_focus_relay_spikes": {
+        "native_retain": [],
+        "recent_retain": [
+          [
+            153,
+            1835641,
+            "outcome1"
+          ],
+          [
+            153,
+            2336039,
+            "outcome1"
+          ],
+          [
+            153,
+            2586039,
+            "outcome1"
+          ],
+          [
+            153,
+            3094295,
+            "outcome1"
+          ],
+          [
+            153,
+            3844295,
+            "outcome1"
+          ],
+          [
+            153,
+            4335962,
+            "outcome1"
+          ],
+          [
+            153,
+            4586336,
+            "outcome1"
+          ]
+        ]
+      },
+      "balanced_quiet_terminal_weights": {
+        "native_retain": {
+          "1331": 0.24999791383743286,
+          "1333": 0.2499932050704956,
+          "1334": 0.24999703466892242,
+          "1368": 0.2500000298023224,
+          "1374": 0.25000056624412537,
+          "1379": 0.25000008940696716,
+          "1394": 0.2499992996454239,
+          "1402": 0.2500004768371582
+        },
+        "recent_retain": {
+          "1331": 0.24999791383743286,
+          "1333": 0.2499932050704956,
+          "1334": 0.24999703466892242,
+          "1368": 0.2500000298023224,
+          "1374": 0.25000056624412537,
+          "1379": 0.25000008940696716,
+          "1394": 0.24999940395355225,
+          "1402": 0.2500004768371582
+        }
+      },
+      "arms": {
+        "frozen": {
+          "forward": {
+            "counts": {
+              "births": 0,
+              "prunings": 0,
+              "surviving_new_edges": 0,
+              "training_core_spikes": 1206,
+              "baseline_dormant_cells": 213,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 32,
+              "focus_terminal_new_tag_events": 48,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 5,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0
+            },
+            "quiet_sources": {
+              "93": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 889,
+                "first_spike": null
+              },
+              "103": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 896,
+                "first_spike": null
+              },
+              "153": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 872,
+                "first_spike": null
+              }
+            },
+            "exploratory_edges_to_focus": []
+          },
+          "reverse": {
+            "counts": {
+              "births": 0,
+              "prunings": 0,
+              "surviving_new_edges": 0,
+              "training_core_spikes": 1183,
+              "baseline_dormant_cells": 213,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 8,
+              "focus_terminal_new_tag_events": 8,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 3,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0
+            },
+            "quiet_sources": {
+              "93": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 889,
+                "first_spike": null
+              },
+              "103": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 890,
+                "first_spike": null
+              },
+              "153": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 872,
+                "first_spike": null
+              }
+            },
+            "exploratory_edges_to_focus": []
+          }
+        },
+        "native_prune": {
+          "forward": {
+            "counts": {
+              "births": 145,
+              "prunings": 105,
+              "surviving_new_edges": 86,
+              "training_core_spikes": 1343,
+              "baseline_dormant_cells": 213,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 32,
+              "focus_terminal_new_tag_events": 69,
+              "focus_terminal_prunings": 5,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 5,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 5,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "quiet_sources": {
+              "93": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 891,
+                "first_spike": null
+              },
+              "103": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 857,
+                "first_spike": null
+              },
+              "153": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 832,
+                "first_spike": null
+              }
+            },
+            "exploratory_edges_to_focus": [],
+            "quiet_terminal_weight_pairs": {
+              "1331": [
+                0.24999791383743286,
+                null
+              ],
+              "1334": [
+                0.24999703466892242,
+                null
+              ],
+              "1368": [
+                0.2500000298023224,
+                null
+              ],
+              "1379": [
+                0.25000008940696716,
+                null
+              ],
+              "1394": [
+                0.2499992996454239,
+                null
+              ]
+            },
+            "focus_relay_spikes": [],
+            "focus_best_integration_margin": {
+              "93": -0.9416741132736206,
+              "103": -0.38222646713256836,
+              "153": -0.3118724822998047
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 2,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 143,
+              "prunings": 97,
+              "surviving_new_edges": 95,
+              "training_core_spikes": 1326,
+              "baseline_dormant_cells": 213,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 5,
+              "focus_terminal_new_tag_events": 5,
+              "focus_terminal_prunings": 4,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 3,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 3,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "quiet_sources": {
+              "93": {
+                "spikes": 0,
+                "new_input_arrivals": 1,
+                "new_positive_arrivals": 1,
+                "new_input_edges": [
+                  1422
+                ],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 885,
+                "first_spike": null
+              },
+              "103": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 855,
+                "first_spike": null
+              },
+              "153": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 833,
+                "first_spike": null
+              }
+            },
+            "exploratory_edges_to_focus": [],
+            "quiet_terminal_weight_pairs": {
+              "1333": [
+                0.2499932050704956,
+                null
+              ],
+              "1374": [
+                0.25000056624412537,
+                null
+              ],
+              "1402": [
+                0.2500004768371582,
+                null
+              ]
+            },
+            "focus_relay_spikes": [],
+            "focus_best_integration_margin": {
+              "93": -0.9416732788085938,
+              "103": -0.332632839679718,
+              "153": -0.31280994415283203
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 2,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          }
+        },
+        "native_retain": {
+          "forward": {
+            "counts": {
+              "births": 140,
+              "prunings": 0,
+              "surviving_new_edges": 140,
+              "training_core_spikes": 1481,
+              "baseline_dormant_cells": 213,
+              "baseline_dormant_cells_firing": 1,
+              "baseline_dormant_in_both_cells_firing": 1,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 32,
+              "focus_terminal_new_tag_events": 60,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 5,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 1,
+              "passes": 0
+            },
+            "quiet_sources": {
+              "93": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 899,
+                "first_spike": null
+              },
+              "103": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 891,
+                "first_spike": null
+              },
+              "153": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 882,
+                "first_spike": null
+              }
+            },
+            "exploratory_edges_to_focus": [],
+            "quiet_terminal_weight_pairs": {
+              "1331": [
+                0.24999791383743286,
+                0.24999791383743286
+              ],
+              "1334": [
+                0.24999703466892242,
+                0.24999703466892242
+              ],
+              "1368": [
+                0.2500000298023224,
+                0.2500000298023224
+              ],
+              "1379": [
+                0.25000008940696716,
+                0.25000008940696716
+              ],
+              "1394": [
+                0.2499992996454239,
+                0.2499992996454239
+              ]
+            },
+            "focus_relay_spikes": [],
+            "focus_best_integration_margin": {
+              "93": -0.9408811032772064,
+              "103": -0.30595630407333374,
+              "153": -0.1110650897026062
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": 0,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 6,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 4,
+                "balanced": 6,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 143,
+              "prunings": 0,
+              "surviving_new_edges": 143,
+              "training_core_spikes": 1433,
+              "baseline_dormant_cells": 213,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 5,
+              "focus_terminal_new_tag_events": 5,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 3,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "quiet_sources": {
+              "93": {
+                "spikes": 0,
+                "new_input_arrivals": 43,
+                "new_positive_arrivals": 43,
+                "new_input_edges": [
+                  1422
+                ],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 916,
+                "first_spike": null
+              },
+              "103": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 890,
+                "first_spike": null
+              },
+              "153": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 873,
+                "first_spike": null
+              }
+            },
+            "exploratory_edges_to_focus": [],
+            "quiet_terminal_weight_pairs": {
+              "1333": [
+                0.2499932050704956,
+                0.2499932050704956
+              ],
+              "1374": [
+                0.25000056624412537,
+                0.25000056624412537
+              ],
+              "1402": [
+                0.2500004768371582,
+                0.2500004768371582
+              ]
+            },
+            "focus_relay_spikes": [],
+            "focus_best_integration_margin": {
+              "93": -0.9408864080905914,
+              "103": -0.3068119287490845,
+              "153": -0.31280994415283203
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": 0,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 4,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": 0,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          }
+        },
+        "recent_prune": {
+          "forward": {
+            "counts": {
+              "births": 244,
+              "prunings": 194,
+              "surviving_new_edges": 96,
+              "training_core_spikes": 1338,
+              "baseline_dormant_cells": 213,
+              "baseline_dormant_cells_firing": 1,
+              "baseline_dormant_in_both_cells_firing": 1,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 2,
+              "focus_terminal_task_arrivals": 32,
+              "focus_terminal_new_tag_events": 58,
+              "focus_terminal_prunings": 5,
+              "exploratory_births": 117,
+              "exploratory_survivors": 16,
+              "exploratory_positive_arrivals": 1112,
+              "exploratory_targets_with_positive_arrivals": 97,
+              "dormant_targets_with_positive_arrivals": 74,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 1,
+              "quiet_terminal_pairs": 5,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 5,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "quiet_sources": {
+              "93": {
+                "spikes": 0,
+                "new_input_arrivals": 8,
+                "new_positive_arrivals": 8,
+                "new_input_edges": [
+                  1526
+                ],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 890,
+                "first_spike": null
+              },
+              "103": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 857,
+                "first_spike": null
+              },
+              "153": {
+                "spikes": 0,
+                "new_input_arrivals": 1,
+                "new_positive_arrivals": 1,
+                "new_input_edges": [
+                  1469
+                ],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 833,
+                "first_spike": null
+              }
+            },
+            "exploratory_edges_to_focus": [
+              {
+                "source": 111,
+                "target": 153,
+                "time_us": 1099794,
+                "distance": 0.1773013472557068,
+                "source_last_spike_age_us": 7125,
+                "target_last_spike_age_us": 246089,
+                "recent_free_excitatory_candidates": 2,
+                "target_drive": 1.5496138334274292,
+                "pruned_at_frame_end_us": 1500000,
+                "survived": false,
+                "arrivals": 1,
+                "positive_arrivals": 1,
+                "positive_arrival_amplitude_sum": 0.2369072437286377,
+                "first_positive_arrival_us": 1102002,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              },
+              {
+                "source": 86,
+                "target": 93,
+                "time_us": 1299794,
+                "distance": 0.11780229955911636,
+                "source_last_spike_age_us": 14458,
+                "target_last_spike_age_us": 447792,
+                "recent_free_excitatory_candidates": 2,
+                "target_drive": 1.0326448678970337,
+                "pruned_at_frame_end_us": 1700000,
+                "survived": false,
+                "arrivals": 8,
+                "positive_arrivals": 8,
+                "positive_arrival_amplitude_sum": 1.9233539551496506,
+                "first_positive_arrival_us": 1303002,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              },
+              {
+                "source": 95,
+                "target": 103,
+                "time_us": 1599794,
+                "distance": 0.17187772691249847,
+                "source_last_spike_age_us": 14458,
+                "target_last_spike_age_us": 698792,
+                "recent_free_excitatory_candidates": 4,
+                "target_drive": 0.5066559314727783,
+                "pruned_at_frame_end_us": 2000000,
+                "survived": false,
+                "arrivals": 0,
+                "positive_arrivals": 0,
+                "positive_arrival_amplitude_sum": 0,
+                "first_positive_arrival_us": null,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              }
+            ],
+            "quiet_terminal_weight_pairs": {
+              "1331": [
+                0.24999791383743286,
+                null
+              ],
+              "1334": [
+                0.24999703466892242,
+                null
+              ],
+              "1368": [
+                0.2500000298023224,
+                null
+              ],
+              "1379": [
+                0.25000008940696716,
+                null
+              ],
+              "1394": [
+                0.2499992996454239,
+                null
+              ]
+            },
+            "focus_relay_spikes": [],
+            "focus_best_integration_margin": {
+              "93": -0.7353812456130981,
+              "103": -0.38222646713256836,
+              "153": -0.07761120796203613
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 246,
+              "prunings": 194,
+              "surviving_new_edges": 99,
+              "training_core_spikes": 1332,
+              "baseline_dormant_cells": 213,
+              "baseline_dormant_cells_firing": 2,
+              "baseline_dormant_in_both_cells_firing": 2,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 1,
+              "focus_terminal_task_arrivals": 5,
+              "focus_terminal_new_tag_events": 5,
+              "focus_terminal_prunings": 4,
+              "exploratory_births": 114,
+              "exploratory_survivors": 11,
+              "exploratory_positive_arrivals": 646,
+              "exploratory_targets_with_positive_arrivals": 68,
+              "dormant_targets_with_positive_arrivals": 51,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 2,
+              "quiet_terminal_pairs": 3,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 3,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "quiet_sources": {
+              "93": {
+                "spikes": 0,
+                "new_input_arrivals": 1,
+                "new_positive_arrivals": 1,
+                "new_input_edges": [
+                  1433
+                ],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 885,
+                "first_spike": null
+              },
+              "103": {
+                "spikes": 0,
+                "new_input_arrivals": 1,
+                "new_positive_arrivals": 1,
+                "new_input_edges": [
+                  1631
+                ],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 856,
+                "first_spike": null
+              },
+              "153": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 834,
+                "first_spike": null
+              }
+            },
+            "exploratory_edges_to_focus": [
+              {
+                "source": 110,
+                "target": 153,
+                "time_us": 1099794,
+                "distance": 0.21139442920684814,
+                "source_last_spike_age_us": 15458,
+                "target_last_spike_age_us": 246089,
+                "recent_free_excitatory_candidates": 2,
+                "target_drive": 1.5496138334274292,
+                "pruned_at_frame_end_us": 1500000,
+                "survived": false,
+                "arrivals": 0,
+                "positive_arrivals": 0,
+                "positive_arrival_amplitude_sum": 0,
+                "first_positive_arrival_us": null,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              },
+              {
+                "source": 148,
+                "target": 93,
+                "time_us": 1199794,
+                "distance": 0.21325242519378662,
+                "source_last_spike_age_us": 98792,
+                "target_last_spike_age_us": 347792,
+                "recent_free_excitatory_candidates": 1,
+                "target_drive": 0.5210803151130676,
+                "pruned_at_frame_end_us": 1600000,
+                "survived": false,
+                "arrivals": 0,
+                "positive_arrivals": 0,
+                "positive_arrival_amplitude_sum": 0,
+                "first_positive_arrival_us": null,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              },
+              {
+                "source": 111,
+                "target": 103,
+                "time_us": 1599794,
+                "distance": 0.171731635928154,
+                "source_last_spike_age_us": 7125,
+                "target_last_spike_age_us": 698792,
+                "recent_free_excitatory_candidates": 2,
+                "target_drive": 0.5069199204444885,
+                "pruned_at_frame_end_us": 2000000,
+                "survived": false,
+                "arrivals": 1,
+                "positive_arrivals": 1,
+                "positive_arrival_amplitude_sum": 0.236367866396904,
+                "first_positive_arrival_us": 1602002,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              }
+            ],
+            "quiet_terminal_weight_pairs": {
+              "1333": [
+                0.2499932050704956,
+                null
+              ],
+              "1374": [
+                0.25000056624412537,
+                null
+              ],
+              "1402": [
+                0.2500004768371582,
+                null
+              ]
+            },
+            "focus_relay_spikes": [],
+            "focus_best_integration_margin": {
+              "93": -0.9416732788085938,
+              "103": -0.38153183460235596,
+              "153": -0.19999170303344727
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          }
+        },
+        "recent_retain": {
+          "forward": {
+            "counts": {
+              "births": 253,
+              "prunings": 0,
+              "surviving_new_edges": 253,
+              "training_core_spikes": 1487,
+              "baseline_dormant_cells": 213,
+              "baseline_dormant_cells_firing": 5,
+              "baseline_dormant_in_both_cells_firing": 5,
+              "focus_relays_firing": 1,
+              "focus_relays_with_positive_exploratory_delivery": 3,
+              "focus_terminal_task_arrivals": 39,
+              "focus_terminal_new_tag_events": 76,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 119,
+              "exploratory_survivors": 119,
+              "exploratory_positive_arrivals": 4124,
+              "exploratory_targets_with_positive_arrivals": 119,
+              "dormant_targets_with_positive_arrivals": 98,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 4,
+              "quiet_terminal_pairs": 5,
+              "quiet_terminal_task_arrivals": 7,
+              "quiet_terminal_new_tags": 18,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 1,
+              "passes": 0
+            },
+            "quiet_sources": {
+              "93": {
+                "spikes": 0,
+                "new_input_arrivals": 32,
+                "new_positive_arrivals": 32,
+                "new_input_edges": [
+                  1526
+                ],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 918,
+                "first_spike": null
+              },
+              "103": {
+                "spikes": 0,
+                "new_input_arrivals": 6,
+                "new_positive_arrivals": 6,
+                "new_input_edges": [
+                  1621
+                ],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 899,
+                "first_spike": null
+              },
+              "153": {
+                "spikes": 7,
+                "new_input_arrivals": 114,
+                "new_positive_arrivals": 74,
+                "new_input_edges": [
+                  1469,
+                  1647,
+                  1656
+                ],
+                "new_positive_arrivals_before_first_spike": 5,
+                "integrations": 986,
+                "first_spike": {
+                  "time_us": 1835641,
+                  "potential_before": 0.8550060391426086,
+                  "summed_input": 0.2583938241004944,
+                  "threshold": 0.9765270948410034,
+                  "candidate": 1.113399863243103,
+                  "new_positive_arrivals": [],
+                  "candidate_without_new_positive_input_in_observed_batch": 1.113399863243103
+                }
+              }
+            },
+            "exploratory_edges_to_focus": [
+              {
+                "source": 111,
+                "target": 153,
+                "time_us": 1099794,
+                "distance": 0.1773013472557068,
+                "source_last_spike_age_us": 7125,
+                "target_last_spike_age_us": 246089,
+                "recent_free_excitatory_candidates": 2,
+                "target_drive": 1.5496138334274292,
+                "pruned_at_frame_end_us": null,
+                "survived": true,
+                "arrivals": 40,
+                "positive_arrivals": 40,
+                "positive_arrival_amplitude_sum": 9.423840925097466,
+                "first_positive_arrival_us": 1102002,
+                "first_target_training_spike_us": 1835641,
+                "target_spikes_after_first_positive_arrival": 7,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              },
+              {
+                "source": 86,
+                "target": 93,
+                "time_us": 1299794,
+                "distance": 0.11780229955911636,
+                "source_last_spike_age_us": 14458,
+                "target_last_spike_age_us": 447792,
+                "recent_free_excitatory_candidates": 2,
+                "target_drive": 1.0326448678970337,
+                "pruned_at_frame_end_us": null,
+                "survived": true,
+                "arrivals": 32,
+                "positive_arrivals": 32,
+                "positive_arrival_amplitude_sum": 7.691146746277809,
+                "first_positive_arrival_us": 1303002,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              },
+              {
+                "source": 95,
+                "target": 103,
+                "time_us": 1599794,
+                "distance": 0.17187772691249847,
+                "source_last_spike_age_us": 14458,
+                "target_last_spike_age_us": 698792,
+                "recent_free_excitatory_candidates": 4,
+                "target_drive": 0.5066559314727783,
+                "pruned_at_frame_end_us": null,
+                "survived": true,
+                "arrivals": 6,
+                "positive_arrivals": 6,
+                "positive_arrival_amplitude_sum": 0.3470396511256695,
+                "first_positive_arrival_us": 2344669,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              }
+            ],
+            "quiet_terminal_weight_pairs": {
+              "1331": [
+                0.24999791383743286,
+                0.24999791383743286
+              ],
+              "1334": [
+                0.24999703466892242,
+                0.24999703466892242
+              ],
+              "1368": [
+                0.2500000298023224,
+                0.2500000298023224
+              ],
+              "1379": [
+                0.25000008940696716,
+                0.25000008940696716
+              ],
+              "1394": [
+                0.2499992996454239,
+                0.2499992996454239
+              ]
+            },
+            "focus_relay_spikes": [
+              [
+                153,
+                1835641,
+                "outcome1"
+              ],
+              [
+                153,
+                2086039,
+                "outcome1"
+              ],
+              [
+                153,
+                2843974,
+                "outcome1"
+              ],
+              [
+                153,
+                3085962,
+                "outcome1"
+              ],
+              [
+                153,
+                3844295,
+                "outcome1"
+              ],
+              [
+                153,
+                4085962,
+                "outcome1"
+              ],
+              [
+                153,
+                4844295,
+                "outcome1"
+              ]
+            ],
+            "exploratory_arrivals_through_first_relay_spike": {
+              "153": [
+                [
+                  1102002,
+                  1469,
+                  111,
+                  153,
+                  0.2369072437286377
+                ],
+                [
+                  1810336,
+                  1469,
+                  111,
+                  153,
+                  0.2358049899339676
+                ],
+                [
+                  1818669,
+                  1469,
+                  111,
+                  153,
+                  0.23576249182224274
+                ],
+                [
+                  1827002,
+                  1469,
+                  111,
+                  153,
+                  0.23574018478393555
+                ],
+                [
+                  1835336,
+                  1469,
+                  111,
+                  153,
+                  0.23571759462356567
+                ]
+              ]
+            },
+            "focus_best_integration_margin": {
+              "93": -0.6123702526092529,
+              "103": -0.3326817750930786,
+              "153": 0.16275393962860107
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": 0,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 4,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 3,
+                "balanced": 4,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 259,
+              "prunings": 0,
+              "surviving_new_edges": 259,
+              "training_core_spikes": 1531,
+              "baseline_dormant_cells": 213,
+              "baseline_dormant_cells_firing": 5,
+              "baseline_dormant_in_both_cells_firing": 5,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 3,
+              "focus_terminal_task_arrivals": 4,
+              "focus_terminal_new_tag_events": 4,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 115,
+              "exploratory_survivors": 115,
+              "exploratory_positive_arrivals": 3834,
+              "exploratory_targets_with_positive_arrivals": 115,
+              "dormant_targets_with_positive_arrivals": 95,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 5,
+              "quiet_terminal_pairs": 3,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "quiet_sources": {
+              "93": {
+                "spikes": 0,
+                "new_input_arrivals": 64,
+                "new_positive_arrivals": 64,
+                "new_input_edges": [
+                  1433,
+                  1539
+                ],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 939,
+                "first_spike": null
+              },
+              "103": {
+                "spikes": 0,
+                "new_input_arrivals": 37,
+                "new_positive_arrivals": 37,
+                "new_input_edges": [
+                  1633
+                ],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 901,
+                "first_spike": null
+              },
+              "153": {
+                "spikes": 0,
+                "new_input_arrivals": 8,
+                "new_positive_arrivals": 8,
+                "new_input_edges": [
+                  1489
+                ],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 886,
+                "first_spike": null
+              }
+            },
+            "exploratory_edges_to_focus": [
+              {
+                "source": 110,
+                "target": 153,
+                "time_us": 1099794,
+                "distance": 0.21139442920684814,
+                "source_last_spike_age_us": 15458,
+                "target_last_spike_age_us": 246089,
+                "recent_free_excitatory_candidates": 2,
+                "target_drive": 1.5496138334274292,
+                "pruned_at_frame_end_us": null,
+                "survived": true,
+                "arrivals": 8,
+                "positive_arrivals": 8,
+                "positive_arrival_amplitude_sum": 1.862815499305725,
+                "first_positive_arrival_us": 1835336,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              },
+              {
+                "source": 148,
+                "target": 93,
+                "time_us": 1199794,
+                "distance": 0.21325242519378662,
+                "source_last_spike_age_us": 98792,
+                "target_last_spike_age_us": 347792,
+                "recent_free_excitatory_candidates": 1,
+                "target_drive": 0.5210803151130676,
+                "pruned_at_frame_end_us": null,
+                "survived": true,
+                "arrivals": 21,
+                "positive_arrivals": 21,
+                "positive_arrival_amplitude_sum": 4.889885574579239,
+                "first_positive_arrival_us": 1819669,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              },
+              {
+                "source": 111,
+                "target": 103,
+                "time_us": 1599794,
+                "distance": 0.171731635928154,
+                "source_last_spike_age_us": 7125,
+                "target_last_spike_age_us": 698792,
+                "recent_free_excitatory_candidates": 2,
+                "target_drive": 0.5069199204444885,
+                "pruned_at_frame_end_us": null,
+                "survived": true,
+                "arrivals": 37,
+                "positive_arrivals": 37,
+                "positive_arrival_amplitude_sum": 8.735714673995972,
+                "first_positive_arrival_us": 1602002,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              }
+            ],
+            "quiet_terminal_weight_pairs": {
+              "1333": [
+                0.2499932050704956,
+                0.2499932050704956
+              ],
+              "1374": [
+                0.25000056624412537,
+                0.25000056624412537
+              ],
+              "1402": [
+                0.2500004768371582,
+                0.2500004768371582
+              ]
+            },
+            "focus_relay_spikes": [],
+            "focus_best_integration_margin": {
+              "93": -0.8709719479084015,
+              "103": -0.306154727935791,
+              "153": -0.161385178565979
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": 0,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 3,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": 0,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          }
+        },
+        "nearest_prune": {
+          "forward": {
+            "counts": {
+              "births": 241,
+              "prunings": 206,
+              "surviving_new_edges": 81,
+              "training_core_spikes": 1308,
+              "baseline_dormant_cells": 213,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 32,
+              "focus_terminal_new_tag_events": 53,
+              "focus_terminal_prunings": 5,
+              "exploratory_births": 117,
+              "exploratory_survivors": 6,
+              "exploratory_positive_arrivals": 248,
+              "exploratory_targets_with_positive_arrivals": 17,
+              "dormant_targets_with_positive_arrivals": 11,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 5,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 5,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "quiet_sources": {
+              "93": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 884,
+                "first_spike": null
+              },
+              "103": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 857,
+                "first_spike": null
+              },
+              "153": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 832,
+                "first_spike": null
+              }
+            },
+            "exploratory_edges_to_focus": [
+              {
+                "source": 202,
+                "target": 153,
+                "time_us": 1099794,
+                "distance": 0.1089654341340065,
+                "source_last_spike_age_us": null,
+                "target_last_spike_age_us": 246089,
+                "recent_free_excitatory_candidates": 2,
+                "target_drive": 1.5496138334274292,
+                "pruned_at_frame_end_us": 1500000,
+                "survived": false,
+                "arrivals": 0,
+                "positive_arrivals": 0,
+                "positive_arrival_amplitude_sum": 0,
+                "first_positive_arrival_us": null,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              },
+              {
+                "source": 94,
+                "target": 93,
+                "time_us": 1299794,
+                "distance": 0.11708032339811325,
+                "source_last_spike_age_us": null,
+                "target_last_spike_age_us": 447792,
+                "recent_free_excitatory_candidates": 2,
+                "target_drive": 1.0326448678970337,
+                "pruned_at_frame_end_us": 1700000,
+                "survived": false,
+                "arrivals": 0,
+                "positive_arrivals": 0,
+                "positive_arrival_amplitude_sum": 0,
+                "first_positive_arrival_us": null,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              },
+              {
+                "source": 104,
+                "target": 103,
+                "time_us": 1599794,
+                "distance": 0.11049730330705643,
+                "source_last_spike_age_us": 15458,
+                "target_last_spike_age_us": 698792,
+                "recent_free_excitatory_candidates": 3,
+                "target_drive": 0.5066559314727783,
+                "pruned_at_frame_end_us": 2000000,
+                "survived": false,
+                "arrivals": 0,
+                "positive_arrivals": 0,
+                "positive_arrival_amplitude_sum": 0,
+                "first_positive_arrival_us": null,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              }
+            ],
+            "quiet_terminal_weight_pairs": {
+              "1331": [
+                0.24999791383743286,
+                null
+              ],
+              "1334": [
+                0.24999703466892242,
+                null
+              ],
+              "1368": [
+                0.2500000298023224,
+                null
+              ],
+              "1379": [
+                0.25000008940696716,
+                null
+              ],
+              "1394": [
+                0.2499992996454239,
+                null
+              ]
+            },
+            "focus_relay_spikes": [],
+            "focus_best_integration_margin": {
+              "93": -0.9416741132736206,
+              "103": -0.38222646713256836,
+              "153": -0.3118724822998047
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 1,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 244,
+              "prunings": 201,
+              "surviving_new_edges": 90,
+              "training_core_spikes": 1335,
+              "baseline_dormant_cells": 213,
+              "baseline_dormant_cells_firing": 1,
+              "baseline_dormant_in_both_cells_firing": 1,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 1,
+              "focus_terminal_task_arrivals": 5,
+              "focus_terminal_new_tag_events": 5,
+              "focus_terminal_prunings": 4,
+              "exploratory_births": 113,
+              "exploratory_survivors": 4,
+              "exploratory_positive_arrivals": 201,
+              "exploratory_targets_with_positive_arrivals": 13,
+              "dormant_targets_with_positive_arrivals": 10,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 1,
+              "quiet_terminal_pairs": 3,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 3,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "quiet_sources": {
+              "93": {
+                "spikes": 0,
+                "new_input_arrivals": 1,
+                "new_positive_arrivals": 1,
+                "new_input_edges": [
+                  1433
+                ],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 885,
+                "first_spike": null
+              },
+              "103": {
+                "spikes": 0,
+                "new_input_arrivals": 1,
+                "new_positive_arrivals": 1,
+                "new_input_edges": [
+                  1631
+                ],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 855,
+                "first_spike": null
+              },
+              "153": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 837,
+                "first_spike": null
+              }
+            },
+            "exploratory_edges_to_focus": [
+              {
+                "source": 202,
+                "target": 153,
+                "time_us": 1099794,
+                "distance": 0.1089654341340065,
+                "source_last_spike_age_us": null,
+                "target_last_spike_age_us": 246089,
+                "recent_free_excitatory_candidates": 2,
+                "target_drive": 1.5496138334274292,
+                "pruned_at_frame_end_us": 1500000,
+                "survived": false,
+                "arrivals": 0,
+                "positive_arrivals": 0,
+                "positive_arrival_amplitude_sum": 0,
+                "first_positive_arrival_us": null,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              },
+              {
+                "source": 94,
+                "target": 93,
+                "time_us": 1199794,
+                "distance": 0.11708032339811325,
+                "source_last_spike_age_us": null,
+                "target_last_spike_age_us": 347792,
+                "recent_free_excitatory_candidates": 1,
+                "target_drive": 0.5210803151130676,
+                "pruned_at_frame_end_us": 1600000,
+                "survived": false,
+                "arrivals": 0,
+                "positive_arrivals": 0,
+                "positive_arrival_amplitude_sum": 0,
+                "first_positive_arrival_us": null,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              },
+              {
+                "source": 104,
+                "target": 103,
+                "time_us": 1599794,
+                "distance": 0.11049730330705643,
+                "source_last_spike_age_us": 515458,
+                "target_last_spike_age_us": 698792,
+                "recent_free_excitatory_candidates": 2,
+                "target_drive": 0.5069199204444885,
+                "pruned_at_frame_end_us": 2000000,
+                "survived": false,
+                "arrivals": 1,
+                "positive_arrivals": 1,
+                "positive_arrival_amplitude_sum": 0.24007827043533325,
+                "first_positive_arrival_us": 1843669,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              }
+            ],
+            "quiet_terminal_weight_pairs": {
+              "1333": [
+                0.2499932050704956,
+                null
+              ],
+              "1374": [
+                0.25000056624412537,
+                null
+              ],
+              "1402": [
+                0.2500004768371582,
+                null
+              ]
+            },
+            "focus_relay_spikes": [],
+            "focus_best_integration_margin": {
+              "93": -0.9416732788085938,
+              "103": -0.38138365745544434,
+              "153": -0.1820664405822754
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 1,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          }
+        },
+        "nearest_retain": {
+          "forward": {
+            "counts": {
+              "births": 239,
+              "prunings": 0,
+              "surviving_new_edges": 239,
+              "training_core_spikes": 1456,
+              "baseline_dormant_cells": 213,
+              "baseline_dormant_cells_firing": 1,
+              "baseline_dormant_in_both_cells_firing": 1,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 1,
+              "focus_terminal_task_arrivals": 32,
+              "focus_terminal_new_tag_events": 56,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 114,
+              "exploratory_survivors": 114,
+              "exploratory_positive_arrivals": 558,
+              "exploratory_targets_with_positive_arrivals": 25,
+              "dormant_targets_with_positive_arrivals": 18,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 5,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "quiet_sources": {
+              "93": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 896,
+                "first_spike": null
+              },
+              "103": {
+                "spikes": 0,
+                "new_input_arrivals": 6,
+                "new_positive_arrivals": 6,
+                "new_input_edges": [
+                  1618
+                ],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 893,
+                "first_spike": null
+              },
+              "153": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 885,
+                "first_spike": null
+              }
+            },
+            "exploratory_edges_to_focus": [
+              {
+                "source": 202,
+                "target": 153,
+                "time_us": 1099794,
+                "distance": 0.1089654341340065,
+                "source_last_spike_age_us": null,
+                "target_last_spike_age_us": 246089,
+                "recent_free_excitatory_candidates": 2,
+                "target_drive": 1.5496138334274292,
+                "pruned_at_frame_end_us": null,
+                "survived": true,
+                "arrivals": 0,
+                "positive_arrivals": 0,
+                "positive_arrival_amplitude_sum": 0,
+                "first_positive_arrival_us": null,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              },
+              {
+                "source": 94,
+                "target": 93,
+                "time_us": 1299794,
+                "distance": 0.11708032339811325,
+                "source_last_spike_age_us": null,
+                "target_last_spike_age_us": 447792,
+                "recent_free_excitatory_candidates": 2,
+                "target_drive": 1.0326448678970337,
+                "pruned_at_frame_end_us": null,
+                "survived": true,
+                "arrivals": 0,
+                "positive_arrivals": 0,
+                "positive_arrival_amplitude_sum": 0,
+                "first_positive_arrival_us": null,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              },
+              {
+                "source": 104,
+                "target": 103,
+                "time_us": 1599794,
+                "distance": 0.11049730330705643,
+                "source_last_spike_age_us": 15458,
+                "target_last_spike_age_us": 698792,
+                "recent_free_excitatory_candidates": 3,
+                "target_drive": 0.5066559314727783,
+                "pruned_at_frame_end_us": null,
+                "survived": true,
+                "arrivals": 6,
+                "positive_arrivals": 6,
+                "positive_arrival_amplitude_sum": 1.4451677948236465,
+                "first_positive_arrival_us": 2343669,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              }
+            ],
+            "quiet_terminal_weight_pairs": {
+              "1331": [
+                0.24999791383743286,
+                0.24999791383743286
+              ],
+              "1334": [
+                0.24999703466892242,
+                0.24999703466892242
+              ],
+              "1368": [
+                0.2500000298023224,
+                0.2500000298023224
+              ],
+              "1379": [
+                0.25000008940696716,
+                0.25000008940696716
+              ],
+              "1394": [
+                0.2499992996454239,
+                0.2499992996454239
+              ]
+            },
+            "focus_relay_spikes": [],
+            "focus_best_integration_margin": {
+              "93": -0.9408988654613495,
+              "103": -0.33266186714172363,
+              "153": -0.1614760160446167
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 2,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 2,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 242,
+              "prunings": 0,
+              "surviving_new_edges": 242,
+              "training_core_spikes": 1444,
+              "baseline_dormant_cells": 213,
+              "baseline_dormant_cells_firing": 1,
+              "baseline_dormant_in_both_cells_firing": 1,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 1,
+              "focus_terminal_task_arrivals": 8,
+              "focus_terminal_new_tag_events": 8,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 113,
+              "exploratory_survivors": 113,
+              "exploratory_positive_arrivals": 538,
+              "exploratory_targets_with_positive_arrivals": 22,
+              "dormant_targets_with_positive_arrivals": 17,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 1,
+              "quiet_terminal_pairs": 3,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "quiet_sources": {
+              "93": {
+                "spikes": 0,
+                "new_input_arrivals": 43,
+                "new_positive_arrivals": 43,
+                "new_input_edges": [
+                  1433
+                ],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 918,
+                "first_spike": null
+              },
+              "103": {
+                "spikes": 0,
+                "new_input_arrivals": 7,
+                "new_positive_arrivals": 7,
+                "new_input_edges": [
+                  1631
+                ],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 900,
+                "first_spike": null
+              },
+              "153": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 887,
+                "first_spike": null
+              }
+            },
+            "exploratory_edges_to_focus": [
+              {
+                "source": 202,
+                "target": 153,
+                "time_us": 1099794,
+                "distance": 0.1089654341340065,
+                "source_last_spike_age_us": null,
+                "target_last_spike_age_us": 246089,
+                "recent_free_excitatory_candidates": 2,
+                "target_drive": 1.5496138334274292,
+                "pruned_at_frame_end_us": null,
+                "survived": true,
+                "arrivals": 0,
+                "positive_arrivals": 0,
+                "positive_arrival_amplitude_sum": 0,
+                "first_positive_arrival_us": null,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              },
+              {
+                "source": 94,
+                "target": 93,
+                "time_us": 1199794,
+                "distance": 0.11708032339811325,
+                "source_last_spike_age_us": null,
+                "target_last_spike_age_us": 347792,
+                "recent_free_excitatory_candidates": 1,
+                "target_drive": 0.5210803151130676,
+                "pruned_at_frame_end_us": null,
+                "survived": true,
+                "arrivals": 0,
+                "positive_arrivals": 0,
+                "positive_arrival_amplitude_sum": 0,
+                "first_positive_arrival_us": null,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              },
+              {
+                "source": 104,
+                "target": 103,
+                "time_us": 1599794,
+                "distance": 0.11049730330705643,
+                "source_last_spike_age_us": 515458,
+                "target_last_spike_age_us": 698792,
+                "recent_free_excitatory_candidates": 2,
+                "target_drive": 0.5069199204444885,
+                "pruned_at_frame_end_us": null,
+                "survived": true,
+                "arrivals": 7,
+                "positive_arrivals": 7,
+                "positive_arrival_amplitude_sum": 1.6789778769016266,
+                "first_positive_arrival_us": 1843669,
+                "first_target_training_spike_us": null,
+                "target_spikes_after_first_positive_arrival": 0,
+                "target_dormant_in_matched_frozen": true,
+                "target_dormant_in_both_frozen": true,
+                "target_is_focus_relay": true
+              }
+            ],
+            "quiet_terminal_weight_pairs": {
+              "1333": [
+                0.2499932050704956,
+                0.2499932050704956
+              ],
+              "1374": [
+                0.25000056624412537,
+                0.25000056624412537
+              ],
+              "1402": [
+                0.2500004768371582,
+                0.2500004768371582
+              ]
+            },
+            "focus_relay_spikes": [],
+            "focus_best_integration_margin": {
+              "93": -0.9416732788085938,
+              "103": -0.3325309753417969,
+              "153": -0.14425867795944214
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 2,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "job_id": "v00000-s34127-i000",
+      "seed": 34127,
+      "archived_record_checksum": "83d139fa0f9bfc0a",
+      "capacity_sha256": "0ff0039a8aa01e3e1e5475e875f67d6df2b766afccc49d85c6d04a9bf0ab3449",
+      "structural_sha256": "59246cdfbdc9a90e326d191f750c5b16e274d5516a9b1c47a0bb5f03516e3c75",
+      "diagnostic_sha256": "2f504a82ca636bc91c176dbc9c0d8d10469cb896c3670f3b17bbe375af265a90",
+      "ablations": [],
+      "balanced_focus_relay_spikes": {},
+      "balanced_quiet_terminal_weights": {},
+      "arms": {
+        "frozen": {
+          "forward": {
+            "counts": {
+              "births": 0,
+              "prunings": 0,
+              "surviving_new_edges": 0,
+              "training_core_spikes": 991,
+              "baseline_dormant_cells": 215,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 19,
+              "focus_terminal_new_tag_events": 35,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 0,
+              "prunings": 0,
+              "surviving_new_edges": 0,
+              "training_core_spikes": 994,
+              "baseline_dormant_cells": 215,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 0,
+              "focus_terminal_new_tag_events": 0,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0
+            }
+          }
+        },
+        "native_prune": {
+          "forward": {
+            "counts": {
+              "births": 160,
+              "prunings": 84,
+              "surviving_new_edges": 111,
+              "training_core_spikes": 1359,
+              "baseline_dormant_cells": 215,
+              "baseline_dormant_cells_firing": 1,
+              "baseline_dormant_in_both_cells_firing": 1,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 33,
+              "focus_terminal_new_tag_events": 39,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 1,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 1,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 1,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 158,
+              "prunings": 80,
+              "surviving_new_edges": 116,
+              "training_core_spikes": 1370,
+              "baseline_dormant_cells": 215,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 0,
+              "focus_terminal_new_tag_events": 0,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 1,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 1,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          }
+        },
+        "native_retain": {
+          "forward": {
+            "counts": {
+              "births": 161,
+              "prunings": 0,
+              "surviving_new_edges": 161,
+              "training_core_spikes": 1476,
+              "baseline_dormant_cells": 215,
+              "baseline_dormant_cells_firing": 2,
+              "baseline_dormant_in_both_cells_firing": 2,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 33,
+              "focus_terminal_new_tag_events": 39,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 1,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 1,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 1,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 1,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 157,
+              "prunings": 0,
+              "surviving_new_edges": 157,
+              "training_core_spikes": 1452,
+              "baseline_dormant_cells": 215,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 0,
+              "focus_terminal_new_tag_events": 0,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 1,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 1,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          }
+        },
+        "recent_prune": {
+          "forward": {
+            "counts": {
+              "births": 261,
+              "prunings": 180,
+              "surviving_new_edges": 116,
+              "training_core_spikes": 1363,
+              "baseline_dormant_cells": 215,
+              "baseline_dormant_cells_firing": 3,
+              "baseline_dormant_in_both_cells_firing": 3,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 34,
+              "focus_terminal_new_tag_events": 35,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 119,
+              "exploratory_survivors": 18,
+              "exploratory_positive_arrivals": 947,
+              "exploratory_targets_with_positive_arrivals": 102,
+              "dormant_targets_with_positive_arrivals": 82,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 2,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 1,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 1,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 1,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 258,
+              "prunings": 174,
+              "surviving_new_edges": 122,
+              "training_core_spikes": 1380,
+              "baseline_dormant_cells": 215,
+              "baseline_dormant_cells_firing": 2,
+              "baseline_dormant_in_both_cells_firing": 2,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 0,
+              "focus_terminal_new_tag_events": 0,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 114,
+              "exploratory_survivors": 13,
+              "exploratory_positive_arrivals": 654,
+              "exploratory_targets_with_positive_arrivals": 82,
+              "dormant_targets_with_positive_arrivals": 63,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 2,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 1,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 1,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          }
+        },
+        "recent_retain": {
+          "forward": {
+            "counts": {
+              "births": 265,
+              "prunings": 0,
+              "surviving_new_edges": 265,
+              "training_core_spikes": 1535,
+              "baseline_dormant_cells": 215,
+              "baseline_dormant_cells_firing": 5,
+              "baseline_dormant_in_both_cells_firing": 5,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 34,
+              "focus_terminal_new_tag_events": 35,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 120,
+              "exploratory_survivors": 120,
+              "exploratory_positive_arrivals": 3944,
+              "exploratory_targets_with_positive_arrivals": 120,
+              "dormant_targets_with_positive_arrivals": 98,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 4,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 1,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 1,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 1,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 1,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 267,
+              "prunings": 0,
+              "surviving_new_edges": 267,
+              "training_core_spikes": 1515,
+              "baseline_dormant_cells": 215,
+              "baseline_dormant_cells_firing": 6,
+              "baseline_dormant_in_both_cells_firing": 6,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 0,
+              "focus_terminal_new_tag_events": 0,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 119,
+              "exploratory_survivors": 119,
+              "exploratory_positive_arrivals": 3374,
+              "exploratory_targets_with_positive_arrivals": 119,
+              "dormant_targets_with_positive_arrivals": 99,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 6,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 1,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 1,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          }
+        },
+        "nearest_prune": {
+          "forward": {
+            "counts": {
+              "births": 257,
+              "prunings": 179,
+              "surviving_new_edges": 113,
+              "training_core_spikes": 1357,
+              "baseline_dormant_cells": 215,
+              "baseline_dormant_cells_firing": 2,
+              "baseline_dormant_in_both_cells_firing": 2,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 34,
+              "focus_terminal_new_tag_events": 39,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 113,
+              "exploratory_survivors": 12,
+              "exploratory_positive_arrivals": 403,
+              "exploratory_targets_with_positive_arrivals": 30,
+              "dormant_targets_with_positive_arrivals": 14,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 1,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 1,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 1,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": 1,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 1,
+                "balanced": 0,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 253,
+              "prunings": 176,
+              "surviving_new_edges": 115,
+              "training_core_spikes": 1362,
+              "baseline_dormant_cells": 215,
+              "baseline_dormant_cells_firing": 1,
+              "baseline_dormant_in_both_cells_firing": 1,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 0,
+              "focus_terminal_new_tag_events": 0,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 110,
+              "exploratory_survivors": 7,
+              "exploratory_positive_arrivals": 348,
+              "exploratory_targets_with_positive_arrivals": 21,
+              "dormant_targets_with_positive_arrivals": 11,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 1,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": 0,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 1,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": 0,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          }
+        },
+        "nearest_retain": {
+          "forward": {
+            "counts": {
+              "births": 256,
+              "prunings": 0,
+              "surviving_new_edges": 256,
+              "training_core_spikes": 1479,
+              "baseline_dormant_cells": 215,
+              "baseline_dormant_cells_firing": 3,
+              "baseline_dormant_in_both_cells_firing": 3,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 34,
+              "focus_terminal_new_tag_events": 36,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 114,
+              "exploratory_survivors": 114,
+              "exploratory_positive_arrivals": 888,
+              "exploratory_targets_with_positive_arrivals": 32,
+              "dormant_targets_with_positive_arrivals": 15,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 1,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 1,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 1,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 1,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 1,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 257,
+              "prunings": 0,
+              "surviving_new_edges": 257,
+              "training_core_spikes": 1467,
+              "baseline_dormant_cells": 215,
+              "baseline_dormant_cells_firing": 3,
+              "baseline_dormant_in_both_cells_firing": 3,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 0,
+              "focus_terminal_new_tag_events": 0,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 112,
+              "exploratory_survivors": 112,
+              "exploratory_positive_arrivals": 841,
+              "exploratory_targets_with_positive_arrivals": 26,
+              "dormant_targets_with_positive_arrivals": 15,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 1,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 1,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 1,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "job_id": "v00000-s34141-i000",
+      "seed": 34141,
+      "archived_record_checksum": "cdd71c7ffaa9b5f7",
+      "capacity_sha256": "617c533de4c5696636462a65b5b39ad7a8d41e24334cc47248b424391314f377",
+      "structural_sha256": "213e67bfe6e001ede77a4f0a4c0a093f30f168ecad65e2af6b0c69b19fee5bfa",
+      "diagnostic_sha256": "c66db97c4117820172f066a1202657fe2662500baa73bbfc22e50ccd7730bba8",
+      "ablations": [],
+      "balanced_focus_relay_spikes": {},
+      "balanced_quiet_terminal_weights": {},
+      "arms": {
+        "frozen": {
+          "forward": {
+            "counts": {
+              "births": 0,
+              "prunings": 0,
+              "surviving_new_edges": 0,
+              "training_core_spikes": 1012,
+              "baseline_dormant_cells": 218,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 32,
+              "focus_terminal_new_tag_events": 17,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 0,
+              "prunings": 0,
+              "surviving_new_edges": 0,
+              "training_core_spikes": 1010,
+              "baseline_dormant_cells": 218,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 64,
+              "focus_terminal_new_tag_events": 70,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0
+            }
+          }
+        },
+        "native_prune": {
+          "forward": {
+            "counts": {
+              "births": 128,
+              "prunings": 89,
+              "surviving_new_edges": 81,
+              "training_core_spikes": 1148,
+              "baseline_dormant_cells": 218,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 11,
+              "focus_terminal_new_tag_events": 2,
+              "focus_terminal_prunings": 2,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 1,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 3,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 125,
+              "prunings": 86,
+              "surviving_new_edges": 77,
+              "training_core_spikes": 1125,
+              "baseline_dormant_cells": 218,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 64,
+              "focus_terminal_new_tag_events": 73,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 3,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          }
+        },
+        "native_retain": {
+          "forward": {
+            "counts": {
+              "births": 123,
+              "prunings": 0,
+              "surviving_new_edges": 123,
+              "training_core_spikes": 1243,
+              "baseline_dormant_cells": 218,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 28,
+              "focus_terminal_new_tag_events": 14,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 3,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 3,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 125,
+              "prunings": 0,
+              "surviving_new_edges": 125,
+              "training_core_spikes": 1237,
+              "baseline_dormant_cells": 218,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 64,
+              "focus_terminal_new_tag_events": 71,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 3,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          }
+        },
+        "recent_prune": {
+          "forward": {
+            "counts": {
+              "births": 247,
+              "prunings": 203,
+              "surviving_new_edges": 89,
+              "training_core_spikes": 1156,
+              "baseline_dormant_cells": 218,
+              "baseline_dormant_cells_firing": 2,
+              "baseline_dormant_in_both_cells_firing": 2,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 11,
+              "focus_terminal_new_tag_events": 2,
+              "focus_terminal_prunings": 2,
+              "exploratory_births": 123,
+              "exploratory_survivors": 13,
+              "exploratory_positive_arrivals": 609,
+              "exploratory_targets_with_positive_arrivals": 97,
+              "dormant_targets_with_positive_arrivals": 78,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 2,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 1,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 2,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 242,
+              "prunings": 185,
+              "surviving_new_edges": 95,
+              "training_core_spikes": 1158,
+              "baseline_dormant_cells": 218,
+              "baseline_dormant_cells_firing": 2,
+              "baseline_dormant_in_both_cells_firing": 2,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 64,
+              "focus_terminal_new_tag_events": 73,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 118,
+              "exploratory_survivors": 13,
+              "exploratory_positive_arrivals": 633,
+              "exploratory_targets_with_positive_arrivals": 79,
+              "dormant_targets_with_positive_arrivals": 64,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 2,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 2,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          }
+        },
+        "recent_retain": {
+          "forward": {
+            "counts": {
+              "births": 260,
+              "prunings": 0,
+              "surviving_new_edges": 260,
+              "training_core_spikes": 1299,
+              "baseline_dormant_cells": 218,
+              "baseline_dormant_cells_firing": 4,
+              "baseline_dormant_in_both_cells_firing": 4,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 28,
+              "focus_terminal_new_tag_events": 14,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 132,
+              "exploratory_survivors": 132,
+              "exploratory_positive_arrivals": 3366,
+              "exploratory_targets_with_positive_arrivals": 118,
+              "dormant_targets_with_positive_arrivals": 98,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 4,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 3,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 3,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 259,
+              "prunings": 0,
+              "surviving_new_edges": 259,
+              "training_core_spikes": 1251,
+              "baseline_dormant_cells": 218,
+              "baseline_dormant_cells_firing": 4,
+              "baseline_dormant_in_both_cells_firing": 4,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 64,
+              "focus_terminal_new_tag_events": 71,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 131,
+              "exploratory_survivors": 131,
+              "exploratory_positive_arrivals": 3187,
+              "exploratory_targets_with_positive_arrivals": 117,
+              "dormant_targets_with_positive_arrivals": 98,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 4,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 3,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          }
+        },
+        "nearest_prune": {
+          "forward": {
+            "counts": {
+              "births": 227,
+              "prunings": 196,
+              "surviving_new_edges": 73,
+              "training_core_spikes": 1134,
+              "baseline_dormant_cells": 218,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 11,
+              "focus_terminal_new_tag_events": 2,
+              "focus_terminal_prunings": 2,
+              "exploratory_births": 113,
+              "exploratory_survivors": 2,
+              "exploratory_positive_arrivals": 122,
+              "exploratory_targets_with_positive_arrivals": 15,
+              "dormant_targets_with_positive_arrivals": 9,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 1,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 2,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 224,
+              "prunings": 185,
+              "surviving_new_edges": 76,
+              "training_core_spikes": 1122,
+              "baseline_dormant_cells": 218,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 64,
+              "focus_terminal_new_tag_events": 73,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 114,
+              "exploratory_survivors": 4,
+              "exploratory_positive_arrivals": 148,
+              "exploratory_targets_with_positive_arrivals": 16,
+              "dormant_targets_with_positive_arrivals": 9,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 2,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          }
+        },
+        "nearest_retain": {
+          "forward": {
+            "counts": {
+              "births": 230,
+              "prunings": 0,
+              "surviving_new_edges": 230,
+              "training_core_spikes": 1234,
+              "baseline_dormant_cells": 218,
+              "baseline_dormant_cells_firing": 1,
+              "baseline_dormant_in_both_cells_firing": 1,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 28,
+              "focus_terminal_new_tag_events": 14,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 117,
+              "exploratory_survivors": 117,
+              "exploratory_positive_arrivals": 613,
+              "exploratory_targets_with_positive_arrivals": 19,
+              "dormant_targets_with_positive_arrivals": 12,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 1,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 3,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 3,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 222,
+              "prunings": 0,
+              "surviving_new_edges": 222,
+              "training_core_spikes": 1223,
+              "baseline_dormant_cells": 218,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 64,
+              "focus_terminal_new_tag_events": 70,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 113,
+              "exploratory_survivors": 113,
+              "exploratory_positive_arrivals": 669,
+              "exploratory_targets_with_positive_arrivals": 21,
+              "dormant_targets_with_positive_arrivals": 12,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 3,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "job_id": "v00000-s34157-i000",
+      "seed": 34157,
+      "archived_record_checksum": "d8ec002180f4b98d",
+      "capacity_sha256": "7502ca4550d7bf74dddc33936fccd7dcacfbff40a432621e6ad96525319444f2",
+      "structural_sha256": "d4a0c7774fcf2cd573f24edd85d2be130978c461bc8f57716b85fb32e442601b",
+      "diagnostic_sha256": "f581e4c027b8f42ac3af852451a380bd6a0b71d7c17b87d3c6c23b8b7c76f9b4",
+      "ablations": [],
+      "balanced_focus_relay_spikes": {},
+      "balanced_quiet_terminal_weights": {},
+      "arms": {
+        "frozen": {
+          "forward": {
+            "counts": {
+              "births": 0,
+              "prunings": 0,
+              "surviving_new_edges": 0,
+              "training_core_spikes": 1097,
+              "baseline_dormant_cells": 214,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 56,
+              "focus_terminal_new_tag_events": 68,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 0,
+              "prunings": 0,
+              "surviving_new_edges": 0,
+              "training_core_spikes": 1113,
+              "baseline_dormant_cells": 214,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 48,
+              "focus_terminal_new_tag_events": 43,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0
+            }
+          }
+        },
+        "native_prune": {
+          "forward": {
+            "counts": {
+              "births": 125,
+              "prunings": 81,
+              "surviving_new_edges": 69,
+              "training_core_spikes": 1169,
+              "baseline_dormant_cells": 214,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 53,
+              "focus_terminal_new_tag_events": 70,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 124,
+              "prunings": 70,
+              "surviving_new_edges": 82,
+              "training_core_spikes": 1207,
+              "baseline_dormant_cells": 214,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 43,
+              "focus_terminal_new_tag_events": 53,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          }
+        },
+        "native_retain": {
+          "forward": {
+            "counts": {
+              "births": 115,
+              "prunings": 0,
+              "surviving_new_edges": 115,
+              "training_core_spikes": 1246,
+              "baseline_dormant_cells": 214,
+              "baseline_dormant_cells_firing": 1,
+              "baseline_dormant_in_both_cells_firing": 1,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 53,
+              "focus_terminal_new_tag_events": 71,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": 0,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": 0,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 123,
+              "prunings": 0,
+              "surviving_new_edges": 123,
+              "training_core_spikes": 1261,
+              "baseline_dormant_cells": 214,
+              "baseline_dormant_cells_firing": 0,
+              "baseline_dormant_in_both_cells_firing": 0,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 43,
+              "focus_terminal_new_tag_events": 51,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 0,
+              "exploratory_survivors": 0,
+              "exploratory_positive_arrivals": 0,
+              "exploratory_targets_with_positive_arrivals": 0,
+              "dormant_targets_with_positive_arrivals": 0,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 0,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 1,
+              "passes": 1
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": 0,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 1,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": 0,
+                "same_root_input": true,
+                "passed": true
+              }
+            }
+          }
+        },
+        "recent_prune": {
+          "forward": {
+            "counts": {
+              "births": 265,
+              "prunings": 199,
+              "surviving_new_edges": 88,
+              "training_core_spikes": 1233,
+              "baseline_dormant_cells": 214,
+              "baseline_dormant_cells_firing": 7,
+              "baseline_dormant_in_both_cells_firing": 7,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 58,
+              "focus_terminal_new_tag_events": 70,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 126,
+              "exploratory_survivors": 15,
+              "exploratory_positive_arrivals": 868,
+              "exploratory_targets_with_positive_arrivals": 86,
+              "dormant_targets_with_positive_arrivals": 66,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 7,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 253,
+              "prunings": 199,
+              "surviving_new_edges": 83,
+              "training_core_spikes": 1204,
+              "baseline_dormant_cells": 214,
+              "baseline_dormant_cells_firing": 4,
+              "baseline_dormant_in_both_cells_firing": 4,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 40,
+              "focus_terminal_new_tag_events": 49,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 130,
+              "exploratory_survivors": 11,
+              "exploratory_positive_arrivals": 739,
+              "exploratory_targets_with_positive_arrivals": 85,
+              "dormant_targets_with_positive_arrivals": 68,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 4,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          }
+        },
+        "recent_retain": {
+          "forward": {
+            "counts": {
+              "births": 269,
+              "prunings": 0,
+              "surviving_new_edges": 269,
+              "training_core_spikes": 1339,
+              "baseline_dormant_cells": 214,
+              "baseline_dormant_cells_firing": 9,
+              "baseline_dormant_in_both_cells_firing": 9,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 65,
+              "focus_terminal_new_tag_events": 79,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 125,
+              "exploratory_survivors": 125,
+              "exploratory_positive_arrivals": 3356,
+              "exploratory_targets_with_positive_arrivals": 124,
+              "dormant_targets_with_positive_arrivals": 106,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 9,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": 0,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": 0,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 264,
+              "prunings": 0,
+              "surviving_new_edges": 264,
+              "training_core_spikes": 1303,
+              "baseline_dormant_cells": 214,
+              "baseline_dormant_cells_firing": 8,
+              "baseline_dormant_in_both_cells_firing": 8,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 43,
+              "focus_terminal_new_tag_events": 49,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 131,
+              "exploratory_survivors": 131,
+              "exploratory_positive_arrivals": 3057,
+              "exploratory_targets_with_positive_arrivals": 131,
+              "dormant_targets_with_positive_arrivals": 107,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 8,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 1,
+              "passes": 1
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": 0,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 1,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": 0,
+                "same_root_input": true,
+                "passed": true
+              }
+            }
+          }
+        },
+        "nearest_prune": {
+          "forward": {
+            "counts": {
+              "births": 245,
+              "prunings": 193,
+              "surviving_new_edges": 77,
+              "training_core_spikes": 1174,
+              "baseline_dormant_cells": 214,
+              "baseline_dormant_cells_firing": 4,
+              "baseline_dormant_in_both_cells_firing": 4,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 56,
+              "focus_terminal_new_tag_events": 70,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 121,
+              "exploratory_survivors": 5,
+              "exploratory_positive_arrivals": 194,
+              "exploratory_targets_with_positive_arrivals": 16,
+              "dormant_targets_with_positive_arrivals": 12,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 4,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 239,
+              "prunings": 188,
+              "surviving_new_edges": 79,
+              "training_core_spikes": 1201,
+              "baseline_dormant_cells": 214,
+              "baseline_dormant_cells_firing": 2,
+              "baseline_dormant_in_both_cells_firing": 2,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 46,
+              "focus_terminal_new_tag_events": 49,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 126,
+              "exploratory_survivors": 5,
+              "exploratory_positive_arrivals": 186,
+              "exploratory_targets_with_positive_arrivals": 14,
+              "dormant_targets_with_positive_arrivals": 7,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 2,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": null,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          }
+        },
+        "nearest_retain": {
+          "forward": {
+            "counts": {
+              "births": 247,
+              "prunings": 0,
+              "surviving_new_edges": 247,
+              "training_core_spikes": 1303,
+              "baseline_dormant_cells": 214,
+              "baseline_dormant_cells_firing": 5,
+              "baseline_dormant_in_both_cells_firing": 5,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 56,
+              "focus_terminal_new_tag_events": 72,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 120,
+              "exploratory_survivors": 120,
+              "exploratory_positive_arrivals": 399,
+              "exploratory_targets_with_positive_arrivals": 24,
+              "dormant_targets_with_positive_arrivals": 16,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 5,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 0,
+              "passes": 0
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": 0,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": 0,
+                "same_root_input": true,
+                "passed": false
+              }
+            }
+          },
+          "reverse": {
+            "counts": {
+              "births": 242,
+              "prunings": 0,
+              "surviving_new_edges": 242,
+              "training_core_spikes": 1261,
+              "baseline_dormant_cells": 214,
+              "baseline_dormant_cells_firing": 4,
+              "baseline_dormant_in_both_cells_firing": 4,
+              "focus_relays_firing": 0,
+              "focus_relays_with_positive_exploratory_delivery": 0,
+              "focus_terminal_task_arrivals": 46,
+              "focus_terminal_new_tag_events": 49,
+              "focus_terminal_prunings": 0,
+              "exploratory_births": 125,
+              "exploratory_survivors": 125,
+              "exploratory_positive_arrivals": 471,
+              "exploratory_targets_with_positive_arrivals": 27,
+              "dormant_targets_with_positive_arrivals": 15,
+              "baseline_dormant_targets_first_spiking_at_or_after_delivery": 4,
+              "quiet_terminal_pairs": 0,
+              "quiet_terminal_task_arrivals": 0,
+              "quiet_terminal_new_tags": 0,
+              "quiet_terminal_pruned": 0,
+              "preliminary_passes": 1,
+              "passes": 1
+            },
+            "gates": {
+              "cue0": {
+                "correct": 0,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": 0,
+                "same_root_input": true,
+                "passed": false
+              },
+              "cue1": {
+                "correct": 1,
+                "incorrect": 0,
+                "frozen": 0,
+                "opposite": 0,
+                "balanced": 0,
+                "same_root_input": true,
+                "passed": true
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
