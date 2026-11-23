@@ -15,12 +15,14 @@ use nerva::runtime::ObservationEvent;
 use nerva_qemu::capture::Frame;
 use nerva_vm::model::{
     Model, PlasticitySettings, Step, WINDOW_US,
-    audit::{AuditOptions, learned_parameters_equal},
+    audit::{AuditOptions, InputAudit, learned_parameters_equal},
 };
 use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 
 pub struct ContingencyScenario;
+mod electrical;
+pub use electrical::replay_electrical;
 const PROTOCOL: &str = "NERVA-Visual-Contingency/1";
 const CUES: [&str; 2] = ["cue0", "cue1"];
 const FRAGMENTS: [&str; 4] = ["cue0a", "cue0b", "cue1a", "cue1b"];
@@ -85,7 +87,7 @@ fn schedule(c: &Config, seed: u64, mapping: &str, gap: usize) -> Vec<&'static st
     frames
 }
 
-fn observe(model: &mut Model, frame: &Frame) -> Result<(Step, Spikes, Vec<u64>)> {
+fn observe(model: &mut Model, frame: &Frame) -> Result<(Step, Spikes, InputAudit)> {
     let step = model.step(frame).map_err(fail)?;
     let audit = model
         .take_audit()
@@ -107,19 +109,7 @@ fn observe(model: &mut Model, frame: &Frame) -> Result<(Step, Spikes, Vec<u64>)>
     if root.len() != step.sensory_spikes {
         return Err(error("contingency input spike counts disagree"));
     }
-    let arrivals = audit
-        .raw_events
-        .iter()
-        .filter_map(|event| match event {
-            ObservationEvent::SynapticArrival {
-                synapse_id,
-                amplitude,
-                ..
-            } if *amplitude != 0. => Some(synapse_id.0),
-            _ => None,
-        })
-        .collect();
-    Ok((step, root, arrivals))
+    Ok((step, root, audit))
 }
 
 fn train(model: &mut Model, order: &[&str], frames: &BTreeMap<&str, Frame>) -> Result<Value> {
@@ -160,7 +150,13 @@ impl Response {
             "arrived_edges":self.arrived_edges})
     }
 }
-fn probe(model: &mut Model, c: &Config, stimulus: &Frame, blank: &Frame) -> Result<Response> {
+fn probe(
+    model: &mut Model,
+    c: &Config,
+    stimulus: &Frame,
+    blank: &Frame,
+    mut trace: Option<&mut electrical::Trace<'_>>,
+) -> Result<Response> {
     let before = model.network().clone();
     let mut remaining = c.rest_us;
     let mut rest_core_spikes = 0;
@@ -178,12 +174,26 @@ fn probe(model: &mut Model, c: &Config, stimulus: &Frame, blank: &Frame) -> Resu
         arrived_edges: BTreeSet::new(),
     };
     model.enable_audit(AUDIT);
+    model.set_dynamics_auditing(trace.is_some());
     for frame in [stimulus, blank, blank, blank] {
-        let (step, root, arrivals) = observe(model, frame)?;
+        let (step, root, audit) = observe(model, frame)?;
         response.root_spikes.extend(root);
         response.core_spikes.extend(step.core_events);
-        response.arrived_edges.extend(arrivals);
+        response
+            .arrived_edges
+            .extend(audit.raw_events.iter().filter_map(|event| match event {
+                ObservationEvent::SynapticArrival {
+                    synapse_id,
+                    amplitude,
+                    ..
+                } if *amplitude != 0. => Some(synapse_id.0),
+                _ => None,
+            }));
+        if let Some(trace) = &mut trace {
+            trace.record(&audit.raw_events);
+        }
     }
+    model.set_dynamics_auditing(false);
     if !learned_parameters_equal(&before, model.network()) {
         return Err(error("contingency probe changed learned parameters"));
     }
@@ -304,7 +314,7 @@ fn run(c: &Config, seed: u64, gap: usize) -> Result<TrialMetrics> {
             }
             responses.insert(
                 name,
-                probe(&mut branch, c, &frames[name], &frames["blank"])?,
+                probe(&mut branch, c, &frames[name], &frames["blank"], None)?,
             );
         }
         probes.insert(arm.clone(), responses);

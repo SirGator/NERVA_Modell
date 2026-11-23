@@ -9,7 +9,7 @@ use nerva_research::{
             association::AssociationScenario,
             causal::CausalScenario,
             chain::ChainScenario,
-            contingency::ContingencyScenario,
+            contingency::{ContingencyScenario, replay_electrical},
             diagnosis::DiagnosisScenario,
             factorial::FactorialScenario,
             history::{HistoryScenario, PARAMETERS as HISTORY_PARAMETERS},
@@ -42,6 +42,22 @@ fn execute() -> Result<()> {
     let mode = args
         .next()
         .ok_or_else(|| error("mode required: plan/run/report/list"))?;
+    if mode == "contingency-electrical" {
+        let path = args
+            .next()
+            .ok_or_else(|| error("archived contingency record required"))?;
+        if args.next().is_some() {
+            return Err(error("contingency-electrical accepts one archived record"));
+        }
+        let source = fs::read(&path).map_err(|e| error(e.to_string()))?;
+        let envelope = serde_json::from_slice(&source).map_err(|e| error(e.to_string()))?;
+        let output = replay_electrical(&envelope)?;
+        println!(
+            "{}",
+            serde_json::to_string(&output).map_err(|e| error(e.to_string()))?
+        );
+        return Ok(());
+    }
     if mode == "list" {
         if args.next().is_some() {
             return Err(error("list accepts no arguments"));
