@@ -29,6 +29,7 @@ eine balancierte Belichtung dienen als Kontrollen.
 [Abruf nach Abzug des balancierten Gewichtsmusters](CONTINGENCY_GROWN_RESIDUAL_RESULTS_20261123.md).
 [Lokale Ratenkorrektur und Abruf nach zwei aufeinanderfolgenden Lernphasen](CONTINGENCY_LIVE_RATE_RESULTS_20261123.md).
 [Kausale Prüfung neuer Kanten und älterer Gewichte beim B-Abruf](CONTINGENCY_B_FACTOR_RESULTS_20261123.md).
+[A-Erhalt und B-Erwerb bei gekreuzten Bildungsregeln](CONTINGENCY_LIVE_GROWTH_RESULTS_20261123.md).
 
 [MLD-03](MLD03.md) trennt Gewichtswirkung von künstlich veränderter Core-Schwelle
 und Integrationszeit. Ein zweiter Abschnitt vergleicht Sensor-/Core-Homöostase

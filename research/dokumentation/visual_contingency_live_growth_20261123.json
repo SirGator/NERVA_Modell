@@ -1,0 +1,494 @@
+{
+  "protocol": "NERVA-Contingency-Live-Growth/1",
+  "cohort_size": 6,
+  "source_commits": {
+    "library": "c13d9f733d474fe1516f3c170a0440b7c294c535",
+    "model": "a5c772fbfc66eb9fcace657658f807a98df8e935"
+  },
+  "summary": {
+    "a_acquisition": {
+      "eligible_cases": 24,
+      "passed_cases": 2,
+      "full_seed_passes": 0
+    },
+    "policies": {
+      "recent": {
+        "b_acquisition": {
+          "eligible_cases": 72,
+          "passed_cases": 1,
+          "full_seed_passes": 0
+        },
+        "a_retention": {
+          "eligible_cases": 6,
+          "passed_cases": 6,
+          "full_seed_passes": 0
+        },
+        "joint_paths": 0,
+        "full_b_strata": 0,
+        "formed_b": 2781,
+        "exploratory_b": 618
+      },
+      "nearest": {
+        "b_acquisition": {
+          "eligible_cases": 72,
+          "passed_cases": 1,
+          "full_seed_passes": 0
+        },
+        "a_retention": {
+          "eligible_cases": 6,
+          "passed_cases": 6,
+          "full_seed_passes": 0
+        },
+        "joint_paths": 0,
+        "full_b_strata": 0,
+        "formed_b": 2763,
+        "exploratory_b": 617
+      },
+      "off": {
+        "b_acquisition": {
+          "eligible_cases": 72,
+          "passed_cases": 0,
+          "full_seed_passes": 0
+        },
+        "a_retention": {
+          "eligible_cases": 6,
+          "passed_cases": 6,
+          "full_seed_passes": 0
+        },
+        "joint_paths": 0,
+        "full_b_strata": 0,
+        "formed_b": 0,
+        "exploratory_b": 0
+      }
+    },
+    "paired_b": {
+      "nearest": {
+        "recent_only": 0,
+        "control_only": 0,
+        "both": 1,
+        "neither": 71
+      },
+      "off": {
+        "recent_only": 1,
+        "control_only": 0,
+        "both": 0,
+        "neither": 71
+      }
+    }
+  },
+  "paired_activity": {
+    "nearest": {
+      "branch_pairs": 54,
+      "probe_pairs": 270,
+      "different_birth_counts": 18,
+      "different_birth_endpoints": 54,
+      "different_training_core_sequences": 44,
+      "different_probe_core_sequences": 85
+    },
+    "off": {
+      "branch_pairs": 54,
+      "probe_pairs": 270,
+      "different_birth_counts": 54,
+      "different_birth_endpoints": 54,
+      "different_training_core_sequences": 54,
+      "different_probe_core_sequences": 172
+    }
+  },
+  "records": [
+    {
+      "job_id": "v00000-s34301-i000",
+      "seed": 34301,
+      "record_checksum": "308d989f2cb068cf",
+      "record_sha256": "dd91cad619d20db291bfb587f012973758023baa7291afbfe6c31457e38bbf07",
+      "metrics": {
+        "a_acquisition": 0,
+        "recent_b_acquisition": 1,
+        "recent_a_retention": 0,
+        "recent_joint_paths": 0,
+        "nearest_b_acquisition": 1,
+        "nearest_a_retention": 0,
+        "nearest_joint_paths": 0,
+        "off_b_acquisition": 0,
+        "off_a_retention": 0,
+        "off_joint_paths": 0
+      },
+      "target_sizes": {
+        "a": [
+          6,
+          3
+        ],
+        "b": [
+          4,
+          5
+        ]
+      },
+      "b_acquisition": {
+        "recent": [
+          {
+            "stratum": "forward",
+            "mapping": "forward",
+            "cue": "cue_b1",
+            "balanced": 1,
+            "before_b": 0,
+            "correct": 2,
+            "eligible": true,
+            "opposite": 1,
+            "passed": true,
+            "quiet": true,
+            "reset": 0,
+            "wrong": 0
+          }
+        ],
+        "nearest": [
+          {
+            "stratum": "forward",
+            "mapping": "forward",
+            "cue": "cue_b1",
+            "balanced": 1,
+            "before_b": 0,
+            "correct": 2,
+            "eligible": true,
+            "opposite": 1,
+            "passed": true,
+            "quiet": true,
+            "reset": 0,
+            "wrong": 0
+          }
+        ],
+        "off": []
+      }
+    },
+    {
+      "job_id": "v00000-s34307-i000",
+      "seed": 34307,
+      "record_checksum": "567c5783284448ea",
+      "record_sha256": "d97e988754d6b03074681bf01065fc06806a18c8f7062b6cbf56fce6584c5494",
+      "metrics": {
+        "a_acquisition": 0,
+        "recent_b_acquisition": 0,
+        "recent_a_retention": 0,
+        "recent_joint_paths": 0,
+        "nearest_b_acquisition": 0,
+        "nearest_a_retention": 0,
+        "nearest_joint_paths": 0,
+        "off_b_acquisition": 0,
+        "off_a_retention": 0,
+        "off_joint_paths": 0
+      },
+      "target_sizes": {
+        "a": [
+          2,
+          6
+        ],
+        "b": [
+          2,
+          7
+        ]
+      }
+    },
+    {
+      "job_id": "v00000-s34313-i000",
+      "seed": 34313,
+      "record_checksum": "5f41e010cc07b0d4",
+      "record_sha256": "dbd3e93c4334c21820088b62a37aa4082563eff0df8f052db775c62452dd69df",
+      "metrics": {
+        "a_acquisition": 1,
+        "recent_b_acquisition": 0,
+        "recent_a_retention": 3,
+        "recent_joint_paths": 0,
+        "nearest_b_acquisition": 0,
+        "nearest_a_retention": 3,
+        "nearest_joint_paths": 0,
+        "off_b_acquisition": 0,
+        "off_a_retention": 3,
+        "off_joint_paths": 0
+      },
+      "target_sizes": {
+        "a": [
+          8,
+          6
+        ],
+        "b": [
+          2,
+          9
+        ]
+      },
+      "a_acquisition": [
+        {
+          "mapping": "reverse",
+          "cue": "cue1",
+          "balanced": 0,
+          "before_b": null,
+          "correct": 1,
+          "eligible": true,
+          "opposite": 0,
+          "passed": true,
+          "quiet": true,
+          "reset": 0,
+          "wrong": 0
+        }
+      ],
+      "a_retention_timing": [
+        {
+          "mapping": "reverse",
+          "cue": "cue1",
+          "after_a": [
+            [
+              72,
+              35335
+            ]
+          ],
+          "after_b": {
+            "nearest": {
+              "balanced": [
+                [
+                  72,
+                  35335
+                ]
+              ],
+              "forward": [
+                [
+                  72,
+                  35335
+                ]
+              ],
+              "reverse": [
+                [
+                  72,
+                  35335
+                ]
+              ]
+            },
+            "off": {
+              "balanced": [
+                [
+                  72,
+                  35335
+                ]
+              ],
+              "forward": [
+                [
+                  72,
+                  35335
+                ]
+              ],
+              "reverse": [
+                [
+                  72,
+                  35335
+                ]
+              ]
+            },
+            "recent": {
+              "balanced": [
+                [
+                  72,
+                  35335
+                ]
+              ],
+              "forward": [
+                [
+                  72,
+                  35335
+                ]
+              ],
+              "reverse": [
+                [
+                  72,
+                  35335
+                ]
+              ]
+            }
+          },
+          "arrived_a_born_inputs_to_spiking_targets": [
+            1422,
+            1537,
+            1632
+          ]
+        }
+      ]
+    },
+    {
+      "job_id": "v00000-s34319-i000",
+      "seed": 34319,
+      "record_checksum": "9188f965917372d1",
+      "record_sha256": "dd5704c53bca8cbb89df8c202c49cd094c0fb7eea067c64eae2accaffa80919c",
+      "metrics": {
+        "a_acquisition": 0,
+        "recent_b_acquisition": 0,
+        "recent_a_retention": 0,
+        "recent_joint_paths": 0,
+        "nearest_b_acquisition": 0,
+        "nearest_a_retention": 0,
+        "nearest_joint_paths": 0,
+        "off_b_acquisition": 0,
+        "off_a_retention": 0,
+        "off_joint_paths": 0
+      },
+      "target_sizes": {
+        "a": [
+          6,
+          3
+        ],
+        "b": [
+          5,
+          7
+        ]
+      }
+    },
+    {
+      "job_id": "v00000-s34327-i000",
+      "seed": 34327,
+      "record_checksum": "08cec1d58a4639ec",
+      "record_sha256": "2143351a039d0dbe0034369240aa76e7bc1b209378d8342e5e520c10e228b314",
+      "metrics": {
+        "a_acquisition": 1,
+        "recent_b_acquisition": 0,
+        "recent_a_retention": 3,
+        "recent_joint_paths": 0,
+        "nearest_b_acquisition": 0,
+        "nearest_a_retention": 3,
+        "nearest_joint_paths": 0,
+        "off_b_acquisition": 0,
+        "off_a_retention": 3,
+        "off_joint_paths": 0
+      },
+      "target_sizes": {
+        "a": [
+          7,
+          1
+        ],
+        "b": [
+          2,
+          6
+        ]
+      },
+      "a_acquisition": [
+        {
+          "mapping": "reverse",
+          "cue": "cue1",
+          "balanced": 0,
+          "before_b": null,
+          "correct": 1,
+          "eligible": true,
+          "opposite": 0,
+          "passed": true,
+          "quiet": true,
+          "reset": 0,
+          "wrong": 0
+        }
+      ],
+      "a_retention_timing": [
+        {
+          "mapping": "reverse",
+          "cue": "cue1",
+          "after_a": [
+            [
+              73,
+              52001
+            ]
+          ],
+          "after_b": {
+            "nearest": {
+              "balanced": [
+                [
+                  73,
+                  52001
+                ]
+              ],
+              "forward": [
+                [
+                  73,
+                  52001
+                ]
+              ],
+              "reverse": [
+                [
+                  73,
+                  52001
+                ]
+              ]
+            },
+            "off": {
+              "balanced": [
+                [
+                  73,
+                  52001
+                ]
+              ],
+              "forward": [
+                [
+                  73,
+                  52001
+                ]
+              ],
+              "reverse": [
+                [
+                  73,
+                  52001
+                ]
+              ]
+            },
+            "recent": {
+              "balanced": [
+                [
+                  73,
+                  52001
+                ]
+              ],
+              "forward": [
+                [
+                  73,
+                  52001
+                ]
+              ],
+              "reverse": [
+                [
+                  73,
+                  52001
+                ]
+              ]
+            }
+          },
+          "arrived_a_born_inputs_to_spiking_targets": [
+            1440,
+            1542,
+            1632
+          ]
+        }
+      ]
+    },
+    {
+      "job_id": "v00000-s34333-i000",
+      "seed": 34333,
+      "record_checksum": "e21e060a807c42de",
+      "record_sha256": "b9fb932ec9b86934b355c4794f4d44f0aea36e2900de242c54cd378adaee0d40",
+      "metrics": {
+        "a_acquisition": 0,
+        "recent_b_acquisition": 0,
+        "recent_a_retention": 0,
+        "recent_joint_paths": 0,
+        "nearest_b_acquisition": 0,
+        "nearest_a_retention": 0,
+        "nearest_joint_paths": 0,
+        "off_b_acquisition": 0,
+        "off_a_retention": 0,
+        "off_joint_paths": 0
+      },
+      "target_sizes": {
+        "a": [
+          4,
+          3
+        ],
+        "b": [
+          2,
+          6
+        ]
+      }
+    }
+  ],
+  "local_archive": {
+    "path": "research/results/archives/visual_contingency_live_growth_20261123.zip",
+    "sha256": "fea3e3a27df69e2a416e676f4e4910f9ca2a211bc60a4efe7a0ca291ec8c15d3"
+  }
+}
