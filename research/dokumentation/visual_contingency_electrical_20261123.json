@@ -1,0 +1,849 @@
+{
+  "protocol": "NERVA-Contingency-Electrical/1",
+  "preregistration_sha256": "b93f072da507a2bab4f51fbc940b4c9eb8714ae72bb88c6b15b514f27d501320",
+  "by_gap_frames": {
+    "0": {
+      "passes": 0,
+      "fails": 3,
+      "not_assessable": 2,
+      "partial_passes": 8,
+      "partial_assessable": 16,
+      "target_cases_with_changed_amplitude": 13
+    },
+    "2": {
+      "passes": 0,
+      "fails": 3,
+      "not_assessable": 2,
+      "partial_passes": 1,
+      "partial_assessable": 16,
+      "target_cases_with_changed_amplitude": 12
+    }
+  },
+  "paired_totals": {
+    "paired_arrivals": 1026,
+    "changed_arrival_amplitudes": 364,
+    "paired_boundaries": 27612,
+    "positive_margin_deltas": 1475,
+    "negative_margin_deltas": 2267
+  },
+  "max_abs_arrival_amplitude_delta": 5.8710575103759766e-06,
+  "max_abs_margin_delta_boundary": {
+    "seed": 33223,
+    "gap_frames": 0,
+    "cue": "cue1",
+    "arm": "forward_core",
+    "time_us": 12052172,
+    "neuron": 91,
+    "threshold": 1.0268932580947876,
+    "reset_margin": -0.46225476264953613,
+    "margin_delta": 1.609325408935547e-05
+  },
+  "max_positive_delta_fraction_of_deficit": {
+    "fraction": 3.481468529845469e-05,
+    "boundary": {
+      "seed": 33223,
+      "gap_frames": 0,
+      "cue": "cue1",
+      "arm": "forward_core",
+      "time_us": 12052172,
+      "neuron": 91,
+      "threshold": 1.0268932580947876,
+      "reset_margin": -0.46225476264953613,
+      "margin_delta": 1.609325408935547e-05
+    }
+  },
+  "records": [
+    {
+      "seed": 33207,
+      "gap_frames": 0,
+      "assessable": true,
+      "passes": false,
+      "templates": [
+        [
+          86,
+          93,
+          100,
+          104,
+          106,
+          107,
+          108,
+          148
+        ],
+        [
+          82,
+          90,
+          97,
+          98,
+          102,
+          103,
+          105,
+          111
+        ]
+      ],
+      "raw_sha256": "ffcbe489e5b111b00708e47acf24bcb3bef8a46a72f6db08b67cfff5b64825b4",
+      "input_sha256": "6aed986e1f0d3846021e63499be8b80d2a738ee2489f31abde8e6bb99b8f6912",
+      "cues": {
+        "cue0": {
+          "reset_peak_coverage": [
+            8,
+            8
+          ],
+          "mapping_passes": {
+            "forward_core": true,
+            "reverse_core": true
+          },
+          "mean_peak_margin_delta": {
+            "forward_core": [
+              8.940696716308594e-08,
+              4.656612873077393e-10
+            ],
+            "reverse_core": [
+              0.0,
+              1.955777406692505e-08
+            ],
+            "balanced_core": [
+              4.470348358154297e-08,
+              6.05359673500061e-09
+            ]
+          }
+        },
+        "cue1": {
+          "reset_peak_coverage": [
+            8,
+            8
+          ],
+          "mapping_passes": {
+            "forward_core": false,
+            "reverse_core": false
+          },
+          "mean_peak_margin_delta": {
+            "forward_core": [
+              0.0,
+              -2.086162567138672e-07
+            ],
+            "reverse_core": [
+              0.0,
+              -2.60770320892334e-07
+            ],
+            "balanced_core": [
+              0.0,
+              -2.3096799850463867e-07
+            ]
+          }
+        }
+      }
+    },
+    {
+      "seed": 33207,
+      "gap_frames": 2,
+      "assessable": true,
+      "passes": false,
+      "templates": [
+        [
+          86,
+          93,
+          100,
+          104,
+          106,
+          107,
+          108,
+          148
+        ],
+        [
+          82,
+          90,
+          97,
+          98,
+          102,
+          103,
+          105,
+          111
+        ]
+      ],
+      "raw_sha256": "1b275026606d0b2213efc7a0a76973882bc60775630737f523cfb916ac02a3ce",
+      "input_sha256": "bb1e0cdbff136777deeed63253a504da993eb0cec00d866140b72e675457f843",
+      "cues": {
+        "cue0": {
+          "reset_peak_coverage": [
+            8,
+            8
+          ],
+          "mapping_passes": {
+            "forward_core": false,
+            "reverse_core": false
+          },
+          "mean_peak_margin_delta": {
+            "forward_core": [
+              0.0,
+              -1.5832483768463135e-08
+            ],
+            "reverse_core": [
+              0.0,
+              -2.8405338525772095e-08
+            ],
+            "balanced_core": [
+              0.0,
+              -2.1420419216156006e-08
+            ]
+          }
+        },
+        "cue1": {
+          "reset_peak_coverage": [
+            8,
+            8
+          ],
+          "mapping_passes": {
+            "forward_core": false,
+            "reverse_core": false
+          },
+          "mean_peak_margin_delta": {
+            "forward_core": [
+              0.0,
+              -3.371387720108032e-07
+            ],
+            "reverse_core": [
+              0.0,
+              -3.129243850708008e-07
+            ],
+            "balanced_core": [
+              0.0,
+              -3.4086406230926514e-07
+            ]
+          }
+        }
+      }
+    },
+    {
+      "seed": 33211,
+      "gap_frames": 0,
+      "assessable": true,
+      "passes": false,
+      "templates": [
+        [
+          85,
+          86,
+          106,
+          108
+        ],
+        [
+          96,
+          104,
+          105,
+          111,
+          152,
+          153,
+          160,
+          161
+        ]
+      ],
+      "raw_sha256": "c3b932ea7dbee6221a97404a8aefc490cb93cf3bd54a4e77420c31a360626ea9",
+      "input_sha256": "589ea0279e414690488b6df00ddb4231b4173ac2f6ee6227f2ff2ed242066d4a",
+      "cues": {
+        "cue0": {
+          "reset_peak_coverage": [
+            4,
+            8
+          ],
+          "mapping_passes": {
+            "forward_core": false,
+            "reverse_core": false
+          },
+          "mean_peak_margin_delta": {
+            "forward_core": [
+              -2.384185791015625e-07,
+              -3.166496753692627e-08
+            ],
+            "reverse_core": [
+              -5.960464477539063e-08,
+              0.0
+            ],
+            "balanced_core": [
+              -1.7881393432617188e-07,
+              -1.6763806343078613e-08
+            ]
+          }
+        },
+        "cue1": {
+          "reset_peak_coverage": [
+            4,
+            8
+          ],
+          "mapping_passes": {
+            "forward_core": true,
+            "reverse_core": false
+          },
+          "mean_peak_margin_delta": {
+            "forward_core": [
+              0.0,
+              4.246830940246582e-07
+            ],
+            "reverse_core": [
+              0.0,
+              1.4901161193847656e-07
+            ],
+            "balanced_core": [
+              0.0,
+              1.9371509552001953e-07
+            ]
+          }
+        }
+      }
+    },
+    {
+      "seed": 33211,
+      "gap_frames": 2,
+      "assessable": true,
+      "passes": false,
+      "templates": [
+        [
+          85,
+          86,
+          106,
+          108
+        ],
+        [
+          96,
+          104,
+          105,
+          111,
+          152,
+          153,
+          160,
+          161
+        ]
+      ],
+      "raw_sha256": "68646c3caa7160cb458ef8d3936b1f783778e92c85d1304c7af09b49f88794ee",
+      "input_sha256": "6651a00607e150e709c052b987e9b13e4b97c27bb9ce6e7d939bebfa24e2c04c",
+      "cues": {
+        "cue0": {
+          "reset_peak_coverage": [
+            4,
+            8
+          ],
+          "mapping_passes": {
+            "forward_core": false,
+            "reverse_core": false
+          },
+          "mean_peak_margin_delta": {
+            "forward_core": [
+              -2.682209014892578e-07,
+              -2.7194619178771973e-07
+            ],
+            "reverse_core": [
+              -2.086162567138672e-07,
+              -2.998858690261841e-07
+            ],
+            "balanced_core": [
+              -2.384185791015625e-07,
+              -2.8870999813079834e-07
+            ]
+          }
+        },
+        "cue1": {
+          "reset_peak_coverage": [
+            4,
+            8
+          ],
+          "mapping_passes": {
+            "forward_core": false,
+            "reverse_core": false
+          },
+          "mean_peak_margin_delta": {
+            "forward_core": [
+              0.0,
+              -6.332993507385254e-08
+            ],
+            "reverse_core": [
+              0.0,
+              -3.3527612686157227e-08
+            ],
+            "balanced_core": [
+              0.0,
+              -2.905726432800293e-07
+            ]
+          }
+        }
+      }
+    },
+    {
+      "seed": 33223,
+      "gap_frames": 0,
+      "assessable": false,
+      "passes": null,
+      "templates": [
+        [
+          79,
+          86,
+          94,
+          95,
+          100,
+          106,
+          107,
+          112,
+          148,
+          149
+        ],
+        [
+          91,
+          97,
+          104,
+          105
+        ]
+      ],
+      "raw_sha256": "2f682372b7f40041286538a62a5aaed021ac2e9c12a41a34885e669019cf7b89",
+      "input_sha256": "0b8a6b4671e75d36dd90e9bca9df233ef6615fd743a3876909527e4f971b5f10",
+      "cues": {
+        "cue0": {
+          "reset_peak_coverage": [
+            2,
+            0
+          ],
+          "mapping_passes": {
+            "forward_core": null,
+            "reverse_core": null
+          },
+          "mean_peak_margin_delta": {
+            "forward_core": [
+              7.450580596923828e-09,
+              null
+            ],
+            "reverse_core": [
+              -7.450580596923828e-09,
+              null
+            ],
+            "balanced_core": [
+              -2.2351741790771484e-08,
+              null
+            ]
+          }
+        },
+        "cue1": {
+          "reset_peak_coverage": [
+            10,
+            4
+          ],
+          "mapping_passes": {
+            "forward_core": true,
+            "reverse_core": true
+          },
+          "mean_peak_margin_delta": {
+            "forward_core": [
+              0.0,
+              4.6193599700927734e-06
+            ],
+            "reverse_core": [
+              1.9371509552001954e-08,
+              -1.2889504432678223e-06
+            ],
+            "balanced_core": [
+              7.450580596923828e-09,
+              2.376735210418701e-06
+            ]
+          }
+        }
+      }
+    },
+    {
+      "seed": 33223,
+      "gap_frames": 2,
+      "assessable": false,
+      "passes": null,
+      "templates": [
+        [
+          79,
+          86,
+          94,
+          95,
+          100,
+          106,
+          107,
+          112,
+          148,
+          149
+        ],
+        [
+          91,
+          97,
+          104,
+          105
+        ]
+      ],
+      "raw_sha256": "25b08dea638fccedf2e1c3081375c685eabe5129a4b02db72e050a095c361762",
+      "input_sha256": "e358643161a0da9ac84547a72ff4eb7b81ce2dad33ce7dcdc9a82f3b257cf1cc",
+      "cues": {
+        "cue0": {
+          "reset_peak_coverage": [
+            2,
+            0
+          ],
+          "mapping_passes": {
+            "forward_core": null,
+            "reverse_core": null
+          },
+          "mean_peak_margin_delta": {
+            "forward_core": [
+              -7.450580596923828e-09,
+              null
+            ],
+            "reverse_core": [
+              -2.9802322387695312e-08,
+              null
+            ],
+            "balanced_core": [
+              -1.4901161193847656e-08,
+              null
+            ]
+          }
+        },
+        "cue1": {
+          "reset_peak_coverage": [
+            10,
+            4
+          ],
+          "mapping_passes": {
+            "forward_core": false,
+            "reverse_core": false
+          },
+          "mean_peak_margin_delta": {
+            "forward_core": [
+              0.0,
+              8.717179298400879e-07
+            ],
+            "reverse_core": [
+              0.0,
+              9.462237358093262e-07
+            ],
+            "balanced_core": [
+              0.0,
+              1.1101365089416504e-06
+            ]
+          }
+        }
+      }
+    },
+    {
+      "seed": 33247,
+      "gap_frames": 0,
+      "assessable": true,
+      "passes": false,
+      "templates": [
+        [
+          73,
+          81,
+          90,
+          92,
+          93,
+          94,
+          99,
+          100,
+          102,
+          106,
+          108
+        ],
+        [
+          77,
+          91,
+          95,
+          98,
+          103,
+          104,
+          105,
+          109,
+          111,
+          112,
+          147
+        ]
+      ],
+      "raw_sha256": "c5174d8f17200331014089d139d0b7e2bd9798b1285dddb8d1d67e4ca8a5c16e",
+      "input_sha256": "ae0d0b63fe501b82a019794fdeab859065a8de1c124ed29b16f7c9eeca600c1c",
+      "cues": {
+        "cue0": {
+          "reset_peak_coverage": [
+            11,
+            11
+          ],
+          "mapping_passes": {
+            "forward_core": true,
+            "reverse_core": false
+          },
+          "mean_peak_margin_delta": {
+            "forward_core": [
+              1.0837208140980113e-07,
+              0.0
+            ],
+            "reverse_core": [
+              4.8767436634410514e-08,
+              0.0
+            ],
+            "balanced_core": [
+              8.127906105735085e-08,
+              0.0
+            ]
+          }
+        },
+        "cue1": {
+          "reset_peak_coverage": [
+            11,
+            11
+          ],
+          "mapping_passes": {
+            "forward_core": true,
+            "reverse_core": false
+          },
+          "mean_peak_margin_delta": {
+            "forward_core": [
+              0.0,
+              4.063953052867542e-09
+            ],
+            "reverse_core": [
+              0.0,
+              -3.928487951105291e-08
+            ],
+            "balanced_core": [
+              0.0,
+              -1.4901161193847656e-08
+            ]
+          }
+        }
+      }
+    },
+    {
+      "seed": 33247,
+      "gap_frames": 2,
+      "assessable": true,
+      "passes": false,
+      "templates": [
+        [
+          73,
+          81,
+          90,
+          92,
+          93,
+          94,
+          99,
+          100,
+          102,
+          106,
+          108
+        ],
+        [
+          77,
+          91,
+          95,
+          98,
+          103,
+          104,
+          105,
+          109,
+          111,
+          112,
+          147
+        ]
+      ],
+      "raw_sha256": "56c69da9450b35186e0909d72253a6b614bf001378b2c69af4428ec3ac344cd8",
+      "input_sha256": "d38a75949ca9b75e27169ea1e5237dae77eed3783ecceb08630023751d21fafe",
+      "cues": {
+        "cue0": {
+          "reset_peak_coverage": [
+            11,
+            11
+          ],
+          "mapping_passes": {
+            "forward_core": false,
+            "reverse_core": false
+          },
+          "mean_peak_margin_delta": {
+            "forward_core": [
+              3.251162442294034e-08,
+              0.0
+            ],
+            "reverse_core": [
+              4.8767436634410514e-08,
+              0.0
+            ],
+            "balanced_core": [
+              3.79302284934304e-08,
+              0.0
+            ]
+          }
+        },
+        "cue1": {
+          "reset_peak_coverage": [
+            11,
+            11
+          ],
+          "mapping_passes": {
+            "forward_core": false,
+            "reverse_core": false
+          },
+          "mean_peak_margin_delta": {
+            "forward_core": [
+              0.0,
+              -4.3348832563920456e-08
+            ],
+            "reverse_core": [
+              0.0,
+              -4.7412785616787995e-08
+            ],
+            "balanced_core": [
+              0.0,
+              -4.605813459916548e-08
+            ]
+          }
+        }
+      }
+    },
+    {
+      "seed": 33287,
+      "gap_frames": 0,
+      "assessable": false,
+      "passes": null,
+      "templates": [
+        [
+          86,
+          92,
+          102,
+          110,
+          155
+        ],
+        [
+          82,
+          97,
+          98,
+          101,
+          103,
+          109,
+          112
+        ]
+      ],
+      "raw_sha256": "d91e937a27f2396a93ef1a8ae5cd643492decafa5c23775a2a6414769b29e108",
+      "input_sha256": "7b459536bc24e276c1605f478d06772b87dec4a971603b7acecb90e5b15b8bb3",
+      "cues": {
+        "cue0": {
+          "reset_peak_coverage": [
+            1,
+            0
+          ],
+          "mapping_passes": {
+            "forward_core": null,
+            "reverse_core": null
+          },
+          "mean_peak_margin_delta": {
+            "forward_core": [
+              0.0,
+              null
+            ],
+            "reverse_core": [
+              0.0,
+              null
+            ],
+            "balanced_core": [
+              0.0,
+              null
+            ]
+          }
+        },
+        "cue1": {
+          "reset_peak_coverage": [
+            5,
+            7
+          ],
+          "mapping_passes": {
+            "forward_core": true,
+            "reverse_core": false
+          },
+          "mean_peak_margin_delta": {
+            "forward_core": [
+              0.0,
+              3.086669104439872e-07
+            ],
+            "reverse_core": [
+              0.0,
+              -9.472881044660295e-08
+            ],
+            "balanced_core": [
+              0.0,
+              1.2027365820748465e-07
+            ]
+          }
+        }
+      }
+    },
+    {
+      "seed": 33287,
+      "gap_frames": 2,
+      "assessable": false,
+      "passes": null,
+      "templates": [
+        [
+          86,
+          92,
+          102,
+          110,
+          155
+        ],
+        [
+          82,
+          97,
+          98,
+          101,
+          103,
+          109,
+          112
+        ]
+      ],
+      "raw_sha256": "798b8f96c8c1bf080eb9fd1723de76032ce73e2a7f9ee2298118cbed366abee7",
+      "input_sha256": "61f5dcc33f86ff523a062c63538d52edca95db96c43a979c1ec945801eb61784",
+      "cues": {
+        "cue0": {
+          "reset_peak_coverage": [
+            1,
+            0
+          ],
+          "mapping_passes": {
+            "forward_core": null,
+            "reverse_core": null
+          },
+          "mean_peak_margin_delta": {
+            "forward_core": [
+              0.0,
+              null
+            ],
+            "reverse_core": [
+              0.0,
+              null
+            ],
+            "balanced_core": [
+              0.0,
+              null
+            ]
+          }
+        },
+        "cue1": {
+          "reset_peak_coverage": [
+            5,
+            7
+          ],
+          "mapping_passes": {
+            "forward_core": true,
+            "reverse_core": false
+          },
+          "mean_peak_margin_delta": {
+            "forward_core": [
+              0.0,
+              1.7029898507254463e-08
+            ],
+            "reverse_core": [
+              0.0,
+              -1.2027365820748465e-07
+            ],
+            "balanced_core": [
+              0.0,
+              -4.363911492483956e-08
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
