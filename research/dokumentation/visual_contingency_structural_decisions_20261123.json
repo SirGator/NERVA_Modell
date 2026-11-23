@@ -1,0 +1,724 @@
+{
+  "protocol": "NERVA-Contingency-Structural-Decisions/1",
+  "cohort_size": 4,
+  "preregistration_sha256": "876ff2f0b19bf7d5ebc88a73178092e4331fe2b61d291b29e4ca5a709da479b5",
+  "formation_totals": {
+    "quiet_comparison": {
+      "cell_mapping_pairs": 96,
+      "demand_blocked": 0,
+      "no_new_neighbor": 0,
+      "score_blocked": 3840,
+      "formed": 0,
+      "score_blocked_target_never_spiked": 3840,
+      "score_blocked_with_recent_source": 932,
+      "score_blocked_with_recent_excitatory_source": 867
+    },
+    "active_comparison": {
+      "cell_mapping_pairs": 96,
+      "demand_blocked": 2770,
+      "no_new_neighbor": 0,
+      "score_blocked": 703,
+      "formed": 367,
+      "score_blocked_target_never_spiked": 49,
+      "score_blocked_with_recent_source": 184,
+      "score_blocked_with_recent_excitatory_source": 163
+    },
+    "focus_relays": {
+      "cell_mapping_pairs": 6,
+      "demand_blocked": 10,
+      "no_new_neighbor": 0,
+      "score_blocked": 229,
+      "formed": 1,
+      "score_blocked_target_never_spiked": 0,
+      "score_blocked_with_recent_source": 136,
+      "score_blocked_with_recent_excitatory_source": 134
+    }
+  },
+  "pruning_totals": {
+    "other_terminal": {
+      "edge_mapping_pairs": 15,
+      "pruned_pairs": 3
+    },
+    "silent_relays": {
+      "edge_mapping_pairs": 8,
+      "pruned_pairs": 8
+    }
+  },
+  "records": [
+    {
+      "seed": 34123,
+      "job_id": "v00000-s34123-i000",
+      "archived_record_checksum": "9986c63f3e81a0de",
+      "decision_sha256": "896a615a60a9bb7b40d617db3d27f9e1efeb2047aa7a02aa89d741eb89fb21eb",
+      "structural_sha256": "5e6985fbdc842fd921b45f8c1422af7a2e9bb1915984f245d7d87e411c83adbe",
+      "mappings": {
+        "forward": {
+          "strata": {
+            "quiet_comparison": {
+              "cell_mapping_pairs": 12,
+              "demand_blocked": 0,
+              "no_new_neighbor": 0,
+              "score_blocked": 480,
+              "formed": 0,
+              "score_blocked_target_never_spiked": 480,
+              "score_blocked_with_recent_source": 113,
+              "score_blocked_with_recent_excitatory_source": 93
+            },
+            "active_comparison": {
+              "cell_mapping_pairs": 12,
+              "demand_blocked": 339,
+              "no_new_neighbor": 0,
+              "score_blocked": 92,
+              "formed": 49,
+              "score_blocked_target_never_spiked": 8,
+              "score_blocked_with_recent_source": 38,
+              "score_blocked_with_recent_excitatory_source": 29
+            },
+            "focus_relays": {
+              "cell_mapping_pairs": 3,
+              "demand_blocked": 5,
+              "no_new_neighbor": 0,
+              "score_blocked": 115,
+              "formed": 0,
+              "score_blocked_target_never_spiked": 0,
+              "score_blocked_with_recent_source": 65,
+              "score_blocked_with_recent_excitatory_source": 64
+            }
+          },
+          "relay_formations": [],
+          "terminal_edges": [
+            {
+              "edge": 317,
+              "source": 79,
+              "target": 78,
+              "observations": 40,
+              "below_threshold": 0,
+              "longest_below_us": 0,
+              "first_below_threshold_observation": null,
+              "pruned": null
+            },
+            {
+              "edge": 1331,
+              "source": 103,
+              "target": 101,
+              "observations": 15,
+              "below_threshold": 5,
+              "longest_below_us": 398792,
+              "first_below_threshold_observation": {
+                "time_us": 2099794,
+                "below_since_us": 2084336
+              },
+              "pruned": {
+                "time_us": 2499794,
+                "below_since_us": 2101002,
+                "elapsed_below_us": 398792,
+                "updated_us": 2101002,
+                "decayed_utility": 0.0035437969490885735
+              }
+            },
+            {
+              "edge": 1334,
+              "source": 103,
+              "target": 105,
+              "observations": 15,
+              "below_threshold": 7,
+              "longest_below_us": 398792,
+              "first_below_threshold_observation": {
+                "time_us": 1899794,
+                "below_since_us": 1851002
+              },
+              "pruned": {
+                "time_us": 2499794,
+                "below_since_us": 2101002,
+                "elapsed_below_us": 398792,
+                "updated_us": 2101002,
+                "decayed_utility": 0.0014375144382938743
+              }
+            },
+            {
+              "edge": 1368,
+              "source": 93,
+              "target": 85,
+              "observations": 19,
+              "below_threshold": 8,
+              "longest_below_us": 307125,
+              "first_below_threshold_observation": {
+                "time_us": 2199794,
+                "below_since_us": 2194671
+              },
+              "pruned": {
+                "time_us": 2899794,
+                "below_since_us": 2592669,
+                "elapsed_below_us": 307125,
+                "updated_us": 2592669,
+                "decayed_utility": 0.0011674418346956372
+              }
+            },
+            {
+              "edge": 1379,
+              "source": 93,
+              "target": 107,
+              "observations": 20,
+              "below_threshold": 8,
+              "longest_below_us": 398792,
+              "first_below_threshold_observation": {
+                "time_us": 2299794,
+                "below_since_us": 2209623
+              },
+              "pruned": {
+                "time_us": 2999794,
+                "below_since_us": 2601002,
+                "elapsed_below_us": 398792,
+                "updated_us": 2601002,
+                "decayed_utility": 0.0010942615335807204
+              }
+            },
+            {
+              "edge": 1388,
+              "source": 79,
+              "target": 85,
+              "observations": 40,
+              "below_threshold": 0,
+              "longest_below_us": 0,
+              "first_below_threshold_observation": null,
+              "pruned": null
+            },
+            {
+              "edge": 1394,
+              "source": 153,
+              "target": 105,
+              "observations": 5,
+              "below_threshold": 5,
+              "longest_below_us": 398792,
+              "first_below_threshold_observation": {
+                "time_us": 1099794,
+                "below_since_us": 1092669
+              },
+              "pruned": {
+                "time_us": 1499794,
+                "below_since_us": 1101002,
+                "elapsed_below_us": 398792,
+                "updated_us": 1101002,
+                "decayed_utility": 2.2510210328618996e-05
+              }
+            }
+          ]
+        },
+        "reverse": {
+          "strata": {
+            "quiet_comparison": {
+              "cell_mapping_pairs": 12,
+              "demand_blocked": 0,
+              "no_new_neighbor": 0,
+              "score_blocked": 480,
+              "formed": 0,
+              "score_blocked_target_never_spiked": 480,
+              "score_blocked_with_recent_source": 119,
+              "score_blocked_with_recent_excitatory_source": 94
+            },
+            "active_comparison": {
+              "cell_mapping_pairs": 12,
+              "demand_blocked": 359,
+              "no_new_neighbor": 0,
+              "score_blocked": 72,
+              "formed": 49,
+              "score_blocked_target_never_spiked": 8,
+              "score_blocked_with_recent_source": 33,
+              "score_blocked_with_recent_excitatory_source": 26
+            },
+            "focus_relays": {
+              "cell_mapping_pairs": 3,
+              "demand_blocked": 5,
+              "no_new_neighbor": 0,
+              "score_blocked": 114,
+              "formed": 1,
+              "score_blocked_target_never_spiked": 0,
+              "score_blocked_with_recent_source": 71,
+              "score_blocked_with_recent_excitatory_source": 70
+            }
+          },
+          "relay_formations": [
+            {
+              "target": 93,
+              "source": 92,
+              "time_us": 1099794,
+              "source_last_spike_us": 1092669,
+              "target_last_spike_us": 852002,
+              "candidate_score": 0.01020713709294796
+            }
+          ],
+          "terminal_edges": [
+            {
+              "edge": 1333,
+              "source": 103,
+              "target": 104,
+              "observations": 17,
+              "below_threshold": 4,
+              "longest_below_us": 317024,
+              "first_below_threshold_observation": {
+                "time_us": 2399794,
+                "below_since_us": 2382770
+              },
+              "pruned": {
+                "time_us": 2699794,
+                "below_since_us": 2382770,
+                "elapsed_below_us": 317024,
+                "updated_us": 2092669,
+                "decayed_utility": 0.005304398480802774
+              }
+            },
+            {
+              "edge": 1374,
+              "source": 93,
+              "target": 101,
+              "observations": 20,
+              "below_threshold": 10,
+              "longest_below_us": 398792,
+              "first_below_threshold_observation": {
+                "time_us": 2099794,
+                "below_since_us": 2071216
+              },
+              "pruned": {
+                "time_us": 2999794,
+                "below_since_us": 2601002,
+                "elapsed_below_us": 398792,
+                "updated_us": 2601002,
+                "decayed_utility": 0.0006720284000039101
+              }
+            },
+            {
+              "edge": 1376,
+              "source": 96,
+              "target": 104,
+              "observations": 26,
+              "below_threshold": 7,
+              "longest_below_us": 307086,
+              "first_below_threshold_observation": {
+                "time_us": 2699794,
+                "below_since_us": 2608867
+              },
+              "pruned": {
+                "time_us": 3599794,
+                "below_since_us": 3292708,
+                "elapsed_below_us": 307086,
+                "updated_us": 3092669,
+                "decayed_utility": 0.00541088217869401
+              }
+            },
+            {
+              "edge": 1402,
+              "source": 153,
+              "target": 104,
+              "observations": 22,
+              "below_threshold": 7,
+              "longest_below_us": 357125,
+              "first_below_threshold_observation": {
+                "time_us": 2599794,
+                "below_since_us": 2549523
+              },
+              "pruned": {
+                "time_us": 3199794,
+                "below_since_us": 2842669,
+                "elapsed_below_us": 357125,
+                "updated_us": 2842669,
+                "decayed_utility": 0.0024514549877494574
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seed": 34127,
+      "job_id": "v00000-s34127-i000",
+      "archived_record_checksum": "83d139fa0f9bfc0a",
+      "decision_sha256": "29da55380467af318fda130f7d5b2c225c01a3a659cb7b1e1df89bcff018a7d9",
+      "structural_sha256": "59246cdfbdc9a90e326d191f750c5b16e274d5516a9b1c47a0bb5f03516e3c75",
+      "mappings": {
+        "forward": {
+          "strata": {
+            "quiet_comparison": {
+              "cell_mapping_pairs": 12,
+              "demand_blocked": 0,
+              "no_new_neighbor": 0,
+              "score_blocked": 480,
+              "formed": 0,
+              "score_blocked_target_never_spiked": 480,
+              "score_blocked_with_recent_source": 118,
+              "score_blocked_with_recent_excitatory_source": 112
+            },
+            "active_comparison": {
+              "cell_mapping_pairs": 12,
+              "demand_blocked": 406,
+              "no_new_neighbor": 0,
+              "score_blocked": 24,
+              "formed": 50,
+              "score_blocked_target_never_spiked": 4,
+              "score_blocked_with_recent_source": 10,
+              "score_blocked_with_recent_excitatory_source": 10
+            },
+            "focus_relays": {
+              "cell_mapping_pairs": 0,
+              "demand_blocked": 0,
+              "no_new_neighbor": 0,
+              "score_blocked": 0,
+              "formed": 0,
+              "score_blocked_target_never_spiked": 0,
+              "score_blocked_with_recent_source": 0,
+              "score_blocked_with_recent_excitatory_source": 0
+            }
+          },
+          "relay_formations": [],
+          "terminal_edges": [
+            {
+              "edge": 1346,
+              "source": 71,
+              "target": 85,
+              "observations": 40,
+              "below_threshold": 0,
+              "longest_below_us": 0,
+              "first_below_threshold_observation": null,
+              "pruned": null
+            }
+          ]
+        },
+        "reverse": {
+          "strata": {
+            "quiet_comparison": {
+              "cell_mapping_pairs": 12,
+              "demand_blocked": 0,
+              "no_new_neighbor": 0,
+              "score_blocked": 480,
+              "formed": 0,
+              "score_blocked_target_never_spiked": 480,
+              "score_blocked_with_recent_source": 128,
+              "score_blocked_with_recent_excitatory_source": 123
+            },
+            "active_comparison": {
+              "cell_mapping_pairs": 12,
+              "demand_blocked": 416,
+              "no_new_neighbor": 0,
+              "score_blocked": 14,
+              "formed": 50,
+              "score_blocked_target_never_spiked": 7,
+              "score_blocked_with_recent_source": 10,
+              "score_blocked_with_recent_excitatory_source": 10
+            },
+            "focus_relays": {
+              "cell_mapping_pairs": 0,
+              "demand_blocked": 0,
+              "no_new_neighbor": 0,
+              "score_blocked": 0,
+              "formed": 0,
+              "score_blocked_target_never_spiked": 0,
+              "score_blocked_with_recent_source": 0,
+              "score_blocked_with_recent_excitatory_source": 0
+            }
+          },
+          "relay_formations": [],
+          "terminal_edges": []
+        }
+      }
+    },
+    {
+      "seed": 34141,
+      "job_id": "v00000-s34141-i000",
+      "archived_record_checksum": "cdd71c7ffaa9b5f7",
+      "decision_sha256": "5b20ec81cbe0e9720f668d4957f12c656f28757f1e5cbe7f5a02f71cc6d9ef73",
+      "structural_sha256": "213e67bfe6e001ede77a4f0a4c0a093f30f168ecad65e2af6b0c69b19fee5bfa",
+      "mappings": {
+        "forward": {
+          "strata": {
+            "quiet_comparison": {
+              "cell_mapping_pairs": 12,
+              "demand_blocked": 0,
+              "no_new_neighbor": 0,
+              "score_blocked": 480,
+              "formed": 0,
+              "score_blocked_target_never_spiked": 480,
+              "score_blocked_with_recent_source": 105,
+              "score_blocked_with_recent_excitatory_source": 102
+            },
+            "active_comparison": {
+              "cell_mapping_pairs": 12,
+              "demand_blocked": 335,
+              "no_new_neighbor": 0,
+              "score_blocked": 101,
+              "formed": 44,
+              "score_blocked_target_never_spiked": 5,
+              "score_blocked_with_recent_source": 11,
+              "score_blocked_with_recent_excitatory_source": 11
+            },
+            "focus_relays": {
+              "cell_mapping_pairs": 0,
+              "demand_blocked": 0,
+              "no_new_neighbor": 0,
+              "score_blocked": 0,
+              "formed": 0,
+              "score_blocked_target_never_spiked": 0,
+              "score_blocked_with_recent_source": 0,
+              "score_blocked_with_recent_excitatory_source": 0
+            }
+          },
+          "relay_formations": [],
+          "terminal_edges": [
+            {
+              "edge": 363,
+              "source": 90,
+              "target": 97,
+              "observations": 14,
+              "below_threshold": 4,
+              "longest_below_us": 362464,
+              "first_below_threshold_observation": {
+                "time_us": 2099794,
+                "below_since_us": 2037330
+              },
+              "pruned": {
+                "time_us": 2399794,
+                "below_since_us": 2037330,
+                "elapsed_below_us": 362464,
+                "updated_us": 1101002,
+                "decayed_utility": 0.004843598231673241
+              }
+            },
+            {
+              "edge": 1345,
+              "source": 96,
+              "target": 97,
+              "observations": 16,
+              "below_threshold": 4,
+              "longest_below_us": 330041,
+              "first_below_threshold_observation": {
+                "time_us": 2299794,
+                "below_since_us": 2269753
+              },
+              "pruned": {
+                "time_us": 2599794,
+                "below_since_us": 2269753,
+                "elapsed_below_us": 330041,
+                "updated_us": 1101002,
+                "decayed_utility": 0.005168092902749777
+              }
+            }
+          ]
+        },
+        "reverse": {
+          "strata": {
+            "quiet_comparison": {
+              "cell_mapping_pairs": 12,
+              "demand_blocked": 0,
+              "no_new_neighbor": 0,
+              "score_blocked": 480,
+              "formed": 0,
+              "score_blocked_target_never_spiked": 480,
+              "score_blocked_with_recent_source": 104,
+              "score_blocked_with_recent_excitatory_source": 100
+            },
+            "active_comparison": {
+              "cell_mapping_pairs": 12,
+              "demand_blocked": 296,
+              "no_new_neighbor": 0,
+              "score_blocked": 140,
+              "formed": 44,
+              "score_blocked_target_never_spiked": 8,
+              "score_blocked_with_recent_source": 37,
+              "score_blocked_with_recent_excitatory_source": 34
+            },
+            "focus_relays": {
+              "cell_mapping_pairs": 0,
+              "demand_blocked": 0,
+              "no_new_neighbor": 0,
+              "score_blocked": 0,
+              "formed": 0,
+              "score_blocked_target_never_spiked": 0,
+              "score_blocked_with_recent_source": 0,
+              "score_blocked_with_recent_excitatory_source": 0
+            }
+          },
+          "relay_formations": [],
+          "terminal_edges": [
+            {
+              "edge": 1343,
+              "source": 96,
+              "target": 95,
+              "observations": 40,
+              "below_threshold": 0,
+              "longest_below_us": 0,
+              "first_below_threshold_observation": null,
+              "pruned": null
+            },
+            {
+              "edge": 1346,
+              "source": 96,
+              "target": 102,
+              "observations": 40,
+              "below_threshold": 0,
+              "longest_below_us": 0,
+              "first_below_threshold_observation": null,
+              "pruned": null
+            },
+            {
+              "edge": 1350,
+              "source": 96,
+              "target": 110,
+              "observations": 40,
+              "below_threshold": 2,
+              "longest_below_us": 31398,
+              "first_below_threshold_observation": {
+                "time_us": 3799794,
+                "below_since_us": 3784191
+              },
+              "pruned": null
+            },
+            {
+              "edge": 1360,
+              "source": 96,
+              "target": 103,
+              "observations": 40,
+              "below_threshold": 2,
+              "longest_below_us": 51933,
+              "first_below_threshold_observation": {
+                "time_us": 3799794,
+                "below_since_us": 3766054
+              },
+              "pruned": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seed": 34157,
+      "job_id": "v00000-s34157-i000",
+      "archived_record_checksum": "d8ec002180f4b98d",
+      "decision_sha256": "0d815d190b94eb74e5140a6bf78e7a2df3c7a409a84d80e2793460ac43a1550f",
+      "structural_sha256": "d4a0c7774fcf2cd573f24edd85d2be130978c461bc8f57716b85fb32e442601b",
+      "mappings": {
+        "forward": {
+          "strata": {
+            "quiet_comparison": {
+              "cell_mapping_pairs": 12,
+              "demand_blocked": 0,
+              "no_new_neighbor": 0,
+              "score_blocked": 480,
+              "formed": 0,
+              "score_blocked_target_never_spiked": 480,
+              "score_blocked_with_recent_source": 123,
+              "score_blocked_with_recent_excitatory_source": 121
+            },
+            "active_comparison": {
+              "cell_mapping_pairs": 12,
+              "demand_blocked": 319,
+              "no_new_neighbor": 0,
+              "score_blocked": 119,
+              "formed": 42,
+              "score_blocked_target_never_spiked": 4,
+              "score_blocked_with_recent_source": 27,
+              "score_blocked_with_recent_excitatory_source": 25
+            },
+            "focus_relays": {
+              "cell_mapping_pairs": 0,
+              "demand_blocked": 0,
+              "no_new_neighbor": 0,
+              "score_blocked": 0,
+              "formed": 0,
+              "score_blocked_target_never_spiked": 0,
+              "score_blocked_with_recent_source": 0,
+              "score_blocked_with_recent_excitatory_source": 0
+            }
+          },
+          "relay_formations": [],
+          "terminal_edges": [
+            {
+              "edge": 318,
+              "source": 79,
+              "target": 80,
+              "observations": 40,
+              "below_threshold": 0,
+              "longest_below_us": 0,
+              "first_below_threshold_observation": null,
+              "pruned": null
+            },
+            {
+              "edge": 1324,
+              "source": 78,
+              "target": 80,
+              "observations": 40,
+              "below_threshold": 0,
+              "longest_below_us": 0,
+              "first_below_threshold_observation": null,
+              "pruned": null
+            },
+            {
+              "edge": 1391,
+              "source": 87,
+              "target": 101,
+              "observations": 40,
+              "below_threshold": 0,
+              "longest_below_us": 0,
+              "first_below_threshold_observation": null,
+              "pruned": null
+            }
+          ]
+        },
+        "reverse": {
+          "strata": {
+            "quiet_comparison": {
+              "cell_mapping_pairs": 12,
+              "demand_blocked": 0,
+              "no_new_neighbor": 0,
+              "score_blocked": 480,
+              "formed": 0,
+              "score_blocked_target_never_spiked": 480,
+              "score_blocked_with_recent_source": 122,
+              "score_blocked_with_recent_excitatory_source": 122
+            },
+            "active_comparison": {
+              "cell_mapping_pairs": 12,
+              "demand_blocked": 300,
+              "no_new_neighbor": 0,
+              "score_blocked": 141,
+              "formed": 39,
+              "score_blocked_target_never_spiked": 5,
+              "score_blocked_with_recent_source": 18,
+              "score_blocked_with_recent_excitatory_source": 18
+            },
+            "focus_relays": {
+              "cell_mapping_pairs": 0,
+              "demand_blocked": 0,
+              "no_new_neighbor": 0,
+              "score_blocked": 0,
+              "formed": 0,
+              "score_blocked_target_never_spiked": 0,
+              "score_blocked_with_recent_source": 0,
+              "score_blocked_with_recent_excitatory_source": 0
+            }
+          },
+          "relay_formations": [],
+          "terminal_edges": [
+            {
+              "edge": 331,
+              "source": 82,
+              "target": 89,
+              "observations": 40,
+              "below_threshold": 0,
+              "longest_below_us": 0,
+              "first_below_threshold_observation": null,
+              "pruned": null
+            },
+            {
+              "edge": 350,
+              "source": 87,
+              "target": 89,
+              "observations": 40,
+              "below_threshold": 0,
+              "longest_below_us": 0,
+              "first_below_threshold_observation": null,
+              "pruned": null
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

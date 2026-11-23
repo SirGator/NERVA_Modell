@@ -22,6 +22,7 @@ eine balancierte Belichtung dienen als Kontrollen.
 [Herkunft der Gewichtsänderungen auf stillen Abrufpfaden](CONTINGENCY_ELIGIBILITY_RESULTS_20261123.md).
 [Core-Homöostase auf diesen Pfaden](CONTINGENCY_CORE_HOMEOSTASIS_RESULTS_20261123.md).
 [Strukturplastizität und Abruf aus dem trainierten Zustand](CONTINGENCY_STRUCTURAL_RESULTS_20261123.md).
+[Kandidatenscores und Nutzungszeitgeber an den Wartungszeitpunkten](CONTINGENCY_STRUCTURAL_DECISIONS_RESULTS_20261123.md).
 
 [MLD-03](MLD03.md) trennt Gewichtswirkung von künstlich veränderter Core-Schwelle
 und Integrationszeit. Ein zweiter Abschnitt vergleicht Sensor-/Core-Homöostase
