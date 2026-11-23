@@ -1,0 +1,1413 @@
+{
+  "protocol": "NERVA-Contingency-Structural/1",
+  "cohort_size": 4,
+  "preregistration_sha256": "d298e54b8b6e7bb938985f3c94988aa8fa0f412d801d1621fba498c06dc6f7a8",
+  "seeds": [
+    {
+      "seed": 34123,
+      "archived_record_checksum": "9986c63f3e81a0de",
+      "capacity_sha256": "a7d46c5fa1ff7b4641684a2a0c5dc149cc5a97f0f34fe404abe64576e0f32c8d",
+      "homeostasis_sha256": "cfbd0a122429dc3fdf4fb1720af7a50ceeed1af937af4bd8543cc1749e8bc9f3",
+      "diagnostic_sha256": "5e6985fbdc842fd921b45f8c1422af7a2e9bb1915984f245d7d87e411c83adbe",
+      "preliminary_gates": {
+        "forward": {
+          "cue0": {
+            "correct": 0,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          },
+          "cue1": {
+            "correct": 0,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 2,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          }
+        },
+        "reverse": {
+          "cue0": {
+            "correct": 0,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          },
+          "cue1": {
+            "correct": 0,
+            "incorrect": 2,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          }
+        }
+      },
+      "gates": {
+        "forward": {
+          "cue0": {
+            "correct": 0,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          },
+          "cue1": {
+            "correct": 0,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 2,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          }
+        },
+        "reverse": {
+          "cue0": {
+            "correct": 0,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          },
+          "cue1": {
+            "correct": 0,
+            "incorrect": 2,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          }
+        }
+      },
+      "ablations": [],
+      "arms": {
+        "frozen": {
+          "forward": {
+            "births": 0,
+            "prunings": 0,
+            "surviving_new_edges": 0,
+            "training_core_spikes": 1206,
+            "quiet_sources": {
+              "93": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 889,
+                "first_spike": null,
+                "new_input_formations": [],
+                "delivered_new_inputs": [],
+                "frozen_drive_above_0_5_boundaries": 40
+              },
+              "103": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 896,
+                "first_spike": null,
+                "new_input_formations": [],
+                "delivered_new_inputs": [],
+                "frozen_drive_above_0_5_boundaries": 35
+              },
+              "153": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 872,
+                "first_spike": null,
+                "new_input_formations": [],
+                "delivered_new_inputs": [],
+                "frozen_drive_above_0_5_boundaries": 40
+              }
+            },
+            "terminal_pairs": [
+              {
+                "edge": 317,
+                "source": 79,
+                "target": 78,
+                "delay_us": 1063,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 16,
+                "target_spikes": 24,
+                "task_arrivals": 16,
+                "new_tag_events": 24
+              },
+              {
+                "edge": 1331,
+                "source": 103,
+                "target": 101,
+                "delay_us": 1000,
+                "previously_quiet": true,
+                "pruned_at_us": null,
+                "source_spikes": 0,
+                "target_spikes": 32,
+                "task_arrivals": 0,
+                "new_tag_events": 0
+              },
+              {
+                "edge": 1334,
+                "source": 103,
+                "target": 105,
+                "delay_us": 1000,
+                "previously_quiet": true,
+                "pruned_at_us": null,
+                "source_spikes": 0,
+                "target_spikes": 48,
+                "task_arrivals": 0,
+                "new_tag_events": 0
+              },
+              {
+                "edge": 1368,
+                "source": 93,
+                "target": 85,
+                "delay_us": 1000,
+                "previously_quiet": true,
+                "pruned_at_us": null,
+                "source_spikes": 0,
+                "target_spikes": 24,
+                "task_arrivals": 0,
+                "new_tag_events": 0
+              },
+              {
+                "edge": 1379,
+                "source": 93,
+                "target": 107,
+                "delay_us": 1000,
+                "previously_quiet": true,
+                "pruned_at_us": null,
+                "source_spikes": 0,
+                "target_spikes": 17,
+                "task_arrivals": 0,
+                "new_tag_events": 0
+              },
+              {
+                "edge": 1388,
+                "source": 79,
+                "target": 85,
+                "delay_us": 1000,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 16,
+                "target_spikes": 24,
+                "task_arrivals": 16,
+                "new_tag_events": 24
+              },
+              {
+                "edge": 1394,
+                "source": 153,
+                "target": 105,
+                "delay_us": 1000,
+                "previously_quiet": true,
+                "pruned_at_us": null,
+                "source_spikes": 0,
+                "target_spikes": 48,
+                "task_arrivals": 0,
+                "new_tag_events": 0
+              }
+            ],
+            "blank_core_spikes": 0,
+            "rest_core_spikes": {
+              "blank": 0,
+              "cue0": 0,
+              "cue1": 0
+            }
+          },
+          "reverse": {
+            "births": 0,
+            "prunings": 0,
+            "surviving_new_edges": 0,
+            "training_core_spikes": 1183,
+            "quiet_sources": {
+              "93": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 889,
+                "first_spike": null,
+                "new_input_formations": [],
+                "delivered_new_inputs": [],
+                "frozen_drive_above_0_5_boundaries": 40
+              },
+              "103": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 890,
+                "first_spike": null,
+                "new_input_formations": [],
+                "delivered_new_inputs": [],
+                "frozen_drive_above_0_5_boundaries": 35
+              },
+              "153": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 872,
+                "first_spike": null,
+                "new_input_formations": [],
+                "delivered_new_inputs": [],
+                "frozen_drive_above_0_5_boundaries": 40
+              }
+            },
+            "terminal_pairs": [
+              {
+                "edge": 1333,
+                "source": 103,
+                "target": 104,
+                "delay_us": 1000,
+                "previously_quiet": true,
+                "pruned_at_us": null,
+                "source_spikes": 0,
+                "target_spikes": 8,
+                "task_arrivals": 0,
+                "new_tag_events": 0
+              },
+              {
+                "edge": 1374,
+                "source": 93,
+                "target": 101,
+                "delay_us": 1000,
+                "previously_quiet": true,
+                "pruned_at_us": null,
+                "source_spikes": 0,
+                "target_spikes": 32,
+                "task_arrivals": 0,
+                "new_tag_events": 0
+              },
+              {
+                "edge": 1376,
+                "source": 96,
+                "target": 104,
+                "delay_us": 1000,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 8,
+                "target_spikes": 8,
+                "task_arrivals": 8,
+                "new_tag_events": 8
+              },
+              {
+                "edge": 1402,
+                "source": 153,
+                "target": 104,
+                "delay_us": 1000,
+                "previously_quiet": true,
+                "pruned_at_us": null,
+                "source_spikes": 0,
+                "target_spikes": 8,
+                "task_arrivals": 0,
+                "new_tag_events": 0
+              }
+            ],
+            "blank_core_spikes": 0,
+            "rest_core_spikes": {
+              "blank": 0,
+              "cue0": 0,
+              "cue1": 0
+            }
+          }
+        },
+        "growing": {
+          "forward": {
+            "births": 145,
+            "prunings": 105,
+            "surviving_new_edges": 86,
+            "training_core_spikes": 1343,
+            "quiet_sources": {
+              "93": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 891,
+                "first_spike": null,
+                "new_input_formations": [],
+                "delivered_new_inputs": []
+              },
+              "103": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 857,
+                "first_spike": null,
+                "new_input_formations": [],
+                "delivered_new_inputs": []
+              },
+              "153": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 832,
+                "first_spike": null,
+                "new_input_formations": [],
+                "delivered_new_inputs": []
+              }
+            },
+            "terminal_pairs": [
+              {
+                "edge": 317,
+                "source": 79,
+                "target": 78,
+                "delay_us": 1063,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 16,
+                "target_spikes": 38,
+                "task_arrivals": 16,
+                "new_tag_events": 38
+              },
+              {
+                "edge": 1331,
+                "source": 103,
+                "target": 101,
+                "delay_us": 1000,
+                "previously_quiet": true,
+                "pruned_at_us": 2500000,
+                "source_spikes": 0,
+                "target_spikes": 32,
+                "task_arrivals": 0,
+                "new_tag_events": 0
+              },
+              {
+                "edge": 1334,
+                "source": 103,
+                "target": 105,
+                "delay_us": 1000,
+                "previously_quiet": true,
+                "pruned_at_us": 2500000,
+                "source_spikes": 0,
+                "target_spikes": 48,
+                "task_arrivals": 0,
+                "new_tag_events": 0
+              },
+              {
+                "edge": 1368,
+                "source": 93,
+                "target": 85,
+                "delay_us": 1000,
+                "previously_quiet": true,
+                "pruned_at_us": 2900000,
+                "source_spikes": 0,
+                "target_spikes": 31,
+                "task_arrivals": 0,
+                "new_tag_events": 0
+              },
+              {
+                "edge": 1379,
+                "source": 93,
+                "target": 107,
+                "delay_us": 1000,
+                "previously_quiet": true,
+                "pruned_at_us": 3000000,
+                "source_spikes": 0,
+                "target_spikes": 24,
+                "task_arrivals": 0,
+                "new_tag_events": 0
+              },
+              {
+                "edge": 1388,
+                "source": 79,
+                "target": 85,
+                "delay_us": 1000,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 16,
+                "target_spikes": 31,
+                "task_arrivals": 16,
+                "new_tag_events": 31
+              },
+              {
+                "edge": 1394,
+                "source": 153,
+                "target": 105,
+                "delay_us": 1000,
+                "previously_quiet": true,
+                "pruned_at_us": 1500000,
+                "source_spikes": 0,
+                "target_spikes": 48,
+                "task_arrivals": 0,
+                "new_tag_events": 0
+              }
+            ],
+            "blank_core_spikes": 0,
+            "rest_core_spikes": {
+              "blank": 0,
+              "cue0": 0,
+              "cue1": 0
+            }
+          },
+          "reverse": {
+            "births": 143,
+            "prunings": 97,
+            "surviving_new_edges": 95,
+            "training_core_spikes": 1326,
+            "quiet_sources": {
+              "93": {
+                "spikes": 0,
+                "new_input_arrivals": 1,
+                "new_positive_arrivals": 1,
+                "new_input_edges": [
+                  1422
+                ],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 885,
+                "first_spike": null,
+                "new_input_formations": [
+                  [
+                    1100000,
+                    1422,
+                    92,
+                    1500000
+                  ]
+                ],
+                "delivered_new_inputs": [
+                  [
+                    1102002,
+                    1422,
+                    92,
+                    0.23953433334827423,
+                    [
+                      1102002,
+                      93,
+                      -0.2711368203163147,
+                      0.23953433334827423,
+                      1.2338367700576782,
+                      857752,
+                      false
+                    ]
+                  ]
+                ]
+              },
+              "103": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 855,
+                "first_spike": null,
+                "new_input_formations": [],
+                "delivered_new_inputs": []
+              },
+              "153": {
+                "spikes": 0,
+                "new_input_arrivals": 0,
+                "new_positive_arrivals": 0,
+                "new_input_edges": [],
+                "new_positive_arrivals_before_first_spike": null,
+                "integrations": 833,
+                "first_spike": null,
+                "new_input_formations": [],
+                "delivered_new_inputs": []
+              }
+            },
+            "terminal_pairs": [
+              {
+                "edge": 1333,
+                "source": 103,
+                "target": 104,
+                "delay_us": 1000,
+                "previously_quiet": true,
+                "pruned_at_us": 2700000,
+                "source_spikes": 0,
+                "target_spikes": 8,
+                "task_arrivals": 0,
+                "new_tag_events": 0
+              },
+              {
+                "edge": 1374,
+                "source": 93,
+                "target": 101,
+                "delay_us": 1000,
+                "previously_quiet": true,
+                "pruned_at_us": 3000000,
+                "source_spikes": 0,
+                "target_spikes": 32,
+                "task_arrivals": 0,
+                "new_tag_events": 0
+              },
+              {
+                "edge": 1376,
+                "source": 96,
+                "target": 104,
+                "delay_us": 1000,
+                "previously_quiet": false,
+                "pruned_at_us": 3600000,
+                "source_spikes": 8,
+                "target_spikes": 8,
+                "task_arrivals": 5,
+                "new_tag_events": 5
+              },
+              {
+                "edge": 1402,
+                "source": 153,
+                "target": 104,
+                "delay_us": 1000,
+                "previously_quiet": true,
+                "pruned_at_us": 3200000,
+                "source_spikes": 0,
+                "target_spikes": 8,
+                "task_arrivals": 0,
+                "new_tag_events": 0
+              }
+            ],
+            "blank_core_spikes": 0,
+            "rest_core_spikes": {
+              "blank": 0,
+              "cue0": 0,
+              "cue1": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "seed": 34127,
+      "archived_record_checksum": "83d139fa0f9bfc0a",
+      "capacity_sha256": "0ff0039a8aa01e3e1e5475e875f67d6df2b766afccc49d85c6d04a9bf0ab3449",
+      "homeostasis_sha256": "91b54c90b7111796ce092d5cdeff4a85a0ba08b838abea4a0afaa78d4d18a74f",
+      "diagnostic_sha256": "59246cdfbdc9a90e326d191f750c5b16e274d5516a9b1c47a0bb5f03516e3c75",
+      "preliminary_gates": {
+        "forward": {
+          "cue0": {
+            "correct": 1,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 1,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          },
+          "cue1": {
+            "correct": 0,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 1,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          }
+        },
+        "reverse": {
+          "cue0": {
+            "correct": 0,
+            "incorrect": 1,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          },
+          "cue1": {
+            "correct": 0,
+            "incorrect": 1,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          }
+        }
+      },
+      "gates": {
+        "forward": {
+          "cue0": {
+            "correct": 1,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 1,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          },
+          "cue1": {
+            "correct": 0,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 1,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          }
+        },
+        "reverse": {
+          "cue0": {
+            "correct": 0,
+            "incorrect": 1,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          },
+          "cue1": {
+            "correct": 0,
+            "incorrect": 1,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          }
+        }
+      },
+      "ablations": [],
+      "arms": {
+        "frozen": {
+          "forward": {
+            "births": 0,
+            "prunings": 0,
+            "surviving_new_edges": 0,
+            "training_core_spikes": 991,
+            "quiet_sources": {},
+            "terminal_pairs": [
+              {
+                "edge": 1346,
+                "source": 71,
+                "target": 85,
+                "delay_us": 1000,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 19,
+                "target_spikes": 24,
+                "task_arrivals": 19,
+                "new_tag_events": 35
+              }
+            ],
+            "blank_core_spikes": 0,
+            "rest_core_spikes": {
+              "blank": 0,
+              "cue0": 0,
+              "cue1": 0
+            }
+          },
+          "reverse": {
+            "births": 0,
+            "prunings": 0,
+            "surviving_new_edges": 0,
+            "training_core_spikes": 994,
+            "quiet_sources": {},
+            "terminal_pairs": [],
+            "blank_core_spikes": 0,
+            "rest_core_spikes": {
+              "blank": 0,
+              "cue0": 0,
+              "cue1": 0
+            }
+          }
+        },
+        "growing": {
+          "forward": {
+            "births": 160,
+            "prunings": 84,
+            "surviving_new_edges": 111,
+            "training_core_spikes": 1359,
+            "quiet_sources": {},
+            "terminal_pairs": [
+              {
+                "edge": 1346,
+                "source": 71,
+                "target": 85,
+                "delay_us": 1000,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 33,
+                "target_spikes": 31,
+                "task_arrivals": 33,
+                "new_tag_events": 39
+              }
+            ],
+            "blank_core_spikes": 0,
+            "rest_core_spikes": {
+              "blank": 0,
+              "cue0": 0,
+              "cue1": 0
+            }
+          },
+          "reverse": {
+            "births": 158,
+            "prunings": 80,
+            "surviving_new_edges": 116,
+            "training_core_spikes": 1370,
+            "quiet_sources": {},
+            "terminal_pairs": [],
+            "blank_core_spikes": 0,
+            "rest_core_spikes": {
+              "blank": 0,
+              "cue0": 0,
+              "cue1": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "seed": 34141,
+      "archived_record_checksum": "cdd71c7ffaa9b5f7",
+      "capacity_sha256": "617c533de4c5696636462a65b5b39ad7a8d41e24334cc47248b424391314f377",
+      "homeostasis_sha256": "f21a741da35746ee331c1870c228e4ca438d52b5eb2619924541c6450c0f22e3",
+      "diagnostic_sha256": "213e67bfe6e001ede77a4f0a4c0a093f30f168ecad65e2af6b0c69b19fee5bfa",
+      "preliminary_gates": {
+        "forward": {
+          "cue0": {
+            "correct": 0,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          },
+          "cue1": {
+            "correct": 1,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 3,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          }
+        },
+        "reverse": {
+          "cue0": {
+            "correct": 0,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          },
+          "cue1": {
+            "correct": 0,
+            "incorrect": 3,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          }
+        }
+      },
+      "gates": {
+        "forward": {
+          "cue0": {
+            "correct": 0,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          },
+          "cue1": {
+            "correct": 1,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 3,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          }
+        },
+        "reverse": {
+          "cue0": {
+            "correct": 0,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          },
+          "cue1": {
+            "correct": 0,
+            "incorrect": 3,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          }
+        }
+      },
+      "ablations": [],
+      "arms": {
+        "frozen": {
+          "forward": {
+            "births": 0,
+            "prunings": 0,
+            "surviving_new_edges": 0,
+            "training_core_spikes": 1012,
+            "quiet_sources": {},
+            "terminal_pairs": [
+              {
+                "edge": 363,
+                "source": 90,
+                "target": 97,
+                "delay_us": 1771,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 16,
+                "target_spikes": 8,
+                "task_arrivals": 16,
+                "new_tag_events": 9
+              },
+              {
+                "edge": 1345,
+                "source": 96,
+                "target": 97,
+                "delay_us": 1000,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 16,
+                "target_spikes": 8,
+                "task_arrivals": 16,
+                "new_tag_events": 8
+              }
+            ],
+            "blank_core_spikes": 0,
+            "rest_core_spikes": {
+              "blank": 0,
+              "cue0": 0,
+              "cue1": 0
+            }
+          },
+          "reverse": {
+            "births": 0,
+            "prunings": 0,
+            "surviving_new_edges": 0,
+            "training_core_spikes": 1010,
+            "quiet_sources": {},
+            "terminal_pairs": [
+              {
+                "edge": 1343,
+                "source": 96,
+                "target": 95,
+                "delay_us": 1000,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 16,
+                "target_spikes": 17,
+                "task_arrivals": 16,
+                "new_tag_events": 25
+              },
+              {
+                "edge": 1346,
+                "source": 96,
+                "target": 102,
+                "delay_us": 1000,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 16,
+                "target_spikes": 8,
+                "task_arrivals": 16,
+                "new_tag_events": 13
+              },
+              {
+                "edge": 1350,
+                "source": 96,
+                "target": 110,
+                "delay_us": 1000,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 16,
+                "target_spikes": 8,
+                "task_arrivals": 16,
+                "new_tag_events": 16
+              },
+              {
+                "edge": 1360,
+                "source": 96,
+                "target": 103,
+                "delay_us": 1000,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 16,
+                "target_spikes": 8,
+                "task_arrivals": 16,
+                "new_tag_events": 16
+              }
+            ],
+            "blank_core_spikes": 0,
+            "rest_core_spikes": {
+              "blank": 0,
+              "cue0": 0,
+              "cue1": 0
+            }
+          }
+        },
+        "growing": {
+          "forward": {
+            "births": 128,
+            "prunings": 89,
+            "surviving_new_edges": 81,
+            "training_core_spikes": 1148,
+            "quiet_sources": {},
+            "terminal_pairs": [
+              {
+                "edge": 363,
+                "source": 90,
+                "target": 97,
+                "delay_us": 1771,
+                "previously_quiet": false,
+                "pruned_at_us": 2400000,
+                "source_spikes": 9,
+                "target_spikes": 1,
+                "task_arrivals": 4,
+                "new_tag_events": 1
+              },
+              {
+                "edge": 1345,
+                "source": 96,
+                "target": 97,
+                "delay_us": 1000,
+                "previously_quiet": false,
+                "pruned_at_us": 2600000,
+                "source_spikes": 16,
+                "target_spikes": 1,
+                "task_arrivals": 7,
+                "new_tag_events": 1
+              }
+            ],
+            "blank_core_spikes": 0,
+            "rest_core_spikes": {
+              "blank": 0,
+              "cue0": 0,
+              "cue1": 0
+            }
+          },
+          "reverse": {
+            "births": 125,
+            "prunings": 86,
+            "surviving_new_edges": 77,
+            "training_core_spikes": 1125,
+            "quiet_sources": {},
+            "terminal_pairs": [
+              {
+                "edge": 1343,
+                "source": 96,
+                "target": 95,
+                "delay_us": 1000,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 16,
+                "target_spikes": 20,
+                "task_arrivals": 16,
+                "new_tag_events": 28
+              },
+              {
+                "edge": 1346,
+                "source": 96,
+                "target": 102,
+                "delay_us": 1000,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 16,
+                "target_spikes": 8,
+                "task_arrivals": 16,
+                "new_tag_events": 13
+              },
+              {
+                "edge": 1350,
+                "source": 96,
+                "target": 110,
+                "delay_us": 1000,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 16,
+                "target_spikes": 8,
+                "task_arrivals": 16,
+                "new_tag_events": 16
+              },
+              {
+                "edge": 1360,
+                "source": 96,
+                "target": 103,
+                "delay_us": 1000,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 16,
+                "target_spikes": 8,
+                "task_arrivals": 16,
+                "new_tag_events": 16
+              }
+            ],
+            "blank_core_spikes": 0,
+            "rest_core_spikes": {
+              "blank": 0,
+              "cue0": 0,
+              "cue1": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "seed": 34157,
+      "archived_record_checksum": "d8ec002180f4b98d",
+      "capacity_sha256": "7502ca4550d7bf74dddc33936fccd7dcacfbff40a432621e6ad96525319444f2",
+      "homeostasis_sha256": "794c7c0ca66bcfbd15fb701602c32df345cb88c18574c2c245986c68e6ff8f39",
+      "diagnostic_sha256": "d4a0c7774fcf2cd573f24edd85d2be130978c461bc8f57716b85fb32e442601b",
+      "preliminary_gates": {
+        "forward": {
+          "cue0": {
+            "correct": 0,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          },
+          "cue1": {
+            "correct": 0,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          }
+        },
+        "reverse": {
+          "cue0": {
+            "correct": 0,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          },
+          "cue1": {
+            "correct": 0,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          }
+        }
+      },
+      "gates": {
+        "forward": {
+          "cue0": {
+            "correct": 0,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          },
+          "cue1": {
+            "correct": 0,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          }
+        },
+        "reverse": {
+          "cue0": {
+            "correct": 0,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          },
+          "cue1": {
+            "correct": 0,
+            "incorrect": 0,
+            "frozen": 0,
+            "opposite": 0,
+            "balanced": null,
+            "same_root_input": true,
+            "passed": false
+          }
+        }
+      },
+      "ablations": [],
+      "arms": {
+        "frozen": {
+          "forward": {
+            "births": 0,
+            "prunings": 0,
+            "surviving_new_edges": 0,
+            "training_core_spikes": 1097,
+            "quiet_sources": {},
+            "terminal_pairs": [
+              {
+                "edge": 318,
+                "source": 79,
+                "target": 80,
+                "delay_us": 1623,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 16,
+                "target_spikes": 16,
+                "task_arrivals": 16,
+                "new_tag_events": 16
+              },
+              {
+                "edge": 1324,
+                "source": 78,
+                "target": 80,
+                "delay_us": 1000,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 24,
+                "target_spikes": 16,
+                "task_arrivals": 24,
+                "new_tag_events": 16
+              },
+              {
+                "edge": 1391,
+                "source": 87,
+                "target": 101,
+                "delay_us": 1000,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 16,
+                "target_spikes": 36,
+                "task_arrivals": 16,
+                "new_tag_events": 36
+              }
+            ],
+            "blank_core_spikes": 0,
+            "rest_core_spikes": {
+              "blank": 0,
+              "cue0": 0,
+              "cue1": 0
+            }
+          },
+          "reverse": {
+            "births": 0,
+            "prunings": 0,
+            "surviving_new_edges": 0,
+            "training_core_spikes": 1113,
+            "quiet_sources": {},
+            "terminal_pairs": [
+              {
+                "edge": 331,
+                "source": 82,
+                "target": 89,
+                "delay_us": 1326,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 27,
+                "target_spikes": 15,
+                "task_arrivals": 27,
+                "new_tag_events": 28
+              },
+              {
+                "edge": 350,
+                "source": 87,
+                "target": 89,
+                "delay_us": 1282,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 21,
+                "target_spikes": 15,
+                "task_arrivals": 21,
+                "new_tag_events": 15
+              }
+            ],
+            "blank_core_spikes": 0,
+            "rest_core_spikes": {
+              "blank": 0,
+              "cue0": 0,
+              "cue1": 0
+            }
+          }
+        },
+        "growing": {
+          "forward": {
+            "births": 125,
+            "prunings": 81,
+            "surviving_new_edges": 69,
+            "training_core_spikes": 1169,
+            "quiet_sources": {},
+            "terminal_pairs": [
+              {
+                "edge": 318,
+                "source": 79,
+                "target": 80,
+                "delay_us": 1623,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 18,
+                "target_spikes": 23,
+                "task_arrivals": 18,
+                "new_tag_events": 16
+              },
+              {
+                "edge": 1324,
+                "source": 78,
+                "target": 80,
+                "delay_us": 1000,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 21,
+                "target_spikes": 23,
+                "task_arrivals": 21,
+                "new_tag_events": 16
+              },
+              {
+                "edge": 1391,
+                "source": 87,
+                "target": 101,
+                "delay_us": 1000,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 14,
+                "target_spikes": 38,
+                "task_arrivals": 14,
+                "new_tag_events": 38
+              }
+            ],
+            "blank_core_spikes": 0,
+            "rest_core_spikes": {
+              "blank": 0,
+              "cue0": 0,
+              "cue1": 0
+            }
+          },
+          "reverse": {
+            "births": 124,
+            "prunings": 70,
+            "surviving_new_edges": 82,
+            "training_core_spikes": 1207,
+            "quiet_sources": {},
+            "terminal_pairs": [
+              {
+                "edge": 331,
+                "source": 82,
+                "target": 89,
+                "delay_us": 1326,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 30,
+                "target_spikes": 17,
+                "task_arrivals": 30,
+                "new_tag_events": 36
+              },
+              {
+                "edge": 350,
+                "source": 87,
+                "target": 89,
+                "delay_us": 1282,
+                "previously_quiet": false,
+                "pruned_at_us": null,
+                "source_spikes": 13,
+                "target_spikes": 17,
+                "task_arrivals": 13,
+                "new_tag_events": 17
+              }
+            ],
+            "blank_core_spikes": 0,
+            "rest_core_spikes": {
+              "blank": 0,
+              "cue0": 0,
+              "cue1": 0
+            }
+          }
+        }
+      }
+    }
+  ],
+  "totals": {
+    "frozen": {
+      "births": 0,
+      "prunings": 0,
+      "surviving_new_edges": 0,
+      "training_core_spikes": 8606,
+      "quiet_source_mapping_pairs": 6,
+      "quiet_source_pairs_with_spikes": 0,
+      "quiet_source_spikes": 0,
+      "new_input_formations_on_quiet_sources": 0,
+      "new_arrivals_to_quiet_sources": 0,
+      "new_positive_arrivals_to_quiet_sources": 0,
+      "all_terminal_pairs": 23,
+      "all_terminal_pruned_pairs": 0,
+      "all_terminal_task_arrivals": 259,
+      "all_terminal_target_spikes": 452,
+      "all_terminal_new_tag_events": 289,
+      "all_terminal_pairs_with_new_tags": 15,
+      "quiet_terminal_pairs": 8,
+      "quiet_terminal_pruned_pairs": 0,
+      "quiet_terminal_task_arrivals": 0,
+      "quiet_terminal_target_spikes": 217,
+      "quiet_terminal_new_tag_events": 0,
+      "quiet_terminal_pairs_with_new_tags": 0
+    },
+    "growing": {
+      "births": 1108,
+      "prunings": 692,
+      "surviving_new_edges": 717,
+      "training_core_spikes": 10047,
+      "quiet_source_mapping_pairs": 6,
+      "quiet_source_pairs_with_spikes": 0,
+      "quiet_source_spikes": 0,
+      "new_input_formations_on_quiet_sources": 1,
+      "new_arrivals_to_quiet_sources": 1,
+      "new_positive_arrivals_to_quiet_sources": 1,
+      "all_terminal_pairs": 23,
+      "all_terminal_pruned_pairs": 11,
+      "all_terminal_task_arrivals": 241,
+      "all_terminal_target_spikes": 503,
+      "all_terminal_new_tag_events": 311,
+      "all_terminal_pairs_with_new_tags": 15,
+      "quiet_terminal_pairs": 8,
+      "quiet_terminal_pruned_pairs": 8,
+      "quiet_terminal_task_arrivals": 0,
+      "quiet_terminal_target_spikes": 231,
+      "quiet_terminal_new_tag_events": 0,
+      "quiet_terminal_pairs_with_new_tags": 0
+    }
+  },
+  "recall": {
+    "cue_mapping_comparisons": 16,
+    "preliminary_passes": 0,
+    "balanced_control_runs": 0,
+    "passes": 0,
+    "ablations": 0
+  }
+}
