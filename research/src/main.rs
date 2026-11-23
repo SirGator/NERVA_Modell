@@ -18,7 +18,7 @@ use nerva_research::{
                 },
                 live_rate::{
                     LiveRateScenario,
-                    growth::{LiveGrowthScenario, replay_a_transfer},
+                    growth::{LiveGrowthScenario, replay_a_source, replay_a_transfer},
                     replay_b_factor,
                 },
                 replay_chemical, replay_electrical,
@@ -69,6 +69,7 @@ fn execute() -> Result<()> {
             | "contingency-grown-residual"
             | "contingency-b-factor"
             | "contingency-a-transfer"
+            | "contingency-a-source"
     ) {
         let path = args
             .next()
@@ -83,6 +84,7 @@ fn execute() -> Result<()> {
                 | "contingency-structural-consolidation"
                 | "contingency-grown-dose"
                 | "contingency-grown-residual"
+                | "contingency-a-source"
         ) {
             let path = args
                 .next()
@@ -107,6 +109,7 @@ fn execute() -> Result<()> {
         let source = fs::read(&path).map_err(|e| error(e.to_string()))?;
         let envelope = serde_json::from_slice(&source).map_err(|e| error(e.to_string()))?;
         let output = match auxiliary {
+            Some(plan) if mode == "contingency-a-source" => replay_a_source(&envelope, &plan)?,
             Some(observations) if mode == "contingency-grown-residual" => {
                 replay_grown_residual(&envelope, &observations, &old_dose.unwrap())?
             }

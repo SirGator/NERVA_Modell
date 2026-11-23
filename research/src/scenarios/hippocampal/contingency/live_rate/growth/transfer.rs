@@ -4,7 +4,7 @@ use super::{
     TrainingAudit, checkpoint, exact_fork, fail, frames, patterns, topology,
 };
 use crate::scenarios::hippocampal::contingency::{
-    CUES, learned_parameters_equal, observe_probe, wait_probe_rest,
+    CUES, electrical::Trace, learned_parameters_equal, observe_probe, wait_probe_rest,
 };
 use crate::{
     Result, error, fingerprint,
@@ -13,6 +13,9 @@ use crate::{
 use nerva::core::{NeuronId, Polarity, SynapseId};
 use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
+
+mod sources;
+pub use sources::replay_a_source;
 
 const PROTOCOL: &str = "NERVA-Contingency-A-Transfer/1";
 const PROBES: [&str; 3] = ["blank", CUES[0], CUES[1]];
@@ -263,13 +266,24 @@ impl Carrier {
     }
 
     fn read(&self, assay: &Assay<'_>, model: &Model, cue: &str, archived: &Value) -> Result<Value> {
+        self.read_with_trace(assay, model, cue, archived, None)
+    }
+
+    fn read_with_trace(
+        &self,
+        assay: &Assay<'_>,
+        model: &Model,
+        cue: &str,
+        archived: &Value,
+        trace: Option<&mut Trace<'_>>,
+    ) -> Result<Value> {
         let mut fork = exact_fork(model)?;
         let response = observe_probe(
             &mut fork,
             &assay.images[cue],
             &assay.images["blank"],
             self.rest_spikes,
-            None,
+            trace,
         )?
         .json();
         if !learned_parameters_equal(model.network(), fork.network())
@@ -520,8 +534,7 @@ fn run(record: &Value, checksum: &str) -> Result<Value> {
     )
 }
 
-/// Repeat a complete retrospective readout before publishing its observations.
-pub fn replay_a_transfer(envelope: &Value) -> Result<Value> {
+fn checked_growth_record(envelope: &Value) -> Result<(&Value, String)> {
     let record = &envelope["record"];
     let checksum = fingerprint(&serde_json::to_vec(record).map_err(fail)?);
     if record["details"]["protocol"] != super::PROTOCOL
@@ -532,6 +545,12 @@ pub fn replay_a_transfer(envelope: &Value) -> Result<Value> {
             "A transfer requires an intact replay-verified live growth record",
         ));
     }
+    Ok((record, checksum))
+}
+
+/// Repeat a complete retrospective readout before publishing its observations.
+pub fn replay_a_transfer(envelope: &Value) -> Result<Value> {
+    let (record, checksum) = checked_growth_record(envelope)?;
     let mut result = run(record, &checksum)?;
     if result != run(record, &checksum)? {
         return Err(error("A transfer full counterfactual replay differs"));

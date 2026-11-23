@@ -8,4 +8,5 @@ description = "Configuration-driven research runner with independent scenario ad
 nerva = { path = "../../NERVA" }
 nerva-vm = { path = "../Modell" }
 nerva-qemu = { path = "../nerva-qemu" }
+serde = { version = "1", features = ["derive"] }
 serde_json = { version = "1", features = ["float_roundtrip"] }
