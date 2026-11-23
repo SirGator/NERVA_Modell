@@ -20,7 +20,9 @@ mod structural;
 pub use eligibility::replay_eligibility;
 pub use homeostasis::replay_homeostasis;
 use routes::{Edge, Routes, routes};
-pub use structural::{replay_structural, replay_structural_decisions};
+pub use structural::{
+    replay_structural, replay_structural_decisions, replay_structural_exploration,
+};
 
 pub struct CapacityScenario;
 const PROTOCOL: &str = "NERVA-Contingency-Capacity/1";

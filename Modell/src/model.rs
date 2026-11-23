@@ -26,12 +26,16 @@ pub mod area;
 pub mod audit;
 pub mod config;
 mod development_audit;
+mod development_policy;
 pub(crate) mod random;
 pub mod sensory;
 mod spatial;
 mod topology;
 pub use area::{Architecture, AreaField, AreaWeights};
 pub use config::{HomeostasisScope, ModelConfig, ModelKind};
+pub use development_policy::{
+    DevelopmentPolicy, EXPLORATION_WINDOW_US, Exploration, ExploratoryFormation,
+};
 pub use sensory::{SensorConfig, SensorMode, SpikeCoding};
 use sensory::{SensorEncoder, SpikeSource};
 
@@ -42,6 +46,7 @@ pub type SynapseFormation = (u64, u64, u64);
 #[derive(Default)]
 struct TopologyChanges {
     formed: Vec<SynapseFormation>,
+    exploratory: Vec<Exploration>,
     pruned: Vec<u64>,
 }
 
@@ -116,6 +121,7 @@ pub struct Model {
     next_development_us: u64,
     audit: Option<audit::Collector>,
     development_audit: Option<development_audit::Collector>,
+    development_policy: development_policy::PolicyState,
 }
 
 #[derive(Clone, Debug, Default, PartialEq)]
@@ -146,6 +152,8 @@ pub struct Step {
     pub action_copy_arrivals: usize,
     pub homeostasis_changes: usize,
     pub formed: Vec<SynapseFormation>,
+    /// Decisions for the subset formed by an experimental candidate rule.
+    pub exploratory: Vec<Exploration>,
     pub pruned: Vec<u64>,
     pub core_synapses: usize,
 }
@@ -426,6 +434,7 @@ impl Model {
             next_development_us: 100_000,
             audit: None,
             development_audit: None,
+            development_policy: development_policy::PolicyState::default(),
         })
     }
 
@@ -517,6 +526,7 @@ impl Model {
             && self.executed_keys == other.executed_keys
             && self.next_synapse == other.next_synapse
             && self.next_development_us == other.next_development_us
+            && self.development_policy == other.development_policy
             && self.processing == other.processing
             && self.core_index == other.core_index
             && self.area_field == other.area_field
@@ -852,6 +862,7 @@ impl Model {
         let mut plan = DevelopmentPlan::default();
         let now = self.simulation.current_time();
         let mut formation_observations = Vec::new();
+        let mut exploratory_targets = std::collections::BTreeMap::new();
         for &target in &self.processing {
             let cell = self.network().neuron(target).expect("processing neuron");
             let demand = nerva::development::IncomingGrowthDrive::from_neuron(cell)?.demand;
@@ -897,6 +908,24 @@ impl Model {
             } else {
                 (None, None)
             };
+            let native = chosen.map(|candidate| PlannedFormation {
+                target,
+                source: candidate.source,
+                score: candidate.score,
+            });
+            let planned = native.or_else(|| {
+                if !search {
+                    return None;
+                }
+                let choice = self.exploratory_source(cell, &nearby, now)?;
+                let formation = PlannedFormation {
+                    target,
+                    source: choice.source,
+                    score: 0.0,
+                };
+                exploratory_targets.insert(target, (choice, demand));
+                Some(formation)
+            });
             if observe {
                 formation_observations.push(self.observe_formation(
                     cell,
@@ -904,15 +933,11 @@ impl Model {
                     &nearby,
                     post,
                     eligible,
-                    chosen.as_ref().map(|candidate| candidate.source),
+                    planned.as_ref().map(|candidate| candidate.source),
                 ));
             }
-            if let Some(candidate) = chosen {
-                plan.formations.push(PlannedFormation {
-                    target,
-                    source: candidate.source,
-                    score: candidate.score,
-                });
+            if let Some(formation) = planned {
+                plan.formations.push(formation);
             }
         }
         self.pruning.populate_plan(&mut plan, &self.simulation)?;
@@ -923,6 +948,9 @@ impl Model {
                 .expect("pruning candidate");
             self.is_core(synapse.pre()) && self.is_core(synapse.post())
         });
+        if !self.development_policy.settings.pruning {
+            plan.prunings.clear();
+        }
         let decision = self.observe_development(formation_observations, &plan)?;
         let created = if plan.is_empty() {
             Vec::new()
@@ -955,7 +983,23 @@ impl Model {
         if let Some(audit) = &mut self.development_audit {
             audit.last = decision;
         }
+        let exploratory = created
+            .iter()
+            .filter_map(|edge| {
+                let (choice, demand) = exploratory_targets.get(&edge.target)?;
+                self.development_policy.used.insert(edge.target);
+                Some(Exploration {
+                    edge: edge.synapse_id.0,
+                    time_us: now.0,
+                    source_last_us: choice.source_last.map(|time| time.0),
+                    target_last_us: choice.target_last.map(|time| time.0),
+                    recent_candidates: choice.recent_candidates,
+                    drive: *demand,
+                })
+            })
+            .collect();
         Ok(TopologyChanges {
+            exploratory,
             formed: created
                 .into_iter()
                 .map(|synapse| (synapse.synapse_id.0, synapse.source.0, synapse.target.0))
@@ -1173,7 +1217,11 @@ impl Model {
                 .and_then(|t| t.checked_mul(100_000))
                 .ok_or("development clock overflow")?;
         }
-        let TopologyChanges { formed, pruned } = if self.config.development && development_due {
+        let TopologyChanges {
+            formed,
+            exploratory,
+            pruned,
+        } = if self.config.development && development_due {
             self.develop()?
         } else {
             if let Some(audit) = &mut self.development_audit {
@@ -1214,6 +1262,7 @@ impl Model {
             action_copy_arrivals,
             homeostasis_changes,
             formed,
+            exploratory,
             pruned,
             core_synapses: self.core_synapse_count(),
         })

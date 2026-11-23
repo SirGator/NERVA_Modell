@@ -1,6 +1,8 @@
 use nerva::core::SynapseId;
 use nerva_qemu::capture::Frame;
-use nerva_vm::model::{HomeostasisScope, Model, ModelConfig};
+use nerva_vm::model::{
+    DevelopmentPolicy, HomeostasisScope, Model, ModelConfig, PlasticitySettings,
+};
 #[test]
 fn checkpoint_dynamics_reject_live_and_invalid_changes_and_identity_preserves_replay() {
     let cfg = ModelConfig {
@@ -88,4 +90,42 @@ fn development_audit_samples_only_maintenance_and_preserves_native_replay() {
     assert_eq!(audit["pruning"][0]["edge"], focus.0);
     assert!(traced.take_development_audit().is_none());
     assert!(traced.same_replay_state(&native));
+}
+
+#[test]
+fn frozen_policy_can_retain_edges_during_active_development() {
+    let config = ModelConfig {
+        processing_neurons: 32,
+        pruning_min_below_us: 100_000,
+        ..ModelConfig::default()
+    };
+    let mut retained = Model::from_config(config.clone()).unwrap();
+    let mut native = Model::from_config(config).unwrap();
+    let retaining = DevelopmentPolicy {
+        pruning: false,
+        ..DevelopmentPolicy::default()
+    };
+    assert!(retained.diagnostic_development_policy(retaining).is_err());
+    retained.freeze().unwrap();
+    retained.diagnostic_development_policy(retaining).unwrap();
+    retained
+        .set_plasticity(PlasticitySettings {
+            learning: true,
+            development: true,
+            homeostasis: true,
+        })
+        .unwrap();
+    let white = Frame::new(64, 64, vec![255; 64 * 64 * 3]).unwrap();
+    let black = Frame::new(64, 64, vec![0; 64 * 64 * 3]).unwrap();
+    let mut removed = 0;
+    let mut formed = 0;
+    for frame in std::iter::repeat_n(&white, 8).chain(std::iter::repeat_n(&black, 100)) {
+        let step = retained.step(frame).unwrap();
+        assert!(step.pruned.is_empty());
+        assert!(step.exploratory.is_empty());
+        formed += step.formed.len();
+        removed += native.step(frame).unwrap().pruned.len();
+    }
+    assert!(formed > 0);
+    assert!(removed > 0);
 }

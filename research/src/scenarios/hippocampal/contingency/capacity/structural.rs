@@ -11,9 +11,14 @@ use nerva::{
     core::{NeuronId, Polarity, SynapseId},
     runtime::{LearningAuditEvent, LearningPhase, ObservationEvent},
 };
-use nerva_vm::model::{HomeostasisScope, PlasticitySettings, audit::AuditOptions};
+use nerva_vm::model::{
+    DevelopmentPolicy, HomeostasisScope, PlasticitySettings, audit::AuditOptions,
+};
 use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
+
+mod exploration;
+pub use exploration::replay_structural_exploration;
 
 const PROTOCOL: &str = "NERVA-Contingency-Structural/1";
 const DECISION_PROTOCOL: &str = "NERVA-Contingency-Structural-Decisions/1";
@@ -21,10 +26,26 @@ const COMPARISON_SIZE: usize = 12;
 const PROBES: [&str; 3] = ["blank", "cue0", "cue1"];
 type Targets = [BTreeSet<u64>; 2];
 type Endpoints = Vec<(u64, u64, u64, f32, u64, bool)>;
+type Arrival = (u64, u64, u64, u64, f32);
+
+#[derive(Clone, Copy)]
+enum Structure {
+    Frozen,
+    Native,
+    Experimental(DevelopmentPolicy),
+}
+
+impl Structure {
+    fn native(growing: bool) -> Self {
+        if growing { Self::Native } else { Self::Frozen }
+    }
+}
 
 #[derive(Default)]
 struct TrainingTrace {
-    arrivals: Vec<(u64, u64, u64, u64, f32)>,
+    arrivals: Vec<Arrival>,
+    exploratory_ids: BTreeSet<SynapseId>,
+    exploratory_arrivals: Vec<Arrival>,
     integrals: Vec<(u64, u64, f32, f32, f32, u64, bool)>,
     tags: Vec<(u64, u64, &'static str, f32, f32)>,
     homeostatic_changes: usize,
@@ -69,9 +90,14 @@ impl TrainingTrace {
                     source,
                     target,
                     amplitude,
-                } if focus.contains(&synapse_id) || quiet.contains(&target.0) => {
-                    self.arrivals
-                        .push((time.0, synapse_id.0, source.0, target.0, amplitude));
+                } => {
+                    let row = (time.0, synapse_id.0, source.0, target.0, amplitude);
+                    if focus.contains(&synapse_id) || quiet.contains(&target.0) {
+                        self.arrivals.push(row);
+                    }
+                    if self.exploratory_ids.contains(&synapse_id) {
+                        self.exploratory_arrivals.push(row);
+                    }
                 }
                 ObservationEvent::NeuronIntegrated {
                     time,
@@ -136,7 +162,7 @@ impl TrainingTrace {
 fn train(
     assay: &Assay<'_>,
     mapping: &str,
-    development: bool,
+    structure: Structure,
     diagnostics: Option<(&BTreeSet<SynapseId>, &BTreeSet<u64>)>,
     decision_targets: Option<BTreeSet<NeuronId>>,
 ) -> Result<(Model, Value)> {
@@ -152,6 +178,10 @@ fn train(
     model
         .set_checkpoint_homeostasis_scope(HomeostasisScope::Core)
         .map_err(fail)?;
+    if let Structure::Experimental(policy) = structure {
+        model.diagnostic_development_policy(policy).map_err(fail)?;
+    }
+    let development = !matches!(structure, Structure::Frozen);
     model
         .set_plasticity(PlasticitySettings {
             learning: true,
@@ -176,12 +206,24 @@ fn train(
     let mut trace = TrainingTrace::default();
     let mut frames = Vec::new();
     let mut decisions = Vec::new();
+    let mut exploratory = Vec::new();
     for name in schedule(assay.c, assay.seed, mapping, 0) {
         let step = model.step(&assay.frames[name]).map_err(fail)?;
         if !development && (!step.formed.is_empty() || !step.pruned.is_empty()) {
             return Err(error("frozen structural control changed topology"));
         }
         if let Some((focus, quiet)) = diagnostics {
+            for row in step.exploratory {
+                trace.exploratory_ids.insert(SynapseId(row.edge));
+                exploratory.push((
+                    row.edge,
+                    row.time_us,
+                    row.source_last_us,
+                    row.target_last_us,
+                    row.recent_candidates,
+                    row.drive,
+                ));
+            }
             let roots = trace.record(&mut model, focus, quiet, &assay.core)?;
             frames.push(json!({"stimulus":name,"start_us":step.start_us,"end_us":step.end_us,
                 "root_spikes":roots,"core_spikes":step.core_events,"weight_changes":step.weight_changes,
@@ -215,6 +257,10 @@ fn train(
     if observe_decisions {
         observed["development_decisions"] = json!(decisions);
     }
+    if diagnostics.is_some() && matches!(structure, Structure::Experimental(_)) {
+        observed["exploratory"] = json!(exploratory);
+        observed["exploratory_arrivals"] = json!(trace.exploratory_arrivals);
+    }
     Ok((model, observed))
 }
 
@@ -222,11 +268,11 @@ fn response(
     assay: &Assay<'_>,
     trained: &Model,
     mapping: &str,
-    growth: bool,
+    structure: Structure,
     name: &str,
     blocked: &[SynapseId],
 ) -> Result<(Value, usize)> {
-    let (mut branch, _) = train(assay, mapping, growth, None, None)?;
+    let (mut branch, _) = train(assay, mapping, structure, None, None)?;
     if !trained.same_replay_state(&branch) {
         return Err(error(
             "structural recall training fork differs from its observed parent",
@@ -254,13 +300,23 @@ fn arm(
     focus: &BTreeSet<SynapseId>,
     quiet: &BTreeSet<u64>,
 ) -> Result<(Model, Value)> {
-    let (parent, training) = train(assay, mapping, growth, Some((focus, quiet)), None)?;
+    observed_arm(assay, mapping, Structure::native(growth), focus, quiet)
+}
+
+fn observed_arm(
+    assay: &Assay<'_>,
+    mapping: &str,
+    structure: Structure,
+    focus: &BTreeSet<SynapseId>,
+    quiet: &BTreeSet<u64>,
+) -> Result<(Model, Value)> {
+    let (parent, training) = train(assay, mapping, structure, Some((focus, quiet)), None)?;
     let probes = PROBES
         .into_iter()
         .map(|name| {
             Ok((
                 name,
-                response(assay, &parent, mapping, growth, name, &[])?.0,
+                response(assay, &parent, mapping, structure, name, &[])?.0,
             ))
         })
         .collect::<Result<BTreeMap<_, _>>>()?;
@@ -476,7 +532,8 @@ fn run(source: &Value, homeostasis: &Value, checksum: &str) -> Result<Value> {
             .collect::<Vec<_>>();
         for cue in CUES {
             if final_gates[mapping][cue]["passed"] == true && !new.is_empty() {
-                let (blocked, cancelled) = response(&assay, parent, mapping, true, cue, &new)?;
+                let (blocked, cancelled) =
+                    response(&assay, parent, mapping, Structure::Native, cue, &new)?;
                 if ["start_us", "root_spikes"]
                     .into_iter()
                     .any(|k| blocked[k] != grow[mapping]["probes"][cue][k])
@@ -569,7 +626,7 @@ fn decisions(source: &Value, structural: &Value, checksum: &str) -> Result<Value
         let (_, mut replay) = train(
             &assay,
             mapping,
-            true,
+            Structure::Native,
             Some((&focus, &quiet)),
             Some(observed),
         )?;
