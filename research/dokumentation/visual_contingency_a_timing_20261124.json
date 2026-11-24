@@ -1,0 +1,616 @@
+{
+  "protocol": "NERVA-Contingency-A-Timing/1",
+  "cohort_size": 2,
+  "source_commits": {
+    "model": "a194b6be0bab81789f928a7466fe486b49111ad4",
+    "library": "c13d9f733d474fe1516f3c170a0440b7c294c535"
+  },
+  "probe_count": 39,
+  "exact_unedited_probes": 30,
+  "amplitude_invariants_verified_per_slot": true,
+  "records": [
+    {
+      "job_id": "v00000-s34313-i000",
+      "seed": 34313,
+      "target_cell": 72,
+      "archived_record_checksum": "5f41e010cc07b0d4",
+      "growth_input_sha256": "dbd3e93c4334c21820088b62a37aa4082563eff0df8f052db775c62452dd69df",
+      "transfer_input_sha256": "e5581de022cb9430056c5b9c8cc9676d5ea77b3a9bf9e7e6a6ff6cc181075a8d",
+      "source_plans_sha256": "6553f5a0b400e66559629f4bc28b1c2d471566aaf203d9046dd1f30fc4b794d4",
+      "source_input_sha256": "21bff6a70e7974efcefb112ce6b2fb91da9e8a674d50e5e5bd4df43f86733291",
+      "plans_sha256": "8ce79c33984b0ef97cf3e782079cb80f66fc24f1cd8ab8aa73f5bfe032313b75",
+      "raw_sha256": "85286d5c73f98d853d1b7e4f8486061687633ada6f9ac74b17123a070607a1e3",
+      "timing_edits": {
+        "native": {
+          "reference": [],
+          "exc_spread": [
+            [
+              6,
+              31335
+            ],
+            [
+              8,
+              39335
+            ]
+          ],
+          "exc_translate": [
+            [
+              6,
+              39335
+            ],
+            [
+              7,
+              39335
+            ],
+            [
+              8,
+              39335
+            ]
+          ]
+        }
+      },
+      "cue1": {
+        "native": {
+          "reference": {
+            "target_relative_spikes_us": [
+              35335
+            ],
+            "reference_relative_spikes_us": [
+              35335
+            ],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 0,
+            "tape_rows": 13,
+            "clean_noop_checked": true
+          },
+          "exc_spread": {
+            "target_relative_spikes_us": [
+              34335
+            ],
+            "reference_relative_spikes_us": [
+              35335
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": -1000,
+            "tape_rows": 13,
+            "clean_noop_checked": false
+          },
+          "exc_translate": {
+            "target_relative_spikes_us": [
+              39335
+            ],
+            "reference_relative_spikes_us": [
+              35335
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 4000,
+            "tape_rows": 13,
+            "clean_noop_checked": false
+          }
+        }
+      },
+      "electrical": {
+        "native": {
+          "batches": {
+            "exc_spread": {
+              "31335": {
+                "potential_before": 0.7277047038078308,
+                "signed_input": 0.24128200113773346,
+                "threshold": 1.2322193384170532,
+                "candidate_margin": -0.26323264837265015,
+                "potential_after": 0.9689866900444031,
+                "refractory": false,
+                "spiked": false,
+                "tape_slots": [
+                  1422
+                ]
+              },
+              "34335": {
+                "potential_before": 0.7812363505363464,
+                "signed_input": 0.4711434543132782,
+                "threshold": 1.2322182655334473,
+                "candidate_margin": 0.02016150951385498,
+                "potential_after": 0.0,
+                "refractory": false,
+                "spiked": true,
+                "tape_slots": [
+                  19
+                ]
+              },
+              "35335": {
+                "potential_before": -0.013681864365935326,
+                "signed_input": 0.23970255255699158,
+                "threshold": 1.2945042848587036,
+                "candidate_margin": -1.068483591079712,
+                "potential_after": -0.013681864365935326,
+                "refractory": true,
+                "spiked": false,
+                "tape_slots": [
+                  1537
+                ]
+              },
+              "39335": {
+                "potential_before": -0.060501668602228165,
+                "signed_input": 0.22297526895999908,
+                "threshold": 1.2920295000076294,
+                "candidate_margin": -1.1295558959245682,
+                "potential_after": -0.060501668602228165,
+                "refractory": true,
+                "spiked": false,
+                "tape_slots": [
+                  1632
+                ]
+              }
+            },
+            "exc_translate": {
+              "31335": null,
+              "34335": {
+                "potential_before": 0.5798758864402771,
+                "signed_input": 0.4711434543132782,
+                "threshold": 1.2322182655334473,
+                "candidate_margin": -0.18119895458221436,
+                "potential_after": 1.051019310951233,
+                "refractory": false,
+                "spiked": false,
+                "tape_slots": [
+                  19
+                ]
+              },
+              "35335": null,
+              "39335": {
+                "potential_before": 0.7343603372573853,
+                "signed_input": 0.7039598226547241,
+                "threshold": 1.2321857213974,
+                "candidate_margin": 0.20613443851470947,
+                "potential_after": 0.0,
+                "refractory": false,
+                "spiked": true,
+                "tape_slots": [
+                  1422,
+                  1537,
+                  1632
+                ]
+              }
+            },
+            "reference": {
+              "31335": null,
+              "34335": {
+                "potential_before": 0.5798758864402771,
+                "signed_input": 0.4711434543132782,
+                "threshold": 1.2322182655334473,
+                "candidate_margin": -0.18119895458221436,
+                "potential_after": 1.051019310951233,
+                "refractory": false,
+                "spiked": false,
+                "tape_slots": [
+                  19
+                ]
+              },
+              "35335": {
+                "potential_before": 0.9798278212547302,
+                "signed_input": 0.7039598226547241,
+                "threshold": 1.2322182655334473,
+                "candidate_margin": 0.4515693187713623,
+                "potential_after": 0.0,
+                "refractory": false,
+                "spiked": true,
+                "tape_slots": [
+                  1422,
+                  1537,
+                  1632
+                ]
+              },
+              "39335": null
+            }
+          },
+          "unchanged_probes_count": 7
+        }
+      }
+    },
+    {
+      "job_id": "v00000-s34327-i000",
+      "seed": 34327,
+      "target_cell": 73,
+      "archived_record_checksum": "08cec1d58a4639ec",
+      "growth_input_sha256": "2143351a039d0dbe0034369240aa76e7bc1b209378d8342e5e520c10e228b314",
+      "transfer_input_sha256": "7a134d138e8b9dbe9567a3a8d9306b417f6e460c4b5072d547aedb4588a02e51",
+      "source_plans_sha256": "7d8d01800a510f76a6101e565ea5002b39732c99f74157a622c05ea21035cb39",
+      "source_input_sha256": "7fc00e9377d4f34b9c1ce18b5846bc52c84d62889f16a11791be8150717481e3",
+      "plans_sha256": "590ece89621b9ac417d6343816d09f9937cfafff51af26367d0e60cf5239d5bb",
+      "raw_sha256": "91710444bf72f9c26928c32b6393687cda8b29a7c7928d321eeabef076a23a6c",
+      "timing_edits": {
+        "native": {
+          "reference": [],
+          "inh_delay": [
+            [
+              4,
+              36335
+            ]
+          ],
+          "inh_advance": [
+            [
+              4,
+              1001
+            ]
+          ]
+        },
+        "grown": {
+          "reference": [],
+          "exc_align": [
+            [
+              8,
+              43668
+            ]
+          ],
+          "exc_left": [
+            [
+              8,
+              42668
+            ]
+          ],
+          "exc_right": [
+            [
+              8,
+              44668
+            ]
+          ]
+        },
+        "rotated": {
+          "reference": [],
+          "exc_separate": [
+            [
+              10,
+              35335
+            ]
+          ],
+          "exc_translate_pair": [
+            [
+              9,
+              35335
+            ],
+            [
+              10,
+              35335
+            ]
+          ]
+        }
+      },
+      "cue1": {
+        "native": {
+          "reference": {
+            "target_relative_spikes_us": [
+              52001
+            ],
+            "reference_relative_spikes_us": [
+              52001
+            ],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 0,
+            "tape_rows": 14,
+            "clean_noop_checked": true
+          },
+          "inh_delay": {
+            "target_relative_spikes_us": [
+              35335
+            ],
+            "reference_relative_spikes_us": [
+              52001
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": -16666,
+            "tape_rows": 14,
+            "clean_noop_checked": false
+          },
+          "inh_advance": {
+            "target_relative_spikes_us": [
+              35335
+            ],
+            "reference_relative_spikes_us": [
+              52001
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": -16666,
+            "tape_rows": 14,
+            "clean_noop_checked": false
+          }
+        },
+        "grown": {
+          "reference": {
+            "target_relative_spikes_us": [],
+            "reference_relative_spikes_us": [],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": null,
+            "tape_rows": 15,
+            "clean_noop_checked": true
+          },
+          "exc_align": {
+            "target_relative_spikes_us": [
+              43668
+            ],
+            "reference_relative_spikes_us": [],
+            "same_target_events": false,
+            "target_spike_count_delta": 1,
+            "first_spike_latency_delta_us": null,
+            "tape_rows": 15,
+            "clean_noop_checked": false
+          },
+          "exc_left": {
+            "target_relative_spikes_us": [
+              43668
+            ],
+            "reference_relative_spikes_us": [],
+            "same_target_events": false,
+            "target_spike_count_delta": 1,
+            "first_spike_latency_delta_us": null,
+            "tape_rows": 15,
+            "clean_noop_checked": false
+          },
+          "exc_right": {
+            "target_relative_spikes_us": [
+              44668
+            ],
+            "reference_relative_spikes_us": [],
+            "same_target_events": false,
+            "target_spike_count_delta": 1,
+            "first_spike_latency_delta_us": null,
+            "tape_rows": 15,
+            "clean_noop_checked": false
+          }
+        },
+        "rotated": {
+          "reference": {
+            "target_relative_spikes_us": [
+              43668
+            ],
+            "reference_relative_spikes_us": [
+              43668
+            ],
+            "same_target_events": true,
+            "target_spike_count_delta": 0,
+            "first_spike_latency_delta_us": 0,
+            "tape_rows": 12,
+            "clean_noop_checked": true
+          },
+          "exc_separate": {
+            "target_relative_spikes_us": [],
+            "reference_relative_spikes_us": [
+              43668
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": -1,
+            "first_spike_latency_delta_us": null,
+            "tape_rows": 12,
+            "clean_noop_checked": false
+          },
+          "exc_translate_pair": {
+            "target_relative_spikes_us": [],
+            "reference_relative_spikes_us": [
+              43668
+            ],
+            "same_target_events": false,
+            "target_spike_count_delta": -1,
+            "first_spike_latency_delta_us": null,
+            "tape_rows": 12,
+            "clean_noop_checked": false
+          }
+        }
+      },
+      "electrical": {
+        "native": {
+          "batches": {
+            "inh_advance": {
+              "35335": {
+                "potential_before": 0.8769135475158691,
+                "signed_input": 0.464030921459198,
+                "threshold": 1.3140311241149902,
+                "candidate_margin": 0.02691340446472168,
+                "potential_after": 0.0,
+                "refractory": false,
+                "spiked": true,
+                "tape_slots": [
+                  1632,
+                  1542
+                ]
+              }
+            },
+            "inh_delay": {
+              "35335": {
+                "potential_before": 0.9067057967185974,
+                "signed_input": 0.464030921459198,
+                "threshold": 1.3140311241149902,
+                "candidate_margin": 0.056705594062805176,
+                "potential_after": 0.0,
+                "refractory": false,
+                "spiked": true,
+                "tape_slots": [
+                  1632,
+                  1542
+                ]
+              }
+            },
+            "reference": {
+              "35335": {
+                "potential_before": 0.8210625648498535,
+                "signed_input": 0.464030921459198,
+                "threshold": 1.3140311241149902,
+                "candidate_margin": -0.028937578201293945,
+                "potential_after": 1.2850935459136963,
+                "refractory": false,
+                "spiked": false,
+                "tape_slots": [
+                  1632,
+                  1542
+                ]
+              }
+            }
+          },
+          "unchanged_probes_count": 7
+        },
+        "grown": {
+          "batches": {
+            "exc_align": {
+              "43668": {
+                "potential_before": 0.9396157264709473,
+                "signed_input": 0.46279630064964294,
+                "threshold": 1.3140310049057007,
+                "candidate_margin": 0.08838105201721191,
+                "potential_after": 0.0,
+                "refractory": false,
+                "spiked": true,
+                "tape_slots": [
+                  1632,
+                  1542
+                ]
+              },
+              "44668": null
+            },
+            "exc_left": {
+              "43668": {
+                "potential_before": 1.1535694599151611,
+                "signed_input": 0.23566487431526184,
+                "threshold": 1.3140310049057007,
+                "candidate_margin": 0.0752032995223999,
+                "potential_after": 0.0,
+                "refractory": false,
+                "spiked": true,
+                "tape_slots": [
+                  1542
+                ]
+              },
+              "44668": null
+            },
+            "exc_right": {
+              "43668": {
+                "potential_before": 0.9396157264709473,
+                "signed_input": 0.23566487431526184,
+                "threshold": 1.3140310049057007,
+                "candidate_margin": -0.13875043392181396,
+                "potential_after": 1.1752805709838867,
+                "refractory": false,
+                "spiked": false,
+                "tape_slots": [
+                  1542
+                ]
+              },
+              "44668": {
+                "potential_before": 1.1071116924285889,
+                "signed_input": 0.2271314263343811,
+                "threshold": 1.3140310049057007,
+                "candidate_margin": 0.02021205425262451,
+                "potential_after": 0.0,
+                "refractory": false,
+                "spiked": true,
+                "tape_slots": [
+                  1632
+                ]
+              }
+            },
+            "reference": {
+              "43668": {
+                "potential_before": 1.077646017074585,
+                "signed_input": 0.23566487431526184,
+                "threshold": 1.3140310049057007,
+                "candidate_margin": -0.0007201433181762695,
+                "potential_after": 1.3133108615875244,
+                "refractory": false,
+                "spiked": false,
+                "tape_slots": [
+                  1542
+                ]
+              },
+              "44668": null
+            }
+          },
+          "unchanged_probes_count": 9
+        },
+        "rotated": {
+          "batches": {
+            "exc_separate": {
+              "35335": {
+                "potential_before": 1.0195491313934326,
+                "signed_input": 0.0042324066162109375,
+                "threshold": 1.3140311241149902,
+                "candidate_margin": -0.2902495861053467,
+                "potential_after": 1.0237815380096436,
+                "refractory": false,
+                "spiked": false,
+                "tape_slots": [
+                  1440,
+                  1632
+                ]
+              },
+              "43668": {
+                "potential_before": 1.0308423042297363,
+                "signed_input": 0.23566487431526184,
+                "threshold": 1.3140310049057007,
+                "candidate_margin": -0.0475238561630249,
+                "potential_after": 1.2665071487426758,
+                "refractory": false,
+                "spiked": false,
+                "tape_slots": [
+                  1542
+                ]
+              }
+            },
+            "exc_translate_pair": {
+              "35335": {
+                "potential_before": 1.0195491313934326,
+                "signed_input": 0.23989728093147278,
+                "threshold": 1.3140311241149902,
+                "candidate_margin": -0.05458474159240723,
+                "potential_after": 1.259446382522583,
+                "refractory": false,
+                "spiked": false,
+                "tape_slots": [
+                  1440,
+                  1542,
+                  1632
+                ]
+              },
+              "43668": null
+            },
+            "reference": {
+              "35335": {
+                "potential_before": 1.0195491313934326,
+                "signed_input": -0.23191221058368683,
+                "threshold": 1.3140311241149902,
+                "candidate_margin": -0.5263941884040833,
+                "potential_after": 0.787636935710907,
+                "refractory": false,
+                "spiked": false,
+                "tape_slots": [
+                  1440
+                ]
+              },
+              "43668": {
+                "potential_before": 0.8873345851898193,
+                "signed_input": 0.4718095064163208,
+                "threshold": 1.3140310049057007,
+                "candidate_margin": 0.04511308670043945,
+                "potential_after": 0.0,
+                "refractory": false,
+                "spiked": true,
+                "tape_slots": [
+                  1542,
+                  1632
+                ]
+              }
+            }
+          },
+          "unchanged_probes_count": 7
+        }
+      }
+    }
+  ],
+  "local_archive": {
+    "path": "research/results/archives/visual_contingency_a_timing_20261124.zip",
+    "sha256": "485739f97649500d050fddc8e3480fc4b2acb8b4d47e29e3ccd4c420a8180c69"
+  }
+}
