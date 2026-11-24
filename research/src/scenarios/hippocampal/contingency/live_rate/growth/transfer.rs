@@ -15,7 +15,7 @@ use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 
 mod sources;
-pub use sources::replay_a_source;
+pub use sources::{replay_a_source, replay_a_timing};
 
 const PROTOCOL: &str = "NERVA-Contingency-A-Transfer/1";
 const PROBES: [&str; 3] = ["blank", CUES[0], CUES[1]];

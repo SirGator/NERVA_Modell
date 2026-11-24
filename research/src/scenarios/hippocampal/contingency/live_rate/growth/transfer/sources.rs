@@ -10,6 +10,9 @@ use serde::Deserialize;
 use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 
+mod timing;
+pub use timing::replay_a_timing;
+
 const PLAN_PROTOCOL: &str = "NERVA-Contingency-A-Source-Plan/1";
 const PROTOCOL: &str = "NERVA-Contingency-A-Source/1";
 const MAPPING: &str = "reverse";
@@ -281,8 +284,21 @@ fn check_target(plan: &Plan, archive: &Value, born: &[Birth]) -> Result<()> {
     Ok(())
 }
 
-fn run(record: &Value, checksum: &str, plan: &Plan) -> Result<Value> {
-    let (config, seed) = recorded_config(record)?;
+struct Prepared<'a> {
+    assay: Assay<'a>,
+    donor: super::Model,
+    components: Components,
+    geometry: Geometry,
+    birth_weight: f32,
+}
+
+fn prepare<'a>(
+    record: &Value,
+    checksum: &str,
+    plan: &Plan,
+    config: &'a super::Config,
+    seed: u64,
+) -> Result<Prepared<'a>> {
     if plan.protocol != PLAN_PROTOCOL
         || plan.archived_record_checksum != checksum
         || plan.seed != seed
@@ -296,7 +312,7 @@ fn run(record: &Value, checksum: &str, plan: &Plan) -> Result<Value> {
         ));
     }
     let archive = &record["details"];
-    let reference = checkpoint(&config, seed)?.0;
+    let reference = checkpoint(config, seed)?.0;
     if topology(&reference) != archive["initial_topology"]
         || reference.next_observation_us() != archive["checkpoint_time_us"]
     {
@@ -323,7 +339,7 @@ fn run(record: &Value, checksum: &str, plan: &Plan) -> Result<Value> {
         positions,
     };
     let assay = Assay {
-        config: &config,
+        config,
         seed,
         reference,
         images: frames(&patterns())?,
@@ -338,6 +354,26 @@ fn run(record: &Value, checksum: &str, plan: &Plan) -> Result<Value> {
     let target = BTreeSet::from([plan.target_cell]);
     let components = Components::read(&assay.reference, &donor, &target, birth_weight, delay)?;
     check_target(plan, archive, &components.born)?;
+    Ok(Prepared {
+        assay,
+        donor,
+        components,
+        geometry,
+        birth_weight,
+    })
+}
+
+fn run(record: &Value, checksum: &str, plan: &Plan) -> Result<Value> {
+    let (config, seed) = recorded_config(record)?;
+    let Prepared {
+        assay,
+        donor,
+        components,
+        geometry,
+        birth_weight,
+    } = prepare(record, checksum, plan, &config, seed)?;
+    let after_a = &record["details"]["stages_a"][MAPPING];
+    let target = BTreeSet::from([plan.target_cell]);
     let native = Carrier::rest(&assay, &donor)?;
     let common = Carrier::rest(&assay, &assay.reference)?;
     let native_readout = Readout {

@@ -17,6 +17,7 @@ pub(super) struct Trace<'a> {
     targets: &'a BTreeSet<u64>,
     boundaries: Vec<Boundary>,
     arrivals: Vec<Arrival>,
+    external_inputs: Vec<(u64, u64, f32)>,
 }
 impl<'a> Trace<'a> {
     pub(super) fn new(targets: &'a BTreeSet<u64>) -> Self {
@@ -24,12 +25,18 @@ impl<'a> Trace<'a> {
             targets,
             boundaries: Vec::new(),
             arrivals: Vec::new(),
+            external_inputs: Vec::new(),
         }
     }
 
     pub(super) fn attach(self, response: &mut Value) {
         response["boundaries"] = json!(self.boundaries);
         response["arrivals"] = json!(self.arrivals);
+    }
+
+    pub(super) fn attach_tape(self, response: &mut Value) {
+        response["external_inputs"] = json!(self.external_inputs);
+        self.attach(response);
     }
 
     pub(super) fn record(&mut self, events: &[ObservationEvent]) {
@@ -64,6 +71,13 @@ impl<'a> Trace<'a> {
                 } if self.targets.contains(&target.0) => {
                     self.arrivals
                         .push((time.0, target.0, synapse_id.0, amplitude));
+                }
+                ObservationEvent::ExternalInput {
+                    time,
+                    target,
+                    amplitude,
+                } if self.targets.contains(&target.0) => {
+                    self.external_inputs.push((time.0, target.0, amplitude));
                 }
                 _ => {}
             }

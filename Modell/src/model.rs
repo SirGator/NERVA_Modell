@@ -23,6 +23,8 @@ use nerva_qemu::{
 };
 
 pub mod area;
+#[cfg(test)]
+mod arrival_tape_tests;
 pub mod audit;
 pub mod config;
 mod development_audit;
@@ -763,6 +765,72 @@ impl Model {
             return Err("transmission block requires frozen rules".into());
         }
         Ok(self.simulation.disable_synapses_and_cancel_arrivals(ids)?)
+    }
+
+    /// Replace native incoming transmissions to one frozen Core cell with an
+    /// ordered external arrival tape for the next four observation windows.
+    /// Times are absolute and inclusive in `next_start..=next_start+4*WINDOW_US-1`;
+    /// equal-time entries retain insertion order. Every finite signed amplitude
+    /// accepted by the runtime is supported. Existing external inputs, cellular
+    /// state, chemical events and all events outside this target are retained.
+    /// Returns sorted newly disabled edge IDs and the cancelled native arrivals.
+    /// Any rejected request leaves the entire checkpoint unchanged.
+    pub fn diagnostic_replace_core_inputs(
+        &mut self,
+        target: NeuronId,
+        arrivals: &[(u64, f32)],
+    ) -> Result<(Vec<SynapseId>, usize)> {
+        if self.config.kind != ModelKind::Recurrent
+            || self.config.learning
+            || self.config.development
+            || self.config.homeostasis
+        {
+            return Err("arrival replacement requires a fully frozen recurrent model".into());
+        }
+        if self.config.synaptic_competition {
+            return Err("arrival replacement cannot change fixed competition pools".into());
+        }
+        if !self.is_core(target)
+            || self
+                .network()
+                .neuron(target)
+                .is_none_or(|cell| cell.role() != Some(NeuronRole::Processing))
+        {
+            return Err("arrival replacement requires a Core target".into());
+        }
+        let end = self
+            .next_start
+            .checked_add(4 * WINDOW_US - 1)
+            .ok_or("arrival tape horizon overflow")?;
+        let mut previous = self.next_start;
+        for &(time, amplitude) in arrivals {
+            if time < previous || time > end || !amplitude.is_finite() {
+                return Err(
+                    "arrival tape must be ordered, finite and within the next four windows".into(),
+                );
+            }
+            previous = time;
+        }
+        let incoming: Vec<_> = self
+            .network()
+            .synapses()
+            .filter(|edge| edge.post() == target)
+            .map(|edge| edge.id())
+            .collect();
+        let mut disabled: Vec<_> = incoming
+            .iter()
+            .copied()
+            .filter(|&id| self.network().synapse(id).unwrap().is_enabled())
+            .collect();
+        disabled.sort_unstable();
+        let mut simulation = self.simulation.diagnostic_fork()?;
+        // Include already disabled edges so no travelling native input escapes.
+        let cancelled = simulation.disable_synapses_and_cancel_arrivals(&incoming)?;
+        for &(time, amplitude) in arrivals {
+            simulation.schedule_external_input(SimTime(time), target, amplitude)?;
+        }
+        self.simulation = simulation;
+        Ok((disabled, cancelled))
     }
 
     /// Clears inherited signed learning tags on a frozen diagnostic branch.
