@@ -15,13 +15,17 @@ pub enum ExploratoryFormation {
     LeadingExcitatory,
     /// Same evidence rule with source histories shifted later by 157 ms.
     LaggedLeadingExcitatory,
+    /// Rank recent candidates by observed lead evidence minus lagged evidence.
+    ContrastLeadingExcitatory,
 }
 
 impl ExploratoryFormation {
     fn uses_evidence(self) -> bool {
         matches!(
             self,
-            Self::LeadingExcitatory | Self::LaggedLeadingExcitatory
+            Self::LeadingExcitatory
+                | Self::LaggedLeadingExcitatory
+                | Self::ContrastLeadingExcitatory
         )
     }
 }
@@ -51,9 +55,14 @@ pub struct Exploration {
     pub drive: f32,
     /// Candidate RecentExcitatory would choose from the same eligible set.
     pub recent_source: u64,
-    /// Decayed score at formation; zero for rules without evidence.
+    /// Decayed ranking score at formation, or zero for rules without evidence.
     pub chosen_evidence: f64,
     pub recent_evidence: f64,
+    /// Decayed channel scores at formation. An unsampled channel contributes zero.
+    pub chosen_observed: f64,
+    pub chosen_lagged: f64,
+    pub recent_observed: f64,
+    pub recent_lagged: f64,
 }
 
 #[derive(Clone, Default, PartialEq)]
@@ -71,6 +80,10 @@ pub(super) struct Choice {
     pub(super) recent_source: u64,
     pub(super) chosen_evidence: f64,
     pub(super) recent_evidence: f64,
+    pub(super) chosen_observed: f64,
+    pub(super) chosen_lagged: f64,
+    pub(super) recent_observed: f64,
+    pub(super) recent_lagged: f64,
 }
 
 const CONTROL_SHIFT_US: u64 = 157_000;
@@ -83,18 +96,52 @@ struct LeadEvidence {
     activated_us: u64,
     histories: BTreeMap<NeuronId, VecDeque<u64>>,
     last_sample: BTreeMap<NeuronId, u64>,
-    scores: BTreeMap<(NeuronId, NeuronId), (f64, u64)>,
+    observed: LeadScores,
+    lagged: LeadScores,
+}
+
+#[derive(Clone, Default, PartialEq)]
+struct LeadScores(BTreeMap<(NeuronId, NeuronId), (f64, u64)>);
+
+impl LeadScores {
+    fn score(&self, source: NeuronId, target: NeuronId, now: u64) -> f64 {
+        self.0.get(&(source, target)).map_or(0., |&(value, at)| {
+            value * (-(now.saturating_sub(at) as f64) / EVIDENCE_TAU_US).exp()
+        })
+    }
+
+    fn sample(
+        &mut self,
+        target: NeuronId,
+        sources: &[NeuronId],
+        now: u64,
+        lookup: u64,
+        histories: &BTreeMap<NeuronId, VecDeque<u64>>,
+    ) {
+        for &source in sources {
+            let spike = histories.get(&source).and_then(|history| {
+                history
+                    .iter()
+                    .rev()
+                    .copied()
+                    .find(|&at| at <= lookup.saturating_sub(1_000))
+            });
+            let Some(age) = spike.and_then(|at| lookup.checked_sub(at)) else {
+                continue;
+            };
+            let contribution = match age {
+                1_000..=15_000 => 3.,
+                15_001..=40_000 => 2.,
+                40_001..=75_000 => 1.,
+                _ => continue,
+            };
+            let value = self.score(source, target, now) + contribution;
+            self.0.insert((source, target), (value, now));
+        }
+    }
 }
 
 impl LeadEvidence {
-    fn score(&self, source: NeuronId, target: NeuronId, now: u64) -> f64 {
-        self.scores
-            .get(&(source, target))
-            .map_or(0., |&(value, at)| {
-                value * (-(now.saturating_sub(at) as f64) / EVIDENCE_TAU_US).exp()
-            })
-    }
-
     fn spike(&mut self, source: NeuronId, now: u64) {
         let history = self.histories.entry(source).or_default();
         history.push_back(now);
@@ -114,31 +161,52 @@ impl LeadEvidence {
                 .is_some_and(|&at| now.saturating_sub(at) < SAMPLE_INTERVAL_US)
     }
 
-    fn sample(&mut self, target: NeuronId, sources: &[NeuronId], now: u64, lagged: bool) {
+    fn sample(
+        &mut self,
+        target: NeuronId,
+        sources: &[NeuronId],
+        now: u64,
+        formation: ExploratoryFormation,
+    ) {
         if !self.sample_due(target, now) {
             return;
         }
         self.last_sample.insert(target, now);
-        let lookup = now.saturating_sub(if lagged { CONTROL_SHIFT_US } else { 0 });
-        for &source in sources {
-            let spike = self.histories.get(&source).and_then(|history| {
-                history
-                    .iter()
-                    .rev()
-                    .copied()
-                    .find(|&at| at <= lookup.saturating_sub(1_000))
-            });
-            let Some(age) = spike.and_then(|at| lookup.checked_sub(at)) else {
-                continue;
-            };
-            let contribution = match age {
-                1_000..=15_000 => 3.,
-                15_001..=40_000 => 2.,
-                40_001..=75_000 => 1.,
-                _ => continue,
-            };
-            let value = self.score(source, target, now) + contribution;
-            self.scores.insert((source, target), (value, now));
+        use ExploratoryFormation::{
+            ContrastLeadingExcitatory, LaggedLeadingExcitatory, LeadingExcitatory,
+        };
+        if matches!(formation, LeadingExcitatory | ContrastLeadingExcitatory) {
+            self.observed
+                .sample(target, sources, now, now, &self.histories);
+        }
+        if matches!(
+            formation,
+            LaggedLeadingExcitatory | ContrastLeadingExcitatory
+        ) {
+            self.lagged.sample(
+                target,
+                sources,
+                now,
+                now.saturating_sub(CONTROL_SHIFT_US),
+                &self.histories,
+            );
+        }
+    }
+
+    fn score(
+        &self,
+        source: NeuronId,
+        target: NeuronId,
+        now: u64,
+        formation: ExploratoryFormation,
+    ) -> f64 {
+        match formation {
+            ExploratoryFormation::LeadingExcitatory => self.observed.score(source, target, now),
+            ExploratoryFormation::LaggedLeadingExcitatory => self.lagged.score(source, target, now),
+            ExploratoryFormation::ContrastLeadingExcitatory => {
+                self.observed.score(source, target, now) - self.lagged.score(source, target, now)
+            }
+            _ => 0.,
         }
     }
 }
@@ -244,13 +312,12 @@ impl Model {
                             && self.network().neuron(id).unwrap().polarity() == Polarity::Excitatory
                     })
                     .collect();
-                let lagged = self.development_policy.settings.formation
-                    == ExploratoryFormation::LaggedLeadingExcitatory;
+                let formation = self.development_policy.settings.formation;
                 self.development_policy
                     .evidence
                     .as_mut()
                     .expect("active evidence")
-                    .sample(target, &sources, time.0, lagged);
+                    .sample(target, &sources, time.0, formation);
             }
             _ => {}
         }
@@ -304,21 +371,14 @@ impl Model {
             .max_by(|a, b| recency(a, b))
             .expect("recent candidates")
             .id();
-        let evidence = |source| {
-            if rule.uses_evidence() {
-                self.development_policy
-                    .evidence
-                    .as_ref()
-                    .map_or(0., |e| e.score(source, target.id(), now.0))
-            } else {
-                0.
-            }
-        };
+        let evidence = self.development_policy.evidence.as_ref();
+        let score = |source| evidence.map_or(0., |e| e.score(source, target.id(), now.0, rule));
         let source = match rule {
             ExploratoryFormation::LeadingExcitatory
-            | ExploratoryFormation::LaggedLeadingExcitatory => active.max_by(|a, b| {
-                evidence(a.id())
-                    .total_cmp(&evidence(b.id()))
+            | ExploratoryFormation::LaggedLeadingExcitatory
+            | ExploratoryFormation::ContrastLeadingExcitatory => active.max_by(|a, b| {
+                score(a.id())
+                    .total_cmp(&score(b.id()))
                     .then_with(|| recency(a, b))
             }),
             ExploratoryFormation::RecentExcitatory => active.max_by(|a, b| {
@@ -334,14 +394,28 @@ impl Model {
             }),
             ExploratoryFormation::Off => None,
         }?;
+        let channels = |source| {
+            evidence.map_or((0., 0.), |e| {
+                (
+                    e.observed.score(source, target.id(), now.0),
+                    e.lagged.score(source, target.id(), now.0),
+                )
+            })
+        };
+        let (chosen_observed, chosen_lagged) = channels(source.id());
+        let (recent_observed, recent_lagged) = channels(recent_source);
         Some(Choice {
             source: source.id(),
             source_last: source.last_spike(),
             target_last: target.last_spike(),
             recent_candidates,
             recent_source: recent_source.0,
-            chosen_evidence: evidence(source.id()),
-            recent_evidence: evidence(recent_source),
+            chosen_evidence: score(source.id()),
+            recent_evidence: score(recent_source),
+            chosen_observed,
+            chosen_lagged,
+            recent_observed,
+            recent_lagged,
         })
     }
 }
@@ -357,27 +431,28 @@ mod tests {
         let source = NeuronId(1);
         let target = NeuronId(2);
         let mut evidence = LeadEvidence::default();
+        let observed = ExploratoryFormation::LeadingExcitatory;
         // Warmup is identical for the treatment and delayed control.
         evidence.spike(source, 140_000);
-        evidence.sample(target, &[source], 150_000, false);
-        assert_eq!(evidence.score(source, target, 150_000), 0.);
+        evidence.sample(target, &[source], 150_000, observed);
+        assert_eq!(evidence.score(source, target, 150_000, observed), 0.);
         evidence.spike(source, 159_500); // Too recent at the first sample.
-        evidence.sample(target, &[source], 160_000, false);
-        assert_eq!(evidence.score(source, target, 160_000), 2.);
-        evidence.sample(target, &[source], 169_999, false);
+        evidence.sample(target, &[source], 160_000, observed);
+        assert_eq!(evidence.score(source, target, 160_000, observed), 2.);
+        evidence.sample(target, &[source], 169_999, observed);
         assert_eq!(evidence.last_sample[&target], 160_000);
-        evidence.sample(target, &[source], 170_000, false);
+        evidence.sample(target, &[source], 170_000, observed);
         let expected = 2. * (-10_000. / EVIDENCE_TAU_US).exp() + 3.;
-        assert_eq!(evidence.score(source, target, 170_000), expected);
+        assert_eq!(evidence.score(source, target, 170_000, observed), expected);
         assert_eq!(
-            evidence.score(source, target, 2_170_000),
+            evidence.score(source, target, 2_170_000, observed),
             expected * (-1_f64).exp()
         );
         // Future-only spikes cannot create causal evidence.
         let mut future = LeadEvidence::default();
         future.spike(source, 160_001);
-        future.sample(target, &[source], 160_000, false);
-        assert_eq!(future.score(source, target, 160_000), 0.);
+        future.sample(target, &[source], 160_000, observed);
+        assert_eq!(future.score(source, target, 160_000, observed), 0.);
         future.spike(source, 400_000);
         assert_eq!(future.histories[&source].len(), 1);
     }
@@ -386,24 +461,72 @@ mod tests {
     fn lagged_control_uses_identical_history_shifted_later() {
         let source = NeuronId(1);
         let target = NeuronId(2);
+        let observed = ExploratoryFormation::LeadingExcitatory;
+        let lagged = ExploratoryFormation::LaggedLeadingExcitatory;
         let mut actual = LeadEvidence::default();
         for time in [4_000, 144_000, 155_000] {
             actual.spike(source, time);
         }
         let mut delayed = actual.clone();
-        actual.sample(target, &[source], 161_000, false);
-        delayed.sample(target, &[source], 161_000, true);
-        assert_eq!(actual.score(source, target, 161_000), 3.);
+        actual.sample(target, &[source], 161_000, observed);
+        delayed.sample(target, &[source], 161_000, lagged);
+        assert_eq!(actual.score(source, target, 161_000, observed), 3.);
         // 4ms lookup clock, source at 4ms is simultaneous and ineligible.
-        assert_eq!(delayed.score(source, target, 161_000), 0.);
-        delayed.sample(target, &[source], 171_000, true);
-        assert_eq!(delayed.score(source, target, 171_000), 3.);
+        assert_eq!(delayed.score(source, target, 161_000, lagged), 0.);
+        delayed.sample(target, &[source], 171_000, lagged);
+        assert_eq!(delayed.score(source, target, 171_000, lagged), 3.);
         let mut literal_shift = LeadEvidence::default();
         for time in [161_000, 301_000, 312_000] {
             literal_shift.spike(source, time);
         }
-        literal_shift.sample(target, &[source], 171_000, false);
-        assert_eq!(delayed.scores, literal_shift.scores);
+        literal_shift.sample(target, &[source], 171_000, observed);
+        assert!(delayed.lagged == literal_shift.observed);
+    }
+
+    #[test]
+    fn contrast_uses_both_channels_on_the_same_samples_and_keeps_negative_scores() {
+        use ExploratoryFormation::{
+            ContrastLeadingExcitatory, LaggedLeadingExcitatory, LeadingExcitatory,
+        };
+        let target = NeuronId(1);
+        let both = NeuronId(2);
+        let older = NeuronId(3);
+        let silent = NeuronId(4);
+        let sources = [both, older, silent];
+        let mut history = LeadEvidence::default();
+        history.spike(both, 30_000);
+        history.spike(older, 30_000);
+        history.spike(both, 160_000);
+        let mut observed = history.clone();
+        let mut lagged = history.clone();
+        let mut contrast = history;
+        for sample in [156_999, 200_000, 209_999, 210_000] {
+            observed.sample(target, &sources, sample, LeadingExcitatory);
+            lagged.sample(target, &sources, sample, LaggedLeadingExcitatory);
+            contrast.sample(target, &sources, sample, ContrastLeadingExcitatory);
+        }
+        assert_eq!(contrast.last_sample[&target], 210_000);
+        assert_eq!(contrast.last_sample, observed.last_sample);
+        assert_eq!(contrast.last_sample, lagged.last_sample);
+        assert!(contrast.observed == observed.observed);
+        assert!(contrast.lagged == lagged.lagged);
+        let now = 2_210_000;
+        for source in sources {
+            assert_eq!(
+                contrast.score(source, target, now, ContrastLeadingExcitatory),
+                observed.score(source, target, now, LeadingExcitatory)
+                    - lagged.score(source, target, now, LaggedLeadingExcitatory),
+            );
+        }
+        assert!(contrast.score(both, target, now, ContrastLeadingExcitatory) < 0.);
+        assert!(
+            contrast.score(older, target, now, ContrastLeadingExcitatory)
+                < contrast.score(both, target, now, ContrastLeadingExcitatory)
+        );
+        assert_eq!(
+            contrast.score(silent, target, now, ContrastLeadingExcitatory),
+            0.
+        );
     }
 
     #[test]
@@ -451,7 +574,8 @@ mod tests {
             .evidence
             .as_mut()
             .unwrap()
-            .scores
+            .observed
+            .0
             .insert((target, target), (4., 1));
         let before = model.diagnostic_fork().unwrap();
         model
@@ -467,7 +591,8 @@ mod tests {
                 .evidence
                 .as_ref()
                 .unwrap()
-                .scores
+                .observed
+                .0
                 .is_empty()
         );
         assert!(model.development_policy.used.contains(&target));
@@ -538,12 +663,12 @@ mod tests {
         );
         model.observe_lead_evidence(&event(1., 200_000));
         assert_eq!(
-            model
-                .development_policy
-                .evidence
-                .as_ref()
-                .unwrap()
-                .score(source, target, 200_000),
+            model.development_policy.evidence.as_ref().unwrap().score(
+                source,
+                target,
+                200_000,
+                ExploratoryFormation::LeadingExcitatory
+            ),
             3.
         );
     }
@@ -553,6 +678,7 @@ mod tests {
         for formation in [
             ExploratoryFormation::LeadingExcitatory,
             ExploratoryFormation::LaggedLeadingExcitatory,
+            ExploratoryFormation::ContrastLeadingExcitatory,
         ] {
             let mut model = Model::with_sensor(
                 ModelConfig {
@@ -573,6 +699,8 @@ mod tests {
                 model.step(&white).unwrap();
             }
             let mut fork = model.diagnostic_fork().unwrap();
+            fork.diagnostic_switch_exploratory_formation(formation)
+                .unwrap();
             assert!(model.same_replay_state(&fork));
             assert_eq!(model.step(&white).unwrap(), fork.step(&white).unwrap());
             assert!(model.same_replay_state(&fork));

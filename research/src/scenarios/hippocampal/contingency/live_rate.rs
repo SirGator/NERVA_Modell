@@ -106,6 +106,7 @@ enum TrainingAudit {
     Standard,
     Formation,
     Lead,
+    Contrast,
 }
 
 impl Assay<'_> {
@@ -182,7 +183,10 @@ impl Assay<'_> {
                     "root_spikes":roots,"core_spikes":step.core_events,"formed":step.formed,"pruned":step.pruned,
                     "weight_changes":step.weight_changes, "homeostasis_changes":step.homeostasis_changes,
                 });
-                if matches!(mode, TrainingAudit::Formation | TrainingAudit::Lead) {
+                if matches!(
+                    mode,
+                    TrainingAudit::Formation | TrainingAudit::Lead | TrainingAudit::Contrast
+                ) {
                     row["exploratory"] = json!(
                         step.exploratory
                             .iter()
@@ -199,7 +203,7 @@ impl Assay<'_> {
                             .collect::<Vec<_>>()
                     );
                 }
-                if mode == TrainingAudit::Lead {
+                if matches!(mode, TrainingAudit::Lead | TrainingAudit::Contrast) {
                     row["lead_choices"] = json!(
                         step.exploratory
                             .iter()
@@ -208,6 +212,20 @@ impl Assay<'_> {
                                 decision.recent_source,
                                 decision.chosen_evidence,
                                 decision.recent_evidence,
+                            ))
+                            .collect::<Vec<_>>()
+                    );
+                }
+                if mode == TrainingAudit::Contrast {
+                    row["contrast_components"] = json!(
+                        step.exploratory
+                            .iter()
+                            .map(|decision| (
+                                decision.edge,
+                                decision.chosen_observed,
+                                decision.chosen_lagged,
+                                decision.recent_observed,
+                                decision.recent_lagged,
                             ))
                             .collect::<Vec<_>>()
                     );

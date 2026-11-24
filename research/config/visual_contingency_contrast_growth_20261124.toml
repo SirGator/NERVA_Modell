@@ -1,0 +1,20 @@
+[experiment]
+name = "visual_contingency_contrast_growth_20261124"
+scenario = "hippocampal_contingency_contrast_growth"
+seeds = [34501, 34513, 34525, 34531, 34543, 34559]
+interventions = ["crossed_contrast_growth"]
+verify_replay = true
+max_runs = 6
+
+[base]
+processing_neurons = 256
+training_repetitions = 8
+rest_us = 11000000
+
+[measurements]
+metrics = [
+    "recent_a_acquisition", "recent_b_acquisition", "recent_a_retention", "recent_joint_paths",
+    "lead_a_acquisition", "lead_b_acquisition", "lead_a_retention", "lead_joint_paths",
+    "lagged_a_acquisition", "lagged_b_acquisition", "lagged_a_retention", "lagged_joint_paths",
+    "contrast_a_acquisition", "contrast_b_acquisition", "contrast_a_retention", "contrast_joint_paths",
+]

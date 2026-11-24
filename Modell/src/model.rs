@@ -1200,6 +1200,10 @@ impl Model {
                     recent_source: choice.recent_source,
                     chosen_evidence: choice.chosen_evidence,
                     recent_evidence: choice.recent_evidence,
+                    chosen_observed: choice.chosen_observed,
+                    chosen_lagged: choice.chosen_lagged,
+                    recent_observed: choice.recent_observed,
+                    recent_lagged: choice.recent_lagged,
                 })
             })
             .collect();

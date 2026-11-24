@@ -32,22 +32,28 @@ def layout(seed):
     return name, {key: sorted(map(transform, pixels)) for key, pixels in original_layout().items()}
 
 
+def choice_rows(frame, core):
+    exploratory = frame['exploratory']
+    choices = frame['lead_choices']
+    require([row[0] for row in choices] == [row[0] for row in exploratory],
+            'lead choices differ from exploratory birth order')
+    formed = {edge: (pre, post) for edge, pre, post in frame['formed']}
+    for (edge, recent, chosen_score, recent_score), birth in zip(choices, exploratory):
+        chosen, target = formed[edge]
+        require(natural(recent) and recent in core and recent != target,
+                'invalid recency candidate identity')
+        chosen_score, recent_score = number(chosen_score), number(recent_score)
+        require((chosen == recent and chosen_score == recent_score)
+                or (chosen != recent and chosen_score > recent_score and birth[4] > 1),
+                'chosen source lacks evidence above recency')
+        yield birth, chosen, recent, chosen_score, recent_score
+
+
 def choice_ledger(frames, policy, initial, core, checkpoint):
     counts = dict(choices=0, above_recency=0, positive_evidence=0)
     for frame in frames:
-        exploratory = frame['exploratory']
-        choices = frame['lead_choices']
-        require([row[0] for row in choices] == [row[0] for row in exploratory],
-                'lead choices differ from exploratory birth order')
-        formed = {edge: (pre, post) for edge, pre, post in frame['formed']}
-        for (edge, recent, chosen_score, recent_score), birth in zip(choices, exploratory):
-            require(natural(recent) and recent in core, 'invalid recency candidate identity')
-            chosen = formed[edge][0]
-            require(number(chosen_score) >= 0 and number(recent_score) >= 0,
-                    'negative lead choice evidence')
-            require((chosen == recent and chosen_score == recent_score)
-                    or (chosen != recent and chosen_score > recent_score),
-                    'chosen source lacks evidence above recency')
+        for birth, chosen, recent, chosen_score, recent_score in choice_rows(frame, core):
+            require(chosen_score >= 0 and recent_score >= 0, 'negative lead choice evidence')
             require(policy != 'recent' or (chosen == recent and chosen_score == recent_score == 0),
                     'recency baseline used lead evidence')
             require(policy == 'recent' or birth[1] >= checkpoint + LEAD_RULE['lag_us']
@@ -59,10 +65,10 @@ def choice_ledger(frames, policy, initial, core, checkpoint):
     return counts
 
 
-def policy_checks(assay, trials):
+def policy_checks(assay, trials, policies=POLICIES):
     # The established crossed design is applied independently within each policy.
     checks, metrics = {}, {}
-    for policy in POLICIES:
+    for policy in policies:
         arms = trials[policy]
         old, scores = recompute_checks(assay, arms['a'], {policy: arms['b']}, (policy,))
         checks[policy] = dict(a_acquisition=old['a_acquisition'],
@@ -75,21 +81,27 @@ def policy_checks(assay, trials):
 
 
 def analyze_record(record):
+    return analyze_trial(record, protocol=PROTOCOL, intervention=INTERVENTION,
+                         policies=POLICIES, trial_layout=layout, read_choices=choice_ledger)
+
+
+def analyze_trial(record, *, protocol, intervention, policies, trial_layout, read_choices,
+                  snapshot_fields=None):
     job, details = record['job'], record['details']
     config = job['effective_config']
     require(natural(job['seed']), 'invalid seed')
-    name, stimuli = layout(job['seed'])
-    expected = dict(protocol=PROTOCOL, seed=job['seed'], intervention=INTERVENTION,
-                    stimuli=stimuli, formation_policies=list(POLICIES), layout=name,
-                    lead_rule=LEAD_RULE)
+    name, stimuli = trial_layout(job['seed'])
+    expected = dict(protocol=protocol, seed=job['seed'], intervention=intervention,
+                    stimuli=stimuli, formation_policies=list(policies), layout=name,
+                    lead_rule=LEAD_RULE, **(snapshot_fields or {}))
     require(record['full_replay_checked'] is True
             and all(config[key] == value for key, value in expected.items())
-            and details['protocol'] == PROTOCOL and details['seed'] == job['seed']
+            and details['protocol'] == protocol and details['seed'] == job['seed']
             and details['layout'] == name and details['stimuli'] == stimuli,
-            'lead growth record differs from effective configuration or layout')
+            'formation growth record differs from effective configuration or layout')
     assay = Assay(details, config, job['seed'], expected_stimuli=stimuli)
     trials = details['trials']
-    require(trials.keys() == set(POLICIES), 'unexpected formation policies')
+    require(trials.keys() == set(policies), 'unexpected formation policies')
     schedules, root_counts, training = {}, {}, {}
 
     def stage_read(stage, mapping, policy, index, initial, previous=()):
@@ -104,7 +116,7 @@ def analyze_record(record):
         final = topology(stage['end_topology'])
         lifecycles(initial, final, frames, assay.core, True)
         targets = exploratory_ledger(frames, 'recent', previous)
-        choices = choice_ledger(frames, policy, initial, assay.core, assay.checkpoint)
+        choices = read_choices(frames, policy, initial, assay.core, assay.checkpoint)
         live = {edge for edge, (*_, enabled) in final.items() if enabled}
         require(stage['probes'].keys() == set(PROBES), 'unexpected trained probe names')
         for probe_name, probe in stage['probes'].items():
@@ -119,7 +131,7 @@ def analyze_record(record):
             'formed_pairs': sorted([pre, post] for frame in frames
                                    for _, pre, post in frame['formed'])}
 
-    for policy in POLICIES:
+    for policy in policies:
         arm = trials[policy]
         require(arm.keys() == {'a', 'b'} and arm['a'].keys() == set(TRAINING)
                 and arm['b'].keys() == set(TRAINING), 'unexpected A histories')
@@ -135,7 +147,7 @@ def analyze_record(record):
                 _, _, activity = stage_read(branches[b_mapping], b_mapping, policy, 1,
                                              final, targets)
                 training[policy]['b'][a_mapping][b_mapping] = activity
-    checks, metrics = policy_checks(assay, trials)
+    checks, metrics = policy_checks(assay, trials, policies)
     require(details['checks'] == checks, 'published crossed A/B checks differ from recomputed gates')
     require(record['metrics'] == metrics, 'published metrics differ from recomputed gates')
     return dict(job_id=job['id'], seed=job['seed'], layout=name, checks=checks, metrics=metrics,
@@ -158,77 +170,92 @@ def joint_paths(row, policy):
             for a in MAPPINGS for b in MAPPINGS}
 
 
-def graph_contrast(row, control):
+def graph_contrast(row, control, treatment='lead'):
     def stages(policy):
         train = row['training'][policy]
         return {('a', mapping): stage for mapping, stage in train['a'].items()} | {
             ('b', a, b): stage for a, arms in train['b'].items() for b, stage in arms.items()}
-    lead, other = stages('lead'), stages(control)
-    common = lead_only = control_only = identical = 0
-    for key, stage in lead.items():
+    trial, other = stages(treatment), stages(control)
+    common = treatment_only = control_only = identical = 0
+    for key, stage in trial.items():
         left = set(map(tuple, stage['formed_pairs']))
         right = set(map(tuple, other[key]['formed_pairs']))
         common += len(left & right)
-        lead_only += len(left - right)
+        treatment_only += len(left - right)
         control_only += len(right - left)
         identical += left == right
-    return dict(common_formed_pairs=common, lead_only_formed_pairs=lead_only,
+    return dict(common_formed_pairs=common, **{f'{treatment}_only_formed_pairs': treatment_only},
                 control_only_formed_pairs=control_only, identical_stage_graphs=identical,
-                compared_stages=len(lead))
+                compared_stages=len(trial))
+
+
+def policy_summary(results, policy, extra_formation_fields=()):
+    summary = {}
+    for gate, full in (('a_acquisition', 4), ('b_acquisition', 12), ('a_retention', 12)):
+        rows = [case for row in results for case in cases(row, policy, gate).values()]
+        summary[gate] = dict(eligible_cases=sum(case['eligible'] for case in rows),
+            passed_cases=sum(case['passed'] for case in rows),
+            full_seed_passes=sum(row['metrics'][f'{policy}_{gate}'] == full for row in results))
+    summary['joint_paths'] = sum(row['metrics'][f'{policy}_joint_paths'] for row in results)
+    stages = [stage for row in results for stage in row['training'][policy]['a'].values()]
+    stages += [stage for row in results for branches in row['training'][policy]['b'].values()
+               for stage in branches.values()]
+    summary['formation'] = {key: sum(stage[key] for stage in stages)
+        for key in ('formed', 'exploratory', 'choices', 'above_recency', 'positive_evidence',
+                    *extra_formation_fields)}
+    return summary
+
+
+def paired_summary(results, treatment, control):
+    paired = {}
+    outcome = ('neither', 'control_only', f'{treatment}_only', 'both')
+    count_fields = (f'{treatment}_only', 'control_only', 'both', 'neither')
+    gates = ('a_acquisition', 'b_acquisition', 'a_retention')
+    for gate in gates:
+        counts = dict.fromkeys(count_fields, 0)
+        counts['jointly_eligible'] = 0
+        for row in results:
+            trial, other = cases(row, treatment, gate), cases(row, control, gate)
+            for key, value in trial.items():
+                if value['eligible'] and other[key]['eligible']:
+                    counts['jointly_eligible'] += 1
+                    counts[outcome[2 * value['passed'] + other[key]['passed']]] += 1
+        paired[gate] = counts
+    paired['per_seed'] = [dict(seed=row['seed'], **{gate: row['metrics'][f'{treatment}_{gate}']
+        - row['metrics'][f'{control}_{gate}'] for gate in (*gates, 'joint_paths')}) for row in results]
+    joint = dict.fromkeys(count_fields, 0)
+    for row in results:
+        trial, other = joint_paths(row, treatment), joint_paths(row, control)
+        for key, passed in trial.items():
+            joint[outcome[2 * passed + other[key]]] += 1
+    paired['joint_paths'] = joint
+    paired['formed_graphs'] = [dict(seed=row['seed'], **graph_contrast(row, control, treatment))
+                                for row in results]
+    return paired
 
 
 def aggregate(results):
-    policies, contrasts = {}, {}
-    for policy in POLICIES:
-        policies[policy] = {}
-        for gate, full in (('a_acquisition', 4), ('b_acquisition', 12), ('a_retention', 12)):
-            rows = [case for row in results for case in cases(row, policy, gate).values()]
-            policies[policy][gate] = dict(eligible_cases=sum(case['eligible'] for case in rows),
-                passed_cases=sum(case['passed'] for case in rows),
-                full_seed_passes=sum(row['metrics'][f'{policy}_{gate}'] == full for row in results))
-        policies[policy]['joint_paths'] = sum(row['metrics'][f'{policy}_joint_paths'] for row in results)
-        stages = [stage for row in results for stage in row['training'][policy]['a'].values()]
-        stages += [stage for row in results for branches in row['training'][policy]['b'].values()
-                   for stage in branches.values()]
-        policies[policy]['formation'] = {key: sum(stage[key] for stage in stages)
-            for key in ('formed', 'exploratory', 'choices', 'above_recency', 'positive_evidence')}
-    for control in ('recent', 'lagged'):
-        paired = {}
-        for gate in ('a_acquisition', 'b_acquisition', 'a_retention'):
-            counts = dict(lead_only=0, control_only=0, both=0, neither=0, jointly_eligible=0)
-            for row in results:
-                lead, other = cases(row, 'lead', gate), cases(row, control, gate)
-                for key, value in lead.items():
-                    if value['eligible'] and other[key]['eligible']:
-                        counts['jointly_eligible'] += 1
-                        outcome = ('neither', 'control_only', 'lead_only', 'both')
-                        counts[outcome[2 * value['passed'] + other[key]['passed']]] += 1
-            paired[gate] = counts
-        paired['per_seed'] = [dict(seed=row['seed'], **{gate: row['metrics'][f'lead_{gate}']
-            - row['metrics'][f'{control}_{gate}'] for gate in
-            ('a_acquisition', 'b_acquisition', 'a_retention', 'joint_paths')}) for row in results]
-        joint = dict(lead_only=0, control_only=0, both=0, neither=0)
-        for row in results:
-            lead, other = joint_paths(row, 'lead'), joint_paths(row, control)
-            for key, passed in lead.items():
-                outcome = ('neither', 'control_only', 'lead_only', 'both')
-                joint[outcome[2 * passed + other[key]]] += 1
-        paired['joint_paths'] = joint
-        paired['formed_graphs'] = [dict(seed=row['seed'], **graph_contrast(row, control))
-                                    for row in results]
-        contrasts[control] = paired
-    return dict(policies=policies, paired_lead=contrasts)
+    return dict(policies={policy: policy_summary(results, policy) for policy in POLICIES},
+                paired_lead={control: paired_summary(results, 'lead', control)
+                             for control in ('recent', 'lagged')})
 
 
 def analyze_directory(directory, smoke=False):
+    return analyze_cohort(directory, smoke, protocol=PROTOCOL, scenario=SCENARIO,
+                          intervention=INTERVENTION, planned_seeds=SEEDS,
+                          analyze=analyze_record, summarize=aggregate)
+
+
+def analyze_cohort(directory, smoke, *, protocol, scenario, intervention, planned_seeds,
+                   analyze, summarize):
     directory = Path(directory)
     manifest = json.loads((directory / 'manifest.json').read_text(encoding='utf-8'))
     experiment = manifest['spec']['experiment']
     seeds = identity_set(experiment['seeds'], 'manifest cohort')
-    require(manifest['protocol'] == 'NERVA-Research-v1' and experiment['scenario'] == SCENARIO
+    require(manifest['protocol'] == 'NERVA-Research-v1' and experiment['scenario'] == scenario
             and experiment['verify_replay'] is True and seeds
-            and experiment['interventions'] == [INTERVENTION], 'lead growth manifest with full replay required')
-    require(smoke or seeds == set(SEEDS), 'manifest differs from the prospective six-seed cohort')
+            and experiment['interventions'] == [intervention], 'formation growth manifest with full replay required')
+    require(smoke or seeds == set(planned_seeds), 'manifest differs from the prospective six-seed cohort')
     require(manifest['counts'] == dict(variants=1, seeds=len(seeds), interventions=1,
             trials=len(seeds), full_executions=2 * len(seeds)), 'manifest run counts differ')
     jobs = {f'v00000-s{seed}-i000': seed for seed in seeds}
@@ -241,14 +268,15 @@ def analyze_directory(directory, smoke=False):
         raw = (directory / 'records' / f"{job['id']}.json").read_bytes()
         record, checksum = source_record(raw)
         require(record['job'] == job and job['variant'] == 'v00000'
-                and job['intervention'] == INTERVENTION, 'record job differs from manifest')
+                and job['intervention'] == intervention, 'record job differs from manifest')
         fixed = dict(processing_neurons=256, training_repetitions=8, rest_us=11_000_000)
         require(smoke or all(job['effective_config'][key] == value for key, value in fixed.items()),
                 'record differs from prospective workload')
-        results.append({**analyze_record(record), 'record_checksum': checksum,
+        results.append({**analyze(record), 'record_checksum': checksum,
                         'record_sha256': hashlib.sha256(raw).hexdigest()})
     results.sort(key=lambda row: row['seed'])
-    return dict(protocol=PROTOCOL, smoke=smoke, cohort_size=len(results), summary=aggregate(results), records=results)
+    return dict(protocol=protocol, smoke=smoke, cohort_size=len(results),
+                summary=summarize(results), records=results)
 
 
 def main():
