@@ -17,7 +17,7 @@ pub enum LeadGrowthScenario {
     Contrast,
 }
 
-const POLICIES: [(&str, ExploratoryFormation); 4] = [
+pub(super) const POLICIES: [(&str, ExploratoryFormation); 4] = [
     ("recent", ExploratoryFormation::RecentExcitatory),
     ("lead", ExploratoryFormation::LeadingExcitatory),
     ("lagged", ExploratoryFormation::LaggedLeadingExcitatory),
@@ -43,14 +43,14 @@ const METRICS: [&str; 16] = [
 ];
 
 impl LeadGrowthScenario {
-    fn protocol(self) -> &'static str {
+    pub(super) fn protocol(self) -> &'static str {
         match self {
             Self::Lead => "NERVA-Contingency-Lead-Growth/1",
             Self::Contrast => "NERVA-Contingency-Contrast-Growth/1",
         }
     }
 
-    fn intervention(self) -> &'static str {
+    pub(super) fn intervention(self) -> &'static str {
         match self {
             Self::Lead => "crossed_lead_growth",
             Self::Contrast => "crossed_contrast_growth",
@@ -64,7 +64,7 @@ impl LeadGrowthScenario {
         }
     }
 
-    fn layout(self, seed: u64) -> (&'static str, BTreeMap<&'static str, Vec<usize>>) {
+    pub(super) fn layout(self, seed: u64) -> (&'static str, BTreeMap<&'static str, Vec<usize>>) {
         let (layout, map): (_, fn(usize, usize) -> usize) = match (self, seed % 4 == 3) {
             (Self::Lead, false) => ("rotate", |row, col| 8 * col + 7 - row),
             (Self::Lead, true) => ("interleave", |row, col| {
@@ -87,6 +87,14 @@ impl LeadGrowthScenario {
             })
             .collect();
         (layout, mapped)
+    }
+}
+
+pub(super) fn training_audit(mode: ExploratoryFormation) -> TrainingAudit {
+    if mode == ExploratoryFormation::ContrastLeadingExcitatory {
+        TrainingAudit::Contrast
+    } else {
+        TrainingAudit::Lead
     }
 }
 
@@ -126,11 +134,7 @@ fn run(study: LeadGrowthScenario, config: &Config, seed: u64) -> Result<TrialMet
             .map_err(fail)?;
         let mut a = BTreeMap::new();
         let mut b = BTreeMap::new();
-        let audit = if mode == ExploratoryFormation::ContrastLeadingExcitatory {
-            TrainingAudit::Contrast
-        } else {
-            TrainingAudit::Lead
-        };
+        let audit = training_audit(mode);
         for a_mapping in MAPPINGS {
             let mut after_a = exact_fork(&policy_start)?;
             let rows = assay.train(&mut after_a, a_mapping, 0, audit)?;

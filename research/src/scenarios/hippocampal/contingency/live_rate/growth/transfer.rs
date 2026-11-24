@@ -14,7 +14,9 @@ use nerva::core::{NeuronId, Polarity, SynapseId};
 use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 
+mod b_source;
 mod sources;
+pub use b_source::replay_b_source;
 pub use sources::{replay_a_source, replay_a_timing};
 
 const PROTOCOL: &str = "NERVA-Contingency-A-Transfer/1";

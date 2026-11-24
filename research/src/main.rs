@@ -20,7 +20,7 @@ use nerva_research::{
                     LiveRateScenario,
                     growth::{
                         LiveGrowthScenario, lead::LeadGrowthScenario, replay_a_source,
-                        replay_a_timing, replay_a_transfer,
+                        replay_a_timing, replay_a_transfer, replay_b_source,
                     },
                     replay_b_factor,
                 },
@@ -74,6 +74,7 @@ fn execute() -> Result<()> {
             | "contingency-a-transfer"
             | "contingency-a-source"
             | "contingency-a-timing"
+            | "contingency-b-source"
     ) {
         let path = args
             .next()
@@ -140,6 +141,7 @@ fn execute() -> Result<()> {
             Some(observations) => replay_chemical(&envelope, &observations)?,
             None if mode == "contingency-eligibility" => replay_eligibility(&envelope)?,
             None if mode == "contingency-b-factor" => replay_b_factor(&envelope)?,
+            None if mode == "contingency-b-source" => replay_b_source(&envelope)?,
             None if mode == "contingency-a-transfer" => replay_a_transfer(&envelope)?,
             None => replay_electrical(&envelope)?,
         };
