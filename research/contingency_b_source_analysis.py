@@ -45,16 +45,17 @@ def distance(a, b):
     return math.sqrt(dx * dx + dy * dy + dz * dz)
 
 
-def source_plan(stage, geometry, radius):
+def source_plan(stage, geometry, radius, mapping):
     rows = stage['end_topology']
     ends = {row[0]: row for row in rows}
     born = []
     for frame in stage['frames']:
         exploratory = {edge for edge, *_ in frame['exploratory']}
-        born.extend((edge, pre) for edge, pre, post in frame['formed']
-                    if post == TARGET and edge in exploratory)
-    require(len(born) == 1, 'archive lacks exactly one exploratory B input to target')
-    edge, pre = born[0]
+        born.extend((edge, pre, edge in exploratory) for edge, pre, post in frame['formed']
+                    if post == TARGET)
+    require(len(born) == 1, 'archive lacks exactly one B-born input to target')
+    edge, pre, exploratory = born[0]
+    require(exploratory == (mapping == 'forward'), 'B source birth class differs from archived mapping')
     original = ends[edge]
     require(original[:3] == [edge, pre, TARGET] and original[5]
             and pre in SOURCE_PAIR, 'unexpected archived B source or endpoint')
@@ -74,7 +75,7 @@ def source_plan(stage, geometry, radius):
             candidates.append((cell not in active, abs(target_distance - swap_distance), cell))
     require(candidates, 'no local sham source is available')
     _, _, sham = min(candidates)
-    return original, swap, sham, sham in active
+    return original, exploratory, swap, sham, sham in active
 
 
 def expected_patch(stage, original, replacement, arm_name):
@@ -99,10 +100,12 @@ def probe_metrics(probe, edge):
                 nonrefractory_peak_time_us=peak[0], reference_latency_margin=fixed_margin)
 
 
-def read_branch(row, stage, assay, start, geometry, radius, label):
-    original, swap, sham, active = source_plan(stage, geometry, radius)
-    require(row.keys() == {'original_edge', 'swap_source', 'sham_source', 'sham_cue_active', 'arms'}
-            and row['original_edge'] == original and natural(row['swap_source'])
+def read_branch(row, stage, assay, start, geometry, radius, mapping, label):
+    original, exploratory, swap, sham, active = source_plan(stage, geometry, radius, mapping)
+    require(row.keys() == {'original_edge', 'original_exploratory', 'swap_source', 'sham_source',
+                           'sham_cue_active', 'arms'}
+            and row['original_edge'] == original and row['original_exploratory'] is exploratory
+            and natural(row['swap_source'])
             and row['swap_source'] == swap and natural(row['sham_source'])
             and row['sham_source'] == sham and row['sham_cue_active'] is active
             and row['arms'].keys() == set(ARMS), f'{label}: source plan differs')
@@ -140,8 +143,8 @@ def read_branch(row, stage, assay, start, geometry, radius, label):
             tested = expected['inserted_edges'][0][0] if replacement is not None else original[0]
             probes[cue] = probe_metrics(probe, tested)
         metrics[name] = dict(cancelled_arrivals=cancelled, probes=probes)
-    return dict(original_edge=original, swap_source=swap, sham_source=sham, sham_cue_active=active,
-                arms=metrics)
+    return dict(original_edge=original, original_exploratory=exploratory, swap_source=swap,
+                sham_source=sham, sham_cue_active=active, arms=metrics)
 
 
 def gate_contrasts(assay, trial, archived, history):
@@ -170,7 +173,8 @@ def summarize(branches, gates):
                 row = branches[policy][a][b]
                 summary[a][b][policy] = dict(
                     source=row['original_edge'][1], swap_source=row['swap_source'],
-                    sham_source=row['sham_source'], sham_cue_active=row['sham_cue_active'],
+                    original_exploratory=row['original_exploratory'], sham_source=row['sham_source'],
+                    sham_cue_active=row['sham_cue_active'],
                     **{arm: {**row['arms'][arm]['probes'][CUE],
                              'b_gate_passed_fixed_controls':
                                  gates[policy][a]['fixed_controls'][b][arm][CUE]['passed'] if b in MAPPINGS else None,
@@ -227,7 +231,7 @@ def analyze_record(raw, source, checksum):
             require(rows.keys() == set(TRAINING), 'unexpected B source mapping layout')
             result[policy][history] = {
                 mapping: read_branch(row, archived['b'][history][mapping], assay, start, geometry,
-                                     radius, f'{policy}/{history}/{mapping}')
+                                     radius, mapping, f'{policy}/{history}/{mapping}')
                 for mapping, row in rows.items()}
             scores = gate_contrasts(assay, rows, archived, history)
             require({mapping: arms['intact'] for mapping, arms in scores['fixed_controls'].items()}

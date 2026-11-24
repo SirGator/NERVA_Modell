@@ -21,13 +21,16 @@ exakten Kopien des jeweiligen Trägers an.
 | Arm | Eingriff |
 | --- | --- |
 | Intakt | Unveränderter Abruf als exakte Archivkontrolle |
-| Blockade | Den einzigen während B explorativ entstandenen Eingang zu Zelle 93 sperren |
+| Blockade | Den einzigen während B entstandenen Eingang zu Zelle 93 sperren |
 | Tausch | Dieselbe Sperre und einen neuen Eingang von der jeweils anderen Quelle aus 87 und 100 einsetzen |
 | Ortskontrolle | Dieselbe Sperre und einen neuen Eingang von einer weiteren nahe gelegenen erregenden Quelle einsetzen |
 
 Beim Einsetzen bleiben Gewicht und Verzögerung des jeweiligen
 gesperrten Eingangs exakt erhalten. Die Ersatzkante hat die
 native Kurzzeitkonfiguration und startet in ihrem Ruhezustand.
+Der Eingang entstand in der Vorwärtszuordnung explorativ und
+in den beiden Kontrollzuordnungen durch die native Bildung.
+Der Runner prüft diese Herkunft für jeden Träger.
 Die tatsächlich gelieferte Zahl und Amplitude von Ankünften
 hängen von der Quellaktivität ab und werden gemessen. Beide
 Ersatzbedingungen verwenden einen im Träger freien Endpunkt

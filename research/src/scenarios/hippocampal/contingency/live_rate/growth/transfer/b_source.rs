@@ -16,6 +16,7 @@ use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 
 const PROTOCOL: &str = "NERVA-Contingency-B-Source/1";
+const SOURCE_CHECKSUM: &str = "363a851d2d379cd6";
 const SEED: u64 = 34531;
 const TARGET: NeuronId = NeuronId(93);
 const CUE: &str = CUES_B[0];
@@ -41,7 +42,7 @@ fn verify_stage(
     Ok(())
 }
 
-fn original_edge(model: &Model, stage: &Value) -> Result<Birth> {
+fn original_edge(model: &Model, stage: &Value, mapping: &str) -> Result<(Birth, bool)> {
     let mut born = vec![];
     for frame in stage["frames"]
         .as_array()
@@ -53,33 +54,39 @@ fn original_edge(model: &Model, stage: &Value) -> Result<Birth> {
             .into_iter()
             .filter(|&(_, _, target)| target == TARGET.0)
         {
-            if frame["exploratory"]
+            let exploratory = frame["exploratory"]
                 .as_array()
-                .is_some_and(|rows| rows.iter().any(|row| row[0].as_u64() == Some(id)))
-            {
-                born.push(id);
-            }
+                .ok_or_else(|| error("missing B source exploration ledger"))?
+                .iter()
+                .any(|row| row[0].as_u64() == Some(id));
+            born.push((id, exploratory));
         }
     }
-    let [id] = born.as_slice() else {
+    let [(id, exploratory)] = born.as_slice() else {
         return Err(error(
-            "B source expected one exploratory edge into the responder",
+            "B source expected one B-born edge into the responder",
         ));
     };
     let edge = model
         .network()
         .synapse(SynapseId(*id))
         .ok_or_else(|| error("missing B source edge"))?;
-    if !edge.is_enabled() || !SOURCES.contains(&edge.pre()) {
-        return Err(error("B source found an unexpected exploratory edge"));
+    if !edge.is_enabled()
+        || !SOURCES.contains(&edge.pre())
+        || *exploratory != (mapping == "forward")
+    {
+        return Err(error("B source found an unexpected B-born edge"));
     }
-    Ok(Birth {
-        id: *id,
-        pre: edge.pre(),
-        post: TARGET,
-        weight: edge.weight().get(),
-        delay: edge.delay_us(),
-    })
+    Ok((
+        Birth {
+            id: *id,
+            pre: edge.pre(),
+            post: TARGET,
+            weight: edge.weight().get(),
+            delay: edge.delay_us(),
+        },
+        *exploratory,
+    ))
 }
 
 fn sham_source(
@@ -124,10 +131,11 @@ fn measure(
     assay: &Assay<'_>,
     model: &Model,
     archive: &Value,
+    mapping: &str,
     geometry: &BTreeMap<NeuronId, Position>,
     radius: f32,
 ) -> Result<Value> {
-    let edge = original_edge(model, archive)?;
+    let (edge, exploratory) = original_edge(model, archive, mapping)?;
     let swap = if edge.pre == SOURCES[0] {
         SOURCES[1]
     } else {
@@ -198,7 +206,7 @@ fn measure(
         );
     }
     Ok(
-        json!({"original_edge":edge.row(),"swap_source":swap.0,"sham_source":sham.0,
+        json!({"original_edge":edge.row(),"original_exploratory":exploratory,"swap_source":swap.0,"sham_source":sham.0,
         "sham_cue_active":sham_active,"arms":arms}),
     )
 }
@@ -218,7 +226,8 @@ pub fn replay_b_source(envelope: &Value) -> Result<Value> {
         rest_us: 11_000_000,
     };
     let (layout, stimuli) = study.layout(SEED);
-    if envelope["checksum_fnv1a64"] != checksum
+    if checksum != SOURCE_CHECKSUM
+        || envelope["checksum_fnv1a64"] != checksum
         || record["full_replay_checked"] != true
         || job["seed"] != SEED
         || job["intervention"] != intervention.name
@@ -288,7 +297,7 @@ pub fn replay_b_source(envelope: &Value) -> Result<Value> {
                 let mut after_b = exact_fork(&after_a)?;
                 let stage = &old["b"][a][b];
                 verify_stage(&assay, &mut after_b, b, 1, audit, stage)?;
-                mappings.insert(b, measure(&assay, &after_b, stage, &geometry, radius)?);
+                mappings.insert(b, measure(&assay, &after_b, stage, b, &geometry, radius)?);
             }
             histories.insert(a, mappings);
         }

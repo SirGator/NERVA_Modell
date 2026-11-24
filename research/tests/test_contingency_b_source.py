@@ -23,7 +23,8 @@ def fixture():
         probes={cue: dict(start_us=start, core_spikes=deepcopy(spikes) if cue == CUE else [],
                           arrived_edges=[15] if cue == CUE else [], root_spikes=[],
                           rest_core_spikes=0) for cue in PROBES})
-    row = dict(original_edge=original, swap_source=100, sham_source=104, sham_cue_active=True, arms={})
+    row = dict(original_edge=original, original_exploratory=True, swap_source=100, sham_source=104,
+               sham_cue_active=True, arms={})
     for name in ARMS:
         replacement = {'swap': 100, 'sham': 104}.get(name)
         arm = expected_patch(stage, original, replacement, name)
@@ -48,16 +49,27 @@ def fixture():
 class BSourceTests(unittest.TestCase):
     def test_archived_source_and_active_sham_priority(self):
         _, stage, _, _, geometry = fixture()
-        original, swap, sham, active = source_plan(stage, geometry, 1.)
-        self.assertEqual((original[0], swap, sham, active), (15, 100, 104, True))
-        self.assertEqual(source_plan(stage, geometry, .6)[2:], (105, False))
+        original, exploratory, swap, sham, active = source_plan(stage, geometry, 1., 'forward')
+        self.assertEqual((original[0], exploratory, swap, sham, active), (15, True, 100, 104, True))
+        self.assertEqual(source_plan(stage, geometry, .6, 'forward')[3:], (105, False))
         stage['end_topology'].append([16, 100, TARGET, .4, 1_000, False])
         with self.assertRaisesRegex(ValueError, 'reciprocal source is unavailable'):
-            source_plan(stage, geometry, 1.)
+            source_plan(stage, geometry, 1., 'forward')
+
+    def test_control_branch_accepts_native_birth_and_requires_correct_receipt(self):
+        row, stage, assay, start, geometry = fixture()
+        with self.assertRaisesRegex(ValueError, 'birth class'):
+            read_branch(row, stage, assay, start, geometry, 1., 'balanced', 'test')
+        stage['frames'][0]['exploratory'] = []
+        with self.assertRaisesRegex(ValueError, 'source plan differs'):
+            read_branch(row, stage, assay, start, geometry, 1., 'balanced', 'test')
+        row['original_exploratory'] = False
+        result = read_branch(row, stage, assay, start, geometry, 1., 'balanced', 'test')
+        self.assertFalse(result['original_exploratory'])
 
     def test_verify_exact_patch_and_same_clock_replayed_trace(self):
         row, stage, assay, start, geometry = fixture()
-        result = read_branch(row, stage, assay, start, geometry, 1., 'test')
+        result = read_branch(row, stage, assay, start, geometry, 1., 'forward', 'test')
         self.assertEqual(result['arms']['intact']['probes'][CUE]['target_spikes_us'], [2_000])
         self.assertEqual(result['arms']['block']['probes'][CUE]['target_spikes_us'], [])
         swapped = result['arms']['swap']['probes'][CUE]
@@ -75,7 +87,7 @@ class BSourceTests(unittest.TestCase):
             altered = deepcopy(row)
             change(altered)
             with self.assertRaisesRegex(ValueError, message):
-                read_branch(altered, stage, assay, start, geometry, 1., 'test')
+                read_branch(altered, stage, assay, start, geometry, 1., 'forward', 'test')
 
     def test_fixed_control_and_common_arm_gates_distinguish_rescued_recall(self):
         def probes(responsive=False):
