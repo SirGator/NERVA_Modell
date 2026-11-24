@@ -126,6 +126,7 @@ pub struct Model {
     audit: Option<audit::Collector>,
     development_audit: Option<development_audit::Collector>,
     development_policy: development_policy::PolicyState,
+    dynamics_auditing_requested: bool,
 }
 
 #[derive(Clone, Debug, Default, PartialEq)]
@@ -191,6 +192,7 @@ impl Model {
             audit: self.audit.clone(),
             development_audit: self.development_audit.clone(),
             development_policy: self.development_policy.clone(),
+            dynamics_auditing_requested: self.dynamics_auditing_requested,
         })
     }
 
@@ -470,6 +472,7 @@ impl Model {
             audit: None,
             development_audit: None,
             development_policy: development_policy::PolicyState::default(),
+            dynamics_auditing_requested: false,
         })
     }
 
@@ -528,6 +531,7 @@ impl Model {
     /// Exact, read-only integration/continuous-evolution events in raw input audits.
     /// Drain after each step; this does not change any neural or learning parameter.
     pub fn set_dynamics_auditing(&mut self, enabled: bool) {
+        self.dynamics_auditing_requested = enabled;
         self.simulation.set_dynamics_auditing(enabled);
     }
 
@@ -1193,6 +1197,9 @@ impl Model {
                     target_last_us: choice.target_last.map(|time| time.0),
                     recent_candidates: choice.recent_candidates,
                     drive: *demand,
+                    recent_source: choice.recent_source,
+                    chosen_evidence: choice.chosen_evidence,
+                    recent_evidence: choice.recent_evidence,
                 })
             })
             .collect();
@@ -1287,10 +1294,11 @@ impl Model {
             )?;
         }
         let motor_base = self.motor_neurons[0].0;
+        let motor_len = self.motor_neurons.len();
         let motor_index = |id: NeuronId| {
             id.0.checked_sub(motor_base)
                 .map(|index| index as usize)
-                .filter(|&index| index < self.motor_neurons.len())
+                .filter(|&index| index < motor_len)
         };
         let mut refractory: Vec<_> = self
             .motor_neurons
@@ -1298,7 +1306,16 @@ impl Model {
             .map(|id| self.network().neuron(*id).unwrap().refractory_until().0)
             .collect();
         let mut motor_inputs = vec![MotorInputStats::default(); Key::COUNT];
-        self.simulation.run_until(SimTime(end))?;
+        let collect_evidence = self.lead_evidence_active();
+        if collect_evidence {
+            self.simulation.set_dynamics_auditing(true);
+        }
+        let run_result = self.simulation.run_until(SimTime(end));
+        if collect_evidence {
+            self.simulation
+                .set_dynamics_auditing(self.dynamics_auditing_requested);
+        }
+        run_result?;
         let mut weight_changes = 0;
         let mut core_counts = vec![0; self.processing.len()];
         let mut core_events = Vec::new();
@@ -1306,6 +1323,17 @@ impl Model {
         let mut action_copy_arrivals = 0;
         let mut homeostasis_changes = 0;
         for event in self.simulation.drain_event_log().into_events() {
+            self.observe_lead_evidence(&event);
+            if collect_evidence
+                && !self.dynamics_auditing_requested
+                && matches!(
+                    event,
+                    ObservationEvent::NeuronIntegrated { .. }
+                        | ObservationEvent::NeuronAdvanced { .. }
+                )
+            {
+                continue;
+            }
             if let (Some(collector), Some(observation)) = (&mut self.audit, &mut observation) {
                 collector.event(observation, &event, self.simulation.network());
             }

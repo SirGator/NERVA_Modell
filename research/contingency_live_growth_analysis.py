@@ -54,13 +54,13 @@ def count_passed(rows):
     return sum(case['passed'] for cues in rows.values() for case in cues.values())
 
 
-def recompute_checks(assay, stages_a, branches_b):
+def recompute_checks(assay, stages_a, branches_b, policies=POLICIES):
     """Compare B mappings within A, and A histories under an identical B mapping."""
     a_arms = {mapping: {'a': stage} for mapping, stage in stages_a.items()}
     acquisition = gate_rows(assay.reset, assay.targets['a'], a_arms, 'a', 'a')
     b_checks, retention = {}, {}
     metrics = {'a_acquisition': count_passed(acquisition)}
-    for policy in POLICIES:
+    for policy in policies:
         branches = branches_b[policy]
         b_checks[policy] = {}
         for a_mapping in TRAINING:

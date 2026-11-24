@@ -105,6 +105,7 @@ enum TrainingAudit {
     Off,
     Standard,
     Formation,
+    Lead,
 }
 
 impl Assay<'_> {
@@ -181,7 +182,7 @@ impl Assay<'_> {
                     "root_spikes":roots,"core_spikes":step.core_events,"formed":step.formed,"pruned":step.pruned,
                     "weight_changes":step.weight_changes, "homeostasis_changes":step.homeostasis_changes,
                 });
-                if mode == TrainingAudit::Formation {
+                if matches!(mode, TrainingAudit::Formation | TrainingAudit::Lead) {
                     row["exploratory"] = json!(
                         step.exploratory
                             .iter()
@@ -195,6 +196,19 @@ impl Assay<'_> {
                                     decision.drive,
                                 )
                             })
+                            .collect::<Vec<_>>()
+                    );
+                }
+                if mode == TrainingAudit::Lead {
+                    row["lead_choices"] = json!(
+                        step.exploratory
+                            .iter()
+                            .map(|decision| (
+                                decision.edge,
+                                decision.recent_source,
+                                decision.chosen_evidence,
+                                decision.recent_evidence,
+                            ))
                             .collect::<Vec<_>>()
                     );
                 }

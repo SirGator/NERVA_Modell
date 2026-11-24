@@ -39,7 +39,7 @@ def layout():
 
 
 class Assay:
-    def __init__(self, details, config, seed):
+    def __init__(self, details, config, seed, expected_stimuli=None):
         self.seed = seed
         self.core = identity_set(details['core_ids'], 'Core')
         self.checkpoint = details['checkpoint_time_us']
@@ -52,7 +52,8 @@ class Assay:
                 'invalid training repetition count')
         require(16 <= len(self.core) <= 256 and len(self.core) == config['processing_neurons'],
                 'Core identities differ from planned population')
-        require(details['stimuli'] == layout(), 'stimuli differ from the A/B design')
+        require(details['stimuli'] == (layout() if expected_stimuli is None else expected_stimuli),
+                'stimuli differ from the A/B design')
         self.stimuli = {name: set(pixels) for name, pixels in details['stimuli'].items()}
         self.initial = topology(details['initial_topology'])
         self.reset = details['reset']

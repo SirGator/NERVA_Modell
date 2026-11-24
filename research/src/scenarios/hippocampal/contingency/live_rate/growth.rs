@@ -14,6 +14,7 @@ use std::collections::BTreeMap;
 
 mod transfer;
 pub use transfer::{replay_a_source, replay_a_timing, replay_a_transfer};
+pub mod lead;
 
 pub struct LiveGrowthScenario;
 const PROTOCOL: &str = "NERVA-Contingency-Live-Growth/1";
@@ -86,13 +87,14 @@ fn decisions(
     branches_b: &Value,
     reset: &Value,
     targets: &[Templates; 2],
+    policies: &[&str],
 ) -> (BTreeMap<String, f64>, Value) {
     let a = MAPPINGS.map(|m| &stages_a[m]["probes"]);
     let a_acquisition = score_mappings(a, reset, &targets[0], 0, None, None);
     let mut metrics = BTreeMap::from([("a_acquisition".into(), passes(&a_acquisition) as f64)]);
     let mut b_gates = BTreeMap::new();
     let mut retention_gates = BTreeMap::new();
-    for policy in POLICIES {
+    for &policy in policies {
         let arms = &branches_b[policy];
         let mut b = BTreeMap::new();
         let mut retain = BTreeMap::new();
@@ -179,7 +181,7 @@ fn run(config: &Config, seed: u64) -> Result<TrialMetrics> {
     }
     let stages_a = json!(stages_a);
     let branches_b = json!(stages_b);
-    let (values, checks) = decisions(&stages_a, &branches_b, &reset, &targets);
+    let (values, checks) = decisions(&stages_a, &branches_b, &reset, &targets, &POLICIES);
     let details = json!({"protocol":PROTOCOL,"seed":seed,"core_ids":core_ids,
         "checkpoint_time_us":checkpoint_time_us,"stimuli":stimuli,"initial_topology":initial_topology,
         "reset":reset,"targets":{"a":targets[0],"b":targets[1]}, "stages_a":stages_a,

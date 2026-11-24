@@ -1,0 +1,15 @@
+[experiment]
+name = "visual_contingency_lead_growth_20261124"
+scenario = "hippocampal_contingency_lead_growth"
+seeds = [34409, 34421, 34429, 34439, 34447, 34459]
+interventions = ["crossed_lead_growth"]
+verify_replay = true
+max_runs = 6
+
+[base]
+processing_neurons = 256
+training_repetitions = 8
+rest_us = 11000000
+
+[measurements]
+metrics = ["recent_a_acquisition", "recent_b_acquisition", "recent_a_retention", "recent_joint_paths", "lead_a_acquisition", "lead_b_acquisition", "lead_a_retention", "lead_joint_paths", "lagged_a_acquisition", "lagged_b_acquisition", "lagged_a_retention", "lagged_joint_paths"]
