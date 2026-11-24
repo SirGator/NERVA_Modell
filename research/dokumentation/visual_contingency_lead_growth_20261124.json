@@ -1,0 +1,646 @@
+{
+  "protocol": "NERVA-Contingency-Lead-Growth/1",
+  "cohort_size": 6,
+  "source_commits": {
+    "model": "3b97d2992f139da1d88cf23b65c425a09a1eddef",
+    "library": "c13d9f733d474fe1516f3c170a0440b7c294c535"
+  },
+  "summary": {
+    "policies": {
+      "recent": {
+        "a_acquisition": {
+          "eligible_cases": 24,
+          "passed_cases": 0,
+          "full_seed_passes": 0
+        },
+        "b_acquisition": {
+          "eligible_cases": 72,
+          "passed_cases": 0,
+          "full_seed_passes": 0
+        },
+        "a_retention": {
+          "eligible_cases": 0,
+          "passed_cases": 0,
+          "full_seed_passes": 0
+        },
+        "joint_paths": 0,
+        "formation": {
+          "formed": 8297,
+          "exploratory": 2806,
+          "choices": 2806,
+          "above_recency": 0,
+          "positive_evidence": 0
+        }
+      },
+      "lead": {
+        "a_acquisition": {
+          "eligible_cases": 24,
+          "passed_cases": 0,
+          "full_seed_passes": 0
+        },
+        "b_acquisition": {
+          "eligible_cases": 72,
+          "passed_cases": 0,
+          "full_seed_passes": 0
+        },
+        "a_retention": {
+          "eligible_cases": 0,
+          "passed_cases": 0,
+          "full_seed_passes": 0
+        },
+        "joint_paths": 0,
+        "formation": {
+          "formed": 8288,
+          "exploratory": 2807,
+          "choices": 2807,
+          "above_recency": 92,
+          "positive_evidence": 347
+        }
+      },
+      "lagged": {
+        "a_acquisition": {
+          "eligible_cases": 24,
+          "passed_cases": 0,
+          "full_seed_passes": 0
+        },
+        "b_acquisition": {
+          "eligible_cases": 72,
+          "passed_cases": 0,
+          "full_seed_passes": 0
+        },
+        "a_retention": {
+          "eligible_cases": 0,
+          "passed_cases": 0,
+          "full_seed_passes": 0
+        },
+        "joint_paths": 0,
+        "formation": {
+          "formed": 8290,
+          "exploratory": 2804,
+          "choices": 2804,
+          "above_recency": 47,
+          "positive_evidence": 236
+        }
+      }
+    },
+    "paired_lead": {
+      "recent": {
+        "a_acquisition": {
+          "lead_only": 0,
+          "control_only": 0,
+          "both": 0,
+          "neither": 24,
+          "jointly_eligible": 24
+        },
+        "b_acquisition": {
+          "lead_only": 0,
+          "control_only": 0,
+          "both": 0,
+          "neither": 72,
+          "jointly_eligible": 72
+        },
+        "a_retention": {
+          "lead_only": 0,
+          "control_only": 0,
+          "both": 0,
+          "neither": 0,
+          "jointly_eligible": 0
+        },
+        "per_seed": [
+          {
+            "seed": 34409,
+            "a_acquisition": 0,
+            "b_acquisition": 0,
+            "a_retention": 0,
+            "joint_paths": 0
+          },
+          {
+            "seed": 34421,
+            "a_acquisition": 0,
+            "b_acquisition": 0,
+            "a_retention": 0,
+            "joint_paths": 0
+          },
+          {
+            "seed": 34429,
+            "a_acquisition": 0,
+            "b_acquisition": 0,
+            "a_retention": 0,
+            "joint_paths": 0
+          },
+          {
+            "seed": 34439,
+            "a_acquisition": 0,
+            "b_acquisition": 0,
+            "a_retention": 0,
+            "joint_paths": 0
+          },
+          {
+            "seed": 34447,
+            "a_acquisition": 0,
+            "b_acquisition": 0,
+            "a_retention": 0,
+            "joint_paths": 0
+          },
+          {
+            "seed": 34459,
+            "a_acquisition": 0,
+            "b_acquisition": 0,
+            "a_retention": 0,
+            "joint_paths": 0
+          }
+        ],
+        "joint_paths": {
+          "lead_only": 0,
+          "control_only": 0,
+          "both": 0,
+          "neither": 24
+        },
+        "formed_graphs": [
+          {
+            "seed": 34409,
+            "common_formed_pairs": 1329,
+            "lead_only_formed_pairs": 5,
+            "control_only_formed_pairs": 9,
+            "identical_stage_graphs": 8,
+            "compared_stages": 12
+          },
+          {
+            "seed": 34421,
+            "common_formed_pairs": 1379,
+            "lead_only_formed_pairs": 36,
+            "control_only_formed_pairs": 36,
+            "identical_stage_graphs": 0,
+            "compared_stages": 12
+          },
+          {
+            "seed": 34429,
+            "common_formed_pairs": 1339,
+            "lead_only_formed_pairs": 41,
+            "control_only_formed_pairs": 46,
+            "identical_stage_graphs": 0,
+            "compared_stages": 12
+          },
+          {
+            "seed": 34439,
+            "common_formed_pairs": 1294,
+            "lead_only_formed_pairs": 58,
+            "control_only_formed_pairs": 52,
+            "identical_stage_graphs": 0,
+            "compared_stages": 12
+          },
+          {
+            "seed": 34447,
+            "common_formed_pairs": 1391,
+            "lead_only_formed_pairs": 20,
+            "control_only_formed_pairs": 27,
+            "identical_stage_graphs": 4,
+            "compared_stages": 12
+          },
+          {
+            "seed": 34459,
+            "common_formed_pairs": 1377,
+            "lead_only_formed_pairs": 19,
+            "control_only_formed_pairs": 18,
+            "identical_stage_graphs": 8,
+            "compared_stages": 12
+          }
+        ]
+      },
+      "lagged": {
+        "a_acquisition": {
+          "lead_only": 0,
+          "control_only": 0,
+          "both": 0,
+          "neither": 24,
+          "jointly_eligible": 24
+        },
+        "b_acquisition": {
+          "lead_only": 0,
+          "control_only": 0,
+          "both": 0,
+          "neither": 72,
+          "jointly_eligible": 72
+        },
+        "a_retention": {
+          "lead_only": 0,
+          "control_only": 0,
+          "both": 0,
+          "neither": 0,
+          "jointly_eligible": 0
+        },
+        "per_seed": [
+          {
+            "seed": 34409,
+            "a_acquisition": 0,
+            "b_acquisition": 0,
+            "a_retention": 0,
+            "joint_paths": 0
+          },
+          {
+            "seed": 34421,
+            "a_acquisition": 0,
+            "b_acquisition": 0,
+            "a_retention": 0,
+            "joint_paths": 0
+          },
+          {
+            "seed": 34429,
+            "a_acquisition": 0,
+            "b_acquisition": 0,
+            "a_retention": 0,
+            "joint_paths": 0
+          },
+          {
+            "seed": 34439,
+            "a_acquisition": 0,
+            "b_acquisition": 0,
+            "a_retention": 0,
+            "joint_paths": 0
+          },
+          {
+            "seed": 34447,
+            "a_acquisition": 0,
+            "b_acquisition": 0,
+            "a_retention": 0,
+            "joint_paths": 0
+          },
+          {
+            "seed": 34459,
+            "a_acquisition": 0,
+            "b_acquisition": 0,
+            "a_retention": 0,
+            "joint_paths": 0
+          }
+        ],
+        "joint_paths": {
+          "lead_only": 0,
+          "control_only": 0,
+          "both": 0,
+          "neither": 24
+        },
+        "formed_graphs": [
+          {
+            "seed": 34409,
+            "common_formed_pairs": 1329,
+            "lead_only_formed_pairs": 5,
+            "control_only_formed_pairs": 9,
+            "identical_stage_graphs": 8,
+            "compared_stages": 12
+          },
+          {
+            "seed": 34421,
+            "common_formed_pairs": 1396,
+            "lead_only_formed_pairs": 19,
+            "control_only_formed_pairs": 20,
+            "identical_stage_graphs": 1,
+            "compared_stages": 12
+          },
+          {
+            "seed": 34429,
+            "common_formed_pairs": 1361,
+            "lead_only_formed_pairs": 19,
+            "control_only_formed_pairs": 19,
+            "identical_stage_graphs": 2,
+            "compared_stages": 12
+          },
+          {
+            "seed": 34439,
+            "common_formed_pairs": 1306,
+            "lead_only_formed_pairs": 46,
+            "control_only_formed_pairs": 39,
+            "identical_stage_graphs": 0,
+            "compared_stages": 12
+          },
+          {
+            "seed": 34447,
+            "common_formed_pairs": 1392,
+            "lead_only_formed_pairs": 19,
+            "control_only_formed_pairs": 24,
+            "identical_stage_graphs": 4,
+            "compared_stages": 12
+          },
+          {
+            "seed": 34459,
+            "common_formed_pairs": 1369,
+            "lead_only_formed_pairs": 27,
+            "control_only_formed_pairs": 26,
+            "identical_stage_graphs": 6,
+            "compared_stages": 12
+          }
+        ]
+      }
+    }
+  },
+  "gate_counts": {
+    "recent": {
+      "a_acquisition": {
+        "eligible": 24,
+        "quiet": 24,
+        "target_response": 4,
+        "beats_balanced": 0,
+        "ties_balanced_with_response": 4,
+        "beats_reverse": 2,
+        "beats_pre_b": 0
+      },
+      "b_acquisition": {
+        "eligible": 72,
+        "quiet": 72,
+        "target_response": 8,
+        "beats_balanced": 0,
+        "ties_balanced_with_response": 8,
+        "beats_reverse": 0,
+        "beats_pre_b": 3
+      },
+      "a_retention": {
+        "eligible": 0,
+        "quiet": 0,
+        "target_response": 0,
+        "beats_balanced": 0,
+        "ties_balanced_with_response": 0,
+        "beats_reverse": 0,
+        "beats_pre_b": 0
+      }
+    },
+    "lead": {
+      "a_acquisition": {
+        "eligible": 24,
+        "quiet": 24,
+        "target_response": 4,
+        "beats_balanced": 0,
+        "ties_balanced_with_response": 4,
+        "beats_reverse": 1,
+        "beats_pre_b": 0
+      },
+      "b_acquisition": {
+        "eligible": 72,
+        "quiet": 72,
+        "target_response": 8,
+        "beats_balanced": 0,
+        "ties_balanced_with_response": 8,
+        "beats_reverse": 0,
+        "beats_pre_b": 3
+      },
+      "a_retention": {
+        "eligible": 0,
+        "quiet": 0,
+        "target_response": 0,
+        "beats_balanced": 0,
+        "ties_balanced_with_response": 0,
+        "beats_reverse": 0,
+        "beats_pre_b": 0
+      }
+    },
+    "lagged": {
+      "a_acquisition": {
+        "eligible": 24,
+        "quiet": 24,
+        "target_response": 4,
+        "beats_balanced": 0,
+        "ties_balanced_with_response": 4,
+        "beats_reverse": 2,
+        "beats_pre_b": 0
+      },
+      "b_acquisition": {
+        "eligible": 72,
+        "quiet": 72,
+        "target_response": 8,
+        "beats_balanced": 0,
+        "ties_balanced_with_response": 8,
+        "beats_reverse": 0,
+        "beats_pre_b": 3
+      },
+      "a_retention": {
+        "eligible": 0,
+        "quiet": 0,
+        "target_response": 0,
+        "beats_balanced": 0,
+        "ties_balanced_with_response": 0,
+        "beats_reverse": 0,
+        "beats_pre_b": 0
+      }
+    }
+  },
+  "paired_trajectories": {
+    "recent": {
+      "a": {
+        "stage_pairs": 18,
+        "probe_pairs": 90,
+        "different_training_core_sequences": 14,
+        "different_probe_core_sequences": 29
+      },
+      "b": {
+        "stage_pairs": 54,
+        "probe_pairs": 270,
+        "different_training_core_sequences": 38,
+        "different_probe_core_sequences": 104
+      }
+    },
+    "lagged": {
+      "a": {
+        "stage_pairs": 18,
+        "probe_pairs": 90,
+        "different_training_core_sequences": 14,
+        "different_probe_core_sequences": 29
+      },
+      "b": {
+        "stage_pairs": 54,
+        "probe_pairs": 270,
+        "different_training_core_sequences": 36,
+        "different_probe_core_sequences": 91
+      }
+    }
+  },
+  "records": [
+    {
+      "job_id": "v00000-s34409-i000",
+      "seed": 34409,
+      "layout": "rotate",
+      "record_checksum": "977c9a4a9dc6a85a",
+      "record_sha256": "01c75e381a46b8d884b202d04612dc1a52fd8f387ed8fe8fbee7b4d294c05b72",
+      "target_sizes": {
+        "a": [
+          3,
+          4
+        ],
+        "b": [
+          3,
+          9
+        ]
+      },
+      "metrics": {
+        "recent_a_acquisition": 0,
+        "recent_b_acquisition": 0,
+        "recent_a_retention": 0,
+        "recent_joint_paths": 0,
+        "lead_a_acquisition": 0,
+        "lead_b_acquisition": 0,
+        "lead_a_retention": 0,
+        "lead_joint_paths": 0,
+        "lagged_a_acquisition": 0,
+        "lagged_b_acquisition": 0,
+        "lagged_a_retention": 0,
+        "lagged_joint_paths": 0
+      }
+    },
+    {
+      "job_id": "v00000-s34421-i000",
+      "seed": 34421,
+      "layout": "rotate",
+      "record_checksum": "90e0baea633686a1",
+      "record_sha256": "fa60fde1d889ec254d4c1d7250db2da851adbd83dc582aa7bdb0c9f1d2de6fb6",
+      "target_sizes": {
+        "a": [
+          5,
+          4
+        ],
+        "b": [
+          5,
+          8
+        ]
+      },
+      "metrics": {
+        "recent_a_acquisition": 0,
+        "recent_b_acquisition": 0,
+        "recent_a_retention": 0,
+        "recent_joint_paths": 0,
+        "lead_a_acquisition": 0,
+        "lead_b_acquisition": 0,
+        "lead_a_retention": 0,
+        "lead_joint_paths": 0,
+        "lagged_a_acquisition": 0,
+        "lagged_b_acquisition": 0,
+        "lagged_a_retention": 0,
+        "lagged_joint_paths": 0
+      }
+    },
+    {
+      "job_id": "v00000-s34429-i000",
+      "seed": 34429,
+      "layout": "rotate",
+      "record_checksum": "c82c49fc0201e910",
+      "record_sha256": "dbe359389bbeffb27424e0c88639020490bb7f7b9288021e8b33b601d45dcdb0",
+      "target_sizes": {
+        "a": [
+          6,
+          7
+        ],
+        "b": [
+          6,
+          8
+        ]
+      },
+      "metrics": {
+        "recent_a_acquisition": 0,
+        "recent_b_acquisition": 0,
+        "recent_a_retention": 0,
+        "recent_joint_paths": 0,
+        "lead_a_acquisition": 0,
+        "lead_b_acquisition": 0,
+        "lead_a_retention": 0,
+        "lead_joint_paths": 0,
+        "lagged_a_acquisition": 0,
+        "lagged_b_acquisition": 0,
+        "lagged_a_retention": 0,
+        "lagged_joint_paths": 0
+      }
+    },
+    {
+      "job_id": "v00000-s34439-i000",
+      "seed": 34439,
+      "layout": "interleave",
+      "record_checksum": "34810de05e839812",
+      "record_sha256": "ba42af8d365e1e2c87619b8c16b6a92f334641643059ec4c453ae36d074e8634",
+      "target_sizes": {
+        "a": [
+          3,
+          2
+        ],
+        "b": [
+          1,
+          4
+        ]
+      },
+      "metrics": {
+        "recent_a_acquisition": 0,
+        "recent_b_acquisition": 0,
+        "recent_a_retention": 0,
+        "recent_joint_paths": 0,
+        "lead_a_acquisition": 0,
+        "lead_b_acquisition": 0,
+        "lead_a_retention": 0,
+        "lead_joint_paths": 0,
+        "lagged_a_acquisition": 0,
+        "lagged_b_acquisition": 0,
+        "lagged_a_retention": 0,
+        "lagged_joint_paths": 0
+      }
+    },
+    {
+      "job_id": "v00000-s34447-i000",
+      "seed": 34447,
+      "layout": "interleave",
+      "record_checksum": "6754e05e5e10c912",
+      "record_sha256": "e8fae1a08695a939999fff6ec5e9e3b14cdd475de4123e9763eb08142d9adccb",
+      "target_sizes": {
+        "a": [
+          6,
+          2
+        ],
+        "b": [
+          1,
+          1
+        ]
+      },
+      "metrics": {
+        "recent_a_acquisition": 0,
+        "recent_b_acquisition": 0,
+        "recent_a_retention": 0,
+        "recent_joint_paths": 0,
+        "lead_a_acquisition": 0,
+        "lead_b_acquisition": 0,
+        "lead_a_retention": 0,
+        "lead_joint_paths": 0,
+        "lagged_a_acquisition": 0,
+        "lagged_b_acquisition": 0,
+        "lagged_a_retention": 0,
+        "lagged_joint_paths": 0
+      }
+    },
+    {
+      "job_id": "v00000-s34459-i000",
+      "seed": 34459,
+      "layout": "interleave",
+      "record_checksum": "327bd2d6ca21cc9a",
+      "record_sha256": "79afee00d9bc58bb2dba05fe180b8f90425a18df87cd961fe5df10a71c0a80e4",
+      "target_sizes": {
+        "a": [
+          4,
+          4
+        ],
+        "b": [
+          1,
+          1
+        ]
+      },
+      "metrics": {
+        "recent_a_acquisition": 0,
+        "recent_b_acquisition": 0,
+        "recent_a_retention": 0,
+        "recent_joint_paths": 0,
+        "lead_a_acquisition": 0,
+        "lead_b_acquisition": 0,
+        "lead_a_retention": 0,
+        "lead_joint_paths": 0,
+        "lagged_a_acquisition": 0,
+        "lagged_b_acquisition": 0,
+        "lagged_a_retention": 0,
+        "lagged_joint_paths": 0
+      }
+    }
+  ],
+  "local_archive": {
+    "path": "research/results/archives/visual_contingency_lead_growth_20261124.zip",
+    "sha256": "f0d73140611a5752ad92473606c03ddd44728610e6e9f5cca6d3067854b09270"
+  }
+}
