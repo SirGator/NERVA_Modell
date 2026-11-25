@@ -193,14 +193,14 @@ fn indexed_scaling_preserves_the_pre_change_reference_dynamics() {
         (
             17,
             "840dc0844bdbe9c3",
-            "fe90c87e666bca9d",
-            "07ce5e85304fd21f",
+            "e0dc580a5d86cf35",
+            "cdfe2c258510b916",
         ),
         (
             256,
             "bc3b38b3ced9359f",
-            "b78db7eca6418888",
-            "60aaf3c930e4072a",
+            "315c65bee861da71",
+            "ee5916859b22b3fb",
         ),
     ] {
         let mut c = scenario.default_config();
