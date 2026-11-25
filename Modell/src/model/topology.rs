@@ -137,7 +137,11 @@ pub(crate) fn build(config: &ModelConfig, sensor: &SensorConfig) -> Result<Topol
         }
         if role == NeuronRole::Processing {
             // Uniform local startup demand, no preselected future endpoints.
-            neuron.set_structural_drive_clamped(config.initial_structural_drive, 0.0, 3.0)?;
+            neuron.set_structural_drive_clamped(
+                config.initial_structural_drive,
+                MIN_STRUCTURAL_DRIVE,
+                MAX_STRUCTURAL_DRIVE,
+            )?;
         }
         network.add_neuron(neuron)?;
         if id < sensors || (motors..copies).contains(&id) {

@@ -1,4 +1,4 @@
-use super::{Architecture, KeyboardLayout};
+use super::{Architecture, KeyboardLayout, MAX_STRUCTURAL_DRIVE, MIN_STRUCTURAL_DRIVE};
 use crate::Result;
 use nerva_qemu::vision_encoder::Encoding;
 
@@ -153,9 +153,13 @@ impl ModelConfig {
             return Err("processing neuron count must be positive".into());
         }
         if !self.initial_structural_drive.is_finite()
-            || !(0.0..=3.0).contains(&self.initial_structural_drive)
+            || !(MIN_STRUCTURAL_DRIVE..=MAX_STRUCTURAL_DRIVE)
+                .contains(&self.initial_structural_drive)
         {
-            return Err("initial structural drive must be finite and in 0..=3".into());
+            return Err(format!(
+                "initial structural drive must be finite and in {MIN_STRUCTURAL_DRIVE}..={MAX_STRUCTURAL_DRIVE}"
+            )
+            .into());
         }
         if self.pruning_min_below_us == 0 {
             return Err("pruning minimum duration must be positive".into());

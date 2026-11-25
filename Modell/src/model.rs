@@ -163,6 +163,26 @@ pub struct Step {
     pub core_synapses: usize,
 }
 
+/// Inclusive bounds of the local structural drive.
+///
+/// The initial drive, the maintenance rule and the configuration check share
+/// these bounds; a changed bound must not be copied into several places.
+pub const MIN_STRUCTURAL_DRIVE: f32 = 0.0;
+/// Inclusive upper bound of the local structural drive.
+pub const MAX_STRUCTURAL_DRIVE: f32 = 3.0;
+
+/// Upper bound of the synaptic weight magnitude of this model.
+///
+/// The learning rule, the diagnostic interventions and the audit share this
+/// single source; a changed bound must not be copied into several places.
+pub fn weight_upper_bound(config: &ModelConfig) -> f32 {
+    if config.kind == ModelKind::Recurrent {
+        2.0
+    } else {
+        0.2 * (config.keyboard.keys().len() as f32 / 5.0).sqrt()
+    }
+}
+
 impl Model {
     /// Create an independent exact copy, including scheduler, random streams and diagnostics.
     /// Rejects opaque runtime implementations that do not support exact forks.
@@ -310,11 +330,7 @@ impl Model {
             a_minus: 0.00012,
             tau_plus_us: config.stdp_tau_us,
             tau_minus_us: config.stdp_tau_us,
-            max_weight: if config.kind == ModelKind::Recurrent {
-                2.0
-            } else {
-                0.2 * (config.keyboard.keys().len() as f32 / 5.0).sqrt()
-            },
+            max_weight: weight_upper_bound(&config),
             ..LearningConfig::default()
         })
         .map_err(|error| format!("STDP: {error:?}"))?;
@@ -392,8 +408,11 @@ impl Model {
                 structural_adjustment_rate: 0.002,
                 min_intrinsic_current: -10.0,
                 max_intrinsic_current: 20.0,
-                min_structural_drive: 0.0,
-                max_structural_drive: 3.0,
+                min_structural_drive: MIN_STRUCTURAL_DRIVE,
+                max_structural_drive: MAX_STRUCTURAL_DRIVE,
+                // The maintenance response is smoothed around the local
+                // targets instead of switching abruptly.
+                transition_width: 1.0,
             };
             homeostasis.validate()?;
             if config.homeostasis_scope != HomeostasisScope::All {
@@ -667,8 +686,9 @@ impl Model {
             );
         }
         let weight = nerva::primitives::Weight::new(weight)?;
-        if weight.get() > 2.0 {
-            return Err("diagnostic weight must be within 0..=2".into());
+        let upper = weight_upper_bound(&self.config);
+        if weight.get() > upper {
+            return Err(format!("diagnostic weight must be within 0..={upper}").into());
         }
         self.simulation.update_synapse(id, |edge| {
             edge.set_weight_preserving_learning_residual(weight)
@@ -735,8 +755,11 @@ impl Model {
             if !pairs.insert((pre, post)) {
                 return Err("duplicate formed-synapse endpoint pair".into());
             }
-            if !weight.is_finite() || !(0.0..=2.0).contains(&weight) {
-                return Err("formed-synapse weight must be finite and within 0..=2".into());
+            let upper = weight_upper_bound(&self.config);
+            if !weight.is_finite() || !(0.0..=upper).contains(&weight) {
+                return Err(
+                    format!("formed-synapse weight must be finite and within 0..={upper}").into(),
+                );
             }
             let mut edge = Synapse::new(
                 SynapseId(self.next_synapse + offset as u64),
@@ -1268,11 +1291,7 @@ impl Model {
                 end,
                 &rates,
                 self.simulation.network(),
-                if self.config.kind == ModelKind::Recurrent {
-                    2.0
-                } else {
-                    0.2 * (self.config.keyboard.keys().len() as f32 / 5.0).sqrt()
-                },
+                weight_upper_bound(&self.config),
             )
         });
         for rate in rates {
@@ -1462,11 +1481,7 @@ impl Model {
         if let (Some(collector), Some(mut observation)) = (&mut self.audit, observation) {
             observation.after = audit::NetworkSummary::read(
                 self.simulation.network(),
-                if self.config.kind == ModelKind::Recurrent {
-                    2.0
-                } else {
-                    0.2 * (self.config.keyboard.keys().len() as f32 / 5.0).sqrt()
-                },
+                weight_upper_bound(&self.config),
             );
             observation.formed = formed.len();
             observation.pruned = pruned.len();
