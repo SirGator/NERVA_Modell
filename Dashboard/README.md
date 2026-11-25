@@ -1,7 +1,7 @@
 # Lokales NERVA-Dashboard
 
-[Projektstartseite](../../README.md) · [Installation](../../Doku/EINSTIEG.md) ·
-[Entwicklungsablauf](../../Doku/ENTWICKLUNG.md)
+[Projektstartseite](../../README.md) · [Installation](../../docs/Doku/EINSTIEG.md) ·
+[Entwicklungsablauf](../../docs/Doku/ENTWICKLUNG.md)
 
 Das Dashboard verbindet eine React-Oberfläche mit einem lokalen Python-Server.
 Die neuronale Simulation läuft weiterhin im bestehenden Rust-Modell.
@@ -80,7 +80,7 @@ Archivbetrachter ist zusätzlich eigenständig im Datenpaket enthalten:
 
 Er läuft auf `http://127.0.0.1:8766`, liest Daten ausschließlich und benötigt weder
 Rust noch QEMU oder die Modellbibliothek. Die vollständige
-[Archiv-Anleitung](../../Messungen/GUI/README.md) liegt im Messpaket.
+[Archiv-Anleitung](../../docs/Messungen/GUI/README.md) liegt im Messpaket.
 
 Beide Server binden ausschließlich an `127.0.0.1`. Steueranfragen benötigen einen
 Sitzungsschlüssel und werden bei fremdem Browser-Ursprung abgewiesen. Dateiwege

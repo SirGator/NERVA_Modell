@@ -5,7 +5,7 @@ Parameterrastern, Seeds und Kontrollgruppen aus. Er prüft Replay und
 Ergebnisintegrität und stellt externe Analysen sowie einen SQLite-Katalog
 bereit. Neuronale Mechanismen stammen aus NERVA und dem laufenden Modell.
 
-[Installation](../../Doku/EINSTIEG.md) · [Forschungsstand](../../Doku/FORSCHUNGSSTAND.md) ·
+[Installation](../../docs/Doku/EINSTIEG.md) · [Forschungsstand](../../docs/Doku/FORSCHUNGSSTAND.md) ·
 [Protokolle und Methoden](dokumentation/README.md) ·
 [Ablage und Reproduktion](ARCHIVING.md) · [Projektstartseite](../../README.md)
 

@@ -1,6 +1,6 @@
 # QEMU-Schnittstellenbibliothek
 
-[Projektstartseite](../../README.md) · [Installation](../../Doku/EINSTIEG.md) ·
+[Projektstartseite](../../README.md) · [Installation](../../docs/Doku/EINSTIEG.md) ·
 [Architektur](../../ARCHITECTURE.md)
 
 `nerva-qemu` stellt die technischen Adapter bereit. Das ausführbare neuronale

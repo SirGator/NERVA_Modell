@@ -1,7 +1,7 @@
 # Modell- und Versuchscode
 
-[Projektstartseite](../README.md) · [Installation](../Doku/EINSTIEG.md) ·
-[Architektur](../ARCHITECTURE.md) · [Entwicklungsablauf](../Doku/ENTWICKLUNG.md)
+[Projektstartseite](../README.md) · [Installation](../docs/Doku/EINSTIEG.md) ·
+[Architektur](../ARCHITECTURE.md) · [Entwicklungsablauf](../docs/Doku/ENTWICKLUNG.md)
 
 | Ordner | Inhalt |
 |---|---|
@@ -12,7 +12,7 @@
 | [nerva-qemu/](nerva-qemu/README.md) | Modellunabhängige VM-, Bild- und Tastaturadapter |
 
 Die neuronale Bibliothek liegt unter [../NERVA/](../NERVA/README.md).
-Live-Protokolle und historische Daten liegen unter [../Messungen/](../Messungen/README.md).
+Live-Protokolle und historische Daten liegen unter [../Messungen/](../docs/Messungen/README.md).
 Der Research-Runner verwendet standardmäßig `research/results/`;
 `--output` erlaubt einen anderen Ergebnisordner. Versuchskonfigurationen und Protokollbeschreibungen gehören zum Code;
 generierte Konfigurationen eines Messlaufs liegen zusammen mit dessen Ergebnissen.

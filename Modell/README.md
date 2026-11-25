@@ -1,7 +1,7 @@
 # Laufendes NERVA-Modell
 
-[Projektstartseite](../../README.md) · [Installation](../../Doku/EINSTIEG.md) ·
-[Entwicklungsablauf](../../Doku/ENTWICKLUNG.md)
+[Projektstartseite](../../README.md) · [Installation](../../docs/Doku/EINSTIEG.md) ·
+[Entwicklungsablauf](../../docs/Doku/ENTWICKLUNG.md)
 
 `NERVA_Modell/Modell/` enthält das ausführbare visuelle Modell: Wahrnehmung, rekurrente
 Verarbeitung, lokales Lernen und Aktionen über die vollständige virtuelle Tastatur.
@@ -116,7 +116,7 @@ wählt die historische Regel. Modifier bleiben unabhängig.
 
 Details: [Visuelles Modell](VISUAL_MODEL.md), [Tastaturbelegung](KEYBOARD_LAYOUT.md),
 [Architektur](../../ARCHITECTURE.md). Der aktuelle
-[Forschungsstand](../../Doku/FORSCHUNGSSTAND.md) ordnet die Messberichte ein.
+[Forschungsstand](../../docs/Doku/FORSCHUNGSSTAND.md) ordnet die Messberichte ein.
 [Historische Versuchsreihen](../research/dokumentation/versuchsreihen/README.md)
 beschreiben frühere Protokolle.
 

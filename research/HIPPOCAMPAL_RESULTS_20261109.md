@@ -17,7 +17,7 @@ Modell: 25 Tests plus eigener echter QEMU-Lauf bestehen. Zwölf aktive Schritte 
 Gewichtsänderungen, 177 aktive chemische Pulse und 38 STP-Synapsen. Alle 105
 physischen Tastencodes wurden angenommen. 293 Kanten entstanden, 244 wurden
 entfernt. Diese Größen zeigen Mechanismen und Gerätewirkung, keine Zielerfüllung.
-[VM-Rohbericht](../../Messungen/Modell/hippocampal-engineering-20261109/report.json).
+[VM-Rohbericht](../../docs/Messungen/Modell/hippocampal-engineering-20261109/report.json).
 
 Der Standard-Cortical-Pfad wurde gegen die gesicherten Originalquellen verglichen:
 32/128 Processing-Zellen, je vier gemischte Bild-/Tastenbeobachtungen, insgesamt

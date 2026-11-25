@@ -206,4 +206,4 @@ python3 /absoluter/laufpfad/producer.py report --output /absoluter/laufpfad
 ```
 
 [Ablage und Reproduktion](ARCHIVING.md) · [Harness](README.md) ·
-[Zentrale Dokumentation](../../Doku/README.md).
+[Zentrale Dokumentation](../../docs/Doku/README.md).

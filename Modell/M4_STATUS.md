@@ -41,5 +41,5 @@ und Lernmechanismen. Die zehn neuen Seeds wurden separat ausgewertet.
 
 [Vertrag und Startbefehle](../research/dokumentation/versuchsreihen/m4/README.md) ·
 [Ergebnisse und Grenzen](../research/dokumentation/versuchsreihen/M4_EXPERIMENT.md) ·
-[Zehn-Seed-Bericht](../../Messungen/Experimente/m4-confirm/summary.md) ·
-[Technische Verifikation](../../Messungen/Experimente/m4-confirm/verification.md)
+[Zehn-Seed-Bericht](../../docs/Messungen/Experimente/m4-confirm/summary.md) ·
+[Technische Verifikation](../../docs/Messungen/Experimente/m4-confirm/verification.md)

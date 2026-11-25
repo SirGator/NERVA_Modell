@@ -1,7 +1,7 @@
 # Dokumentation: Forschung und Experimente
 
-[Aktueller Forschungsstand](../../../Doku/FORSCHUNGSSTAND.md) ·
-[Harness bedienen](../README.md) · [Zentrale Dokumentation](../../../Doku/README.md)
+[Aktueller Forschungsstand](../../../docs/Doku/FORSCHUNGSSTAND.md) ·
+[Harness bedienen](../README.md) · [Zentrale Dokumentation](../../../docs/Doku/README.md)
 
 Protokolle legen Ablauf und Kriterien fest. Ergebnisberichte beschreiben die
 tatsächlich ausgeführten Messungen und ihre Grenzen. Datierte Planungsdokumente
