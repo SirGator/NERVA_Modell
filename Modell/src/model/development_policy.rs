@@ -69,6 +69,7 @@ pub struct Exploration {
 pub(super) struct PolicyState {
     pub(super) settings: DevelopmentPolicy,
     pub(super) used: BTreeSet<NeuronId>,
+    exploratory_not_before_us: u64,
     evidence: Option<LeadEvidence>,
 }
 
@@ -233,6 +234,22 @@ impl Model {
         Ok(())
     }
 
+    /// Set the earliest exploratory decision time relative to the next observation.
+    /// Zero clears the restriction. Native formation and evidence sampling continue.
+    pub fn diagnostic_defer_exploratory_formation(&mut self, delay_us: u64) -> Result<()> {
+        if self.config.kind != ModelKind::Recurrent || !self.config.development {
+            return Err("formation deferral requires active recurrent development".into());
+        }
+        self.development_policy.exploratory_not_before_us = if delay_us == 0 {
+            0
+        } else {
+            self.next_observation_us()
+                .checked_add(delay_us)
+                .ok_or("formation deferral clock overflow")?
+        };
+        Ok(())
+    }
+
     /// Suspend graph development at a synchronous observation boundary while
     /// preserving learning, homeostasis and their existing scheduler bookings.
     pub fn diagnostic_pause_development(&mut self) -> Result<()> {
@@ -256,11 +273,11 @@ impl Model {
         }
         self.development_policy = PolicyState {
             settings: policy,
-            used: BTreeSet::new(),
             evidence: policy.formation.uses_evidence().then(|| LeadEvidence {
                 activated_us: self.next_start,
                 ..LeadEvidence::default()
             }),
+            ..PolicyState::default()
         };
         Ok(())
     }
@@ -335,6 +352,7 @@ impl Model {
                 .is_some_and(|age| age <= EXPLORATION_WINDOW_US)
         };
         if rule == ExploratoryFormation::Off
+            || now.0 < self.development_policy.exploratory_not_before_us
             || self.development_policy.used.contains(&target.id())
             || recent(target.last_spike())
         {
@@ -605,7 +623,7 @@ mod tests {
     }
 
     #[test]
-    fn only_positive_nonrefractory_integration_batches_sample_evidence() {
+    fn deferred_formation_still_samples_positive_nonrefractory_batches() {
         let mut model = Model::with_sensor(
             ModelConfig {
                 processing_neurons: 16,
@@ -620,8 +638,12 @@ mod tests {
         model
             .diagnostic_switch_exploratory_formation(ExploratoryFormation::LeadingExcitatory)
             .unwrap();
+        model
+            .diagnostic_defer_exploratory_formation(200_000)
+            .unwrap();
         model.formation.candidate_search.radius = 10.;
         let target = model.processing[0];
+        let incoming = model.network().incoming_synapse_ids(target);
         let source = model
             .processing
             .iter()
@@ -629,14 +651,22 @@ mod tests {
             .find(|&id| {
                 id != target
                     && model.network().neuron(id).unwrap().polarity() == Polarity::Excitatory
+                    && incoming
+                        .iter()
+                        .all(|&edge| model.network().synapse(edge).unwrap().pre() != id)
             })
             .unwrap();
+        let spike_time = SimTime(190_000);
+        model.simulation.run_until(spike_time).unwrap();
+        let mut spike = None;
         model
-            .development_policy
-            .evidence
-            .as_mut()
-            .unwrap()
-            .spike(source, 190_000);
+            .simulation
+            .update_neuron(source, |cell| {
+                spike = cell.integrate_input(spike_time, 2.)?;
+                Ok(())
+            })
+            .unwrap();
+        model.observe_lead_evidence(&ObservationEvent::SpikeEmitted(spike.unwrap()));
         let event = |summed_input, refractory_until| ObservationEvent::NeuronIntegrated {
             time: SimTime(200_000),
             target,
@@ -671,6 +701,69 @@ mod tests {
             ),
             3.
         );
+        let cell = model.network().neuron(target).unwrap();
+        assert!(
+            model
+                .exploratory_source(cell, &[source], SimTime(200_000))
+                .is_none()
+        );
+        let choice = model
+            .exploratory_source(cell, &[source], SimTime(200_001))
+            .unwrap();
+        assert_eq!(choice.source, source);
+        assert!(choice.chosen_evidence > 0.);
+        assert!(!model.development_policy.used.contains(&target));
+    }
+
+    #[test]
+    fn exploratory_deferral_is_replay_state_and_preserves_live_clocks_and_caps() {
+        let mut model = Model::from_config(ModelConfig {
+            processing_neurons: 16,
+            ..ModelConfig::default()
+        })
+        .unwrap();
+        let white = Frame::new(64, 64, vec![255; 64 * 64 * 3]).unwrap();
+        model.step(&white).unwrap();
+        let used = model.processing[0];
+        model.development_policy.used.insert(used);
+        let before = model.diagnostic_fork().unwrap();
+        assert!(
+            model
+                .diagnostic_defer_exploratory_formation(u64::MAX)
+                .is_err()
+        );
+        assert!(model.same_replay_state(&before));
+        model
+            .diagnostic_defer_exploratory_formation(500_000)
+            .unwrap();
+        let due = model.next_observation_us() + 500_000;
+        assert_eq!(model.development_policy.exploratory_not_before_us, due);
+        assert_ne!(model.development_policy.exploratory_not_before_us, 0);
+        assert!(!model.same_replay_state(&before));
+        assert!(model.simulation.same_replay_state(&before.simulation));
+        assert_eq!(model.plasticity(), before.plasticity());
+        assert_eq!(model.next_development_us, before.next_development_us);
+        assert_eq!(model.next_observation_us(), before.next_observation_us());
+        model
+            .diagnostic_switch_exploratory_formation(ExploratoryFormation::RecentExcitatory)
+            .unwrap();
+        assert_eq!(model.development_policy.exploratory_not_before_us, due);
+        assert!(model.development_policy.used.contains(&used));
+        let mut fork = model.diagnostic_fork().unwrap();
+        assert!(model.same_replay_state(&fork));
+        assert_eq!(model.step(&white).unwrap(), fork.step(&white).unwrap());
+        assert!(model.same_replay_state(&fork));
+        fork.diagnostic_defer_exploratory_formation(0).unwrap();
+        assert_eq!(fork.development_policy.exploratory_not_before_us, 0);
+        assert!(!model.same_replay_state(&fork));
+        model.freeze().unwrap();
+        let frozen = model.diagnostic_fork().unwrap();
+        assert!(model.diagnostic_defer_exploratory_formation(0).is_err());
+        assert!(model.same_replay_state(&frozen));
+        model
+            .diagnostic_development_policy(DevelopmentPolicy::default())
+            .unwrap();
+        assert_eq!(model.development_policy.exploratory_not_before_us, 0);
     }
 
     #[test]

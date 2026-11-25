@@ -1,4 +1,4 @@
-//! Prospective A/B acquisition with local lead, lag, and contrast formation.
+//! Prospective A/B acquisition with local timing-based formation.
 use super::{
     Assay, Config, ContingencyScenario, MAPPINGS, OUTCOMES, OUTCOMES_B, TrainingAudit, checkpoint,
     decisions, exact_fork, fail, frames, patterns, stage, templates, topology,
@@ -15,6 +15,7 @@ use std::collections::BTreeMap;
 pub enum LeadGrowthScenario {
     Lead,
     Contrast,
+    Deferred,
 }
 
 pub(super) const POLICIES: [(&str, ExploratoryFormation); 4] = [
@@ -41,12 +42,30 @@ const METRICS: [&str; 16] = [
     "contrast_a_retention",
     "contrast_joint_paths",
 ];
+const DEFERRED_US: u64 = 500_000;
+const DEFERRED_POLICIES: [(&str, ExploratoryFormation); 4] = [
+    POLICIES[0],
+    POLICIES[1],
+    ("recent_deferred", ExploratoryFormation::RecentExcitatory),
+    ("lead_deferred", ExploratoryFormation::LeadingExcitatory),
+];
+const DEFERRED_METRICS: [&str; 8] = [
+    "recent_deferred_a_acquisition",
+    "recent_deferred_b_acquisition",
+    "recent_deferred_a_retention",
+    "recent_deferred_joint_paths",
+    "lead_deferred_a_acquisition",
+    "lead_deferred_b_acquisition",
+    "lead_deferred_a_retention",
+    "lead_deferred_joint_paths",
+];
 
 impl LeadGrowthScenario {
     pub(super) fn protocol(self) -> &'static str {
         match self {
             Self::Lead => "NERVA-Contingency-Lead-Growth/1",
             Self::Contrast => "NERVA-Contingency-Contrast-Growth/1",
+            Self::Deferred => "NERVA-Contingency-Deferred-Growth/1",
         }
     }
 
@@ -54,6 +73,7 @@ impl LeadGrowthScenario {
         match self {
             Self::Lead => "crossed_lead_growth",
             Self::Contrast => "crossed_contrast_growth",
+            Self::Deferred => "crossed_deferred_growth",
         }
     }
 
@@ -61,6 +81,7 @@ impl LeadGrowthScenario {
         match self {
             Self::Lead => &POLICIES[..3],
             Self::Contrast => &POLICIES,
+            Self::Deferred => &DEFERRED_POLICIES,
         }
     }
 
@@ -73,6 +94,12 @@ impl LeadGrowthScenario {
             (Self::Contrast, false) => ("shear", |row, col| 8 * row + (col + row + 1) % 8),
             (Self::Contrast, true) => ("stagger", |row, col| {
                 8 * ((col + 2 * row + 1) % 8) + 7 - row
+            }),
+            (Self::Deferred, false) => ("column_stride", |row, col| {
+                8 * row + (3 * col + 2 * row + 1) % 8
+            }),
+            (Self::Deferred, true) => ("row_stride", |row, col| {
+                8 * ((3 * row + col + 1) % 8) + 7 - col
             }),
         };
         let mapped = patterns()
@@ -132,6 +159,11 @@ fn run(study: LeadGrowthScenario, config: &Config, seed: u64) -> Result<TrialMet
         policy_start
             .diagnostic_switch_exploratory_formation(mode)
             .map_err(fail)?;
+        if matches!(policy, "recent_deferred" | "lead_deferred") {
+            policy_start
+                .diagnostic_defer_exploratory_formation(DEFERRED_US)
+                .map_err(fail)?;
+        }
         let mut a = BTreeMap::new();
         let mut b = BTreeMap::new();
         let audit = training_audit(mode);
@@ -171,6 +203,7 @@ impl Scenario for LeadGrowthScenario {
         match self {
             Self::Lead => "hippocampal_contingency_lead_growth",
             Self::Contrast => "hippocampal_contingency_contrast_growth",
+            Self::Deferred => "hippocampal_contingency_deferred_growth",
         }
     }
     fn default_config(&self) -> Config {
@@ -188,8 +221,10 @@ impl Scenario for LeadGrowthScenario {
             "processing_neurons":config.processing_neurons,"training_repetitions":config.training_repetitions,
             "rest_us":config.rest_us,"stimuli":stimuli,"layout":layout_name,
             "formation_policies":self.policies().iter().map(|(name,_)|name).collect::<Vec<_>>(),"lead_rule":lead_rule()});
-        if matches!(self, Self::Contrast) {
-            snapshot["contrast_rule"] = json!("observed_minus_lagged");
+        match self {
+            Self::Lead => {}
+            Self::Contrast => snapshot["contrast_rule"] = json!("observed_minus_lagged"),
+            Self::Deferred => snapshot["exploratory_delay_us"] = json!(DEFERRED_US),
         }
         snapshot
     }
@@ -199,7 +234,10 @@ impl Scenario for LeadGrowthScenario {
         }]
     }
     fn metric_names(&self) -> Vec<&'static str> {
-        METRICS[..4 * self.policies().len()].to_vec()
+        match self {
+            Self::Lead | Self::Contrast => METRICS[..4 * self.policies().len()].to_vec(),
+            Self::Deferred => [&METRICS[..8], &DEFERRED_METRICS].concat(),
+        }
     }
     fn run(&self, config: &Config, seed: u64, intervention: &Intervention) -> Result<TrialMetrics> {
         self.validate(config)?;

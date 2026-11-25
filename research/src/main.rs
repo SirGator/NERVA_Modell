@@ -179,6 +179,7 @@ fn execute() -> Result<()> {
                 {"name":"hippocampal_contingency_live_growth","parameters":nerva_research::scenarios::hippocampal::contingency::live_rate::PARAMETERS,"metrics":LiveGrowthScenario.metric_names(),"interventions":LiveGrowthScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
                 {"name":"hippocampal_contingency_lead_growth","parameters":nerva_research::scenarios::hippocampal::contingency::live_rate::PARAMETERS,"metrics":LeadGrowthScenario::Lead.metric_names(),"interventions":LeadGrowthScenario::Lead.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
                 {"name":"hippocampal_contingency_contrast_growth","parameters":nerva_research::scenarios::hippocampal::contingency::live_rate::PARAMETERS,"metrics":LeadGrowthScenario::Contrast.metric_names(),"interventions":LeadGrowthScenario::Contrast.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
+                {"name":"hippocampal_contingency_deferred_growth","parameters":nerva_research::scenarios::hippocampal::contingency::live_rate::PARAMETERS,"metrics":LeadGrowthScenario::Deferred.metric_names(),"interventions":LeadGrowthScenario::Deferred.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
                 {"name":"hippocampal_multilevel_diagnosis","parameters":HIPPOCAMPAL_PARAMETERS,"metrics":MultilevelScenario.metric_names(),"interventions":MultilevelScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
                 {"name":"hippocampal_learning_history","parameters":HISTORY_PARAMETERS,"metrics":HistoryScenario.metric_names(),"interventions":HistoryScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
                 {"name":"hippocampal_association","parameters":HIPPOCAMPAL_PARAMETERS,"metrics":AssociationScenario.metric_names(),"interventions":AssociationScenario.interventions().iter().map(|i|i.name.clone()).collect::<Vec<_>>()},
@@ -238,6 +239,9 @@ fn execute() -> Result<()> {
         }
         "hippocampal_contingency_contrast_growth" => {
             dispatch(LeadGrowthScenario::Contrast, &mode, &spec, output)
+        }
+        "hippocampal_contingency_deferred_growth" => {
+            dispatch(LeadGrowthScenario::Deferred, &mode, &spec, output)
         }
         "hippocampal_multilevel_diagnosis" => dispatch(MultilevelScenario, &mode, &spec, output),
         "hippocampal_learning_history" => dispatch(HistoryScenario, &mode, &spec, output),

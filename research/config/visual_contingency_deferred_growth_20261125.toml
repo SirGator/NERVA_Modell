@@ -1,0 +1,20 @@
+[experiment]
+name = "visual_contingency_deferred_growth_20261125"
+scenario = "hippocampal_contingency_deferred_growth"
+seeds = [34601, 34609, 34617, 34627, 34639, 34651]
+interventions = ["crossed_deferred_growth"]
+verify_replay = true
+max_runs = 6
+
+[base]
+processing_neurons = 256
+training_repetitions = 8
+rest_us = 11000000
+
+[measurements]
+metrics = [
+    "recent_a_acquisition", "recent_b_acquisition", "recent_a_retention", "recent_joint_paths",
+    "lead_a_acquisition", "lead_b_acquisition", "lead_a_retention", "lead_joint_paths",
+    "recent_deferred_a_acquisition", "recent_deferred_b_acquisition", "recent_deferred_a_retention", "recent_deferred_joint_paths",
+    "lead_deferred_a_acquisition", "lead_deferred_b_acquisition", "lead_deferred_a_retention", "lead_deferred_joint_paths",
+]
