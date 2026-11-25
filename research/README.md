@@ -28,12 +28,14 @@ eine balancierte Belichtung dienen als Kontrollen.
 [Normgleicher Abrufvergleich auf gewachsenen Graphen](CONTINGENCY_GROWN_DOSE_RESULTS_20261123.md).
 [Abruf nach Abzug des balancierten Gewichtsmusters](CONTINGENCY_GROWN_RESIDUAL_RESULTS_20261123.md).
 [Lokale Ratenkorrektur und Abruf nach zwei aufeinanderfolgenden Lernphasen](CONTINGENCY_LIVE_RATE_RESULTS_20261123.md).
+[Erwartungstreue lokale Ratenkorrektur, gepaarter Ratefix-Vergleich](CONTINGENCY_LIVE_RATE_RATEFIX_RESULTS_20261125.md).
 [Kausale Prüfung neuer Kanten und älterer Gewichte beim B-Abruf](CONTINGENCY_B_FACTOR_RESULTS_20261123.md).
 [A-Erhalt und B-Erwerb bei gekreuzten Bildungsregeln](CONTINGENCY_LIVE_GROWTH_RESULTS_20261123.md).
 [A-Abruf nach Blockade und Transfer neu gebildeter Kanten](CONTINGENCY_A_TRANSFER_RESULTS_20261123.md).
 [A-Abruf nach gezieltem Quellentausch und Einzelblockaden](CONTINGENCY_A_SOURCE_RESULTS_20261123.md).
 [A-Abruf bei gleicher Dosis und verschobenen Ankunftszeiten](CONTINGENCY_A_TIMING_RESULTS_20261124.md).
 [Prospektiver A/B-Test mit vorlaufbasierter Kantenwahl](CONTINGENCY_LEAD_GROWTH_RESULTS_20261124.md).
+[Aufgeschobene explorative Kantenbildung im A/B-Lernen](CONTINGENCY_DEFERRED_GROWTH_RESULTS_20261125.md).
 
 [MLD-03](MLD03.md) trennt Gewichtswirkung von künstlich veränderter Core-Schwelle
 und Integrationszeit. Ein zweiter Abschnitt vergleicht Sensor-/Core-Homöostase

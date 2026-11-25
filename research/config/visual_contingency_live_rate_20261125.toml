@@ -1,0 +1,15 @@
+[experiment]
+name = "visual_contingency_live_rate_20261125"
+scenario = "hippocampal_contingency_live_rate"
+seeds = [34211, 34223, 34237, 34253]
+interventions = ["paired_rate_rules"]
+verify_replay = true
+max_runs = 4
+
+[base]
+processing_neurons = 256
+training_repetitions = 8
+rest_us = 11000000
+
+[measurements]
+metrics = ["native_a", "corrected_a", "native_b", "corrected_b", "native_retained_a", "corrected_retained_a", "native_joint", "corrected_joint"]

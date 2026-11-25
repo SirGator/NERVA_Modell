@@ -1,0 +1,910 @@
+{
+  "protocol": "NERVA-Contingency-Live-Rate-Ratefix/1",
+  "date": "2026-11-25",
+  "cohort_size": 4,
+  "source_commits": {},
+  "analysis": {
+    "native": {
+      "a_acquisition": {
+        "eligible_cases": 16,
+        "passed_cases": 0,
+        "full_passes": 0
+      },
+      "b_acquisition": {
+        "eligible_cases": 16,
+        "passed_cases": 1,
+        "full_passes": 0
+      },
+      "a_retention": {
+        "eligible_cases": 0,
+        "passed_cases": 0,
+        "full_passes": 0
+      },
+      "joint_passes": 0
+    },
+    "corrected": {
+      "a_acquisition": {
+        "eligible_cases": 16,
+        "passed_cases": 0,
+        "full_passes": 0
+      },
+      "b_acquisition": {
+        "eligible_cases": 16,
+        "passed_cases": 1,
+        "full_passes": 0
+      },
+      "a_retention": {
+        "eligible_cases": 0,
+        "passed_cases": 0,
+        "full_passes": 0
+      },
+      "joint_passes": 0
+    }
+  },
+  "records": [
+    {
+      "seed": 34211,
+      "metrics": {
+        "corrected_a": 0,
+        "corrected_b": 0,
+        "corrected_retained_a": 0,
+        "corrected_joint": 0,
+        "native_a": 0,
+        "native_b": 0,
+        "native_retained_a": 0,
+        "native_joint": 0
+      },
+      "target_sizes": {
+        "a": [
+          7,
+          8
+        ],
+        "b": [
+          2,
+          6
+        ]
+      }
+    },
+    {
+      "seed": 34223,
+      "metrics": {
+        "corrected_a": 0,
+        "corrected_b": 1,
+        "corrected_retained_a": 0,
+        "corrected_joint": 0,
+        "native_a": 0,
+        "native_b": 1,
+        "native_retained_a": 0,
+        "native_joint": 0
+      },
+      "target_sizes": {
+        "a": [
+          4,
+          6
+        ],
+        "b": [
+          2,
+          7
+        ]
+      }
+    },
+    {
+      "seed": 34237,
+      "metrics": {
+        "corrected_a": 0,
+        "corrected_b": 0,
+        "corrected_retained_a": 0,
+        "corrected_joint": 0,
+        "native_a": 0,
+        "native_b": 0,
+        "native_retained_a": 0,
+        "native_joint": 0
+      },
+      "target_sizes": {
+        "a": [
+          6,
+          4
+        ],
+        "b": [
+          7,
+          2
+        ]
+      }
+    },
+    {
+      "seed": 34253,
+      "metrics": {
+        "corrected_a": 0,
+        "corrected_b": 0,
+        "corrected_retained_a": 0,
+        "corrected_joint": 0,
+        "native_a": 0,
+        "native_b": 0,
+        "native_retained_a": 0,
+        "native_joint": 0
+      },
+      "target_sizes": {
+        "a": [
+          5,
+          8
+        ],
+        "b": [
+          4,
+          12
+        ]
+      }
+    }
+  ],
+  "descriptive_index": {
+    "34211": {
+      "core_edges": 329,
+      "weights": {
+        "a": {
+          "forward": {
+            "native_from_checkpoint_rms": 8.517745875938773e-06,
+            "corrected_from_checkpoint_rms": 8.55866592581431e-06,
+            "paired_difference_rms": 3.791427799141845e-07,
+            "paired_different_edges": 54
+          },
+          "reverse": {
+            "native_from_checkpoint_rms": 1.0384532580100056e-05,
+            "corrected_from_checkpoint_rms": 1.020104118303787e-05,
+            "paired_difference_rms": 3.3059112136538565e-07,
+            "paired_different_edges": 60
+          },
+          "balanced": {
+            "native_from_checkpoint_rms": 1.0002411635297319e-05,
+            "corrected_from_checkpoint_rms": 9.985067090517857e-06,
+            "paired_difference_rms": 3.9687946965792106e-07,
+            "paired_different_edges": 57
+          }
+        },
+        "b": {
+          "forward": {
+            "native_from_checkpoint_rms": 1.1981218485227414e-05,
+            "corrected_from_checkpoint_rms": 1.2196430465412344e-05,
+            "paired_difference_rms": 1.6699174973251765e-06,
+            "paired_different_edges": 96
+          },
+          "reverse": {
+            "native_from_checkpoint_rms": 1.2242651994898469e-05,
+            "corrected_from_checkpoint_rms": 1.2405122538616683e-05,
+            "paired_difference_rms": 1.4152939472226102e-06,
+            "paired_different_edges": 96
+          },
+          "balanced": {
+            "native_from_checkpoint_rms": 1.2782470611335265e-05,
+            "corrected_from_checkpoint_rms": 1.3049137960576235e-05,
+            "paired_difference_rms": 1.7317082969295408e-06,
+            "paired_different_edges": 98
+          }
+        }
+      },
+      "activity": {
+        "a": {
+          "forward": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          },
+          "reverse": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          },
+          "balanced": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          }
+        },
+        "b": {
+          "forward": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          },
+          "reverse": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          },
+          "balanced": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          }
+        }
+      }
+    },
+    "34223": {
+      "core_edges": 267,
+      "weights": {
+        "a": {
+          "forward": {
+            "native_from_checkpoint_rms": 4.3643275108033836e-06,
+            "corrected_from_checkpoint_rms": 4.196336585708746e-06,
+            "paired_difference_rms": 1.847700780105478e-07,
+            "paired_different_edges": 43
+          },
+          "reverse": {
+            "native_from_checkpoint_rms": 4.249789678301828e-06,
+            "corrected_from_checkpoint_rms": 4.096142262029256e-06,
+            "paired_difference_rms": 1.6462659632289322e-07,
+            "paired_different_edges": 29
+          },
+          "balanced": {
+            "native_from_checkpoint_rms": 4.343905426824199e-06,
+            "corrected_from_checkpoint_rms": 4.182627025365213e-06,
+            "paired_difference_rms": 1.8147531481244984e-07,
+            "paired_different_edges": 44
+          }
+        },
+        "b": {
+          "forward": {
+            "native_from_checkpoint_rms": 6.646098457810212e-06,
+            "corrected_from_checkpoint_rms": 6.274441865453222e-06,
+            "paired_difference_rms": 7.26810907079314e-07,
+            "paired_different_edges": 50
+          },
+          "reverse": {
+            "native_from_checkpoint_rms": 6.603191133079942e-06,
+            "corrected_from_checkpoint_rms": 6.382859635864458e-06,
+            "paired_difference_rms": 7.981630581153569e-07,
+            "paired_different_edges": 49
+          },
+          "balanced": {
+            "native_from_checkpoint_rms": 6.704123120700097e-06,
+            "corrected_from_checkpoint_rms": 6.387378865337695e-06,
+            "paired_difference_rms": 7.786424478902965e-07,
+            "paired_different_edges": 51
+          }
+        }
+      },
+      "activity": {
+        "a": {
+          "forward": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          },
+          "reverse": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          },
+          "balanced": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          }
+        },
+        "b": {
+          "forward": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          },
+          "reverse": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          },
+          "balanced": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          }
+        }
+      }
+    },
+    "34237": {
+      "core_edges": 264,
+      "weights": {
+        "a": {
+          "forward": {
+            "native_from_checkpoint_rms": 1.1024925532622202e-06,
+            "corrected_from_checkpoint_rms": 1.0349291817069325e-06,
+            "paired_difference_rms": 1.3423582279289637e-07,
+            "paired_different_edges": 29
+          },
+          "reverse": {
+            "native_from_checkpoint_rms": 2.8600644200921674e-06,
+            "corrected_from_checkpoint_rms": 2.7389729733200345e-06,
+            "paired_difference_rms": 1.866006166893104e-07,
+            "paired_different_edges": 31
+          },
+          "balanced": {
+            "native_from_checkpoint_rms": 2.3479574328091112e-06,
+            "corrected_from_checkpoint_rms": 2.2583254928053947e-06,
+            "paired_difference_rms": 1.618576506346174e-07,
+            "paired_different_edges": 31
+          }
+        },
+        "b": {
+          "forward": {
+            "native_from_checkpoint_rms": 4.199108330507294e-06,
+            "corrected_from_checkpoint_rms": 3.955638535975104e-06,
+            "paired_difference_rms": 1.277839242486387e-06,
+            "paired_different_edges": 35
+          },
+          "reverse": {
+            "native_from_checkpoint_rms": 6.037178573859485e-06,
+            "corrected_from_checkpoint_rms": 5.556806613552107e-06,
+            "paired_difference_rms": 1.095604665944495e-06,
+            "paired_different_edges": 35
+          },
+          "balanced": {
+            "native_from_checkpoint_rms": 4.870424457477976e-06,
+            "corrected_from_checkpoint_rms": 4.422801151288784e-06,
+            "paired_difference_rms": 1.2144224751165287e-06,
+            "paired_different_edges": 36
+          }
+        }
+      },
+      "activity": {
+        "a": {
+          "forward": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          },
+          "reverse": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          },
+          "balanced": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          }
+        },
+        "b": {
+          "forward": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          },
+          "reverse": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          },
+          "balanced": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          }
+        }
+      }
+    },
+    "34253": {
+      "core_edges": 350,
+      "weights": {
+        "a": {
+          "forward": {
+            "native_from_checkpoint_rms": 1.7526019237778133e-05,
+            "corrected_from_checkpoint_rms": 1.712199862350938e-05,
+            "paired_difference_rms": 7.19910067908884e-07,
+            "paired_different_edges": 125
+          },
+          "reverse": {
+            "native_from_checkpoint_rms": 1.8486682726281497e-05,
+            "corrected_from_checkpoint_rms": 1.8057354071507367e-05,
+            "paired_difference_rms": 7.768951576624214e-07,
+            "paired_different_edges": 127
+          },
+          "balanced": {
+            "native_from_checkpoint_rms": 1.8129497331264067e-05,
+            "corrected_from_checkpoint_rms": 1.7705152592744485e-05,
+            "paired_difference_rms": 7.587854218677615e-07,
+            "paired_different_edges": 126
+          }
+        },
+        "b": {
+          "forward": {
+            "native_from_checkpoint_rms": 2.241707011141541e-05,
+            "corrected_from_checkpoint_rms": 2.1411470215747753e-05,
+            "paired_difference_rms": 1.7342711190087363e-06,
+            "paired_different_edges": 138
+          },
+          "reverse": {
+            "native_from_checkpoint_rms": 2.5824653914173246e-05,
+            "corrected_from_checkpoint_rms": 2.4612874178027994e-05,
+            "paired_difference_rms": 2.0624938925794447e-06,
+            "paired_different_edges": 136
+          },
+          "balanced": {
+            "native_from_checkpoint_rms": 2.3713112006394175e-05,
+            "corrected_from_checkpoint_rms": 2.2577437595735226e-05,
+            "paired_difference_rms": 1.9316444365936927e-06,
+            "paired_different_edges": 138
+          }
+        }
+      },
+      "activity": {
+        "a": {
+          "forward": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          },
+          "reverse": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          },
+          "balanced": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          }
+        },
+        "b": {
+          "forward": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          },
+          "reverse": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          },
+          "balanced": {
+            "same_training_core_events": true,
+            "same_formed_edges": true,
+            "same_probe_core_events": {
+              "blank": true,
+              "cue0": true,
+              "cue1": true,
+              "cue_b0": true,
+              "cue_b1": true
+            }
+          }
+        }
+      }
+    }
+  },
+  "rate_correction_comparison": {
+    "34211": {
+      "core_edges": 329,
+      "tasks": {
+        "a": {
+          "forward": {
+            "rms_prior_native_vs_current_native": 1.6430552197097875e-09,
+            "rms_prior_corrected_vs_current_corrected": 1.8369915810284687e-09,
+            "rms_current_native_vs_current_corrected": 3.791427799141845e-07,
+            "different_edges_prior_native_vs_current_native": 1,
+            "different_edges_prior_corrected_vs_current_corrected": 5,
+            "different_edges_current_native_vs_current_corrected": 54,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": true
+          },
+          "reverse": {
+            "rms_prior_native_vs_current_native": 4.858139484717755e-08,
+            "rms_prior_corrected_vs_current_corrected": 4.856055191671639e-08,
+            "rms_current_native_vs_current_corrected": 3.3059112136538565e-07,
+            "different_edges_prior_native_vs_current_native": 2,
+            "different_edges_prior_corrected_vs_current_corrected": 6,
+            "different_edges_current_native_vs_current_corrected": 60,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": true
+          },
+          "balanced": {
+            "rms_prior_native_vs_current_native": 2.5978984078556547e-09,
+            "rms_prior_corrected_vs_current_corrected": 2.72469883680616e-09,
+            "rms_current_native_vs_current_corrected": 3.9687946965792106e-07,
+            "different_edges_prior_native_vs_current_native": 4,
+            "different_edges_prior_corrected_vs_current_corrected": 5,
+            "different_edges_current_native_vs_current_corrected": 57,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": true
+          }
+        },
+        "b": {
+          "forward": {
+            "rms_prior_native_vs_current_native": 2.294136995380969e-07,
+            "rms_prior_corrected_vs_current_corrected": 2.2228205392093367e-07,
+            "rms_current_native_vs_current_corrected": 1.6699174973251765e-06,
+            "different_edges_prior_native_vs_current_native": 63,
+            "different_edges_prior_corrected_vs_current_corrected": 68,
+            "different_edges_current_native_vs_current_corrected": 96,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": false
+          },
+          "reverse": {
+            "rms_prior_native_vs_current_native": 6.96636037236325e-07,
+            "rms_prior_corrected_vs_current_corrected": 6.805502192068361e-07,
+            "rms_current_native_vs_current_corrected": 1.4152939472226102e-06,
+            "different_edges_prior_native_vs_current_native": 79,
+            "different_edges_prior_corrected_vs_current_corrected": 77,
+            "different_edges_current_native_vs_current_corrected": 96,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": false
+          },
+          "balanced": {
+            "rms_prior_native_vs_current_native": 1.2322914147823405e-08,
+            "rms_prior_corrected_vs_current_corrected": 1.575963203445541e-08,
+            "rms_current_native_vs_current_corrected": 1.7317082969295408e-06,
+            "different_edges_prior_native_vs_current_native": 11,
+            "different_edges_prior_corrected_vs_current_corrected": 21,
+            "different_edges_current_native_vs_current_corrected": 98,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": false
+          }
+        }
+      }
+    },
+    "34223": {
+      "core_edges": 267,
+      "tasks": {
+        "a": {
+          "forward": {
+            "rms_prior_native_vs_current_native": 5.839241139554542e-09,
+            "rms_prior_corrected_vs_current_corrected": 5.695040089258635e-09,
+            "rms_current_native_vs_current_corrected": 1.847700780105478e-07,
+            "different_edges_prior_native_vs_current_native": 6,
+            "different_edges_prior_corrected_vs_current_corrected": 5,
+            "different_edges_current_native_vs_current_corrected": 43,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": true
+          },
+          "reverse": {
+            "rms_prior_native_vs_current_native": 9.255142169711192e-09,
+            "rms_prior_corrected_vs_current_corrected": 9.299961522252014e-09,
+            "rms_current_native_vs_current_corrected": 1.6462659632289322e-07,
+            "different_edges_prior_native_vs_current_native": 4,
+            "different_edges_prior_corrected_vs_current_corrected": 5,
+            "different_edges_current_native_vs_current_corrected": 29,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": true
+          },
+          "balanced": {
+            "rms_prior_native_vs_current_native": 2.4740210429137198e-08,
+            "rms_prior_corrected_vs_current_corrected": 2.5664161103976873e-08,
+            "rms_current_native_vs_current_corrected": 1.8147531481244984e-07,
+            "different_edges_prior_native_vs_current_native": 5,
+            "different_edges_prior_corrected_vs_current_corrected": 6,
+            "different_edges_current_native_vs_current_corrected": 44,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": true
+          }
+        },
+        "b": {
+          "forward": {
+            "rms_prior_native_vs_current_native": 6.0491007833620254e-09,
+            "rms_prior_corrected_vs_current_corrected": 6.117454374253452e-09,
+            "rms_current_native_vs_current_corrected": 7.26810907079314e-07,
+            "different_edges_prior_native_vs_current_native": 6,
+            "different_edges_prior_corrected_vs_current_corrected": 7,
+            "different_edges_current_native_vs_current_corrected": 50,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": false
+          },
+          "reverse": {
+            "rms_prior_native_vs_current_native": 1.1018967698248136e-08,
+            "rms_prior_corrected_vs_current_corrected": 9.344565910151719e-09,
+            "rms_current_native_vs_current_corrected": 7.981630581153569e-07,
+            "different_edges_prior_native_vs_current_native": 3,
+            "different_edges_prior_corrected_vs_current_corrected": 6,
+            "different_edges_current_native_vs_current_corrected": 49,
+            "same_core_training_events_native": true,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": true
+          },
+          "balanced": {
+            "rms_prior_native_vs_current_native": 2.564795386453036e-08,
+            "rms_prior_corrected_vs_current_corrected": 2.4857582469230596e-08,
+            "rms_current_native_vs_current_corrected": 7.786424478902965e-07,
+            "different_edges_prior_native_vs_current_native": 5,
+            "different_edges_prior_corrected_vs_current_corrected": 7,
+            "different_edges_current_native_vs_current_corrected": 51,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": false
+          }
+        }
+      }
+    },
+    "34237": {
+      "core_edges": 264,
+      "tasks": {
+        "a": {
+          "forward": {
+            "rms_prior_native_vs_current_native": 8.156547901693065e-08,
+            "rms_prior_corrected_vs_current_corrected": 8.040227536764529e-08,
+            "rms_current_native_vs_current_corrected": 1.3423582279289637e-07,
+            "different_edges_prior_native_vs_current_native": 9,
+            "different_edges_prior_corrected_vs_current_corrected": 10,
+            "different_edges_current_native_vs_current_corrected": 29,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": true
+          },
+          "reverse": {
+            "rms_prior_native_vs_current_native": 3.670761621699083e-07,
+            "rms_prior_corrected_vs_current_corrected": 3.8820335080757426e-07,
+            "rms_current_native_vs_current_corrected": 1.866006166893104e-07,
+            "different_edges_prior_native_vs_current_native": 29,
+            "different_edges_prior_corrected_vs_current_corrected": 30,
+            "different_edges_current_native_vs_current_corrected": 31,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": false
+          },
+          "balanced": {
+            "rms_prior_native_vs_current_native": 5.38918827063865e-07,
+            "rms_prior_corrected_vs_current_corrected": 5.246142224666917e-07,
+            "rms_current_native_vs_current_corrected": 1.618576506346174e-07,
+            "different_edges_prior_native_vs_current_native": 30,
+            "different_edges_prior_corrected_vs_current_corrected": 30,
+            "different_edges_current_native_vs_current_corrected": 31,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": false
+          }
+        },
+        "b": {
+          "forward": {
+            "rms_prior_native_vs_current_native": 1.374645427954043e-07,
+            "rms_prior_corrected_vs_current_corrected": 1.3384992910294717e-07,
+            "rms_current_native_vs_current_corrected": 1.277839242486387e-06,
+            "different_edges_prior_native_vs_current_native": 30,
+            "different_edges_prior_corrected_vs_current_corrected": 28,
+            "different_edges_current_native_vs_current_corrected": 35,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": true
+          },
+          "reverse": {
+            "rms_prior_native_vs_current_native": 1.1398322102907803e-06,
+            "rms_prior_corrected_vs_current_corrected": 1.06992996014363e-06,
+            "rms_current_native_vs_current_corrected": 1.095604665944495e-06,
+            "different_edges_prior_native_vs_current_native": 34,
+            "different_edges_prior_corrected_vs_current_corrected": 34,
+            "different_edges_current_native_vs_current_corrected": 35,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": false
+          },
+          "balanced": {
+            "rms_prior_native_vs_current_native": 5.964357827654836e-07,
+            "rms_prior_corrected_vs_current_corrected": 6.262048023240505e-07,
+            "rms_current_native_vs_current_corrected": 1.2144224751165287e-06,
+            "different_edges_prior_native_vs_current_native": 31,
+            "different_edges_prior_corrected_vs_current_corrected": 34,
+            "different_edges_current_native_vs_current_corrected": 36,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": false
+          }
+        }
+      }
+    },
+    "34253": {
+      "core_edges": 350,
+      "tasks": {
+        "a": {
+          "forward": {
+            "rms_prior_native_vs_current_native": 3.622195259568655e-07,
+            "rms_prior_corrected_vs_current_corrected": 3.622449212424755e-07,
+            "rms_current_native_vs_current_corrected": 7.19910067908884e-07,
+            "different_edges_prior_native_vs_current_native": 32,
+            "different_edges_prior_corrected_vs_current_corrected": 37,
+            "different_edges_current_native_vs_current_corrected": 125,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": true
+          },
+          "reverse": {
+            "rms_prior_native_vs_current_native": 2.9762168639037447e-07,
+            "rms_prior_corrected_vs_current_corrected": 2.965710802884068e-07,
+            "rms_current_native_vs_current_corrected": 7.768951576624214e-07,
+            "different_edges_prior_native_vs_current_native": 38,
+            "different_edges_prior_corrected_vs_current_corrected": 43,
+            "different_edges_current_native_vs_current_corrected": 127,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": false
+          },
+          "balanced": {
+            "rms_prior_native_vs_current_native": 2.240702060500999e-07,
+            "rms_prior_corrected_vs_current_corrected": 2.2410984094351642e-07,
+            "rms_current_native_vs_current_corrected": 7.587854218677615e-07,
+            "different_edges_prior_native_vs_current_native": 18,
+            "different_edges_prior_corrected_vs_current_corrected": 25,
+            "different_edges_current_native_vs_current_corrected": 126,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": true
+          }
+        },
+        "b": {
+          "forward": {
+            "rms_prior_native_vs_current_native": 3.63773241975596e-07,
+            "rms_prior_corrected_vs_current_corrected": 3.662430528616574e-07,
+            "rms_current_native_vs_current_corrected": 1.7342711190087363e-06,
+            "different_edges_prior_native_vs_current_native": 32,
+            "different_edges_prior_corrected_vs_current_corrected": 45,
+            "different_edges_current_native_vs_current_corrected": 138,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": false
+          },
+          "reverse": {
+            "rms_prior_native_vs_current_native": 3.07761677140433e-07,
+            "rms_prior_corrected_vs_current_corrected": 3.0498796217044415e-07,
+            "rms_current_native_vs_current_corrected": 2.0624938925794447e-06,
+            "different_edges_prior_native_vs_current_native": 46,
+            "different_edges_prior_corrected_vs_current_corrected": 54,
+            "different_edges_current_native_vs_current_corrected": 136,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": false
+          },
+          "balanced": {
+            "rms_prior_native_vs_current_native": 2.3287666240680435e-07,
+            "rms_prior_corrected_vs_current_corrected": 2.3204291295975687e-07,
+            "rms_current_native_vs_current_corrected": 1.9316444365936927e-06,
+            "different_edges_prior_native_vs_current_native": 22,
+            "different_edges_prior_corrected_vs_current_corrected": 29,
+            "different_edges_current_native_vs_current_corrected": 138,
+            "same_core_training_events_native": false,
+            "same_core_training_events_corrected": true,
+            "same_formed_edges_native": true
+          }
+        }
+      }
+    }
+  }
+}
